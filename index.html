@@ -9,6 +9,10 @@
 
 <style>
 
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
 }
@@ -57,7 +61,7 @@ input{
 
 
 /* =========================================================
-   BRAND
+   TOP BRAND
 ========================================================= */
 
 .brand-bar{
@@ -101,6 +105,7 @@ input{
 
 .logo::before{
     content:"+";
+    line-height:1;
 }
 
 .brand-name{
@@ -108,6 +113,8 @@ input{
 
     font-size:16px;
     font-weight:750;
+
+    letter-spacing:-.3px;
 
     color:#20313b;
 }
@@ -157,6 +164,8 @@ input{
     font-size:10.5px;
     font-weight:650;
 
+    letter-spacing:-.05px;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -167,13 +176,18 @@ input{
         background .12s ease,
         color .12s ease,
         border-color .12s ease,
-        box-shadow .12s ease;
+        box-shadow .12s ease,
+        transform .08s ease;
 }
 
 .tab:hover{
     background:#edf7f9;
     border-color:#9fc3cb;
     color:#12697a;
+}
+
+.tab:active{
+    transform:scale(.985);
 }
 
 .tab.active{
@@ -340,7 +354,7 @@ input{
 
 .header-content{
     width:100%;
-    height:46px;
+    min-height:46px;
 
     display:flex;
 
@@ -357,6 +371,7 @@ input{
     text-align:center;
 
     overflow-wrap:anywhere;
+    word-break:break-word;
 }
 
 .filter-button{
@@ -399,12 +414,15 @@ input{
 
 /* =========================================================
    NORMAL BODY
+   LONG TEXT IS NOW WRAPPED
 ========================================================= */
 
 .data-table td{
-    height:34px;
+    min-height:34px;
 
-    padding:5px 7px;
+    height:auto;
+
+    padding:7px 7px;
 
     background:#ffffff;
 
@@ -416,11 +434,21 @@ input{
     text-align:center;
     vertical-align:middle;
 
-    line-height:15px;
+    line-height:16px;
 
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+    /*
+       IMPORTANT:
+       Do not cut long text.
+       Allow the complete value to wrap.
+    */
+
+    white-space:normal;
+
+    overflow:visible;
+
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
 }
 
 .data-table tbody tr:nth-child(even) td{
@@ -433,7 +461,44 @@ input{
 
 
 /* =========================================================
-   APG
+   SPECIAL COLUMN WIDTH CONTROL
+========================================================= */
+
+/*
+   HAAD
+   Generic Name is intentionally narrower.
+*/
+
+.data-table.haad-table td,
+.data-table.haad-table th{
+    font-size:11px;
+}
+
+
+/*
+   ADNIC
+   Generic Name is intentionally narrower.
+*/
+
+.data-table.adnic-table td,
+.data-table.adnic-table th{
+    font-size:11px;
+}
+
+
+/*
+   DENIAL CODE
+   Examples / Description is intentionally controlled.
+*/
+
+.data-table.denial-table td,
+.data-table.denial-table th{
+    font-size:11px;
+}
+
+
+/* =========================================================
+   APG YES / NO
 ========================================================= */
 
 .apg-yes{
@@ -448,9 +513,16 @@ input{
     font-weight:750 !important;
 }
 
+
+/* =========================================================
+   APG FROZEN
+========================================================= */
+
 .freeze-right-1{
     position:sticky !important;
+
     right:0;
+
     z-index:80;
 
     box-shadow:
@@ -459,7 +531,9 @@ input{
 
 .freeze-right-2{
     position:sticky !important;
+
     right:82px;
+
     z-index:80;
 }
 
@@ -474,7 +548,7 @@ thead .freeze-right-2{
 
 
 /* =========================================================
-   ELIGIBILITY
+   ELIGIBILITY PORTALS
 ========================================================= */
 
 .eligibility-table{
@@ -526,7 +600,6 @@ thead .freeze-right-2{
 
 .eligibility-table .top-empty{
     background:#ffffff !important;
-
     border-right:1px solid #ffffff !important;
     border-bottom:1px solid #ffffff !important;
 }
@@ -572,6 +645,10 @@ thead .freeze-right-2{
     font-size:12px;
 
     line-height:17px;
+
+    white-space:normal;
+    overflow-wrap:anywhere;
+    word-break:break-word;
 }
 
 .eligibility-table tbody tr:nth-child(even) td{
@@ -593,10 +670,11 @@ thead .freeze-right-2{
 
     font-weight:650;
 
-    white-space:nowrap;
+    white-space:normal;
 
-    overflow:hidden;
-    text-overflow:ellipsis;
+    overflow-wrap:anywhere;
+
+    word-break:break-word;
 
     display:block;
 }
@@ -609,6 +687,18 @@ thead .freeze-right-2{
     font-weight:750 !important;
 
     color:#53656e !important;
+}
+
+
+/* =========================================================
+   VIRTUAL SPACER
+========================================================= */
+
+.virtual-spacer td{
+    padding:0 !important;
+    height:0 !important;
+    border:0 !important;
+    background:transparent !important;
 }
 
 
@@ -664,6 +754,11 @@ thead .freeze-right-2{
     font-weight:650;
 }
 
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
 .empty{
     position:absolute;
 
@@ -677,6 +772,11 @@ thead .freeze-right-2{
 
     font-size:11px;
 }
+
+
+/* =========================================================
+   ERROR
+========================================================= */
 
 .error{
     margin:20px;
@@ -698,7 +798,7 @@ thead .freeze-right-2{
 
 
 /* =========================================================
-   FILTER
+   FILTER POPUP
 ========================================================= */
 
 .filter-popup{
@@ -991,6 +1091,7 @@ thead .freeze-right-2{
 
 </head>
 
+
 <body>
 
 <div class="app">
@@ -1091,6 +1192,7 @@ thead .freeze-right-2{
 
     </div>
 
+
     <div class="filter-search-wrap">
 
         <input
@@ -1102,6 +1204,7 @@ thead .freeze-right-2{
         >
 
     </div>
+
 
     <div class="filter-actions">
 
@@ -1121,10 +1224,12 @@ thead .freeze-right-2{
 
     </div>
 
+
     <div
         id="filterValues"
         class="filter-values"
     ></div>
+
 
     <div class="filter-footer">
 
@@ -1347,13 +1452,39 @@ const remainingTabs = [
 ];
 
 
-/* =========================================================
-   TAB ORDER
-========================================================= */
+function shuffle(array){
+
+    const result = [...array];
+
+    for(
+        let i=result.length-1;
+        i>0;
+        i--
+    ){
+
+        const j =
+            Math.floor(
+                Math.random()*(i+1)
+            );
+
+        [
+            result[i],
+            result[j]
+        ] =
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+    return result;
+}
+
 
 const tabsConfig = [
     ...firstTabs,
-    ...remainingTabs
+    ...shuffle(remainingTabs)
 ];
 
 
@@ -1372,8 +1503,6 @@ let temporarySelection = new Set();
 let filterAllValues = [];
 
 const dataCache = new Map();
-
-const loadingPromises = new Map();
 
 const filters = new Map();
 
@@ -1442,7 +1571,7 @@ function valueString(value){
 
 
 /* =========================================================
-   JSON URL
+   FILE URL
 ========================================================= */
 
 function jsonURL(file){
@@ -1454,89 +1583,63 @@ function jsonURL(file){
 
 
 /* =========================================================
-   FAST JSON LOAD
+   LOAD JSON
 ========================================================= */
 
 async function loadFile(file){
 
-    if(dataCache.has(file)){
+    if(
+        dataCache.has(file)
+    ){
         return dataCache.get(file);
     }
 
-    if(loadingPromises.has(file)){
-        return loadingPromises.get(file);
-    }
-
-    const promise =
-        fetch(
+    const response =
+        await fetch(
             jsonURL(file),
             {
-                cache:"default"
+                cache:"force-cache"
             }
-        )
-        .then(response => {
+        );
 
-            if(!response.ok){
+    if(!response.ok){
 
-                throw new Error(
-                    file +
-                    " — HTTP " +
-                    response.status
-                );
+        throw new Error(
+            file +
+            " — HTTP " +
+            response.status
+        );
 
-            }
+    }
 
-            return response.json();
+    const data =
+        await response.json();
 
-        })
-        .then(data => {
+    let rows = data;
 
-            let rows = data;
+    if(!Array.isArray(rows)){
 
-            if(!Array.isArray(rows)){
+        if(Array.isArray(data.data)){
+            rows = data.data;
+        }
+        else if(Array.isArray(data.rows)){
+            rows = data.rows;
+        }
+        else if(Array.isArray(data.records)){
+            rows = data.records;
+        }
+        else if(Array.isArray(data.items)){
+            rows = data.items;
+        }
+        else{
+            rows = [data];
+        }
 
-                if(Array.isArray(data.data)){
-                    rows = data.data;
-                }
-                else if(Array.isArray(data.rows)){
-                    rows = data.rows;
-                }
-                else if(Array.isArray(data.records)){
-                    rows = data.records;
-                }
-                else if(Array.isArray(data.items)){
-                    rows = data.items;
-                }
-                else{
-                    rows = [data];
-                }
+    }
 
-            }
+    dataCache.set(file,rows);
 
-            dataCache.set(
-                file,
-                rows
-            );
-
-            loadingPromises.delete(file);
-
-            return rows;
-
-        })
-        .catch(error => {
-
-            loadingPromises.delete(file);
-
-            throw error;
-
-        });
-
-    loadingPromises.set(
-        file,
-        promise
-    );
-
-    return promise;
+    return rows;
 }
 
 
@@ -1549,142 +1652,28 @@ async function loadTab(tab){
     const cacheKey =
         "__TAB__" + tab.id;
 
-    if(dataCache.has(cacheKey)){
+    if(
+        dataCache.has(cacheKey)
+    ){
         return dataCache.get(cacheKey);
     }
 
-    if(loadingPromises.has(cacheKey)){
-        return loadingPromises.get(cacheKey);
-    }
-
-    const promise =
-        Promise.all(
+    const results =
+        await Promise.all(
             tab.files.map(
                 file => loadFile(file)
             )
-        )
-        .then(results => {
-
-            const rows = [];
-
-            for(const result of results){
-                rows.push(...result);
-            }
-
-            dataCache.set(
-                cacheKey,
-                rows
-            );
-
-            loadingPromises.delete(cacheKey);
-
-            return rows;
-
-        })
-        .catch(error => {
-
-            loadingPromises.delete(cacheKey);
-
-            throw error;
-
-        });
-
-    loadingPromises.set(
-        cacheKey,
-        promise
-    );
-
-    return promise;
-}
-
-
-/* =========================================================
-   CREATE TABS
-========================================================= */
-
-function createTabs(){
-
-    const fragment =
-        document.createDocumentFragment();
-
-    for(const tab of tabsConfig){
-
-        const button =
-            document.createElement("button");
-
-        button.className =
-            "tab";
-
-        button.dataset.id =
-            tab.id;
-
-        button.textContent =
-            tab.name;
-
-        button.title =
-            tab.name;
-
-        button.addEventListener(
-            "click",
-            () => openTab(tab.id)
         );
 
-        fragment.appendChild(button);
+    const rows = [];
 
+    for(const result of results){
+        rows.push(...result);
     }
 
-    tabsElement.innerHTML = "";
+    dataCache.set(cacheKey,rows);
 
-    tabsElement.appendChild(
-        fragment
-    );
-}
-
-
-/* =========================================================
-   ACTIVE TAB
-========================================================= */
-
-function setActiveTab(id){
-
-    const buttons =
-        tabsElement.children;
-
-    for(const button of buttons){
-
-        button.classList.toggle(
-            "active",
-            button.dataset.id === id
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-function showLoading(name){
-
-    tableArea.innerHTML = `
-
-        <div class="loading">
-
-            <div class="loading-box">
-
-                <div class="spinner"></div>
-
-                <div class="loading-text">
-                    Loading ${name}...
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
+    return rows;
 }
 
 
@@ -1694,7 +1683,9 @@ function showLoading(name){
 
 function getColumns(tab,rows){
 
-    if(columnsCache.has(tab.id)){
+    if(
+        columnsCache.has(tab.id)
+    ){
         return columnsCache.get(tab.id);
     }
 
@@ -1723,6 +1714,8 @@ function getColumns(tab,rows){
 
     }
 
+
+    /* APG: THIQA + BASIC at right */
 
     if(tab.id === "apg"){
 
@@ -1759,12 +1752,93 @@ function getColumns(tab,rows){
 
     }
 
-    columnsCache.set(
-        tab.id,
-        columns
-    );
+    columnsCache.set(tab.id,columns);
 
     return columns;
+}
+
+
+/* =========================================================
+   CREATE TABS
+========================================================= */
+
+function createTabs(){
+
+    tabsElement.innerHTML = "";
+
+    const fragment =
+        document.createDocumentFragment();
+
+    tabsConfig.forEach(tab => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "tab";
+
+        button.dataset.id = tab.id;
+
+        button.textContent = tab.name;
+
+        button.title = tab.name;
+
+        button.addEventListener(
+            "click",
+            () => openTab(tab.id)
+        );
+
+        fragment.appendChild(button);
+
+    });
+
+    tabsElement.appendChild(fragment);
+}
+
+
+/* =========================================================
+   ACTIVE TAB
+========================================================= */
+
+function setActiveTab(id){
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.id === id
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function showLoading(name){
+
+    tableArea.innerHTML = `
+
+        <div class="loading">
+
+            <div class="loading-box">
+
+                <div class="spinner"></div>
+
+                <div class="loading-text">
+                    Loading ${name}...
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
 }
 
 
@@ -1775,9 +1849,7 @@ function getColumns(tab,rows){
 function matchesFilters(row){
 
     const state =
-        filters.get(
-            currentTab.id
-        );
+        filters.get(currentTab.id);
 
     if(
         !state ||
@@ -1792,9 +1864,7 @@ function matchesFilters(row){
     ){
 
         const value =
-            valueString(
-                row[column]
-            );
+            valueString(row[column]);
 
         if(!selected.has(value)){
             return false;
@@ -1807,29 +1877,21 @@ function matchesFilters(row){
 
 
 /* =========================================================
-   VISIBLE ROWS
+   GET VISIBLE ROWS
 ========================================================= */
 
 function getVisibleRows(rows){
 
-    const state =
-        filters.get(
-            currentTab.id
-        );
-
-    if(
-        !state ||
-        state.size === 0
-    ){
-        return rows;
-    }
-
     const result = [];
 
-    for(const row of rows){
+    for(
+        let i=0;
+        i<rows.length;
+        i++
+    ){
 
-        if(matchesFilters(row)){
-            result.push(row);
+        if(matchesFilters(rows[i])){
+            result.push(rows[i]);
         }
 
     }
@@ -1839,7 +1901,7 @@ function getVisibleRows(rows){
 
 
 /* =========================================================
-   WIDTHS
+   INTELLIGENT COLUMN WIDTHS
 ========================================================= */
 
 function calculateWidths(
@@ -1848,7 +1910,9 @@ function calculateWidths(
     columns
 ){
 
-    if(widthCache.has(tab.id)){
+    if(
+        widthCache.has(tab.id)
+    ){
         return widthCache.get(tab.id);
     }
 
@@ -1857,16 +1921,19 @@ function calculateWidths(
     const sample =
         rows.slice(
             0,
-            Math.min(
-                rows.length,
-                150
-            )
+            Math.min(rows.length,120)
         );
+
 
     for(const column of columns){
 
         const lower =
             column.trim().toLowerCase();
+
+
+        /* =================================================
+           APG FROZEN COLUMNS
+        ================================================= */
 
         if(
             tab.id === "apg" &&
@@ -1881,26 +1948,79 @@ function calculateWidths(
             continue;
         }
 
+
+        /* =================================================
+           SPECIFIC NARROW COLUMNS
+        ================================================= */
+
+        if(
+            tab.id === "haad" &&
+            lower === "generic name"
+        ){
+
+            widths.push(145);
+
+            continue;
+        }
+
+
+        if(
+            tab.id === "adnic" &&
+            lower === "generic name"
+        ){
+
+            widths.push(145);
+
+            continue;
+        }
+
+
+        if(
+            tab.id === "denial" &&
+            (
+                lower === "examples/description" ||
+                lower === "examples / description" ||
+                lower === "example/description" ||
+                lower === "examples" ||
+                lower === "description"
+            )
+        ){
+
+            widths.push(230);
+
+            continue;
+        }
+
+
+        /* =================================================
+           IDENTIFY COLUMN TYPE
+        ================================================= */
+
         let longest =
             Math.min(
                 column.length,
-                22
+                18
             );
+
 
         for(const row of sample){
 
             const text =
                 valueString(
                     row[column]
-                ).replace(
-                    /\s+/g,
-                    " "
-                );
+                )
+                .replace(/\s+/g," ")
+                .trim();
+
+            /*
+               Do not let one huge paragraph
+               determine the entire column width.
+            */
 
             const len =
                 Math.min(
                     text.length,
-                    26
+                    24
                 );
 
             if(len > longest){
@@ -1909,20 +2029,111 @@ function calculateWidths(
 
         }
 
-        let width =
-            42 + longest * 4.7;
+
+        let width;
+
+
+        /* Short code / ID columns */
+
+        if(
+            lower.includes("code") ||
+            lower.includes("id") ||
+            lower.includes("status")
+        ){
+
+            width =
+                105 + Math.min(
+                    longest * 2.2,
+                    50
+                );
+
+        }
+
+
+        /* Date columns */
+
+        else if(
+            lower.includes("date")
+        ){
+
+            width =
+                115;
+
+        }
+
+
+        /* Price / numeric columns */
+
+        else if(
+            lower.includes("price") ||
+            lower.includes("amount") ||
+            lower.includes("copay") ||
+            lower.includes("quantity") ||
+            lower.includes("qty")
+        ){
+
+            width =
+                110;
+
+        }
+
+
+        /* Long text columns */
+
+        else if(
+            lower.includes("name") ||
+            lower.includes("description") ||
+            lower.includes("remarks") ||
+            lower.includes("notes") ||
+            lower.includes("comment") ||
+            lower.includes("instruction") ||
+            lower.includes("detail") ||
+            lower.includes("reason")
+        ){
+
+            width =
+                150 +
+                Math.min(
+                    longest * 2.0,
+                    65
+                );
+
+        }
+
+
+        /* Normal columns */
+
+        else{
+
+            width =
+                48 +
+                longest * 4.0;
+
+        }
+
+
+        /*
+           GLOBAL LIMITS
+
+           Nothing should become extremely wide.
+        */
 
         width =
             Math.max(
                 width,
-                78
+                82
             );
 
         width =
             Math.min(
                 width,
-                190
+                175
             );
+
+
+        /*
+           Very short columns should stay compact.
+        */
 
         if(longest <= 6){
 
@@ -1934,11 +2145,76 @@ function calculateWidths(
 
         }
 
+
         widths.push(
             Math.round(width)
         );
 
     }
+
+
+    /* =====================================================
+       FINAL SPECIFIC OVERRIDES
+    ===================================================== */
+
+    if(tab.id === "haad"){
+
+        const genericIndex =
+            columns.findIndex(
+                c =>
+                    c.trim().toLowerCase() ===
+                    "generic name"
+            );
+
+        if(genericIndex >= 0){
+            widths[genericIndex] = 145;
+        }
+
+    }
+
+
+    if(tab.id === "adnic"){
+
+        const genericIndex =
+            columns.findIndex(
+                c =>
+                    c.trim().toLowerCase() ===
+                    "generic name"
+            );
+
+        if(genericIndex >= 0){
+            widths[genericIndex] = 145;
+        }
+
+    }
+
+
+    if(tab.id === "denial"){
+
+        const denialIndex =
+            columns.findIndex(
+                c => {
+
+                    const x =
+                        c.trim().toLowerCase();
+
+                    return (
+                        x === "examples/description" ||
+                        x === "examples / description" ||
+                        x === "example/description" ||
+                        x === "examples" ||
+                        x === "description"
+                    );
+
+                }
+            );
+
+        if(denialIndex >= 0){
+            widths[denialIndex] = 230;
+        }
+
+    }
+
 
     widthCache.set(
         tab.id,
@@ -1989,7 +2265,32 @@ function yesNoClass(
 
 
 /* =========================================================
-   NORMAL HEADER
+   TABLE CLASS
+========================================================= */
+
+function getTableClass(tab){
+
+    let className =
+        "data-table";
+
+    if(tab.id === "haad"){
+        className += " haad-table";
+    }
+
+    if(tab.id === "adnic"){
+        className += " adnic-table";
+    }
+
+    if(tab.id === "denial"){
+        className += " denial-table";
+    }
+
+    return className;
+}
+
+
+/* =========================================================
+   CREATE NORMAL HEADER
 ========================================================= */
 
 function createHeader(
@@ -2008,131 +2309,119 @@ function createHeader(
     const total =
         columns.length;
 
-    const state =
-        filters.get(tab.id);
 
-    for(
-        let index=0;
-        index<columns.length;
-        index++
-    ){
+    columns.forEach(
+        (column,index) => {
 
-        const column =
-            columns[index];
-
-        const th =
-            document.createElement("th");
-
-        const width =
-            widths[index];
-
-        th.style.width =
-            width + "px";
-
-        th.style.minWidth =
-            width + "px";
-
-        th.style.maxWidth =
-            width + "px";
+            const th =
+                document.createElement("th");
 
 
-        if(
-            tab.id === "apg" &&
-            total >= 2 &&
-            index === total-2
-        ){
+            th.style.width =
+                widths[index] + "px";
 
-            th.classList.add(
-                "freeze-right-2"
-            );
+            th.style.minWidth =
+                widths[index] + "px";
 
-        }
+            th.style.maxWidth =
+                widths[index] + "px";
 
 
-        if(
-            tab.id === "apg" &&
-            total >= 1 &&
-            index === total-1
-        ){
-
-            th.classList.add(
-                "freeze-right-1"
-            );
-
-        }
-
-
-        const content =
-            document.createElement("div");
-
-        content.className =
-            "header-content";
-
-
-        const label =
-            document.createElement("span");
-
-        label.className =
-            "header-label";
-
-        label.textContent =
-            column;
-
-        label.title =
-            column;
-
-
-        const filter =
-            document.createElement("button");
-
-        filter.className =
-            "filter-button";
-
-        filter.type =
-            "button";
-
-        filter.textContent =
-            "▼";
-
-        filter.title =
-            "Filter " + column;
-
-
-        if(
-            state &&
-            state.has(column)
-        ){
-
-            filter.classList.add(
-                "active"
-            );
-
-        }
-
-
-        filter.addEventListener(
-            "click",
-            event => {
-
-                event.stopPropagation();
-
-                openFilter(
-                    column,
-                    filter
+            if(
+                tab.id === "apg" &&
+                total >= 2 &&
+                index === total-2
+            ){
+                th.classList.add(
+                    "freeze-right-2"
                 );
-
             }
-        );
 
 
-        content.appendChild(label);
-        content.appendChild(filter);
+            if(
+                tab.id === "apg" &&
+                total >= 1 &&
+                index === total-1
+            ){
+                th.classList.add(
+                    "freeze-right-1"
+                );
+            }
 
-        th.appendChild(content);
 
-        tr.appendChild(th);
+            const content =
+                document.createElement("div");
 
-    }
+            content.className =
+                "header-content";
+
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "header-label";
+
+            label.textContent =
+                column;
+
+            label.title =
+                column;
+
+
+            const filter =
+                document.createElement("button");
+
+            filter.className =
+                "filter-button";
+
+            filter.type =
+                "button";
+
+            filter.textContent =
+                "▼";
+
+            filter.title =
+                "Filter " + column;
+
+
+            const state =
+                filters.get(tab.id);
+
+            if(
+                state &&
+                state.has(column)
+            ){
+                filter.classList.add(
+                    "active"
+                );
+            }
+
+
+            filter.addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+
+                    openFilter(
+                        column,
+                        filter
+                    );
+
+                }
+            );
+
+
+            content.appendChild(label);
+            content.appendChild(filter);
+
+            th.appendChild(content);
+            tr.appendChild(th);
+
+        }
+    );
+
 
     thead.appendChild(tr);
 
@@ -2141,7 +2430,7 @@ function createHeader(
 
 
 /* =========================================================
-   VIRTUAL TABLE
+   NORMAL VIRTUAL TABLE
 ========================================================= */
 
 function renderVirtualTable(
@@ -2154,9 +2443,14 @@ function renderVirtualTable(
 
     tableArea.innerHTML = "";
 
-    if(
-        tableArea._virtualScrollHandler
-    ){
+
+    /*
+       Remove previous virtual scroll listener.
+       This prevents listeners from accumulating
+       after filtering / switching tabs.
+    */
+
+    if(tableArea._virtualScrollHandler){
 
         tableArea.removeEventListener(
             "scroll",
@@ -2173,14 +2467,14 @@ function renderVirtualTable(
         document.createElement("table");
 
     table.className =
-        "data-table";
+        getTableClass(tab);
 
 
     const colgroup =
         document.createElement("colgroup");
 
 
-    for(const width of widths){
+    widths.forEach(width => {
 
         const col =
             document.createElement("col");
@@ -2191,9 +2485,12 @@ function renderVirtualTable(
         col.style.minWidth =
             width + "px";
 
+        col.style.maxWidth =
+            width + "px";
+
         colgroup.appendChild(col);
 
-    }
+    });
 
 
     table.appendChild(colgroup);
@@ -2215,9 +2512,16 @@ function renderVirtualTable(
     tableArea.appendChild(table);
 
 
-    const ROW_HEIGHT = 34;
-    const HEADER_HEIGHT = 46;
-    const BUFFER = 15;
+    /*
+       Approximate row height.
+       Actual rows can grow when text wraps.
+       Virtual rendering is mainly intended
+       for large datasets.
+    */
+
+    const ROW_HEIGHT = 48;
+
+    const BUFFER = 14;
 
     let raf = 0;
 
@@ -2225,6 +2529,7 @@ function renderVirtualTable(
     function draw(){
 
         raf = 0;
+
 
         if(
             version !== renderVersion
@@ -2244,7 +2549,7 @@ function renderVirtualTable(
             Math.floor(
                 Math.max(
                     0,
-                    scrollTop - HEADER_HEIGHT
+                    scrollTop - 46
                 ) / ROW_HEIGHT
             );
 
@@ -2272,8 +2577,7 @@ function renderVirtualTable(
             );
 
 
-        const fragment =
-            document.createDocumentFragment();
+        tbody.innerHTML = "";
 
 
         if(start > 0){
@@ -2291,6 +2595,7 @@ function renderVirtualTable(
             cell.colSpan =
                 columns.length;
 
+
             cell.style.height =
                 (
                     start *
@@ -2299,7 +2604,8 @@ function renderVirtualTable(
 
 
             spacer.appendChild(cell);
-            fragment.appendChild(spacer);
+
+            tbody.appendChild(spacer);
 
         }
 
@@ -2313,6 +2619,7 @@ function renderVirtualTable(
             const row =
                 rows[i];
 
+
             const tr =
                 document.createElement("tr");
 
@@ -2325,6 +2632,7 @@ function renderVirtualTable(
 
                 const column =
                     columns[c];
+
 
                 const td =
                     document.createElement("td");
@@ -2340,7 +2648,13 @@ function renderVirtualTable(
                     value;
 
 
-                if(value.length > 35){
+                /*
+                   Full text is visible.
+                   Title is still useful for
+                   very long values.
+                */
+
+                if(value.length > 60){
                     td.title = value;
                 }
 
@@ -2391,7 +2705,7 @@ function renderVirtualTable(
             }
 
 
-            fragment.appendChild(tr);
+            tbody.appendChild(tr);
 
         }
 
@@ -2415,8 +2729,7 @@ function renderVirtualTable(
             cell.style.height =
                 (
                     (
-                        rows.length -
-                        end
+                        rows.length-end
                     ) *
                     ROW_HEIGHT
                 ) + "px";
@@ -2424,28 +2737,23 @@ function renderVirtualTable(
 
             spacer.appendChild(cell);
 
-            fragment.appendChild(spacer);
+            tbody.appendChild(spacer);
 
         }
-
-
-        tbody.replaceChildren(
-            fragment
-        );
 
     }
 
 
     function scheduleDraw(){
 
-        if(!raf){
-
-            raf =
-                requestAnimationFrame(
-                    draw
-                );
-
+        if(raf){
+            return;
         }
+
+        raf =
+            requestAnimationFrame(
+                draw
+            );
 
     }
 
@@ -2464,11 +2772,12 @@ function renderVirtualTable(
 
 
     draw();
+
 }
 
 
 /* =========================================================
-   ELIGIBILITY FILTER BUTTON
+   ELIGIBILITY HEADER FILTER
 ========================================================= */
 
 function createEligibilityFilterButton(){
@@ -2490,9 +2799,7 @@ function createEligibilityFilterButton(){
 
 
     const state =
-        filters.get(
-            "eligibility"
-        );
+        filters.get("eligibility");
 
 
     if(
@@ -2527,67 +2834,100 @@ function createEligibilityFilterButton(){
 
 
 /* =========================================================
-   ELIGIBILITY DATA NORMALIZER
+   ELIGIBILITY TABLE
 ========================================================= */
 
-function getEligibilityGroups(rows){
-
-    /*
-       JSON:
-
-       index 0 = Area / Branch information
-       index 1 = actual column headings
-       index 2+ = portal/password pairs
-    */
-
+function renderEligibilityTable(
+    tab,
+    rows,
+    version
+){
 
     if(
-        !Array.isArray(rows) ||
-        rows.length < 3
+        version !== renderVersion
     ){
-        return [];
+        return;
     }
 
 
-    const groups = [];
+    if(!rows || rows.length < 2){
+
+        tableArea.innerHTML = `
+            <div class="empty">
+                No Eligibility Portal data found.
+            </div>
+        `;
+
+        recordNumber.textContent = "0";
+
+        return;
+    }
+
+
+    const sourceRows =
+        rows.slice(2);
+
+
+    const state =
+        filters.get("eligibility");
+
+
+    let allowedPortals = null;
+
+
+    if(
+        state &&
+        state.has("Eligibility Portal")
+    ){
+
+        allowedPortals =
+            state.get(
+                "Eligibility Portal"
+            );
+
+    }
+
+
+    const portalGroups = [];
 
 
     for(
-        let i=2;
-        i<rows.length;
+        let i=0;
+        i<sourceRows.length;
         i+=2
     ){
 
         const portalRow =
-            rows[i] || {};
+            sourceRows[i] || {};
 
         const passwordRow =
-            rows[i+1] || {};
+            sourceRows[i+1] || {};
 
 
         const portal =
             valueString(
                 portalRow["Unnamed: 0"]
-            ).trim();
+            );
 
 
-        /*
-           Ignore completely empty rows.
-        */
+        if(
+            allowedPortals &&
+            !allowedPortals.has(portal)
+        ){
 
-        if(!portal){
             continue;
+
         }
 
 
-        groups.push({
+        portalGroups.push({
 
             portal,
 
             link:
                 valueString(
                     portalRow["Unnamed: 1"]
-                ).trim(),
+                ),
 
             username:
                 valueString(
@@ -2624,97 +2964,8 @@ function getEligibilityGroups(rows){
     }
 
 
-    return groups;
-}
-
-
-/* =========================================================
-   ELIGIBILITY TABLE
-========================================================= */
-
-function renderEligibilityTable(
-    tab,
-    rows,
-    version
-){
-
-    if(version !== renderVersion){
-        return;
-    }
-
-
-    const groups =
-        getEligibilityGroups(
-            rows
-        );
-
-
-    if(groups.length === 0){
-
-        tableArea.innerHTML = `
-
-            <div class="empty">
-                No Eligibility Portal data found.
-            </div>
-
-        `;
-
-        recordNumber.textContent =
-            "0";
-
-        return;
-    }
-
-
-    const state =
-        filters.get(
-            "eligibility"
-        );
-
-
-    let visibleGroups =
-        groups;
-
-
-    if(
-        state &&
-        state.has("Eligibility Portal")
-    ){
-
-        const selected =
-            state.get(
-                "Eligibility Portal"
-            );
-
-
-        visibleGroups =
-            groups.filter(
-                group =>
-                    selected.has(
-                        group.portal
-                    )
-            );
-
-    }
-
-
     recordNumber.textContent =
-        visibleGroups.length.toLocaleString();
-
-
-    if(
-        tableArea._virtualScrollHandler
-    ){
-
-        tableArea.removeEventListener(
-            "scroll",
-            tableArea._virtualScrollHandler
-        );
-
-        tableArea._virtualScrollHandler =
-            null;
-
-    }
+        portalGroups.length.toLocaleString();
 
 
     tableArea.innerHTML = "";
@@ -2727,25 +2978,18 @@ function renderEligibilityTable(
         "eligibility-table";
 
 
-    /* =====================================================
-       COLUMNS
-    ===================================================== */
-
     const colgroup =
         document.createElement("colgroup");
 
 
-    const columnClasses = [
+    [
         "col-a",
         "col-b",
         "col-c",
         "col-d",
         "col-e",
         "col-f"
-    ];
-
-
-    for(const className of columnClasses){
+    ].forEach(className => {
 
         const col =
             document.createElement("col");
@@ -2755,21 +2999,19 @@ function renderEligibilityTable(
 
         colgroup.appendChild(col);
 
-    }
+    });
 
 
     table.appendChild(colgroup);
 
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
     const thead =
         document.createElement("thead");
 
 
-    /* ROW 1 */
+    /* =====================================================
+       ROW 1
+    ===================================================== */
 
     const row1 =
         document.createElement("tr");
@@ -2781,9 +3023,6 @@ function renderEligibilityTable(
     a1.className =
         "top-header top-empty";
 
-    a1.textContent =
-        "";
-
     row1.appendChild(a1);
 
 
@@ -2792,9 +3031,6 @@ function renderEligibilityTable(
 
     b1.className =
         "top-header top-empty";
-
-    b1.textContent =
-        "";
 
     row1.appendChild(b1);
 
@@ -2814,8 +3050,7 @@ function renderEligibilityTable(
     const d1 =
         document.createElement("th");
 
-    d1.colSpan =
-        3;
+    d1.colSpan = 3;
 
     d1.className =
         "top-header";
@@ -2829,7 +3064,9 @@ function renderEligibilityTable(
     thead.appendChild(row1);
 
 
-    /* ROW 2 */
+    /* =====================================================
+       ROW 2
+    ===================================================== */
 
     const row2 =
         document.createElement("tr");
@@ -2841,9 +3078,6 @@ function renderEligibilityTable(
     a2.className =
         "top-header top-empty";
 
-    a2.textContent =
-        "";
-
     row2.appendChild(a2);
 
 
@@ -2852,9 +3086,6 @@ function renderEligibilityTable(
 
     b2.className =
         "top-header top-empty";
-
-    b2.textContent =
-        "";
 
     row2.appendChild(b2);
 
@@ -2910,79 +3141,71 @@ function renderEligibilityTable(
     thead.appendChild(row2);
 
 
-    /* ROW 3 */
+    /* =====================================================
+       ROW 3
+    ===================================================== */
 
     const row3 =
         document.createElement("tr");
 
 
     const headers = [
+
         "Eligibility Portal",
         "Link",
         "H.A. License Code",
         "PF1681",
         "PF 5068",
         "PF 5408"
+
     ];
 
 
-    for(
-        let index=0;
-        index<headers.length;
-        index++
-    ){
+    headers.forEach(
+        (header,index) => {
 
-        const th =
-            document.createElement("th");
+            const th =
+                document.createElement("th");
 
-        th.className =
-            "main-header";
+            th.className =
+                "main-header";
 
 
-        const content =
-            document.createElement("div");
+            const content =
+                document.createElement("div");
 
-        content.className =
-            "header-content";
-
-
-        const label =
-            document.createElement("span");
-
-        label.className =
-            "header-label";
-
-        label.textContent =
-            headers[index];
+            content.className =
+                "header-content";
 
 
-        content.appendChild(
-            label
-        );
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "header-label";
+
+            label.textContent =
+                header;
 
 
-        /*
-           FILTER ONLY A3.
-        */
+            content.appendChild(label);
 
-        if(index === 0){
 
-            content.appendChild(
-                createEligibilityFilterButton()
-            );
+            if(index === 0){
+
+                content.appendChild(
+                    createEligibilityFilterButton()
+                );
+
+            }
+
+
+            th.appendChild(content);
+
+            row3.appendChild(th);
 
         }
-
-
-        th.appendChild(
-            content
-        );
-
-        row3.appendChild(
-            th
-        );
-
-    }
+    );
 
 
     thead.appendChild(row3);
@@ -2991,18 +3214,15 @@ function renderEligibilityTable(
 
 
     /* =====================================================
-       BODY
+       TBODY
     ===================================================== */
 
     const tbody =
         document.createElement("tbody");
 
 
-    const fragment =
-        document.createDocumentFragment();
+    portalGroups.forEach(group => {
 
-
-    for(const group of visibleGroups){
 
         /* USERNAME */
 
@@ -3010,13 +3230,10 @@ function renderEligibilityTable(
             document.createElement("tr");
 
 
-        /* A4/A5 */
-
         const portalCell =
             document.createElement("td");
 
-        portalCell.rowSpan =
-            2;
+        portalCell.rowSpan = 2;
 
         portalCell.className =
             "eligibility-portal";
@@ -3027,18 +3244,16 @@ function renderEligibilityTable(
         portalCell.title =
             group.portal;
 
+
         usernameRow.appendChild(
             portalCell
         );
 
 
-        /* B4/B5 */
-
         const linkCell =
             document.createElement("td");
 
-        linkCell.rowSpan =
-            2;
+        linkCell.rowSpan = 2;
 
 
         if(
@@ -3087,19 +3302,17 @@ function renderEligibilityTable(
         );
 
 
-        /* C */
-
-        const userType =
+        const typeUser =
             document.createElement("td");
 
-        userType.className =
+        typeUser.className =
             "eligibility-type";
 
-        userType.textContent =
+        typeUser.textContent =
             "Username";
 
         usernameRow.appendChild(
-            userType
+            typeUser
         );
 
 
@@ -3122,7 +3335,7 @@ function renderEligibilityTable(
         );
 
 
-        fragment.appendChild(
+        tbody.appendChild(
             usernameRow
         );
 
@@ -3133,17 +3346,17 @@ function renderEligibilityTable(
             document.createElement("tr");
 
 
-        const passwordType =
+        const typePassword =
             document.createElement("td");
 
-        passwordType.className =
+        typePassword.className =
             "eligibility-type";
 
-        passwordType.textContent =
+        typePassword.textContent =
             "Password";
 
         passwordRow.appendChild(
-            passwordType
+            typePassword
         );
 
 
@@ -3166,26 +3379,16 @@ function renderEligibilityTable(
         );
 
 
-        fragment.appendChild(
+        tbody.appendChild(
             passwordRow
         );
 
-    }
+    });
 
 
-    tbody.appendChild(
-        fragment
-    );
+    table.appendChild(tbody);
 
-
-    table.appendChild(
-        tbody
-    );
-
-
-    tableArea.appendChild(
-        table
-    );
+    tableArea.appendChild(table);
 
 }
 
@@ -3203,11 +3406,8 @@ function createEligibilityCell(value){
         value;
 
 
-    if(value.length > 30){
-
-        td.title =
-            value;
-
+    if(value.length > 60){
+        td.title = value;
     }
 
 
@@ -3235,6 +3435,8 @@ function renderTable(
         tab.rows || [];
 
 
+    /* SPECIAL ELIGIBILITY */
+
     if(tab.id === "eligibility"){
 
         renderEligibilityTable(
@@ -3250,15 +3452,12 @@ function renderTable(
     if(rows.length === 0){
 
         tableArea.innerHTML = `
-
             <div class="empty">
                 No data found.
             </div>
-
         `;
 
-        recordNumber.textContent =
-            "0";
+        recordNumber.textContent = "0";
 
         return;
     }
@@ -3272,9 +3471,7 @@ function renderTable(
 
 
     const visible =
-        getVisibleRows(
-            rows
-        );
+        getVisibleRows(rows);
 
 
     recordNumber.textContent =
@@ -3296,6 +3493,7 @@ function renderTable(
         widths,
         version
     );
+
 }
 
 
@@ -3342,30 +3540,25 @@ async function openTab(id){
         ++renderVersion;
 
 
-    /*
-       CLOSE FILTER
-    */
+    /* INSTANT CACHED SWITCH */
 
-    closeFilter();
-
-
-    /*
-       CACHE = INSTANT
-    */
-
-    const cacheKey =
-        "__TAB__" + id;
-
-
-    if(dataCache.has(cacheKey)){
+    if(
+        dataCache.has(
+            "__TAB__" + id
+        )
+    ){
 
         tab.rows =
-            dataCache.get(cacheKey);
+            dataCache.get(
+                "__TAB__" + id
+            );
+
 
         renderTable(
             tab,
             version
         );
+
 
         return;
     }
@@ -3383,9 +3576,7 @@ async function openTab(id){
     try{
 
         const rows =
-            await loadTab(
-                tab
-            );
+            await loadTab(tab);
 
 
         if(
@@ -3403,6 +3594,9 @@ async function openTab(id){
             tab,
             version
         );
+
+
+        scheduleBackgroundPreload();
 
     }
     catch(error){
@@ -3447,6 +3641,110 @@ async function openTab(id){
 
 
 /* =========================================================
+   BACKGROUND PRELOAD
+========================================================= */
+
+let preloadStarted = false;
+
+
+async function scheduleBackgroundPreload(){
+
+    if(preloadStarted){
+        return;
+    }
+
+
+    preloadStarted = true;
+
+
+    /*
+       Wait until the first table is visible.
+       This prevents background loading from
+       competing with the initial page load.
+    */
+
+    await new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                1200
+            )
+    );
+
+
+    const pending =
+        tabsConfig.filter(
+            tab =>
+                !dataCache.has(
+                    "__TAB__" +
+                    tab.id
+                )
+        );
+
+
+    /*
+       Smaller batches reduce network / CPU
+       competition with the visible table.
+    */
+
+    const BATCH_SIZE = 2;
+
+
+    for(
+        let i=0;
+        i<pending.length;
+        i+=BATCH_SIZE
+    ){
+
+        const batch =
+            pending.slice(
+                i,
+                i+BATCH_SIZE
+            );
+
+
+        await Promise.all(
+            batch.map(
+                async tab => {
+
+                    try{
+
+                        const rows =
+                            await loadTab(tab);
+
+                        tab.rows =
+                            rows;
+
+                    }
+                    catch(error){
+
+                        console.warn(
+                            "Background preload failed:",
+                            tab.name,
+                            error
+                        );
+
+                    }
+
+                }
+            )
+        );
+
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    20
+                )
+        );
+
+    }
+
+}
+
+
+/* =========================================================
    OPEN FILTER
 ========================================================= */
 
@@ -3464,45 +3762,63 @@ function openFilter(
         column;
 
 
-    const values =
-        new Set();
-
-
-    /*
-       SPECIAL ELIGIBILITY
-    */
+    /* ELIGIBILITY */
 
     if(
         currentTab.id === "eligibility" &&
         column === "Eligibility Portal"
     ){
 
-        const groups =
-            getEligibilityGroups(
-                currentTab.rows || []
-            );
+        const values =
+            new Set();
 
 
-        for(const group of groups){
+        const rows =
+            currentTab.rows || [];
 
-            if(group.portal){
+
+        for(
+            let i=2;
+            i<rows.length;
+            i+=2
+        ){
+
+            const portal =
+                valueString(
+                    rows[i][
+                        "Unnamed: 0"
+                    ]
+                );
+
+
+            if(portal){
 
                 values.add(
-                    group.portal
+                    portal
                 );
 
             }
 
         }
 
+
+        filterAllValues =
+            Array.from(values);
+
     }
+
+
+    /* NORMAL */
+
     else{
 
-        const rows =
-            currentTab.rows || [];
+        const values =
+            new Set();
 
 
-        for(const row of rows){
+        for(
+            const row of currentTab.rows
+        ){
 
             values.add(
                 valueString(
@@ -3512,15 +3828,15 @@ function openFilter(
 
         }
 
+
+        filterAllValues =
+            Array.from(values);
+
     }
 
 
-    filterAllValues =
-        Array.from(values);
-
-
     filterAllValues.sort(
-        (a,b) =>
+        (a,b)=>
             a.localeCompare(
                 b,
                 undefined,
@@ -3546,9 +3862,7 @@ function openFilter(
     if(existing){
 
         temporarySelection =
-            new Set(
-                existing
-            );
+            new Set(existing);
 
     }
     else{
@@ -3583,12 +3897,14 @@ function openFilter(
     const width =
         filterPopup.offsetWidth;
 
+
     const height =
         filterPopup.offsetHeight;
 
 
     let left =
         rect.left;
+
 
     let top =
         rect.bottom + 5;
@@ -3626,6 +3942,7 @@ function openFilter(
             left
         );
 
+
     top =
         Math.max(
             10,
@@ -3636,11 +3953,13 @@ function openFilter(
     filterPopup.style.left =
         left + "px";
 
+
     filterPopup.style.top =
         top + "px";
 
 
     filterSearch.focus();
+
 }
 
 
@@ -3656,11 +3975,16 @@ function renderFilterValues(){
             .toLowerCase();
 
 
+    filterValues.innerHTML = "";
+
+
     const fragment =
         document.createDocumentFragment();
 
 
-    for(const value of filterAllValues){
+    for(
+        const value of filterAllValues
+    ){
 
         const display =
             value === ""
@@ -3674,7 +3998,9 @@ function renderFilterValues(){
                 .toLowerCase()
                 .includes(search)
         ){
+
             continue;
+
         }
 
 
@@ -3690,6 +4016,7 @@ function renderFilterValues(){
 
         checkbox.type =
             "checkbox";
+
 
         checkbox.checked =
             temporarySelection.has(
@@ -3749,9 +4076,10 @@ function renderFilterValues(){
     }
 
 
-    filterValues.replaceChildren(
+    filterValues.appendChild(
         fragment
     );
+
 }
 
 
@@ -3886,6 +4214,7 @@ function closeFilter(){
 
     filterColumn =
         null;
+
 }
 
 
@@ -3973,12 +4302,6 @@ document.addEventListener(
 ========================================================= */
 
 createTabs();
-
-/*
-   IMPORTANT:
-   Only APG is loaded on first visit.
-   No background loading of the other 29 tabs.
-*/
 
 openTab("apg");
 
