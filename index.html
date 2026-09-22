@@ -1,395 +1,709 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Insurance All List</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
 }
 
-html,body{
-    margin:0;
-    padding:0;
+html,
+body{
     width:100%;
     height:100%;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f4f7f8;
-    color:#17252b;
+    margin:0;
+    padding:0;
 }
 
 body{
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    background:#f3f6f8;
+    color:#17232d;
+
     overflow:hidden;
 }
 
+button,
+input{
+    font-family:inherit;
+}
+
+
 /* =========================================================
-   TOP BAR
+   APP
 ========================================================= */
 
-.topbar{
-    height:54px;
-    background:#fff;
-    border-bottom:1px solid #dfe7ea;
+.app{
+    width:100%;
+    height:100vh;
+
     display:flex;
-    align-items:center;
-    padding:0 18px;
-    box-shadow:0 2px 10px rgba(20,50,60,.05);
+    flex-direction:column;
+
+    overflow:hidden;
 }
 
-.brand{
+
+/* =========================================================
+   TOP BRAND
+========================================================= */
+
+.brand-bar{
+    flex:0 0 50px;
+
     display:flex;
     align-items:center;
-    gap:11px;
+
+    padding:0 18px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e5eaee;
+}
+
+.logo{
+    width:31px;
+    height:31px;
+
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #0f6878,
+            #238da0
+        );
+
+    color:#ffffff;
+
     font-size:18px;
     font-weight:800;
-    color:#15343d;
+
+    box-shadow:
+        0 4px 10px rgba(15,104,120,.20);
 }
 
-.brand-logo{
-    width:30px;
-    height:30px;
-    border-radius:8px;
-    background:linear-gradient(145deg,#147b8c,#0e5969);
-    position:relative;
+.logo::before{
+    content:"+";
+    line-height:1;
 }
 
-.brand-logo:before,
-.brand-logo:after{
-    content:"";
-    position:absolute;
-    background:#fff;
-    border-radius:2px;
+.brand-name{
+    margin-left:10px;
+
+    font-size:16px;
+    font-weight:750;
+
+    letter-spacing:-.3px;
+
+    color:#20313b;
 }
 
-.brand-logo:before{
-    width:16px;
-    height:4px;
-    left:7px;
-    top:13px;
-}
-
-.brand-logo:after{
-    width:4px;
-    height:16px;
-    left:13px;
-    top:7px;
-}
 
 /* =========================================================
    TABS
 ========================================================= */
 
-.tabs-area{
-    background:#fff;
-    border-bottom:1px solid #dce5e8;
-    padding:7px 10px 8px;
+.tabs-section{
+    flex:0 0 auto;
+
+    padding:8px 12px 9px;
+
+    background:#f3f6f8;
+
+    border-bottom:1px solid #dfe5e9;
 }
 
-.tabs{
-    display:grid;
-    grid-template-columns:repeat(15,minmax(0,1fr));
-    gap:5px;
+.tabs-grid{
     width:100%;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(15,minmax(0,1fr));
+
+    gap:4px;
 }
 
 .tab{
-    height:31px;
-    border:1px solid #d7e2e5;
-    background:#f7f9fa;
-    color:#40545b;
-    border-radius:7px;
+    width:100%;
+    min-width:0;
+
+    height:30px;
+
+    padding:0 6px;
+
+    border:1px solid #d8e0e5;
+
+    border-radius:6px;
+
+    background:#ffffff;
+
+    color:#53636e;
+
     font-size:10.5px;
-    font-weight:700;
-    padding:0 5px;
-    cursor:pointer;
-    overflow:hidden;
+    font-weight:650;
+
+    letter-spacing:-.05px;
+
     white-space:nowrap;
+    overflow:hidden;
     text-overflow:ellipsis;
-    transition:.15s ease;
+
+    cursor:pointer;
+
+    transition:
+        background .12s ease,
+        color .12s ease,
+        border-color .12s ease,
+        box-shadow .12s ease,
+        transform .08s ease;
 }
 
 .tab:hover{
-    background:#eef5f6;
-    border-color:#b8d1d6;
+    background:#edf7f9;
+    border-color:#9fc3cb;
+    color:#12697a;
+}
+
+.tab:active{
+    transform:scale(.985);
 }
 
 .tab.active{
-    background:#126f81;
-    color:#fff;
-    border-color:#126f81;
-    box-shadow:0 3px 8px rgba(18,111,129,.2);
+    background:
+        linear-gradient(
+            135deg,
+            #125f70,
+            #19869a
+        );
+
+    color:#ffffff;
+
+    border-color:#125f70;
+
+    box-shadow:
+        0 3px 8px rgba(18,95,112,.22);
 }
+
 
 /* =========================================================
-   TOOLBAR
+   TABLE BAR
 ========================================================= */
 
-.table-toolbar{
-    height:45px;
+.table-bar{
+    flex:0 0 43px;
+
     display:flex;
     align-items:center;
-    justify-content:space-between;
+
     padding:0 14px;
-    background:#f8fafb;
-    border-bottom:1px solid #dfe7ea;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #dfe5e9;
 }
 
-.table-title{
-    font-size:14px;
-    font-weight:800;
-    color:#17353e;
-}
-
-.table-info{
+.list-name{
     display:flex;
     align-items:center;
-    gap:9px;
+
+    color:#263943;
+
+    font-size:11.5px;
+    font-weight:750;
 }
 
-.record-count{
-    font-size:11px;
-    color:#71838a;
+.list-dot{
+    width:6px;
+    height:6px;
+
+    margin-right:7px;
+
+    border-radius:50%;
+
+    background:#1b9a85;
 }
 
-.clear-btn{
-    border:1px solid #cddcdf;
-    background:#fff;
-    color:#34515a;
-    border-radius:6px;
-    padding:5px 10px;
-    font-size:10px;
+.record-pill{
+    margin-left:9px;
+
+    padding:3px 9px;
+
+    border-radius:20px;
+
+    background:#eef5f6;
+
+    color:#337483;
+
+    font-size:9.5px;
     font-weight:700;
+}
+
+.bar-space{
+    flex:1;
+}
+
+.clear-button{
+    height:28px;
+
+    padding:0 11px;
+
+    border:1px solid #d8e0e4;
+
+    border-radius:6px;
+
+    background:#ffffff;
+
+    color:#667680;
+
+    font-size:9.5px;
+    font-weight:700;
+
     cursor:pointer;
 }
 
-.clear-btn:hover{
-    background:#eef5f6;
+.clear-button:hover{
+    background:#edf7f8;
+    color:#12697a;
+    border-color:#9fc3cb;
 }
+
+
+/* =========================================================
+   TABLE VIEW
+========================================================= */
+
+.table-view{
+    position:relative;
+
+    flex:1 1 auto;
+
+    min-height:0;
+
+    overflow:auto;
+
+    background:#ffffff;
+}
+
 
 /* =========================================================
    NORMAL TABLE
 ========================================================= */
 
-.table-wrap{
-    position:relative;
-    height:calc(100vh - 54px - 46px - 45px);
-    overflow:auto;
-    background:#fff;
-}
-
-.table{
+.data-table{
     border-collapse:separate;
     border-spacing:0;
-    table-layout:fixed;
+
     width:max-content;
     min-width:100%;
+
+    table-layout:fixed;
+
+    font-size:11px;
 }
 
-thead{
+.data-table thead{
     position:sticky;
     top:0;
-    z-index:30;
+    z-index:100;
 }
 
-th{
+.data-table th{
     height:46px;
-    background:#173d47;
-    color:#fff;
-    border-right:1px solid rgba(255,255,255,.12);
-    border-bottom:1px solid #12343d;
-    font-size:12px;
+
+    padding:0;
+
+    background:#eaf1f3;
+
+    color:#263a44;
+
+    border-right:1px solid #d5dfe3;
+    border-bottom:2px solid #c3d1d6;
+
+    font-size:11.5px;
     font-weight:800;
+
     text-align:center;
-    padding:7px 8px;
-    white-space:normal;
-    line-height:1.15;
-    position:relative;
+    vertical-align:middle;
 }
 
-td{
+.data-table th:first-child{
+    border-left:1px solid #d5dfe3;
+}
+
+.header-content{
+    width:100%;
+    height:46px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    padding:4px 5px;
+}
+
+.header-label{
+    line-height:14px;
+    text-align:center;
+
+    overflow-wrap:anywhere;
+}
+
+.filter-button{
+    flex:0 0 20px;
+
+    width:20px;
+    height:20px;
+
+    padding:0;
+
+    border:1px solid #c6d1d6;
+
+    border-radius:4px;
+
+    background:#ffffff;
+
+    color:#65757e;
+
+    font-size:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+}
+
+.filter-button:hover{
+    background:#dff0f3;
+    color:#12697a;
+    border-color:#75aeb9;
+}
+
+.filter-button.active{
+    background:#12697a;
+    color:#ffffff;
+    border-color:#12697a;
+}
+
+
+/* =========================================================
+   NORMAL BODY
+========================================================= */
+
+.data-table td{
     height:34px;
-    padding:5px 8px;
-    border-right:1px solid #e4ebed;
-    border-bottom:1px solid #e8eef0;
-    font-size:11px;
-    color:#263a41;
-    background:#fff;
+
+    padding:5px 7px;
+
+    background:#ffffff;
+
+    color:#34434c;
+
+    border-right:1px solid #e8edef;
+    border-bottom:1px solid #e7ecef;
+
+    text-align:center;
+    vertical-align:middle;
+
+    line-height:15px;
+
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-    text-align:center;
 }
 
-tbody tr:nth-child(even) td{
-    background:#f8fafb;
+.data-table tbody tr:nth-child(even) td{
+    background:#fbfcfd;
 }
 
-tbody tr:hover td{
-    background:#edf6f8;
+.data-table tbody tr:hover td{
+    background:#eef7f8;
 }
 
-/* =========================================================
-   FILTER
-========================================================= */
-
-.filter-btn{
-    position:absolute;
-    right:4px;
-    top:5px;
-    width:22px;
-    height:22px;
-    border:0;
-    border-radius:4px;
-    background:rgba(255,255,255,.1);
-    color:#fff;
-    cursor:pointer;
-    font-size:11px;
-    padding:0;
-}
-
-.filter-btn:hover{
-    background:rgba(255,255,255,.22);
-}
-
-.filter-btn.filtered{
-    background:#55c3d4;
-    color:#07353e;
-}
-
-.filter-popup{
-    position:fixed;
-    width:300px;
-    max-height:410px;
-    background:#fff;
-    border:1px solid #ccdadd;
-    border-radius:9px;
-    box-shadow:0 12px 35px rgba(20,45,55,.22);
-    z-index:1000;
-    display:none;
-    overflow:hidden;
-}
-
-.filter-popup.show{
-    display:block;
-}
-
-.filter-top{
-    padding:9px;
-    border-bottom:1px solid #e1e8ea;
-}
-
-.filter-search{
-    width:100%;
-    height:31px;
-    border:1px solid #ccdadd;
-    border-radius:6px;
-    padding:0 9px;
-    outline:none;
-    font-size:11px;
-}
-
-.filter-actions{
-    display:flex;
-    gap:5px;
-    margin-top:7px;
-}
-
-.filter-actions button{
-    border:1px solid #d0dfe2;
-    background:#f8fafb;
-    border-radius:5px;
-    padding:4px 7px;
-    font-size:10px;
-    cursor:pointer;
-}
-
-.filter-options{
-    max-height:295px;
-    overflow:auto;
-    padding:5px 8px;
-}
-
-.filter-option{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    min-height:27px;
-    font-size:11px;
-    cursor:pointer;
-}
-
-.filter-option input{
-    width:14px;
-    height:14px;
-}
-
-.filter-bottom{
-    border-top:1px solid #e1e8ea;
-    padding:8px;
-    display:flex;
-    justify-content:flex-end;
-    gap:6px;
-}
-
-.filter-bottom button{
-    border-radius:5px;
-    padding:6px 12px;
-    font-size:10px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.cancel-filter{
-    background:#fff;
-    border:1px solid #ccdadd;
-}
-
-.apply-filter{
-    background:#14778a;
-    border:1px solid #14778a;
-    color:#fff;
-}
 
 /* =========================================================
    APG YES / NO
 ========================================================= */
 
 .apg-yes{
-    background:#dff3e4 !important;
-    color:#176b31 !important;
-    font-weight:800;
+    background:#dff3e7 !important;
+    color:#17683b !important;
+    font-weight:750 !important;
 }
 
 .apg-no{
-    background:#fbe1e1 !important;
-    color:#9a2929 !important;
-    font-weight:800;
+    background:#fde5e5 !important;
+    color:#a43d3d !important;
+    font-weight:750 !important;
 }
+
+
+/* =========================================================
+   APG FROZEN
+========================================================= */
+
+.freeze-right-1{
+    position:sticky !important;
+
+    right:0;
+
+    z-index:80;
+
+    box-shadow:
+        -4px 0 7px rgba(30,50,60,.07);
+}
+
+.freeze-right-2{
+    position:sticky !important;
+
+    right:82px;
+
+    z-index:80;
+}
+
+thead .freeze-right-1,
+thead .freeze-right-2{
+    z-index:150;
+}
+
+.apg-frozen{
+    font-weight:800 !important;
+}
+
+
+/* =========================================================
+   ELIGIBILITY PORTALS
+========================================================= */
+
+.eligibility-table{
+    width:100% !important;
+    min-width:850px;
+
+    table-layout:fixed;
+
+    border-collapse:separate;
+    border-spacing:0;
+
+    font-size:12px;
+}
+
+
+/* Column widths */
+
+.eligibility-table col.col-a{
+    width:230px;
+}
+
+.eligibility-table col.col-b{
+    width:430px;
+}
+
+.eligibility-table col.col-c{
+    width:160px;
+}
+
+.eligibility-table col.col-d,
+.eligibility-table col.col-e,
+.eligibility-table col.col-f{
+    width:190px;
+}
+
+
+/* Top two rows */
+
+.eligibility-table .top-header{
+    height:38px;
+
+    background:#f0f5f6;
+
+    color:#243943;
+
+    border-right:1px solid #d3dfe3;
+    border-bottom:1px solid #cbd8dc;
+
+    font-size:12px;
+    font-weight:800;
+
+    text-align:center;
+    vertical-align:middle;
+}
+
+.eligibility-table .top-empty{
+    background:#ffffff !important;
+    border-right:1px solid #ffffff !important;
+    border-bottom:1px solid #ffffff !important;
+}
+
+
+/* Row 3 */
+
+.eligibility-table .main-header{
+    height:50px;
+
+    background:#dcebed;
+
+    color:#1f3741;
+
+    border-right:1px solid #c3d4d9;
+    border-bottom:2px solid #aebfc5;
+
+    font-size:14px;
+    font-weight:900;
+
+    text-align:center;
+    vertical-align:middle;
+
+    line-height:17px;
+}
+
+.eligibility-table .main-header:first-child{
+    border-left:1px solid #c3d4d9;
+}
+
+
+/* Eligibility body */
+
+.eligibility-table tbody td{
+    height:42px;
+
+    padding:7px 9px;
+
+    background:#ffffff;
+
+    color:#34434c;
+
+    border-right:1px solid #e1e8eb;
+    border-bottom:1px solid #e1e8eb;
+
+    text-align:center;
+    vertical-align:middle;
+
+    font-size:12px;
+
+    line-height:17px;
+}
+
+.eligibility-table tbody tr:nth-child(even) td{
+    background:#fbfcfd;
+}
+
+
+/* Portal name */
+
+.eligibility-portal{
+    font-weight:900 !important;
+
+    color:#1e3540 !important;
+
+    font-size:13px !important;
+}
+
+
+/* Link */
+
+.eligibility-link{
+    color:#126f82 !important;
+
+    text-decoration:none;
+
+    font-weight:650;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+    text-overflow:ellipsis;
+
+    display:block;
+}
+
+.eligibility-link:hover{
+    text-decoration:underline;
+}
+
+
+/* Username / password */
+
+.eligibility-type{
+    font-weight:750 !important;
+
+    color:#53656e !important;
+}
+
+
+/* =========================================================
+   VIRTUAL SPACER
+========================================================= */
+
+.virtual-spacer td{
+    padding:0 !important;
+    height:0 !important;
+    border:0 !important;
+    background:transparent !important;
+}
+
 
 /* =========================================================
    LOADING
 ========================================================= */
 
 .loading{
-    height:100%;
+    position:absolute;
+
+    inset:0;
+
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#60767d;
-    font-size:13px;
+
+    background:#ffffff;
+}
+
+.loading-box{
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
 }
 
 .spinner{
-    width:20px;
-    height:20px;
-    border:3px solid #d8e7ea;
+    width:26px;
+    height:26px;
+
+    border:2px solid #dce7ea;
+
     border-top-color:#14778a;
+
     border-radius:50%;
-    animation:spin .7s linear infinite;
-    margin-right:9px;
+
+    animation:spin .6s linear infinite;
 }
 
 @keyframes spin{
@@ -398,270 +712,445 @@ tbody tr:hover td{
     }
 }
 
+.loading-text{
+    color:#7c8b94;
+
+    font-size:10.5px;
+    font-weight:650;
+}
+
+
 /* =========================================================
-   ELIGIBILITY PORTALS
+   EMPTY
 ========================================================= */
 
-.eligibility-wrap{
-    height:100%;
-    overflow:auto;
-    background:#fff;
-    padding:16px;
-}
-
-.eligibility-table{
-    border-collapse:collapse;
-    table-layout:fixed;
-    width:100%;
-    min-width:900px;
-}
-
-.eligibility-table td,
-.eligibility-table th{
-    border:1px solid #bfcfd3;
-}
-
-/* A1:B2 EMPTY */
-
-.eligibility-empty{
-    background:#fff !important;
-    height:34px;
-}
-
-/* C1 / C2 */
-
-.eligibility-top-label{
-    background:#eef4f5 !important;
-    font-weight:800 !important;
-    font-size:13px !important;
-    text-align:center;
-    vertical-align:middle;
-}
-
-/* AL AIN */
-
-.eligibility-alain{
-    background:#dceff2 !important;
-    color:#174954 !important;
-    font-size:16px !important;
-    font-weight:900 !important;
-    text-align:center;
-    vertical-align:middle;
-}
-
-/* BRANCHES */
-
-.eligibility-branch{
-    background:#f5f8f9 !important;
-    color:#29474f !important;
-    font-size:12px !important;
-    font-weight:800 !important;
-    text-align:center;
-    vertical-align:middle;
-    height:38px;
-}
-
-/* ROW 3 */
-
-.eligibility-header{
-    height:52px !important;
-    background:#173d47 !important;
-    color:#fff !important;
-    font-size:15px !important;
-    font-weight:900 !important;
-    text-align:center;
-    vertical-align:middle;
-    position:relative;
-    line-height:1.15;
-}
-
-/* COLUMN A ALL BOLD */
-
-.eligibility-portal{
-    font-weight:900 !important;
-    font-size:13px !important;
-    color:#163d47 !important;
-    text-align:center;
-    vertical-align:middle;
-    background:#f7fafb !important;
-    white-space:normal !important;
-}
-
-/* COLUMN B */
-
-.eligibility-link{
-    text-align:center;
-    vertical-align:middle;
-    font-size:11px !important;
-    background:#fff !important;
-    word-break:break-word;
-}
-
-.eligibility-link a{
-    color:#08728a;
-    font-weight:700;
-    text-decoration:none;
-}
-
-.eligibility-link a:hover{
-    text-decoration:underline;
-}
-
-/* C-F */
-
-.eligibility-data{
-    text-align:center;
-    vertical-align:middle;
-    font-size:12px !important;
-    color:#263a41;
-    background:#fff !important;
-    white-space:normal !important;
-    word-break:break-word;
-}
-
-.eligibility-label{
-    font-weight:800 !important;
-    color:#31525b !important;
-    background:#f6f9fa !important;
-}
-
-/* HOVER */
-
-.eligibility-data-row:hover td{
-    background:#edf6f8 !important;
-}
-
-.eligibility-data-row:hover .eligibility-portal{
-    background:#e3f1f3 !important;
-}
-
-/* ONLY A3 FILTER */
-
-.eligibility-filter-btn{
+.empty{
     position:absolute;
-    right:6px;
-    top:50%;
-    transform:translateY(-50%);
-    width:25px;
-    height:25px;
-    border:0;
-    border-radius:5px;
-    background:rgba(255,255,255,.12);
-    color:#fff;
-    cursor:pointer;
+
+    inset:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#89969e;
+
     font-size:11px;
 }
 
-.eligibility-filter-btn:hover{
-    background:rgba(255,255,255,.25);
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error{
+    margin:20px;
+
+    padding:16px 18px;
+
+    border-radius:8px;
+
+    background:#fff7f7;
+
+    border:1px solid #edd0d0;
+
+    color:#a04444;
+
+    font-size:11px;
+
+    line-height:1.6;
 }
 
-.eligibility-filter-btn.filtered{
-    background:#55c3d4;
-    color:#07353e;
+
+/* =========================================================
+   FILTER POPUP
+========================================================= */
+
+.filter-popup{
+    display:none;
+
+    position:fixed;
+
+    z-index:9999;
+
+    width:300px;
+
+    background:#ffffff;
+
+    border:1px solid #d5dfe3;
+
+    border-radius:9px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 18px 45px rgba(25,45,55,.17),
+        0 3px 9px rgba(25,45,55,.08);
 }
+
+.filter-header{
+    padding:11px 12px 9px;
+
+    background:#f5f9fa;
+
+    border-bottom:1px solid #e3e9ec;
+}
+
+.filter-title{
+    color:#263a44;
+
+    font-size:11px;
+    font-weight:800;
+}
+
+.filter-subtitle{
+    margin-top:2px;
+
+    color:#87949c;
+
+    font-size:8.5px;
+}
+
+.filter-search-wrap{
+    padding:8px 9px 4px;
+}
+
+.filter-search{
+    width:100%;
+    height:31px;
+
+    padding:0 9px;
+
+    border:1px solid #d6dfe3;
+
+    border-radius:5px;
+
+    outline:none;
+
+    font-size:10px;
+
+    color:#33434c;
+}
+
+.filter-search:focus{
+    border-color:#78acb6;
+
+    box-shadow:
+        0 0 0 3px rgba(20,119,138,.07);
+}
+
+.filter-actions{
+    display:flex;
+
+    gap:5px;
+
+    padding:4px 9px 7px;
+}
+
+.filter-action{
+    flex:1;
+
+    height:27px;
+
+    border:1px solid #dce2e5;
+
+    border-radius:5px;
+
+    background:#ffffff;
+
+    color:#64747d;
+
+    font-size:9px;
+    font-weight:700;
+
+    cursor:pointer;
+}
+
+.filter-action:hover{
+    background:#f2f7f8;
+}
+
+.filter-values{
+    max-height:245px;
+
+    overflow-y:auto;
+
+    border-top:1px solid #e4e9ec;
+    border-bottom:1px solid #e4e9ec;
+}
+
+.filter-value{
+    min-height:29px;
+
+    display:flex;
+    align-items:center;
+
+    gap:7px;
+
+    padding:4px 10px;
+
+    color:#44525b;
+
+    font-size:9.5px;
+
+    cursor:pointer;
+}
+
+.filter-value:hover{
+    background:#eef7f8;
+}
+
+.filter-value input{
+    width:13px;
+    height:13px;
+
+    margin:0;
+
+    accent-color:#14778a;
+}
+
+.filter-value-text{
+    min-width:0;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
+}
+
+.filter-footer{
+    display:flex;
+
+    gap:5px;
+
+    padding:8px 9px;
+}
+
+.filter-footer button{
+    flex:1;
+
+    height:31px;
+
+    border-radius:5px;
+
+    font-size:9.5px;
+    font-weight:750;
+
+    cursor:pointer;
+}
+
+.cancel{
+    background:#ffffff;
+
+    border:1px solid #d8e0e4;
+
+    color:#697780;
+}
+
+.apply{
+    background:#14778a;
+
+    border:1px solid #14778a;
+
+    color:#ffffff;
+}
+
+.apply:hover{
+    background:#0f6575;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#f1f4f5;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#c6d1d5;
+
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#aebdc2;
+}
+
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
 @media(max-width:1500px){
-    .tabs{
-        grid-template-columns:repeat(12,minmax(0,1fr));
+
+    .tabs-grid{
+        grid-template-columns:
+            repeat(12,minmax(0,1fr));
     }
+
 }
 
 @media(max-width:1200px){
-    .tabs{
-        grid-template-columns:repeat(10,minmax(0,1fr));
+
+    .tabs-grid{
+        grid-template-columns:
+            repeat(10,minmax(0,1fr));
     }
+
 }
 
 @media(max-width:1000px){
-    .tabs{
-        grid-template-columns:repeat(8,minmax(0,1fr));
+
+    .tabs-grid{
+        grid-template-columns:
+            repeat(8,minmax(0,1fr));
     }
+
 }
 
 @media(max-width:800px){
-    .tabs{
-        grid-template-columns:repeat(6,minmax(0,1fr));
+
+    .tabs-grid{
+        grid-template-columns:
+            repeat(6,minmax(0,1fr));
     }
+
+    .tab{
+        font-size:9px;
+    }
+
 }
 
 @media(max-width:600px){
-    .tabs{
-        grid-template-columns:repeat(3,minmax(0,1fr));
+
+    body{
+        overflow:auto;
     }
 
-    .eligibility-wrap{
-        padding:8px;
+    .app{
+        height:auto;
+        min-height:100vh;
     }
+
+    .tabs-grid{
+        grid-template-columns:
+            repeat(3,minmax(0,1fr));
+    }
+
+    .table-view{
+        height:calc(100vh - 250px);
+        min-height:400px;
+    }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =========================================================
-     TOP
-========================================================= -->
+<div class="app">
 
-<div class="topbar">
-    <div class="brand">
-        <div class="brand-logo"></div>
-        <div>Insurance All List</div>
+
+<!-- =======================================================
+     BRAND
+======================================================= -->
+
+<div class="brand-bar">
+
+    <div class="logo"></div>
+
+    <div class="brand-name">
+        Insurance All List
     </div>
+
 </div>
 
 
-<!-- =========================================================
+<!-- =======================================================
      TABS
-========================================================= -->
+======================================================= -->
 
-<div class="tabs-area">
-    <div id="tabs" class="tabs"></div>
+<div class="tabs-section">
+
+    <div
+        id="tabs"
+        class="tabs-grid"
+    ></div>
+
 </div>
 
 
-<!-- =========================================================
-     TOOLBAR
-========================================================= -->
+<!-- =======================================================
+     TABLE BAR
+======================================================= -->
 
-<div class="table-toolbar">
+<div class="table-bar">
 
-    <div id="tableTitle" class="table-title">
-        Loading...
-    </div>
+    <div class="list-name">
 
-    <div class="table-info">
+        <span class="list-dot"></span>
 
-        <div id="recordCount" class="record-count"></div>
-
-        <button
-            id="clearFilters"
-            class="clear-btn"
-        >
-            Clear Filters
-        </button>
+        <span id="currentList">
+            APG Formulary 09-09
+        </span>
 
     </div>
+
+    <div
+        id="recordNumber"
+        class="record-pill"
+    >
+        —
+    </div>
+
+    <div class="bar-space"></div>
+
+    <button
+        id="clearButton"
+        class="clear-button"
+    >
+        Clear Filters
+    </button>
+
 </div>
 
 
-<!-- =========================================================
-     MAIN
-========================================================= -->
+<!-- =======================================================
+     TABLE
+======================================================= -->
 
-<div id="mainArea" class="table-wrap">
+<div
+    id="tableArea"
+    class="table-view"
+>
 
     <div class="loading">
 
-        <div class="spinner"></div>
+        <div class="loading-box">
 
-        Loading...
+            <div class="spinner"></div>
+
+            <div class="loading-text">
+                Loading APG Formulary...
+            </div>
+
+        </div>
 
     </div>
+
+</div>
+
 
 </div>
 
@@ -670,48 +1159,77 @@ tbody tr:hover td{
      FILTER POPUP
 ========================================================= -->
 
-<div id="filterPopup" class="filter-popup">
+<div
+    id="filterPopup"
+    class="filter-popup"
+>
 
-    <div class="filter-top">
+    <div class="filter-header">
+
+        <div
+            id="filterTitle"
+            class="filter-title"
+        >
+            Filter
+        </div>
+
+        <div class="filter-subtitle">
+            Select exact values to display
+        </div>
+
+    </div>
+
+
+    <div class="filter-search-wrap">
 
         <input
             id="filterSearch"
             class="filter-search"
             type="text"
-            placeholder="Search filter values..."
+            autocomplete="off"
+            placeholder="Search values..."
         >
-
-        <div class="filter-actions">
-
-            <button id="selectAll">
-                Select All
-            </button>
-
-            <button id="unselectAll">
-                Unselect All
-            </button>
-
-        </div>
 
     </div>
 
+
+    <div class="filter-actions">
+
+        <button
+            id="selectAll"
+            class="filter-action"
+        >
+            Select All
+        </button>
+
+        <button
+            id="uncheckAll"
+            class="filter-action"
+        >
+            Uncheck All
+        </button>
+
+    </div>
+
+
     <div
-        id="filterOptions"
-        class="filter-options"
+        id="filterValues"
+        class="filter-values"
     ></div>
 
-    <div class="filter-bottom">
+
+    <div class="filter-footer">
 
         <button
             id="cancelFilter"
-            class="cancel-filter"
+            class="cancel"
         >
             Cancel
         </button>
 
         <button
             id="applyFilter"
-            class="apply-filter"
+            class="apply"
         >
             Apply
         </button>
@@ -724,10 +1242,10 @@ tbody tr:hover td{
 <script>
 
 /* =========================================================
-   TAB CONFIGURATION
+   TAB CONFIG
 ========================================================= */
 
-const tabsConfig = [
+const firstTabs = [
 
     {
         id:"apg",
@@ -743,14 +1261,12 @@ const tabsConfig = [
             "HAAD_LIST_2.json",
             "HAAD_LIST_3.json"
         ]
-    },
+    }
 
-    {
-        id:"eligibility",
-        name:"Eligibility Portals",
-        files:["Eligibility Portals.json"],
-        special:"eligibility"
-    },
+];
+
+
+const remainingTabs = [
 
     {
         id:"adnic",
@@ -759,7 +1275,7 @@ const tabsConfig = [
     },
 
     {
-        id:"apg_hcpcs",
+        id:"apg-hcpcs",
         name:"APG HCPCs Cap",
         files:["APG HCPCs Cap.json"]
     },
@@ -795,7 +1311,7 @@ const tabsConfig = [
     },
 
     {
-        id:"dha_shifa",
+        id:"dha-shifa",
         name:"DHA SHIFA",
         files:["DHA SHIFA.json"]
     },
@@ -813,15 +1329,21 @@ const tabsConfig = [
     },
 
     {
-        id:"dubai_policy",
+        id:"dubai",
         name:"Dubai Policy",
         files:["Dubai Policy.json"]
     },
 
     {
-        id:"eye_drops",
+        id:"eye",
         name:"EYE DROPS",
         files:["EYE DROPS.json"]
+    },
+
+    {
+        id:"eligibility",
+        name:"Eligibility Portals",
+        files:["Eligibility Portals.json"]
     },
 
     {
@@ -843,13 +1365,13 @@ const tabsConfig = [
     },
 
     {
-        id:"plans_proactive",
+        id:"plans",
         name:"Ins. Plans Proactive",
         files:["Ins. Plans Proactive.json"]
     },
 
     {
-        id:"invalid_dx",
+        id:"invalid-dx",
         name:"Invalid Principle Dx",
         files:["Invalid Principle Dx.json"]
     },
@@ -861,14 +1383,14 @@ const tabsConfig = [
     },
 
     {
-        id:"nas_haad",
+        id:"nas-haad",
         name:"NAS-HAAD",
         files:["NAS-HAAD.json"]
     },
 
     {
-        id:"nas_dha",
-        name:"NAS_DHA",
+        id:"nas-dha",
+        name:"NAS DHA",
         files:["NAS_DHA.json"]
     },
 
@@ -897,7 +1419,7 @@ const tabsConfig = [
     },
 
     {
-        id:"rx_validity",
+        id:"rx",
         name:"Rx Validity",
         files:["Rx Validity.json"]
     },
@@ -913,6 +1435,47 @@ const tabsConfig = [
         name:"Vitamins",
         files:["Vitamins.json"]
     }
+
+];
+
+
+/* =========================================================
+   RANDOMIZE REMAINING
+========================================================= */
+
+function shuffle(array){
+
+    const result = [...array];
+
+    for(
+        let i=result.length-1;
+        i>0;
+        i--
+    ){
+
+        const j =
+            Math.floor(
+                Math.random()*(i+1)
+            );
+
+        [
+            result[i],
+            result[j]
+        ] =
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+    return result;
+}
+
+
+const tabsConfig = [
+    ...firstTabs,
+    ...shuffle(remainingTabs)
 ];
 
 
@@ -920,87 +1483,78 @@ const tabsConfig = [
    STATE
 ========================================================= */
 
-const cache = new Map();
-const filterState = new Map();
-
 let currentTab = null;
 
-let activeFilterTab = null;
-let activeFilterColumn = null;
+let renderVersion = 0;
 
-let temporaryFilterValues = new Set();
+let filterColumn = null;
+
+let temporarySelection = new Set();
+
+let filterAllValues = [];
+
+const dataCache = new Map();
+
+const filters = new Map();
+
+const columnsCache = new Map();
+
+const widthCache = new Map();
 
 
 /* =========================================================
-   DOM
+   ELEMENTS
 ========================================================= */
 
-const tabsEl =
+const tabsElement =
     document.getElementById("tabs");
 
-const mainArea =
-    document.getElementById("mainArea");
+const tableArea =
+    document.getElementById("tableArea");
 
-const tableTitle =
-    document.getElementById("tableTitle");
+const currentList =
+    document.getElementById("currentList");
 
-const recordCount =
-    document.getElementById("recordCount");
-
-const clearFilters =
-    document.getElementById("clearFilters");
+const recordNumber =
+    document.getElementById("recordNumber");
 
 const filterPopup =
     document.getElementById("filterPopup");
 
+const filterTitle =
+    document.getElementById("filterTitle");
+
 const filterSearch =
     document.getElementById("filterSearch");
 
-const filterOptions =
-    document.getElementById("filterOptions");
-
-const selectAll =
-    document.getElementById("selectAll");
-
-const unselectAll =
-    document.getElementById("unselectAll");
-
-const cancelFilter =
-    document.getElementById("cancelFilter");
-
-const applyFilter =
-    document.getElementById("applyFilter");
+const filterValues =
+    document.getElementById("filterValues");
 
 
 /* =========================================================
-   NORMALIZE
+   VALUE STRING
 ========================================================= */
 
-function normalize(value){
+function valueString(value){
 
-    return String(value ?? "")
-        .trim()
-        .toLowerCase();
-}
-
-
-/* =========================================================
-   FORMAT VALUE
-========================================================= */
-
-function formatValue(value){
-
-    if(value === null || value === undefined){
+    if(
+        value === null ||
+        value === undefined
+    ){
         return "";
     }
 
-    if(typeof value === "object"){
+    if(
+        typeof value === "object"
+    ){
 
         try{
             return JSON.stringify(value);
-        }catch{
+        }
+        catch{
             return String(value);
         }
+
     }
 
     return String(value);
@@ -1008,29 +1562,14 @@ function formatValue(value){
 
 
 /* =========================================================
-   CREATE TABS
+   FILE URL
 ========================================================= */
 
-function createTabs(){
+function jsonURL(file){
 
-    tabsEl.innerHTML = "";
+    return "./" +
+        encodeURIComponent(file);
 
-    tabsConfig.forEach(tab => {
-
-        const button =
-            document.createElement("button");
-
-        button.className = "tab";
-        button.textContent = tab.name;
-        button.dataset.id = tab.id;
-
-        button.addEventListener(
-            "click",
-            () => openTab(tab.id)
-        );
-
-        tabsEl.appendChild(button);
-    });
 }
 
 
@@ -1040,9 +1579,15 @@ function createTabs(){
 
 async function loadFile(file){
 
+    if(
+        dataCache.has(file)
+    ){
+        return dataCache.get(file);
+    }
+
     const response =
         await fetch(
-            "./" + encodeURIComponent(file),
+            jsonURL(file),
             {
                 cache:"force-cache"
             }
@@ -1051,34 +1596,41 @@ async function loadFile(file){
     if(!response.ok){
 
         throw new Error(
-            `Cannot load ${file} (${response.status})`
+            file +
+            " — HTTP " +
+            response.status
         );
+
     }
 
-    const json =
+    const data =
         await response.json();
 
-    if(Array.isArray(json)){
-        return json;
+    let rows = data;
+
+    if(!Array.isArray(rows)){
+
+        if(Array.isArray(data.data)){
+            rows = data.data;
+        }
+        else if(Array.isArray(data.rows)){
+            rows = data.rows;
+        }
+        else if(Array.isArray(data.records)){
+            rows = data.records;
+        }
+        else if(Array.isArray(data.items)){
+            rows = data.items;
+        }
+        else{
+            rows = [data];
+        }
+
     }
 
-    if(Array.isArray(json.data)){
-        return json.data;
-    }
+    dataCache.set(file,rows);
 
-    if(Array.isArray(json.rows)){
-        return json.rows;
-    }
-
-    if(Array.isArray(json.records)){
-        return json.records;
-    }
-
-    if(Array.isArray(json.items)){
-        return json.items;
-    }
-
-    return [];
+    return rows;
 }
 
 
@@ -1088,27 +1640,29 @@ async function loadFile(file){
 
 async function loadTab(tab){
 
-    if(cache.has(tab.id)){
-        return cache.get(tab.id);
+    const cacheKey =
+        "__TAB__" + tab.id;
+
+    if(
+        dataCache.has(cacheKey)
+    ){
+        return dataCache.get(cacheKey);
     }
 
-    const parts =
+    const results =
         await Promise.all(
             tab.files.map(
                 file => loadFile(file)
             )
         );
 
-    let rows = [];
+    const rows = [];
 
-    parts.forEach(part => {
-        rows = rows.concat(part);
-    });
+    for(const result of results){
+        rows.push(...result);
+    }
 
-    cache.set(
-        tab.id,
-        rows
-    );
+    dataCache.set(cacheKey,rows);
 
     return rows;
 }
@@ -1120,53 +1674,161 @@ async function loadTab(tab){
 
 function getColumns(tab,rows){
 
-    const set = new Set();
+    if(
+        columnsCache.has(tab.id)
+    ){
+        return columnsCache.get(tab.id);
+    }
 
-    rows.forEach(row => {
+    const columns = [];
+    const seen = new Set();
 
-        if(!row || typeof row !== "object"){
-            return;
+    for(const row of rows){
+
+        if(
+            !row ||
+            typeof row !== "object"
+        ){
+            continue;
         }
 
-        Object.keys(row).forEach(key => {
-            set.add(key);
-        });
-    });
+        for(const key of Object.keys(row)){
 
-    let columns =
-        Array.from(set);
+            if(!seen.has(key)){
+
+                seen.add(key);
+                columns.push(key);
+
+            }
+
+        }
+
+    }
+
+
+    /* APG: THIQA + BASIC at right */
 
     if(tab.id === "apg"){
 
         const thiqa =
             columns.find(
                 c =>
-                    normalize(c) === "thiqa"
+                    c.trim().toLowerCase() === "thiqa"
             );
 
         const basic =
             columns.find(
                 c =>
-                    normalize(c) === "basic"
+                    c.trim().toLowerCase() === "basic"
             );
 
-        columns =
-            columns.filter(
-                c =>
-                    c !== thiqa &&
-                    c !== basic
+        if(thiqa && basic){
+
+            const normal =
+                columns.filter(
+                    c =>
+                        c !== thiqa &&
+                        c !== basic
+                );
+
+            columns.length = 0;
+
+            columns.push(
+                ...normal,
+                thiqa,
+                basic
             );
 
-        if(thiqa){
-            columns.push(thiqa);
         }
 
-        if(basic){
-            columns.push(basic);
-        }
     }
 
+    columnsCache.set(tab.id,columns);
+
     return columns;
+}
+
+
+/* =========================================================
+   CREATE TABS
+========================================================= */
+
+function createTabs(){
+
+    tabsElement.innerHTML = "";
+
+    const fragment =
+        document.createDocumentFragment();
+
+    tabsConfig.forEach(tab => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "tab";
+
+        button.dataset.id = tab.id;
+
+        button.textContent = tab.name;
+
+        button.title = tab.name;
+
+        button.addEventListener(
+            "click",
+            () => openTab(tab.id)
+        );
+
+        fragment.appendChild(button);
+
+    });
+
+    tabsElement.appendChild(fragment);
+}
+
+
+/* =========================================================
+   ACTIVE TAB
+========================================================= */
+
+function setActiveTab(id){
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.id === id
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+function showLoading(name){
+
+    tableArea.innerHTML = `
+
+        <div class="loading">
+
+            <div class="loading-box">
+
+                <div class="spinner"></div>
+
+                <div class="loading-text">
+                    Loading ${name}...
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
 }
 
 
@@ -1174,35 +1836,30 @@ function getColumns(tab,rows){
    FILTER MATCH
 ========================================================= */
 
-function matchesFilters(tabId,row){
+function matchesFilters(row){
 
-    const filters =
-        filterState.get(tabId);
+    const state =
+        filters.get(currentTab.id);
 
-    if(!filters){
+    if(
+        !state ||
+        state.size === 0
+    ){
         return true;
     }
 
     for(
         const [column,selected]
-        of filters
+        of state
     ){
 
-        if(
-            !selected ||
-            selected.size === 0
-        ){
-            continue;
-        }
-
         const value =
-            formatValue(
-                row[column]
-            );
+            valueString(row[column]);
 
         if(!selected.has(value)){
             return false;
         }
+
     }
 
     return true;
@@ -1210,17 +1867,1283 @@ function matchesFilters(tabId,row){
 
 
 /* =========================================================
-   FILTERED ROWS
+   GET VISIBLE ROWS
 ========================================================= */
 
-function filteredRows(tabId,rows){
+function getVisibleRows(rows){
 
-    return rows.filter(
-        row =>
-            matchesFilters(
-                tabId,
-                row
+    const result = [];
+
+    for(
+        let i=0;
+        i<rows.length;
+        i++
+    ){
+
+        if(matchesFilters(rows[i])){
+            result.push(rows[i]);
+        }
+
+    }
+
+    return result;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+========================================================= */
+
+function calculateWidths(
+    tab,
+    rows,
+    columns
+){
+
+    if(
+        widthCache.has(tab.id)
+    ){
+        return widthCache.get(tab.id);
+    }
+
+    const widths = [];
+
+    const sample =
+        rows.slice(
+            0,
+            Math.min(rows.length,180)
+        );
+
+    for(const column of columns){
+
+        const lower =
+            column.trim().toLowerCase();
+
+        if(
+            tab.id === "apg" &&
+            (
+                lower === "thiqa" ||
+                lower === "basic"
             )
+        ){
+
+            widths.push(82);
+
+            continue;
+        }
+
+        let longest =
+            Math.min(column.length,22);
+
+        for(const row of sample){
+
+            const text =
+                valueString(row[column])
+                    .replace(/\s+/g," ");
+
+            const len =
+                Math.min(text.length,26);
+
+            if(len > longest){
+                longest = len;
+            }
+
+        }
+
+        let width =
+            42 + longest * 4.7;
+
+        width =
+            Math.max(width,78);
+
+        width =
+            Math.min(width,190);
+
+        if(longest <= 6){
+            width =
+                Math.min(width,105);
+        }
+
+        widths.push(
+            Math.round(width)
+        );
+
+    }
+
+    widthCache.set(tab.id,widths);
+
+    return widths;
+}
+
+
+/* =========================================================
+   YES / NO
+========================================================= */
+
+function yesNoClass(
+    tab,
+    column,
+    value
+){
+
+    if(tab.id !== "apg"){
+        return "";
+    }
+
+    const lower =
+        column.trim().toLowerCase();
+
+    if(
+        lower !== "thiqa" &&
+        lower !== "basic"
+    ){
+        return "";
+    }
+
+    const normalized =
+        value.trim().toLowerCase();
+
+    if(normalized === "yes"){
+        return "apg-yes";
+    }
+
+    if(normalized === "no"){
+        return "apg-no";
+    }
+
+    return "apg-frozen";
+}
+
+
+/* =========================================================
+   CREATE NORMAL HEADER
+========================================================= */
+
+function createHeader(
+    table,
+    tab,
+    columns,
+    widths
+){
+
+    const thead =
+        document.createElement("thead");
+
+    const tr =
+        document.createElement("tr");
+
+    const total =
+        columns.length;
+
+    columns.forEach(
+        (column,index) => {
+
+            const th =
+                document.createElement("th");
+
+            th.style.width =
+                widths[index] + "px";
+
+            th.style.minWidth =
+                widths[index] + "px";
+
+            th.style.maxWidth =
+                widths[index] + "px";
+
+            if(
+                tab.id === "apg" &&
+                total >= 2 &&
+                index === total-2
+            ){
+                th.classList.add("freeze-right-2");
+            }
+
+            if(
+                tab.id === "apg" &&
+                total >= 1 &&
+                index === total-1
+            ){
+                th.classList.add("freeze-right-1");
+            }
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "header-content";
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "header-label";
+
+            label.textContent =
+                column;
+
+            label.title =
+                column;
+
+            const filter =
+                document.createElement("button");
+
+            filter.className =
+                "filter-button";
+
+            filter.type =
+                "button";
+
+            filter.textContent =
+                "▼";
+
+            filter.title =
+                "Filter " + column;
+
+            const state =
+                filters.get(tab.id);
+
+            if(
+                state &&
+                state.has(column)
+            ){
+                filter.classList.add("active");
+            }
+
+            filter.addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+
+                    openFilter(
+                        column,
+                        filter
+                    );
+
+                }
+            );
+
+            content.appendChild(label);
+            content.appendChild(filter);
+
+            th.appendChild(content);
+            tr.appendChild(th);
+
+        }
+    );
+
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+}
+
+
+/* =========================================================
+   NORMAL VIRTUAL TABLE
+========================================================= */
+
+function renderVirtualTable(
+    tab,
+    rows,
+    columns,
+    widths,
+    version
+){
+
+    tableArea.innerHTML = "";
+
+    const table =
+        document.createElement("table");
+
+    table.className =
+        "data-table";
+
+    const colgroup =
+        document.createElement("colgroup");
+
+    widths.forEach(width => {
+
+        const col =
+            document.createElement("col");
+
+        col.style.width =
+            width + "px";
+
+        col.style.minWidth =
+            width + "px";
+
+        colgroup.appendChild(col);
+
+    });
+
+    table.appendChild(colgroup);
+
+    createHeader(
+        table,
+        tab,
+        columns,
+        widths
+    );
+
+    const tbody =
+        document.createElement("tbody");
+
+    table.appendChild(tbody);
+
+    tableArea.appendChild(table);
+
+    const ROW_HEIGHT = 34;
+    const BUFFER = 12;
+
+    let raf = 0;
+
+    function draw(){
+
+        raf = 0;
+
+        if(
+            version !== renderVersion
+        ){
+            return;
+        }
+
+        const scrollTop =
+            tableArea.scrollTop;
+
+        const viewportHeight =
+            tableArea.clientHeight;
+
+        let start =
+            Math.floor(
+                Math.max(
+                    0,
+                    scrollTop - 46
+                ) / ROW_HEIGHT
+            );
+
+        start =
+            Math.max(
+                0,
+                start - BUFFER
+            );
+
+        let end =
+            Math.ceil(
+                (
+                    scrollTop +
+                    viewportHeight
+                ) / ROW_HEIGHT
+            );
+
+        end =
+            Math.min(
+                rows.length,
+                end + BUFFER
+            );
+
+        tbody.innerHTML = "";
+
+        if(start > 0){
+
+            const spacer =
+                document.createElement("tr");
+
+            spacer.className =
+                "virtual-spacer";
+
+            const cell =
+                document.createElement("td");
+
+            cell.colSpan =
+                columns.length;
+
+            cell.style.height =
+                (
+                    start *
+                    ROW_HEIGHT
+                ) + "px";
+
+            spacer.appendChild(cell);
+            tbody.appendChild(spacer);
+        }
+
+
+        for(
+            let i=start;
+            i<end;
+            i++
+        ){
+
+            const row =
+                rows[i];
+
+            const tr =
+                document.createElement("tr");
+
+            for(
+                let c=0;
+                c<columns.length;
+                c++
+            ){
+
+                const column =
+                    columns[c];
+
+                const td =
+                    document.createElement("td");
+
+                const value =
+                    valueString(
+                        row[column]
+                    );
+
+                td.textContent =
+                    value;
+
+                if(value.length > 35){
+                    td.title = value;
+                }
+
+                if(
+                    tab.id === "apg" &&
+                    c === columns.length-2
+                ){
+                    td.classList.add(
+                        "freeze-right-2"
+                    );
+                }
+
+                if(
+                    tab.id === "apg" &&
+                    c === columns.length-1
+                ){
+                    td.classList.add(
+                        "freeze-right-1"
+                    );
+                }
+
+                const colorClass =
+                    yesNoClass(
+                        tab,
+                        column,
+                        value
+                    );
+
+                if(colorClass){
+                    td.classList.add(colorClass);
+                }
+
+                tr.appendChild(td);
+
+            }
+
+            tbody.appendChild(tr);
+        }
+
+
+        if(end < rows.length){
+
+            const spacer =
+                document.createElement("tr");
+
+            spacer.className =
+                "virtual-spacer";
+
+            const cell =
+                document.createElement("td");
+
+            cell.colSpan =
+                columns.length;
+
+            cell.style.height =
+                (
+                    (
+                        rows.length-end
+                    ) *
+                    ROW_HEIGHT
+                ) + "px";
+
+            spacer.appendChild(cell);
+            tbody.appendChild(spacer);
+        }
+
+    }
+
+
+    function scheduleDraw(){
+
+        if(raf){
+            return;
+        }
+
+        raf =
+            requestAnimationFrame(draw);
+    }
+
+
+    tableArea.addEventListener(
+        "scroll",
+        scheduleDraw,
+        {passive:true}
+    );
+
+    draw();
+}
+
+
+/* =========================================================
+   ELIGIBILITY HEADER FILTER
+   ONLY A3
+========================================================= */
+
+function createEligibilityFilterButton(){
+
+    const button =
+        document.createElement("button");
+
+    button.className =
+        "filter-button";
+
+    button.type =
+        "button";
+
+    button.textContent =
+        "▼";
+
+    button.title =
+        "Filter Eligibility Portal";
+
+    const state =
+        filters.get("eligibility");
+
+    if(
+        state &&
+        state.has("Eligibility Portal")
+    ){
+        button.classList.add("active");
+    }
+
+    button.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            openFilter(
+                "Eligibility Portal",
+                button
+            );
+
+        }
+    );
+
+    return button;
+}
+
+
+/* =========================================================
+   ELIGIBILITY TABLE
+========================================================= */
+
+function renderEligibilityTable(
+    tab,
+    rows,
+    version
+){
+
+    if(version !== renderVersion){
+        return;
+    }
+
+
+    /*
+       JSON structure:
+
+       Row 1:
+       blank | blank | BRANCH | SAMA | Noud | Falaj
+
+       Row 2:
+       Eligibility Portal | Link |
+       H.A. License Code | PF1681 | ...
+
+       Rows 3 onward:
+       Portal + Username
+       Password
+       ...
+    */
+
+
+    if(!rows || rows.length < 2){
+
+        tableArea.innerHTML = `
+            <div class="empty">
+                No Eligibility Portal data found.
+            </div>
+        `;
+
+        recordNumber.textContent = "0";
+
+        return;
+    }
+
+
+    /*
+       The actual portal records begin
+       at JSON index 2.
+    */
+
+    const sourceRows =
+        rows.slice(2);
+
+
+    /*
+       Apply ONLY the A-column filter.
+    */
+
+    const state =
+        filters.get("eligibility");
+
+    let allowedPortals = null;
+
+    if(
+        state &&
+        state.has("Eligibility Portal")
+    ){
+
+        allowedPortals =
+            state.get("Eligibility Portal");
+
+    }
+
+
+    const portalGroups = [];
+
+
+    for(
+        let i=0;
+        i<sourceRows.length;
+        i+=2
+    ){
+
+        const portalRow =
+            sourceRows[i];
+
+        const passwordRow =
+            sourceRows[i+1] || {};
+
+        const portal =
+            valueString(
+                portalRow["Unnamed: 0"]
+            );
+
+        if(
+            allowedPortals &&
+            !allowedPortals.has(portal)
+        ){
+            continue;
+        }
+
+
+        portalGroups.push({
+
+            portal,
+
+            link:
+                valueString(
+                    portalRow["Unnamed: 1"]
+                ),
+
+            username:
+                valueString(
+                    portalRow["Al Ain"]
+                ),
+
+            usernameNoud:
+                valueString(
+                    portalRow["Al Ain.1"]
+                ),
+
+            usernameFalaj:
+                valueString(
+                    portalRow["Al Ain.2"]
+                ),
+
+            password:
+                valueString(
+                    passwordRow["Al Ain"]
+                ),
+
+            passwordNoud:
+                valueString(
+                    passwordRow["Al Ain.1"]
+                ),
+
+            passwordFalaj:
+                valueString(
+                    passwordRow["Al Ain.2"]
+                )
+
+        });
+
+    }
+
+
+    recordNumber.textContent =
+        portalGroups.length.toLocaleString();
+
+
+    tableArea.innerHTML = "";
+
+
+    const table =
+        document.createElement("table");
+
+    table.className =
+        "eligibility-table";
+
+
+    /* =====================================================
+       COLGROUP
+    ===================================================== */
+
+    const colgroup =
+        document.createElement("colgroup");
+
+    [
+        "col-a",
+        "col-b",
+        "col-c",
+        "col-d",
+        "col-e",
+        "col-f"
+    ].forEach(className => {
+
+        const col =
+            document.createElement("col");
+
+        col.className =
+            className;
+
+        colgroup.appendChild(col);
+
+    });
+
+    table.appendChild(colgroup);
+
+
+    /* =====================================================
+       THEAD
+    ===================================================== */
+
+    const thead =
+        document.createElement("thead");
+
+
+    /* ROW 1 */
+
+    const row1 =
+        document.createElement("tr");
+
+
+    const a1 =
+        document.createElement("th");
+
+    a1.colSpan = 1;
+    a1.className =
+        "top-header top-empty";
+
+    a1.textContent = "";
+
+    row1.appendChild(a1);
+
+
+    const b1 =
+        document.createElement("th");
+
+    b1.className =
+        "top-header top-empty";
+
+    b1.textContent = "";
+
+    row1.appendChild(b1);
+
+
+    const c1 =
+        document.createElement("th");
+
+    c1.className =
+        "top-header";
+
+    c1.textContent =
+        "Area";
+
+    row1.appendChild(c1);
+
+
+    const d1 =
+        document.createElement("th");
+
+    d1.colSpan = 3;
+
+    d1.className =
+        "top-header";
+
+    d1.textContent =
+        "Al Ain";
+
+    row1.appendChild(d1);
+
+
+    thead.appendChild(row1);
+
+
+    /* ROW 2 */
+
+    const row2 =
+        document.createElement("tr");
+
+
+    const a2 =
+        document.createElement("th");
+
+    a2.className =
+        "top-header top-empty";
+
+    a2.textContent = "";
+
+    row2.appendChild(a2);
+
+
+    const b2 =
+        document.createElement("th");
+
+    b2.className =
+        "top-header top-empty";
+
+    b2.textContent = "";
+
+    row2.appendChild(b2);
+
+
+    const c2 =
+        document.createElement("th");
+
+    c2.className =
+        "top-header";
+
+    c2.textContent =
+        "Branch";
+
+    row2.appendChild(c2);
+
+
+    const d2 =
+        document.createElement("th");
+
+    d2.className =
+        "top-header";
+
+    d2.textContent =
+        "Sama";
+
+    row2.appendChild(d2);
+
+
+    const e2 =
+        document.createElement("th");
+
+    e2.className =
+        "top-header";
+
+    e2.textContent =
+        "Al Noud (Enhanced only)";
+
+    row2.appendChild(e2);
+
+
+    const f2 =
+        document.createElement("th");
+
+    f2.className =
+        "top-header";
+
+    f2.textContent =
+        "Falaj 2";
+
+    row2.appendChild(f2);
+
+
+    thead.appendChild(row2);
+
+
+    /* ROW 3 */
+
+    const row3 =
+        document.createElement("tr");
+
+
+    const headers = [
+        "Eligibility Portal",
+        "Link",
+        "H.A. License Code",
+        "PF1681",
+        "PF 5068",
+        "PF 5408"
+    ];
+
+
+    headers.forEach(
+        (header,index) => {
+
+            const th =
+                document.createElement("th");
+
+            th.className =
+                "main-header";
+
+            const content =
+                document.createElement("div");
+
+            content.className =
+                "header-content";
+
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "header-label";
+
+            label.textContent =
+                header;
+
+
+            content.appendChild(label);
+
+
+            /*
+               FILTER ONLY A3.
+            */
+
+            if(index === 0){
+
+                content.appendChild(
+                    createEligibilityFilterButton()
+                );
+
+            }
+
+
+            th.appendChild(content);
+
+            row3.appendChild(th);
+
+        }
+    );
+
+
+    thead.appendChild(row3);
+
+    table.appendChild(thead);
+
+
+    /* =====================================================
+       TBODY
+    ===================================================== */
+
+    const tbody =
+        document.createElement("tbody");
+
+
+    portalGroups.forEach(group => {
+
+
+        /*
+           USERNAME ROW
+        */
+
+        const usernameRow =
+            document.createElement("tr");
+
+
+        /*
+           A4/A5 merged
+        */
+
+        const portalCell =
+            document.createElement("td");
+
+        portalCell.rowSpan = 2;
+
+        portalCell.className =
+            "eligibility-portal";
+
+        portalCell.textContent =
+            group.portal;
+
+        portalCell.title =
+            group.portal;
+
+
+        usernameRow.appendChild(
+            portalCell
+        );
+
+
+        /*
+           B4/B5 merged
+        */
+
+        const linkCell =
+            document.createElement("td");
+
+        linkCell.rowSpan = 2;
+
+
+        if(
+            group.link &&
+            /^https?:\/\//i.test(group.link)
+        ){
+
+            const link =
+                document.createElement("a");
+
+            link.className =
+                "eligibility-link";
+
+            link.href =
+                group.link;
+
+            link.target =
+                "_blank";
+
+            link.rel =
+                "noopener noreferrer";
+
+            link.textContent =
+                group.link;
+
+            link.title =
+                group.link;
+
+            linkCell.appendChild(link);
+
+        }
+        else{
+
+            linkCell.textContent =
+                group.link;
+
+        }
+
+
+        usernameRow.appendChild(
+            linkCell
+        );
+
+
+        /*
+           C = Username
+        */
+
+        const typeUser =
+            document.createElement("td");
+
+        typeUser.className =
+            "eligibility-type";
+
+        typeUser.textContent =
+            "Username";
+
+        usernameRow.appendChild(
+            typeUser
+        );
+
+
+        usernameRow.appendChild(
+            createEligibilityCell(
+                group.username
+            )
+        );
+
+        usernameRow.appendChild(
+            createEligibilityCell(
+                group.usernameNoud
+            )
+        );
+
+        usernameRow.appendChild(
+            createEligibilityCell(
+                group.usernameFalaj
+            )
+        );
+
+
+        tbody.appendChild(
+            usernameRow
+        );
+
+
+        /*
+           PASSWORD ROW
+        */
+
+        const passwordRow =
+            document.createElement("tr");
+
+
+        /*
+           A/B are NOT added here.
+           They are already rowspan=2.
+        */
+
+
+        const typePassword =
+            document.createElement("td");
+
+        typePassword.className =
+            "eligibility-type";
+
+        typePassword.textContent =
+            "Password";
+
+        passwordRow.appendChild(
+            typePassword
+        );
+
+
+        passwordRow.appendChild(
+            createEligibilityCell(
+                group.password
+            )
+        );
+
+        passwordRow.appendChild(
+            createEligibilityCell(
+                group.passwordNoud
+            )
+        );
+
+        passwordRow.appendChild(
+            createEligibilityCell(
+                group.passwordFalaj
+            )
+        );
+
+
+        tbody.appendChild(
+            passwordRow
+        );
+
+    });
+
+
+    table.appendChild(tbody);
+
+    tableArea.appendChild(table);
+
+}
+
+
+/* =========================================================
+   ELIGIBILITY CELL
+========================================================= */
+
+function createEligibilityCell(value){
+
+    const td =
+        document.createElement("td");
+
+    td.textContent =
+        value;
+
+    if(value.length > 30){
+        td.title = value;
+    }
+
+    return td;
+}
+
+
+/* =========================================================
+   RENDER TABLE
+========================================================= */
+
+function renderTable(
+    tab,
+    version
+){
+
+    if(
+        version !== renderVersion
+    ){
+        return;
+    }
+
+
+    const rows =
+        tab.rows || [];
+
+
+    /*
+       SPECIAL ELIGIBILITY TABLE
+    */
+
+    if(tab.id === "eligibility"){
+
+        renderEligibilityTable(
+            tab,
+            rows,
+            version
+        );
+
+        return;
+    }
+
+
+    if(rows.length === 0){
+
+        tableArea.innerHTML = `
+            <div class="empty">
+                No data found.
+            </div>
+        `;
+
+        recordNumber.textContent = "0";
+
+        return;
+    }
+
+
+    const columns =
+        getColumns(
+            tab,
+            rows
+        );
+
+
+    const visible =
+        getVisibleRows(rows);
+
+
+    recordNumber.textContent =
+        visible.length.toLocaleString();
+
+
+    const widths =
+        calculateWidths(
+            tab,
+            rows,
+            columns
+        );
+
+
+    renderVirtualTable(
+        tab,
+        visible,
+        columns,
+        widths,
+        version
     );
 }
 
@@ -1233,1092 +3156,474 @@ async function openTab(id){
 
     const tab =
         tabsConfig.find(
-            t => t.id === id
+            item =>
+                item.id === id
         );
 
     if(!tab){
         return;
     }
 
-    currentTab = tab;
 
-    document
-        .querySelectorAll(".tab")
-        .forEach(button => {
+    currentTab =
+        tab;
 
-            button.classList.toggle(
-                "active",
-                button.dataset.id === id
-            );
-        });
+    setActiveTab(id);
 
-    tableTitle.textContent =
+    currentList.textContent =
         tab.name;
 
-    recordCount.textContent = "";
 
-    closeFilterPopup();
+    if(!filters.has(id)){
 
-    mainArea.innerHTML = `
-        <div class="loading">
-            <div class="spinner"></div>
-            Loading...
-        </div>
-    `;
+        filters.set(
+            id,
+            new Map()
+        );
+
+    }
+
+
+    const version =
+        ++renderVersion;
+
+
+    /*
+       Instant cached switch.
+    */
+
+    if(
+        dataCache.has(
+            "__TAB__" + id
+        )
+    ){
+
+        tab.rows =
+            dataCache.get(
+                "__TAB__" + id
+            );
+
+        renderTable(
+            tab,
+            version
+        );
+
+        return;
+    }
+
+
+    showLoading(tab.name);
+
+    recordNumber.textContent =
+        "Loading";
+
 
     try{
 
         const rows =
             await loadTab(tab);
 
+
         if(
-            !currentTab ||
-            currentTab.id !== id
+            version !== renderVersion
         ){
             return;
         }
 
-        renderCurrentTab(rows);
 
-    }catch(error){
+        tab.rows =
+            rows;
+
+
+        renderTable(
+            tab,
+            version
+        );
+
+
+        scheduleBackgroundPreload();
+
+    }
+    catch(error){
+
+        if(
+            version !== renderVersion
+        ){
+            return;
+        }
+
 
         console.error(error);
 
-        mainArea.innerHTML = `
-            <div class="loading">
-                Failed to load data.
+
+        tableArea.innerHTML = `
+
+            <div class="error">
+
+                <strong>
+                    Could not load ${tab.name}
+                </strong>
+
+                <br><br>
+
+                ${error.message}
+
+                <br><br>
+
+                Check the JSON filename in GitHub.
+
             </div>
+
         `;
+
+
+        recordNumber.textContent =
+            "Error";
     }
+
 }
 
 
 /* =========================================================
-   RENDER CURRENT TAB
+   BACKGROUND PRELOAD
 ========================================================= */
 
-function renderCurrentTab(rows){
+let preloadStarted = false;
+
+async function scheduleBackgroundPreload(){
+
+    if(preloadStarted){
+        return;
+    }
+
+    preloadStarted = true;
+
+
+    /*
+       Start sooner than the old version.
+       First selected tab is already visible.
+    */
+
+    await new Promise(
+        resolve =>
+            setTimeout(resolve,150)
+    );
+
+
+    /*
+       Load in small batches instead of waiting
+       for every file sequentially.
+    */
+
+    const pending =
+        tabsConfig.filter(
+            tab =>
+                !dataCache.has(
+                    "__TAB__" + tab.id
+                )
+        );
+
+
+    const BATCH_SIZE = 3;
+
+
+    for(
+        let i=0;
+        i<pending.length;
+        i+=BATCH_SIZE
+    ){
+
+        const batch =
+            pending.slice(
+                i,
+                i+BATCH_SIZE
+            );
+
+
+        await Promise.all(
+            batch.map(
+                async tab => {
+
+                    try{
+
+                        const rows =
+                            await loadTab(tab);
+
+                        tab.rows =
+                            rows;
+
+                    }
+                    catch(error){
+
+                        console.warn(
+                            "Background preload failed:",
+                            tab.name,
+                            error
+                        );
+
+                    }
+
+                }
+            )
+        );
+
+
+        /*
+           Give UI a chance to breathe.
+        */
+
+        await new Promise(
+            resolve =>
+                setTimeout(resolve,10)
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPEN FILTER
+========================================================= */
+
+function openFilter(
+    column,
+    button
+){
 
     if(!currentTab){
         return;
     }
 
-    if(
-        currentTab.special ===
-        "eligibility"
-    ){
 
-        renderEligibility(rows);
+    filterColumn =
+        column;
 
-        return;
-    }
-
-    renderNormalTable(
-        currentTab,
-        rows
-    );
-}
-
-
-/* =========================================================
-   NORMAL TABLE
-========================================================= */
-
-function renderNormalTable(tab,rows){
-
-    const columns =
-        getColumns(
-            tab,
-            rows
-        );
-
-    const visibleRows =
-        filteredRows(
-            tab.id,
-            rows
-        );
-
-    recordCount.textContent =
-        `${visibleRows.length.toLocaleString()} / ${rows.length.toLocaleString()} records`;
-
-    mainArea.innerHTML = "";
-
-    const table =
-        document.createElement("table");
-
-    table.className =
-        "table";
-
-    const colgroup =
-        document.createElement("colgroup");
-
-    columns.forEach(column => {
-
-        const col =
-            document.createElement("col");
-
-        let width = 110;
-
-        if(
-            tab.id === "apg" &&
-            (
-                normalize(column) === "thiqa" ||
-                normalize(column) === "basic"
-            )
-        ){
-
-            width = 82;
-
-        }else{
-
-            let maxLength =
-                String(column).length;
-
-            for(
-                let i=0;
-                i<Math.min(rows.length,180);
-                i++
-            ){
-
-                const value =
-                    formatValue(
-                        rows[i]?.[column]
-                    );
-
-                maxLength =
-                    Math.max(
-                        maxLength,
-                        value.length
-                    );
-            }
-
-            width =
-                Math.max(
-                    78,
-                    Math.min(
-                        190,
-                        25 + maxLength * 6
-                    )
-                );
-
-            if(maxLength <= 12){
-                width =
-                    Math.min(
-                        width,
-                        105
-                    );
-            }
-        }
-
-        col.style.width =
-            width + "px";
-
-        colgroup.appendChild(col);
-    });
-
-    table.appendChild(colgroup);
-
-
-    /* HEADER */
-
-    const thead =
-        document.createElement("thead");
-
-    const headerRow =
-        document.createElement("tr");
-
-    columns.forEach(column => {
-
-        const th =
-            document.createElement("th");
-
-        th.textContent =
-            column;
-
-        const button =
-            document.createElement("button");
-
-        button.className =
-            "filter-btn";
-
-        button.innerHTML =
-            "▼";
-
-        const existing =
-            filterState
-                .get(tab.id)
-                ?.get(column);
-
-        if(existing){
-            button.classList.add(
-                "filtered"
-            );
-        }
-
-        button.addEventListener(
-            "click",
-            event => {
-
-                event.stopPropagation();
-
-                openFilter(
-                    tab,
-                    rows,
-                    column,
-                    button
-                );
-            }
-        );
-
-        th.appendChild(button);
-
-        headerRow.appendChild(th);
-    });
-
-    thead.appendChild(headerRow);
-
-    table.appendChild(thead);
-
-
-    /* BODY */
-
-    const tbody =
-        document.createElement("tbody");
-
-    visibleRows.forEach(row => {
-
-        const tr =
-            document.createElement("tr");
-
-        columns.forEach(column => {
-
-            const td =
-                document.createElement("td");
-
-            const value =
-                formatValue(
-                    row[column]
-                );
-
-            td.textContent =
-                value;
-
-            td.title =
-                value;
-
-            if(
-                tab.id === "apg"
-            ){
-
-                const name =
-                    normalize(column);
-
-                const val =
-                    normalize(value);
-
-                if(
-                    (
-                        name === "thiqa" ||
-                        name === "basic"
-                    ) &&
-                    val === "yes"
-                ){
-
-                    td.classList.add(
-                        "apg-yes"
-                    );
-                }
-
-                if(
-                    (
-                        name === "thiqa" ||
-                        name === "basic"
-                    ) &&
-                    val === "no"
-                ){
-
-                    td.classList.add(
-                        "apg-no"
-                    );
-                }
-            }
-
-            tr.appendChild(td);
-        });
-
-        tbody.appendChild(tr);
-    });
-
-    table.appendChild(tbody);
-
-    mainArea.appendChild(table);
-}
-
-
-/* =========================================================
-   ELIGIBILITY PORTALS
-   EXACT JSON STRUCTURE
-========================================================= */
-
-function renderEligibility(rows){
 
     /*
-       JSON structure:
-
-       Row 0 = Area / branches
-       Row 1 = Row 3 headers
-       Row 2/3 = OPENJET
-       Row 4/5 = PULSE
-       ...
-       Row 30/31 = GlobMed
-
-       Therefore:
-       - JSON row 0 is used for rows 1-2
-       - JSON row 1 is used for row 3
-       - JSON rows 2 onward are paired
+       Eligibility:
+       filter ONLY portal names.
     */
 
-    const data =
-        rows.slice(2);
-
-    const portalPairs = [];
-
-    for(
-        let i=0;
-        i<data.length;
-        i+=2
+    if(
+        currentTab.id === "eligibility" &&
+        column === "Eligibility Portal"
     ){
 
-        const usernameRow =
-            data[i];
+        const values =
+            new Set();
 
-        const passwordRow =
-            data[i+1];
 
-        if(
-            usernameRow &&
-            usernameRow["Unnamed: 0"]
+        const rows =
+            currentTab.rows || [];
+
+
+        for(
+            let i=2;
+            i<rows.length;
+            i+=2
         ){
 
-            portalPairs.push({
-                username:usernameRow,
-                password:passwordRow || {}
-            });
-        }
-    }
-
-
-    recordCount.textContent =
-        `${portalPairs.length} portals`;
-
-
-    mainArea.innerHTML = "";
-
-    const wrap =
-        document.createElement("div");
-
-    wrap.className =
-        "eligibility-wrap";
-
-
-    const table =
-        document.createElement("table");
-
-    table.className =
-        "eligibility-table";
-
-
-    /* =====================================================
-       COLUMN WIDTHS
-    ===================================================== */
-
-    const colgroup =
-        document.createElement("colgroup");
-
-    [
-        "20%",
-        "28%",
-        "14%",
-        "12.67%",
-        "12.67%",
-        "12.66%"
-    ].forEach(width => {
-
-        const col =
-            document.createElement("col");
-
-        col.style.width =
-            width;
-
-        colgroup.appendChild(col);
-    });
-
-    table.appendChild(colgroup);
-
-
-    /* =====================================================
-       ROW 1
-
-       A1 EMPTY
-       B1 EMPTY
-       C1 Area
-       D1:F1 Al Ain merged
-    ===================================================== */
-
-    const row1 =
-        document.createElement("tr");
-
-
-    const a1 =
-        document.createElement("td");
-
-    a1.className =
-        "eligibility-empty";
-
-    row1.appendChild(a1);
-
-
-    const b1 =
-        document.createElement("td");
-
-    b1.className =
-        "eligibility-empty";
-
-    row1.appendChild(b1);
-
-
-    const c1 =
-        document.createElement("td");
-
-    c1.className =
-        "eligibility-top-label";
-
-    c1.textContent =
-        "Area";
-
-    row1.appendChild(c1);
-
-
-    const d1 =
-        document.createElement("td");
-
-    d1.colSpan = 3;
-
-    d1.className =
-        "eligibility-alain";
-
-    d1.textContent =
-        "Al Ain";
-
-    row1.appendChild(d1);
-
-
-    table.appendChild(row1);
-
-
-    /* =====================================================
-       ROW 2
-
-       A2 EMPTY
-       B2 EMPTY
-       C2 Branch
-       D2 Sama
-       E2 Al Noud...
-       F2 Falaj 2
-    ===================================================== */
-
-    const row2 =
-        document.createElement("tr");
-
-
-    const a2 =
-        document.createElement("td");
-
-    a2.className =
-        "eligibility-empty";
-
-    row2.appendChild(a2);
-
-
-    const b2 =
-        document.createElement("td");
-
-    b2.className =
-        "eligibility-empty";
-
-    row2.appendChild(b2);
-
-
-    const c2 =
-        document.createElement("td");
-
-    c2.className =
-        "eligibility-top-label";
-
-    c2.textContent =
-        "Branch";
-
-    row2.appendChild(c2);
-
-
-    [
-        "Sama",
-        "Al Noud (Enhanced only)",
-        "Falaj 2"
-    ].forEach(branch => {
-
-        const td =
-            document.createElement("td");
-
-        td.className =
-            "eligibility-branch";
-
-        td.textContent =
-            branch;
-
-        row2.appendChild(td);
-    });
-
-
-    table.appendChild(row2);
-
-
-    /* =====================================================
-       ROW 3
-
-       A3 Eligibility portal
-       B3 Link
-       C3 H.A. License Code
-       D3 PF1681
-       E3 PF 5068
-       F3 PF 5408
-
-       ONLY A3 HAS FILTER
-    ===================================================== */
-
-    const row3 =
-        document.createElement("tr");
-
-
-    /* A3 */
-
-    const a3 =
-        document.createElement("th");
-
-    a3.className =
-        "eligibility-header";
-
-    a3.textContent =
-        "Eligibility portal";
-
-
-    const filterButton =
-        document.createElement("button");
-
-    filterButton.className =
-        "eligibility-filter-btn";
-
-    filterButton.innerHTML =
-        "▼";
-
-    filterButton.title =
-        "Filter Eligibility Portals";
-
-
-    const existingFilter =
-        filterState
-            .get("eligibility")
-            ?.get("__PORTAL__");
-
-    if(existingFilter){
-
-        filterButton.classList.add(
-            "filtered"
-        );
-    }
-
-
-    filterButton.addEventListener(
-        "click",
-        event => {
-
-            event.stopPropagation();
-
-            openEligibilityFilter(
-                portalPairs,
-                filterButton
-            );
-        }
-    );
-
-
-    a3.appendChild(
-        filterButton
-    );
-
-    row3.appendChild(a3);
-
-
-    /* B3 */
-
-    const b3 =
-        document.createElement("th");
-
-    b3.className =
-        "eligibility-header";
-
-    b3.textContent =
-        "Link";
-
-    row3.appendChild(b3);
-
-
-    /* C3 */
-
-    const c3 =
-        document.createElement("th");
-
-    c3.className =
-        "eligibility-header";
-
-    c3.textContent =
-        "H.A. License Code";
-
-    row3.appendChild(c3);
-
-
-    /* D3 */
-
-    [
-        "PF1681",
-        "PF 5068",
-        "PF 5408"
-    ].forEach(header => {
-
-        const th =
-            document.createElement("th");
-
-        th.className =
-            "eligibility-header";
-
-        th.textContent =
-            header;
-
-        row3.appendChild(th);
-    });
-
-
-    table.appendChild(row3);
-
-
-    /* =====================================================
-       DATA ROWS
-
-       A4:A5 merged
-       B4:B5 merged
-
-       A6:A7 merged
-       B6:B7 merged
-
-       ...
-
-       A32:A33 merged
-       B32:B33 merged
-    ===================================================== */
-
-    portalPairs.forEach(
-        (pair,index) => {
-
-            const username =
-                pair.username;
-
-            const password =
-                pair.password;
-
-
-            /* ---------------------------------------------
-               FIRST ROW
-            --------------------------------------------- */
-
-            const firstRow =
-                document.createElement("tr");
-
-            firstRow.className =
-                "eligibility-data-row";
-
-
-            /* A merged */
-
-            const portalCell =
-                document.createElement("td");
-
-            portalCell.className =
-                "eligibility-portal";
-
-            portalCell.rowSpan = 2;
-
-            portalCell.textContent =
-                username["Unnamed: 0"] || "";
-
-            firstRow.appendChild(
-                portalCell
-            );
-
-
-            /* B merged */
-
-            const linkCell =
-                document.createElement("td");
-
-            linkCell.className =
-                "eligibility-link";
-
-            linkCell.rowSpan = 2;
-
-
-            const link =
-                username["Unnamed: 1"] || "";
-
-
-            if(isURL(link)){
-
-                const a =
-                    document.createElement("a");
-
-                a.href =
-                    link;
-
-                a.target =
-                    "_blank";
-
-                a.rel =
-                    "noopener noreferrer";
-
-                a.textContent =
-                    "Open Portal";
-
-                a.title =
-                    link;
-
-                linkCell.appendChild(a);
-
-            }else{
-
-                linkCell.textContent =
-                    link;
+            const portal =
+                valueString(
+                    rows[i]["Unnamed: 0"]
+                );
+
+            if(portal){
+                values.add(portal);
             }
 
-
-            firstRow.appendChild(
-                linkCell
-            );
-
-
-            /* C username label */
-
-            const cUsername =
-                document.createElement("td");
-
-            cUsername.className =
-                "eligibility-data eligibility-label";
-
-            cUsername.textContent =
-                username["Area"] || "";
-
-            firstRow.appendChild(
-                cUsername
-            );
-
-
-            /* D username */
-
-            const dUsername =
-                document.createElement("td");
-
-            dUsername.className =
-                "eligibility-data";
-
-            dUsername.textContent =
-                username["Al Ain"] ?? "";
-
-            firstRow.appendChild(
-                dUsername
-            );
-
-
-            /* E username */
-
-            const eUsername =
-                document.createElement("td");
-
-            eUsername.className =
-                "eligibility-data";
-
-            eUsername.textContent =
-                username["Al Ain.1"] ?? "";
-
-            firstRow.appendChild(
-                eUsername
-            );
-
-
-            /* F username */
-
-            const fUsername =
-                document.createElement("td");
-
-            fUsername.className =
-                "eligibility-data";
-
-            fUsername.textContent =
-                username["Al Ain.2"] ?? "";
-
-            firstRow.appendChild(
-                fUsername
-            );
-
-
-            table.appendChild(
-                firstRow
-            );
-
-
-            /* ---------------------------------------------
-               SECOND ROW
-            --------------------------------------------- */
-
-            const secondRow =
-                document.createElement("tr");
-
-            secondRow.className =
-                "eligibility-data-row";
-
-
-            /* C password */
-
-            const cPassword =
-                document.createElement("td");
-
-            cPassword.className =
-                "eligibility-data eligibility-label";
-
-            cPassword.textContent =
-                password["Area"] || "";
-
-            secondRow.appendChild(
-                cPassword
-            );
-
-
-            /* D password */
-
-            const dPassword =
-                document.createElement("td");
-
-            dPassword.className =
-                "eligibility-data";
-
-            dPassword.textContent =
-                password["Al Ain"] ?? "";
-
-            secondRow.appendChild(
-                dPassword
-            );
-
-
-            /* E password */
-
-            const ePassword =
-                document.createElement("td");
-
-            ePassword.className =
-                "eligibility-data";
-
-            ePassword.textContent =
-                password["Al Ain.1"] ?? "";
-
-            secondRow.appendChild(
-                ePassword
-            );
-
-
-            /* F password */
-
-            const fPassword =
-                document.createElement("td");
-
-            fPassword.className =
-                "eligibility-data";
-
-            fPassword.textContent =
-                password["Al Ain.2"] ?? "";
-
-            secondRow.appendChild(
-                fPassword
-            );
-
-
-            table.appendChild(
-                secondRow
-            );
         }
+
+
+        filterAllValues =
+            Array.from(values);
+
+    }
+    else{
+
+        const values =
+            new Set();
+
+        for(
+            const row of currentTab.rows
+        ){
+
+            values.add(
+                valueString(
+                    row[column]
+                )
+            );
+
+        }
+
+        filterAllValues =
+            Array.from(values);
+
+    }
+
+
+    filterAllValues.sort(
+        (a,b)=>
+            a.localeCompare(
+                b,
+                undefined,
+                {
+                    numeric:true,
+                    sensitivity:"base"
+                }
+            )
     );
 
 
-    wrap.appendChild(table);
-
-    mainArea.appendChild(wrap);
-}
-
-
-/* =========================================================
-   URL
-========================================================= */
-
-function isURL(value){
-
-    if(!value){
-        return false;
-    }
-
-    try{
-
-        const url =
-            new URL(value);
-
-        return (
-            url.protocol === "http:" ||
-            url.protocol === "https:"
-        );
-
-    }catch{
-
-        return false;
-    }
-}
-
-
-/* =========================================================
-   ELIGIBILITY FILTER
-   ONLY A3
-========================================================= */
-
-function openEligibilityFilter(
-    portalPairs,
-    button
-){
-
-    activeFilterTab =
-        {
-            id:"eligibility"
-        };
-
-    activeFilterColumn =
-        "__PORTAL__";
-
-
-    const values =
-        portalPairs.map(
-            pair =>
-                pair.username[
-                    "Unnamed: 0"
-                ] || ""
+    const state =
+        filters.get(
+            currentTab.id
         );
 
 
     const existing =
-        filterState
-            .get("eligibility")
-            ?.get("__PORTAL__");
+        state &&
+        state.get(column);
 
 
     if(existing){
 
-        temporaryFilterValues =
+        temporarySelection =
             new Set(existing);
 
-    }else{
+    }
+    else{
 
-        temporaryFilterValues =
-            new Set(values);
+        temporarySelection =
+            new Set(filterAllValues);
+
     }
 
 
-    renderFilterOptions(
-        values
-    );
-
-
-    const rect =
-        button.getBoundingClientRect();
-
-
-    let left =
-        rect.left;
-
-    let top =
-        rect.bottom + 5;
-
-
-    if(
-        left + 300 >
-        window.innerWidth
-    ){
-
-        left =
-            window.innerWidth - 310;
-    }
-
-
-    if(
-        top + 410 >
-        window.innerHeight
-    ){
-
-        top =
-            rect.top - 415;
-    }
-
-
-    filterPopup.style.left =
-        Math.max(5,left) + "px";
-
-    filterPopup.style.top =
-        Math.max(5,top) + "px";
-
-
-    filterPopup.classList.add(
-        "show"
-    );
+    filterTitle.textContent =
+        "Filter: " + column;
 
 
     filterSearch.value =
         "";
 
 
-    setTimeout(
-        () =>
-            filterSearch.focus(),
-        0
-    );
+    renderFilterValues();
+
+
+    filterPopup.style.display =
+        "block";
+
+
+    const rect =
+        button.getBoundingClientRect();
+
+
+    const width =
+        filterPopup.offsetWidth;
+
+
+    const height =
+        filterPopup.offsetHeight;
+
+
+    let left =
+        rect.left;
+
+
+    let top =
+        rect.bottom + 5;
+
+
+    if(
+        left + width >
+        window.innerWidth - 10
+    ){
+
+        left =
+            window.innerWidth -
+            width -
+            10;
+
+    }
+
+
+    if(
+        top + height >
+        window.innerHeight - 10
+    ){
+
+        top =
+            rect.top -
+            height -
+            5;
+
+    }
+
+
+    left =
+        Math.max(10,left);
+
+    top =
+        Math.max(10,top);
+
+
+    filterPopup.style.left =
+        left + "px";
+
+    filterPopup.style.top =
+        top + "px";
+
+
+    filterSearch.focus();
 }
 
 
 /* =========================================================
-   RENDER FILTER OPTIONS
+   FILTER VALUES
 ========================================================= */
 
-function renderFilterOptions(values){
+function renderFilterValues(){
 
-    filterOptions.innerHTML = "";
+    const search =
+        filterSearch.value
+            .trim()
+            .toLowerCase();
 
-    values.forEach(value => {
+
+    filterValues.innerHTML = "";
+
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    for(
+        const value of filterAllValues
+    ){
+
+        const display =
+            value === ""
+                ? "(Blank)"
+                : value;
+
+
+        if(
+            search &&
+            !display
+                .toLowerCase()
+                .includes(search)
+        ){
+            continue;
+        }
+
 
         const label =
             document.createElement("label");
 
         label.className =
-            "filter-option";
+            "filter-value";
 
 
         const checkbox =
@@ -2327,33 +3632,25 @@ function renderFilterOptions(values){
         checkbox.type =
             "checkbox";
 
-        checkbox.value =
-            value;
-
         checkbox.checked =
-            temporaryFilterValues.has(
-                value
-            );
+            temporarySelection.has(value);
 
 
         checkbox.addEventListener(
             "change",
             () => {
 
-                if(
-                    checkbox.checked
-                ){
+                if(checkbox.checked){
 
-                    temporaryFilterValues.add(
-                        value
-                    );
+                    temporarySelection.add(value);
 
-                }else{
-
-                    temporaryFilterValues.delete(
-                        value
-                    );
                 }
+                else{
+
+                    temporarySelection.delete(value);
+
+                }
+
             }
         );
 
@@ -2361,24 +3658,25 @@ function renderFilterOptions(values){
         const text =
             document.createElement("span");
 
+        text.className =
+            "filter-value-text";
+
         text.textContent =
-            value === ""
-                ? "(blank)"
-                : value;
+            display;
+
+        text.title =
+            display;
 
 
-        label.appendChild(
-            checkbox
-        );
+        label.appendChild(checkbox);
+        label.appendChild(text);
 
-        label.appendChild(
-            text
-        );
+        fragment.appendChild(label);
 
-        filterOptions.appendChild(
-            label
-        );
-    });
+    }
+
+
+    filterValues.appendChild(fragment);
 }
 
 
@@ -2388,36 +3686,7 @@ function renderFilterOptions(values){
 
 filterSearch.addEventListener(
     "input",
-    () => {
-
-        const search =
-            normalize(
-                filterSearch.value
-            );
-
-
-        document
-            .querySelectorAll(
-                ".filter-option"
-            )
-            .forEach(option => {
-
-                const text =
-                    normalize(
-                        option
-                            .querySelector(
-                                "span"
-                            )
-                            .textContent
-                    );
-
-
-                option.style.display =
-                    text.includes(search)
-                        ? "flex"
-                        : "none";
-            });
-    }
+    renderFilterValues
 );
 
 
@@ -2425,342 +3694,120 @@ filterSearch.addEventListener(
    SELECT ALL
 ========================================================= */
 
-selectAll.addEventListener(
-    "click",
-    () => {
+document
+    .getElementById("selectAll")
+    .addEventListener(
+        "click",
+        () => {
 
-        document
-            .querySelectorAll(
-                ".filter-option"
-            )
-            .forEach(option => {
+            temporarySelection =
+                new Set(filterAllValues);
 
-                if(
-                    option.style.display ===
-                    "none"
-                ){
-                    return;
-                }
+            renderFilterValues();
 
-
-                const checkbox =
-                    option.querySelector(
-                        "input"
-                    );
-
-
-                checkbox.checked =
-                    true;
-
-
-                temporaryFilterValues.add(
-                    checkbox.value
-                );
-            });
-    }
-);
+        }
+    );
 
 
 /* =========================================================
-   UNSELECT ALL
+   UNCHECK ALL
 ========================================================= */
 
-unselectAll.addEventListener(
-    "click",
-    () => {
+document
+    .getElementById("uncheckAll")
+    .addEventListener(
+        "click",
+        () => {
 
-        document
-            .querySelectorAll(
-                ".filter-option"
-            )
-            .forEach(option => {
+            temporarySelection =
+                new Set();
 
-                if(
-                    option.style.display ===
-                    "none"
-                ){
-                    return;
-                }
+            renderFilterValues();
 
-
-                const checkbox =
-                    option.querySelector(
-                        "input"
-                    );
-
-
-                checkbox.checked =
-                    false;
-
-
-                temporaryFilterValues.delete(
-                    checkbox.value
-                );
-            });
-    }
-);
+        }
+    );
 
 
 /* =========================================================
    APPLY FILTER
 ========================================================= */
 
-applyFilter.addEventListener(
-    "click",
-    () => {
+document
+    .getElementById("applyFilter")
+    .addEventListener(
+        "click",
+        () => {
 
-        if(
-            !activeFilterTab ||
-            !activeFilterColumn
-        ){
-            return;
-        }
-
-
-        if(
-            !filterState.has(
-                activeFilterTab.id
-            )
-        ){
-
-            filterState.set(
-                activeFilterTab.id,
-                new Map()
-            );
-        }
-
-
-        const filters =
-            filterState.get(
-                activeFilterTab.id
-            );
-
-
-        const rows =
-            cache.get(
-                activeFilterTab.id
-            ) || [];
-
-
-        /* ================================================
-           SPECIAL ELIGIBILITY FILTER
-        ================================================ */
-
-        if(
-            activeFilterTab.id ===
-            "eligibility"
-        ){
-
-            const portals = [];
-
-
-            for(
-                let i=2;
-                i<rows.length;
-                i+=2
+            if(
+                !currentTab ||
+                filterColumn === null
             ){
-
-                if(
-                    rows[i] &&
-                    rows[i]["Unnamed: 0"]
-                ){
-
-                    portals.push(
-                        rows[i][
-                            "Unnamed: 0"
-                        ]
-                    );
-                }
+                return;
             }
+
+
+            const state =
+                filters.get(
+                    currentTab.id
+                );
 
 
             if(
-                temporaryFilterValues.size ===
-                portals.length
+                temporarySelection.size ===
+                filterAllValues.length
             ){
 
-                filters.delete(
-                    "__PORTAL__"
+                state.delete(
+                    filterColumn
                 );
 
-            }else{
+            }
+            else{
 
-                filters.set(
-                    "__PORTAL__",
+                state.set(
+                    filterColumn,
                     new Set(
-                        temporaryFilterValues
+                        temporarySelection
                     )
                 );
+
             }
 
 
-            closeFilterPopup();
-
-            renderEligibilityFiltered();
-
-            return;
-        }
+            closeFilter();
 
 
-        /* ================================================
-           NORMAL FILTER
-        ================================================ */
-
-        const allValues =
-            new Set();
-
-
-        rows.forEach(row => {
-
-            allValues.add(
-                formatValue(
-                    row[
-                        activeFilterColumn
-                    ]
-                )
-            );
-        });
-
-
-        if(
-            temporaryFilterValues.size ===
-            allValues.size
-        ){
-
-            filters.delete(
-                activeFilterColumn
+            renderTable(
+                currentTab,
+                ++renderVersion
             );
 
-        }else{
-
-            filters.set(
-                activeFilterColumn,
-                new Set(
-                    temporaryFilterValues
-                )
-            );
         }
-
-
-        closeFilterPopup();
-
-        renderCurrentTab();
-    }
-);
-
-
-/* =========================================================
-   RENDER ELIGIBILITY AFTER FILTER
-========================================================= */
-
-function renderEligibilityFiltered(){
-
-    const rows =
-        cache.get(
-            "eligibility"
-        ) || [];
-
-
-    const selected =
-        filterState
-            .get("eligibility")
-            ?.get("__PORTAL__");
-
-
-    if(
-        !selected ||
-        selected.size === 0
-    ){
-
-        renderEligibility(rows);
-
-        return;
-    }
-
-
-    const filtered = [];
-
-
-    for(
-        let i=2;
-        i<rows.length;
-        i+=2
-    ){
-
-        const username =
-            rows[i];
-
-        const password =
-            rows[i+1];
-
-
-        if(!username){
-            continue;
-        }
-
-
-        const portal =
-            username[
-                "Unnamed: 0"
-            ] || "";
-
-
-        if(
-            selected.has(
-                portal
-            )
-        ){
-
-            filtered.push(
-                username
-            );
-
-            if(password){
-                filtered.push(
-                    password
-                );
-            }
-        }
-    }
-
-
-    const allRows =
-        rows.slice(
-            0,
-            2
-        );
-
-
-    renderEligibility(
-        allRows.concat(filtered)
     );
-}
 
 
 /* =========================================================
    CANCEL
 ========================================================= */
 
-cancelFilter.addEventListener(
-    "click",
-    closeFilterPopup
-);
+document
+    .getElementById("cancelFilter")
+    .addEventListener(
+        "click",
+        closeFilter
+    );
 
 
 /* =========================================================
    CLOSE FILTER
 ========================================================= */
 
-function closeFilterPopup(){
+function closeFilter(){
 
-    filterPopup.classList.remove(
-        "show"
-    );
+    filterPopup.style.display =
+        "none";
 
-    activeFilterTab =
-        null;
-
-    activeFilterColumn =
+    filterColumn =
         null;
 }
 
@@ -2769,145 +3816,77 @@ function closeFilterPopup(){
    CLEAR FILTERS
 ========================================================= */
 
-clearFilters.addEventListener(
-    "click",
-    () => {
+document
+    .getElementById("clearButton")
+    .addEventListener(
+        "click",
+        () => {
 
-        if(!currentTab){
-            return;
+            if(!currentTab){
+                return;
+            }
+
+
+            filters.set(
+                currentTab.id,
+                new Map()
+            );
+
+
+            closeFilter();
+
+
+            renderTable(
+                currentTab,
+                ++renderVersion
+            );
+
         }
-
-
-        filterState.delete(
-            currentTab.id
-        );
-
-
-        if(
-            currentTab.special ===
-            "eligibility"
-        ){
-
-            const rows =
-                cache.get(
-                    currentTab.id
-                ) || [];
-
-            renderEligibility(rows);
-
-        }else{
-
-            renderCurrentTab();
-        }
-    }
-);
+    );
 
 
 /* =========================================================
-   CLICK OUTSIDE FILTER
+   OUTSIDE CLICK
 ========================================================= */
 
 document.addEventListener(
-    "click",
+    "mousedown",
     event => {
 
         if(
-            filterPopup.classList.contains(
-                "show"
-            ) &&
+            filterPopup.style.display === "block" &&
+
             !filterPopup.contains(
                 event.target
             ) &&
-            !event.target.classList.contains(
-                "filter-btn"
-            ) &&
-            !event.target.classList.contains(
-                "eligibility-filter-btn"
+
+            !event.target.closest(
+                ".filter-button"
             )
         ){
 
-            closeFilterPopup();
+            closeFilter();
+
         }
+
     }
 );
 
 
 /* =========================================================
-   ESC
+   ESCAPE
 ========================================================= */
 
 document.addEventListener(
     "keydown",
     event => {
 
-        if(
-            event.key === "Escape"
-        ){
-
-            closeFilterPopup();
+        if(event.key === "Escape"){
+            closeFilter();
         }
+
     }
 );
-
-
-/* =========================================================
-   PRELOAD
-========================================================= */
-
-function preloadOtherTabs(){
-
-    const others =
-        tabsConfig.filter(
-            t =>
-                t.id !==
-                currentTab?.id
-        );
-
-
-    let index = 0;
-
-
-    function next(){
-
-        if(
-            index >=
-            others.length
-        ){
-            return;
-        }
-
-
-        const tab =
-            others[index++];
-
-
-        if(
-            !cache.has(
-                tab.id
-            )
-        ){
-
-            loadTab(tab)
-                .catch(
-                    error =>
-                        console.warn(
-                            "Preload failed:",
-                            tab.name,
-                            error
-                        )
-                );
-        }
-
-
-        setTimeout(
-            next,
-            35
-        );
-    }
-
-
-    next();
-}
 
 
 /* =========================================================
@@ -2917,27 +3896,6 @@ function preloadOtherTabs(){
 createTabs();
 
 openTab("apg");
-
-
-if(
-    "requestIdleCallback"
-    in window
-){
-
-    requestIdleCallback(
-        preloadOtherTabs,
-        {
-            timeout:1200
-        }
-    );
-
-}else{
-
-    setTimeout(
-        preloadOtherTabs,
-        1200
-    );
-}
 
 </script>
 
