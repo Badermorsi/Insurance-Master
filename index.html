@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +10,7 @@
 <style>
 
 /* =========================================================
-   RESET
+   BASE
 ========================================================= */
 
 *{
@@ -27,27 +28,24 @@ body{
 body{
     font-family:
         Inter,
-        ui-sans-serif,
-        -apple-system,
-        BlinkMacSystemFont,
         "Segoe UI",
-        Roboto,
         Arial,
+        Helvetica,
         sans-serif;
 
-    background:#f6f7f9;
-    color:#202124;
+    background:#f4f6f8;
+    color:#252a31;
 
     overflow:hidden;
 }
 
 
 /* =========================================================
-   APP HEADER
+   TOP HEADER
 ========================================================= */
 
-.app-header{
-    height:68px;
+.header{
+    height:62px;
 
     display:flex;
     align-items:center;
@@ -56,204 +54,146 @@ body{
 
     background:#ffffff;
 
-    border-bottom:1px solid #e7e9ed;
+    border-bottom:1px solid #e3e7eb;
 
     position:relative;
-    z-index:1000;
+    z-index:100;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    min-width:260px;
-}
-
-.brand-icon{
-    width:38px;
-    height:38px;
+.logo{
+    width:36px;
+    height:36px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:10px;
+    border-radius:9px;
 
-    background:#176b45;
+    background:#287c8c;
+
     color:#ffffff;
 
-    font-size:19px;
+    font-size:17px;
     font-weight:800;
-
-    box-shadow:0 4px 10px rgba(23,107,69,.18);
 }
 
-.brand-text h1{
+.header-text{
+    margin-left:11px;
+}
+
+.header-title{
     margin:0;
 
     font-size:17px;
-    line-height:20px;
+    font-weight:700;
 
-    font-weight:750;
-
-    letter-spacing:-.2px;
+    color:#26313a;
 }
 
-.brand-text span{
-    display:block;
+.header-subtitle{
+    margin-top:1px;
 
-    margin-top:2px;
+    font-size:10px;
 
-    color:#8a9099;
-
-    font-size:11px;
-    font-weight:500;
+    color:#8a939b;
 }
 
 
 /* =========================================================
-   TOP RIGHT
+   TABS PANEL
 ========================================================= */
 
-.header-status{
-    margin-left:auto;
+.tabs-panel{
+    padding:10px 14px 11px;
 
-    display:flex;
-    align-items:center;
-    gap:8px;
+    background:#f4f6f8;
 
-    color:#7b818a;
+    border-bottom:1px solid #e0e4e8;
 
-    font-size:12px;
+    position:relative;
+
+    z-index:90;
 }
 
-.status-dot{
-    width:7px;
-    height:7px;
 
-    border-radius:50%;
+/*
+   8 tabs per row on normal desktop.
+*/
 
-    background:#35a66f;
+.tabs-grid{
+    display:grid;
 
-    box-shadow:0 0 0 3px rgba(53,166,111,.12);
+    grid-template-columns:
+        repeat(8, minmax(0, 1fr));
+
+    gap:5px;
+
+    width:100%;
 }
 
 
 /* =========================================================
-   TAB BAR
+   TAB
 ========================================================= */
 
-.tabs-shell{
-    height:58px;
+.tab{
+    min-width:0;
+
+    height:32px;
+
+    padding:0 8px;
+
+    border:1px solid #dde2e6;
+
+    border-radius:6px;
 
     background:#ffffff;
 
-    border-bottom:1px solid #e7e9ed;
-
-    position:relative;
-    z-index:900;
-}
-
-.tabs{
-    height:100%;
-
-    display:flex;
-    align-items:flex-end;
-
-    gap:3px;
-
-    padding:0 14px;
-
-    overflow-x:auto;
-    overflow-y:hidden;
-
-    scrollbar-width:thin;
-}
-
-.tabs::-webkit-scrollbar{
-    height:5px;
-}
-
-.tabs::-webkit-scrollbar-track{
-    background:#f5f6f8;
-}
-
-.tabs::-webkit-scrollbar-thumb{
-    background:#c9cdd3;
-    border-radius:20px;
-}
-
-.tab{
-    height:42px;
-
-    flex:0 0 auto;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 15px;
-
-    border:none;
-    border-radius:8px 8px 0 0;
-
-    background:transparent;
-
-    color:#666d76;
+    color:#5f6871;
 
     font-family:inherit;
 
-    font-size:12px;
-    font-weight:650;
+    font-size:11px;
+
+    font-weight:600;
 
     cursor:pointer;
 
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
     white-space:nowrap;
 
-    position:relative;
-
     transition:
-        background .15s ease,
-        color .15s ease;
+        background .12s ease,
+        border-color .12s ease,
+        color .12s ease,
+        transform .08s ease;
 }
 
 .tab:hover{
-    background:#f3f5f7;
-    color:#30343a;
+    background:#f8fafb;
+
+    border-color:#c5d2d7;
+
+    color:#35424a;
+}
+
+.tab:active{
+    transform:scale(.985);
 }
 
 .tab.active{
-    background:#eef7f2;
-    color:#176b45;
-}
+    background:#287c8c;
 
-.tab.active::after{
-    content:"";
+    border-color:#287c8c;
 
-    position:absolute;
+    color:#ffffff;
 
-    left:10px;
-    right:10px;
-    bottom:0;
-
-    height:2px;
-
-    border-radius:4px 4px 0 0;
-
-    background:#176b45;
-}
-
-.tab-number{
-    margin-right:7px;
-
-    color:#a0a5ac;
-
-    font-size:10px;
-    font-weight:700;
-}
-
-.tab.active .tab-number{
-    color:#4c9773;
+    box-shadow:
+        0 2px 6px rgba(40,124,140,.18);
 }
 
 
@@ -262,61 +202,59 @@ body{
 ========================================================= */
 
 .toolbar{
-    height:64px;
+    height:57px;
 
     display:flex;
     align-items:center;
 
-    gap:9px;
+    gap:8px;
 
-    padding:10px 16px;
+    padding:8px 15px;
 
     background:#ffffff;
 
-    border-bottom:1px solid #e7e9ed;
+    border-bottom:1px solid #dfe4e8;
 
     position:relative;
-    z-index:800;
+
+    z-index:80;
 }
 
 .search-box{
-    height:40px;
-
-    width:330px;
+    width:360px;
+    height:37px;
 
     display:flex;
     align-items:center;
 
-    border:1px solid #dfe2e7;
+    border:1px solid #d8dde2;
 
-    border-radius:8px;
+    border-radius:7px;
 
     background:#fafbfc;
 
-    transition:
-        border-color .15s ease,
-        box-shadow .15s ease,
-        background .15s ease;
+    transition:.15s;
 }
 
 .search-box:focus-within{
     background:#ffffff;
 
-    border-color:#67a987;
+    border-color:#78aeb8;
 
-    box-shadow:0 0 0 3px rgba(23,107,69,.08);
+    box-shadow:
+        0 0 0 3px rgba(40,124,140,.08);
 }
 
 .search-icon{
-    width:40px;
+    width:37px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    color:#9298a0;
+    color:#87919a;
 
-    font-size:15px;
+    font-size:14px;
 }
 
 .search-input{
@@ -329,67 +267,59 @@ body{
 
     background:transparent;
 
-    padding:0 10px 0 0;
-
-    color:#292d32;
-
-    font-family:inherit;
-
-    font-size:13px;
-}
-
-.search-input::placeholder{
-    color:#9da2aa;
-}
-
-.clear-btn{
-    height:40px;
-
-    padding:0 14px;
-
-    border:1px solid #dfe2e7;
-
-    border-radius:8px;
-
-    background:#ffffff;
-
-    color:#646a73;
-
     font-family:inherit;
 
     font-size:12px;
+
+    color:#30363c;
+}
+
+.search-input::placeholder{
+    color:#9ca4ab;
+}
+
+.clear-button{
+    height:37px;
+
+    padding:0 13px;
+
+    border:1px solid #d8dde2;
+
+    border-radius:7px;
+
+    background:#ffffff;
+
+    color:#626b73;
+
+    font-family:inherit;
+
+    font-size:11px;
+
     font-weight:650;
 
     cursor:pointer;
-
-    transition:.15s;
 }
 
-.clear-btn:hover{
-    border-color:#c9cdd3;
-    background:#f6f7f9;
-    color:#33383e;
+.clear-button:hover{
+    background:#f5f7f8;
+
+    border-color:#c7cdd2;
 }
 
 .toolbar-spacer{
     flex:1;
 }
 
-.record-info{
-    display:flex;
-    align-items:center;
-    gap:7px;
+.records{
+    color:#899199;
 
-    color:#7d838c;
-
-    font-size:12px;
-
-    white-space:nowrap;
+    font-size:11px;
 }
 
-.record-number{
-    color:#30353a;
-    font-weight:700;
+.records strong{
+    color:#343b42;
+
+    font-size:12px;
 }
 
 
@@ -400,37 +330,34 @@ body{
 .content{
     position:absolute;
 
+    top:62px;
+
+    /*
+       Tabs panel height:
+       4 rows × 32px
+       + 3 gaps
+       + vertical padding
+       + borders
+       ≈ 163px
+       toolbar ≈ 57px
+    */
+
     left:0;
     right:0;
-    top:190px;
     bottom:0;
 }
 
-.table-wrapper{
-    width:100%;
-    height:100%;
+.table-area{
+    position:absolute;
+
+    top:171px;
+    left:0;
+    right:0;
+    bottom:0;
 
     overflow:auto;
 
     background:#ffffff;
-
-    scrollbar-width:auto;
-}
-
-.table-wrapper::-webkit-scrollbar{
-    width:10px;
-    height:10px;
-}
-
-.table-wrapper::-webkit-scrollbar-track{
-    background:#f3f4f6;
-}
-
-.table-wrapper::-webkit-scrollbar-thumb{
-    background:#c7cbd1;
-    border-radius:8px;
-
-    border:2px solid #f3f4f6;
 }
 
 
@@ -440,160 +367,201 @@ body{
 
 table{
     border-collapse:separate;
+
     border-spacing:0;
 
     width:max-content;
+
     min-width:100%;
 
-    table-layout:auto;
-
-    font-size:12px;
+    font-size:11.5px;
 }
+
+
+/*
+   Header stays visible while scrolling vertically.
+*/
 
 thead{
     position:sticky;
+
     top:0;
 
-    z-index:500;
+    z-index:30;
 }
 
 th{
-    height:43px;
-
-    min-width:145px;
-
     padding:0;
 
-    background:#f7f8fa;
+    min-width:100px;
 
-    color:#555b64;
+    max-width:280px;
 
-    border-right:1px solid #e4e6ea;
-    border-bottom:1px solid #dfe2e7;
+    height:45px;
 
-    font-size:11px;
+    background:#eef2f4;
 
-    font-weight:750;
+    color:#46515a;
 
-    white-space:nowrap;
+    border-right:1px solid #d9dfe3;
 
-    position:relative;
-}
+    border-bottom:1px solid #d3d9de;
 
-.th-inner{
-    height:43px;
+    font-size:10.5px;
 
-    display:flex;
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:7px;
-
-    padding:0 8px 0 11px;
-}
-
-.th-name{
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-    white-space:nowrap;
-}
-
-.filter-button{
-    flex:0 0 auto;
-
-    width:25px;
-    height:25px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border:1px solid #d6d9de;
-
-    border-radius:5px;
-
-    background:#ffffff;
-
-    color:#8a9098;
-
-    cursor:pointer;
-
-    font-size:10px;
-
-    transition:.12s;
-}
-
-.filter-button:hover{
-    border-color:#9ebcae;
-
-    background:#eef7f2;
-
-    color:#176b45;
-}
-
-.filter-button.active{
-    background:#176b45;
-
-    border-color:#176b45;
-
-    color:#ffffff;
-}
-
-td{
-    height:40px;
-
-    padding:0 11px;
-
-    border-right:1px solid #eceef1;
-    border-bottom:1px solid #eceef1;
-
-    background:#ffffff;
-
-    color:#3e434a;
+    font-weight:700;
 
     text-align:center;
 
     vertical-align:middle;
 
-    white-space:nowrap;
+    white-space:normal;
+
+    word-break:normal;
+
+    overflow-wrap:anywhere;
 }
 
-tbody tr:hover td{
-    background:#f8fbf9;
+.th-inner{
+    min-height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:5px;
+
+    padding:5px 7px;
+}
+
+.th-name{
+    line-height:14px;
+
+    text-align:center;
+}
+
+
+/* =========================================================
+   FILTER BUTTON
+========================================================= */
+
+.filter-button{
+    width:22px;
+    height:22px;
+
+    flex:0 0 22px;
+
+    border:1px solid #ccd3d8;
+
+    border-radius:4px;
+
+    background:#ffffff;
+
+    color:#77828a;
+
+    cursor:pointer;
+
+    font-size:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:0;
+}
+
+.filter-button:hover{
+    background:#e7f2f4;
+
+    border-color:#7aaeb7;
+
+    color:#287c8c;
+}
+
+.filter-button.active{
+    background:#287c8c;
+
+    border-color:#287c8c;
+
+    color:#ffffff;
+}
+
+
+/* =========================================================
+   CELLS
+========================================================= */
+
+td{
+    padding:7px 9px;
+
+    min-width:80px;
+
+    max-width:350px;
+
+    height:38px;
+
+    background:#ffffff;
+
+    color:#3e464d;
+
+    border-right:1px solid #e7eaed;
+
+    border-bottom:1px solid #e7eaed;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    white-space:normal;
+
+    overflow-wrap:anywhere;
+
+    line-height:16px;
 }
 
 tbody tr:nth-child(even) td{
-    background:#fbfbfc;
+    background:#fafbfc;
 }
 
-tbody tr:nth-child(even):hover td{
-    background:#f8fbf9;
-}
-
-
-/* =========================================================
-   SPECIAL STATUS CELLS
-========================================================= */
-
-.status-thiqa{
-    color:#087443;
-    font-weight:750;
-}
-
-.status-basic{
-    color:#c23b3b;
-    font-weight:750;
+tbody tr:hover td{
+    background:#f0f7f8;
 }
 
 
 /* =========================================================
-   LOADING SCREEN
+   SPECIAL WIDTH RULES
 ========================================================= */
 
-.loading-container{
+/*
+   Very short columns.
+*/
+
+th:first-child,
+td:first-child{
+    min-width:75px;
+}
+
+
+/*
+   Columns with long descriptive information
+   can be wider.
+*/
+
+td{
+    max-width:350px;
+}
+
+
+/* =========================================================
+   STATES
+========================================================= */
+
+.loading{
+    width:100%;
     height:100%;
 
     display:flex;
@@ -601,24 +569,23 @@ tbody tr:nth-child(even):hover td{
     justify-content:center;
 }
 
-.loading-box{
+.loading-card{
     display:flex;
-    flex-direction:column;
     align-items:center;
-    gap:12px;
+    gap:10px;
 
-    color:#727880;
+    color:#7b858d;
 
-    font-size:13px;
+    font-size:12px;
 }
 
 .spinner{
-    width:30px;
-    height:30px;
+    width:22px;
+    height:22px;
 
-    border:3px solid #e6ebe8;
+    border:2px solid #e0e7e9;
 
-    border-top-color:#176b45;
+    border-top-color:#287c8c;
 
     border-radius:50%;
 
@@ -631,37 +598,33 @@ tbody tr:nth-child(even):hover td{
     }
 }
 
-
-/* =========================================================
-   EMPTY / ERROR
-========================================================= */
-
-.empty-state{
+.empty{
+    width:100%;
     height:100%;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    color:#8b9097;
-
-    font-size:14px;
-}
-
-.error-state{
-    margin:30px;
-
-    padding:20px;
-
-    border:1px solid #f0cccc;
-
-    border-radius:10px;
-
-    background:#fff7f7;
-
-    color:#a83232;
+    color:#8c959c;
 
     font-size:13px;
+}
+
+.error{
+    margin:25px;
+
+    padding:18px;
+
+    border-radius:8px;
+
+    background:#fff6f6;
+
+    border:1px solid #efcece;
+
+    color:#a94444;
+
+    font-size:12px;
 
     line-height:1.6;
 }
@@ -672,101 +635,102 @@ tbody tr:nth-child(even):hover td{
 ========================================================= */
 
 .filter-popup{
+    display:none;
+
     position:fixed;
 
     z-index:5000;
 
-    width:310px;
-    max-width:calc(100vw - 20px);
+    width:305px;
 
     background:#ffffff;
 
-    border:1px solid #dfe2e7;
+    border:1px solid #d9dfe3;
 
-    border-radius:10px;
+    border-radius:9px;
 
     box-shadow:
-        0 15px 40px rgba(0,0,0,.15),
-        0 3px 8px rgba(0,0,0,.08);
+        0 12px 35px rgba(30,40,50,.16),
+        0 2px 6px rgba(30,40,50,.08);
 
     overflow:hidden;
-
-    display:none;
 }
 
-.filter-top{
-    padding:13px 14px 10px;
+.filter-header{
+    padding:12px 13px;
 
-    border-bottom:1px solid #eceef1;
+    border-bottom:1px solid #e8ebed;
 }
 
 .filter-title{
-    color:#30353a;
+    font-size:12px;
 
-    font-size:13px;
+    font-weight:700;
 
-    font-weight:750;
+    color:#354149;
 }
 
 .filter-subtitle{
-    margin-top:3px;
+    margin-top:2px;
 
-    color:#959ba3;
+    font-size:9px;
 
-    font-size:10px;
+    color:#929ba2;
 }
 
 .filter-search-wrap{
-    padding:10px 12px 5px;
+    padding:9px 10px 4px;
 }
 
 .filter-search{
     width:100%;
-    height:34px;
+
+    height:33px;
 
     padding:0 9px;
 
-    border:1px solid #dfe2e7;
+    border:1px solid #d8dde2;
 
     border-radius:6px;
 
-    outline:0;
+    outline:none;
 
     font-family:inherit;
 
-    font-size:12px;
+    font-size:11px;
 }
 
 .filter-search:focus{
-    border-color:#67a987;
+    border-color:#78aeb8;
 
-    box-shadow:0 0 0 3px rgba(23,107,69,.07);
+    box-shadow:
+        0 0 0 3px rgba(40,124,140,.07);
 }
 
 .filter-actions{
     display:flex;
 
-    gap:6px;
+    gap:5px;
 
-    padding:6px 12px 9px;
+    padding:5px 10px 8px;
 }
 
 .filter-action{
     flex:1;
 
-    height:30px;
+    height:29px;
 
-    border:1px solid #dfe2e7;
+    border:1px solid #dce1e4;
 
-    border-radius:6px;
+    border-radius:5px;
 
     background:#ffffff;
 
-    color:#666d76;
+    color:#69727a;
 
     font-family:inherit;
 
-    font-size:11px;
+    font-size:10px;
 
     font-weight:650;
 
@@ -774,7 +738,7 @@ tbody tr:nth-child(even):hover td{
 }
 
 .filter-action:hover{
-    background:#f6f7f8;
+    background:#f5f7f8;
 }
 
 .filter-values{
@@ -782,50 +746,40 @@ tbody tr:nth-child(even):hover td{
 
     overflow-y:auto;
 
-    border-top:1px solid #eceef1;
-    border-bottom:1px solid #eceef1;
+    border-top:1px solid #e8ebed;
 
-    padding:5px 0;
-}
-
-.filter-values::-webkit-scrollbar{
-    width:7px;
-}
-
-.filter-values::-webkit-scrollbar-thumb{
-    background:#cfd3d8;
-
-    border-radius:10px;
+    border-bottom:1px solid #e8ebed;
 }
 
 .filter-value{
-    min-height:32px;
+    min-height:31px;
 
     display:flex;
+
     align-items:center;
 
     gap:8px;
 
-    padding:5px 12px;
+    padding:5px 11px;
 
     cursor:pointer;
 
-    color:#444a51;
+    color:#444c53;
 
-    font-size:12px;
+    font-size:11px;
 }
 
 .filter-value:hover{
-    background:#f5f8f6;
+    background:#f3f7f8;
 }
 
 .filter-value input{
-    width:15px;
-    height:15px;
+    width:14px;
+    height:14px;
 
-    accent-color:#176b45;
+    margin:0;
 
-    cursor:pointer;
+    accent-color:#287c8c;
 }
 
 .filter-value-text{
@@ -839,132 +793,140 @@ tbody tr:nth-child(even):hover td{
 .filter-footer{
     display:flex;
 
-    gap:7px;
+    gap:6px;
 
-    padding:10px 12px;
+    padding:9px 10px;
 }
 
 .filter-footer button{
     flex:1;
 
-    height:35px;
+    height:34px;
 
     border-radius:6px;
 
     font-family:inherit;
 
-    font-size:12px;
+    font-size:11px;
 
     font-weight:700;
 
     cursor:pointer;
 }
 
-.cancel-filter{
-    border:1px solid #dfe2e7;
+.cancel{
+    border:1px solid #d8dde2;
 
     background:#ffffff;
 
-    color:#666d76;
+    color:#69727a;
 }
 
-.apply-filter{
-    border:1px solid #176b45;
+.apply{
+    border:1px solid #287c8c;
 
-    background:#176b45;
+    background:#287c8c;
 
     color:#ffffff;
 }
 
-.apply-filter:hover{
-    background:#125638;
+.apply:hover{
+    background:#216b79;
 }
 
 
 /* =========================================================
-   MOBILE
+   RESPONSIVE TAB GRID
 ========================================================= */
 
-@media(max-width:800px){
+@media(max-width:1200px){
 
-    .app-header{
-        height:60px;
-
-        padding:0 12px;
+    .tabs-grid{
+        grid-template-columns:
+            repeat(6, minmax(0,1fr));
     }
 
-    .brand{
-        min-width:auto;
+}
+
+@media(max-width:900px){
+
+    .tabs-grid{
+        grid-template-columns:
+            repeat(4, minmax(0,1fr));
     }
 
-    .brand-text span{
-        display:none;
+    .search-box{
+        width:280px;
     }
 
-    .brand-text h1{
-        font-size:15px;
+}
+
+@media(max-width:650px){
+
+    body{
+        overflow:auto;
     }
 
-    .brand-icon{
-        width:34px;
-        height:34px;
+    .header{
+        height:56px;
     }
 
-    .header-status{
-        display:none;
+    .tabs-panel{
+        padding:8px;
     }
 
-    .tabs-shell{
-        height:52px;
-    }
-
-    .tabs{
-        padding:0 8px;
+    .tabs-grid{
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
     }
 
     .tab{
-        height:38px;
+        height:34px;
 
-        padding:0 11px;
-
-        font-size:11px;
+        font-size:10px;
     }
 
     .toolbar{
-        height:62px;
+        height:auto;
 
-        padding:9px;
+        min-height:56px;
 
-        gap:6px;
+        flex-wrap:wrap;
     }
 
     .search-box{
         flex:1;
 
-        min-width:0;
-
         width:auto;
 
-        height:38px;
+        min-width:180px;
     }
 
-    .clear-btn{
-        height:38px;
-
-        padding:0 9px;
-    }
-
-    .record-info{
+    .records{
         display:none;
     }
 
     .content{
-        top:174px;
+        position:relative;
+
+        top:auto;
     }
+
+    .table-area{
+        position:relative;
+
+        top:auto;
+
+        height:calc(100vh - 250px);
+
+        min-height:400px;
+    }
+
 }
 
 </style>
 </head>
+
 
 <body>
 
@@ -973,45 +935,35 @@ tbody tr:nth-child(even):hover td{
      HEADER
 ========================================================= -->
 
-<header class="app-header">
+<div class="header">
 
-    <div class="brand">
+    <div class="logo">
+        I
+    </div>
 
-        <div class="brand-icon">
-            I
+    <div class="header-text">
+
+        <div class="header-title">
+            Insurance All List
         </div>
 
-        <div class="brand-text">
-
-            <h1>Insurance All List</h1>
-
-            <span>
-                Insurance • Formulary • Coverage Reference
-            </span>
-
+        <div class="header-subtitle">
+            Insurance • Formulary • Coverage Reference
         </div>
 
     </div>
 
-    <div class="header-status">
-
-        <span class="status-dot"></span>
-
-        <span>Ready</span>
-
-    </div>
-
-</header>
+</div>
 
 
 <!-- =========================================================
      TABS
 ========================================================= -->
 
-<div class="tabs-shell">
+<div class="tabs-panel">
 
     <div
-        class="tabs"
+        class="tabs-grid"
         id="tabs"
     ></div>
 
@@ -1040,58 +992,50 @@ tbody tr:nth-child(even):hover td{
 
     </div>
 
+
     <button
-        class="clear-btn"
         id="clearButton"
+        class="clear-button"
     >
-        Clear
+        Clear Search & Filters
     </button>
+
 
     <div class="toolbar-spacer"></div>
 
-    <div
-        class="record-info"
-        id="recordInfo"
-    >
-        <span>Records</span>
 
-        <span
-            class="record-number"
-            id="recordNumber"
-        >
+    <div class="records">
+
+        Records:
+
+        <strong id="recordNumber">
             —
-        </span>
+        </strong>
+
     </div>
 
 </div>
 
 
 <!-- =========================================================
-     CONTENT
+     TABLE
 ========================================================= -->
 
-<main class="content">
+<div class="table-area" id="tableArea">
 
-    <div
-        class="table-wrapper"
-        id="tableWrapper"
-    >
+    <div class="loading">
 
-        <div class="loading-container">
+        <div class="loading-card">
 
-            <div class="loading-box">
+            <div class="spinner"></div>
 
-                <div class="spinner"></div>
-
-                <span>Loading...</span>
-
-            </div>
+            <span>Loading APG Formulary...</span>
 
         </div>
 
     </div>
 
-</main>
+</div>
 
 
 <!-- =========================================================
@@ -1103,7 +1047,7 @@ tbody tr:nth-child(even):hover td{
     id="filterPopup"
 >
 
-    <div class="filter-top">
+    <div class="filter-header">
 
         <div
             class="filter-title"
@@ -1113,7 +1057,7 @@ tbody tr:nth-child(even):hover td{
         </div>
 
         <div class="filter-subtitle">
-            Select the values you want to display
+            Select the exact values to display
         </div>
 
     </div>
@@ -1136,14 +1080,14 @@ tbody tr:nth-child(even):hover td{
 
         <button
             class="filter-action"
-            id="selectAllButton"
+            id="selectAll"
         >
             Select All
         </button>
 
         <button
             class="filter-action"
-            id="uncheckAllButton"
+            id="uncheckAll"
         >
             Uncheck All
         </button>
@@ -1160,15 +1104,15 @@ tbody tr:nth-child(even):hover td{
     <div class="filter-footer">
 
         <button
-            class="cancel-filter"
-            id="cancelFilterButton"
+            class="cancel"
+            id="cancelFilter"
         >
             Cancel
         </button>
 
         <button
-            class="apply-filter"
-            id="applyFilterButton"
+            class="apply"
+            id="applyFilter"
         >
             Apply
         </button>
@@ -1181,19 +1125,16 @@ tbody tr:nth-child(even):hover td{
 <script>
 
 /* =========================================================
-   TAB CONFIGURATION
-=========================================================
-
-   APG = FIRST
-   HAAD = SECOND
-   Everything else = randomized automatically.
+   FIRST TWO TABS
 ========================================================= */
 
 const firstTabs = [
 
     {
         id:"apg",
+
         name:"APG Formulary 09-09",
+
         files:[
             "APG Formulary 09-09.json"
         ]
@@ -1201,7 +1142,9 @@ const firstTabs = [
 
     {
         id:"haad",
+
         name:"HAAD List",
+
         files:[
             "HAAD_LIST_1.json",
             "HAAD_LIST_2.json",
@@ -1211,6 +1154,10 @@ const firstTabs = [
 
 ];
 
+
+/* =========================================================
+   REMAINING TABS
+========================================================= */
 
 const remainingTabs = [
 
@@ -1407,7 +1354,8 @@ function shuffle(array){
         [
             copy[i],
             copy[j]
-        ] = [
+        ] =
+        [
             copy[j],
             copy[i]
         ];
@@ -1431,48 +1379,28 @@ const tabsConfig = [
 
 let currentTab = null;
 
-let currentFilterColumn = null;
+let renderVersion = 0;
 
-let currentFilterValues = null;
+let filterColumn = null;
 
-let currentFilterAllValues = null;
+let temporarySelection = new Set();
 
-
-/*
-   Data is cached permanently after first load.
-
-   This is the main speed improvement:
-   reopening a tab does NOT download
-   the JSON again.
-*/
+let filterAllValues = [];
 
 const dataCache = new Map();
 
-
-/*
-   Filter state is kept separately for every tab.
-*/
-
-const filterState = new Map();
-
-
-/*
-   Render token prevents an old render from
-   overwriting a newer tab.
-*/
-
-let renderToken = 0;
+const filters = new Map();
 
 
 /* =========================================================
-   DOM
+   ELEMENTS
 ========================================================= */
 
 const tabsElement =
     document.getElementById("tabs");
 
-const tableWrapper =
-    document.getElementById("tableWrapper");
+const tableArea =
+    document.getElementById("tableArea");
 
 const globalSearch =
     document.getElementById("globalSearch");
@@ -1494,7 +1422,7 @@ const filterValues =
 
 
 /* =========================================================
-   HTML ESCAPE
+   ESCAPE
 ========================================================= */
 
 function escapeHTML(value){
@@ -1510,10 +1438,10 @@ function escapeHTML(value){
 
 
 /* =========================================================
-   VALUE TO STRING
+   VALUE
 ========================================================= */
 
-function valueToString(value){
+function valueString(value){
 
     if(
         value === null ||
@@ -1542,7 +1470,7 @@ function valueToString(value){
    JSON URL
 ========================================================= */
 
-function getJSONURL(file){
+function jsonURL(file){
 
     return "./" +
         encodeURIComponent(file)
@@ -1552,14 +1480,10 @@ function getJSONURL(file){
 
 
 /* =========================================================
-   LOAD JSON
+   LOAD ONE JSON
 ========================================================= */
 
 async function loadFile(file){
-
-    /*
-       CACHE CHECK
-    */
 
     if(dataCache.has(file)){
 
@@ -1570,7 +1494,7 @@ async function loadFile(file){
 
     const response =
         await fetch(
-            getJSONURL(file),
+            jsonURL(file),
             {
                 cache:"force-cache"
             }
@@ -1580,7 +1504,9 @@ async function loadFile(file){
     if(!response.ok){
 
         throw new Error(
-            `Could not load "${file}" — HTTP ${response.status}`
+            file +
+            " — HTTP " +
+            response.status
         );
 
     }
@@ -1593,37 +1519,22 @@ async function loadFile(file){
     let rows = data;
 
 
-    /*
-       Support several JSON structures.
-    */
-
     if(!Array.isArray(rows)){
 
-        if(Array.isArray(data.data)){
-
+        if(Array.isArray(data.data))
             rows = data.data;
 
-        }
-        else if(Array.isArray(data.rows)){
-
+        else if(Array.isArray(data.rows))
             rows = data.rows;
 
-        }
-        else if(Array.isArray(data.records)){
-
+        else if(Array.isArray(data.records))
             rows = data.records;
 
-        }
-        else if(Array.isArray(data.items)){
-
+        else if(Array.isArray(data.items))
             rows = data.items;
 
-        }
-        else{
-
+        else
             rows = [data];
-
-        }
 
     }
 
@@ -1641,29 +1552,23 @@ async function loadFile(file){
 
 async function loadTab(tab){
 
-    /*
-       Entire tab cached.
-    */
+    const cacheKey =
+        "__TAB__" + tab.id;
 
-    if(dataCache.has(
-        "__TAB__" + tab.id
-    )){
 
-        return dataCache.get(
-            "__TAB__" + tab.id
-        );
+    if(dataCache.has(cacheKey)){
+
+        return dataCache.get(cacheKey);
 
     }
 
 
     /*
-       IMPORTANT:
-
-       Promise.all loads HAAD 1,2,3
-       simultaneously instead of one after another.
+       All files in a tab load simultaneously.
+       HAAD therefore loads 1,2,3 in parallel.
     */
 
-    const fileResults =
+    const results =
         await Promise.all(
             tab.files.map(
                 file => loadFile(file)
@@ -1671,9 +1576,9 @@ async function loadTab(tab){
         );
 
 
-    let rows = [];
+    const rows = [];
 
-    for(const result of fileResults){
+    for(const result of results){
 
         rows.push(...result);
 
@@ -1681,7 +1586,7 @@ async function loadTab(tab){
 
 
     dataCache.set(
-        "__TAB__" + tab.id,
+        cacheKey,
         rows
     );
 
@@ -1692,7 +1597,7 @@ async function loadTab(tab){
 
 
 /* =========================================================
-   GET COLUMNS
+   COLUMNS
 ========================================================= */
 
 function getColumns(rows){
@@ -1701,14 +1606,19 @@ function getColumns(rows){
 
     const seen = new Set();
 
-    /*
-       Only inspect objects until all columns
-       have been discovered.
 
-       Usually this is very quick.
+    /*
+       Most JSON files have the same columns on every row.
+       Stop once all columns are found.
     */
 
-    for(const row of rows){
+    for(
+        let i = 0;
+        i < rows.length;
+        i++
+    ){
+
+        const row = rows[i];
 
         if(
             !row ||
@@ -1718,7 +1628,9 @@ function getColumns(rows){
         }
 
 
-        for(const key of Object.keys(row)){
+        for(
+            const key of Object.keys(row)
+        ){
 
             if(!seen.has(key)){
 
@@ -1731,6 +1643,7 @@ function getColumns(rows){
         }
 
     }
+
 
     return columns;
 
@@ -1745,29 +1658,39 @@ function createTabs(){
 
     tabsElement.innerHTML = "";
 
+
     tabsConfig.forEach(
         (tab,index)=>{
 
             const button =
                 document.createElement("button");
 
-            button.className = "tab";
 
-            button.dataset.id = tab.id;
+            button.className =
+                "tab";
 
-            button.innerHTML = `
-                <span class="tab-number">
-                    ${String(index + 1).padStart(2,"0")}
-                </span>
-                ${escapeHTML(tab.name)}
-            `;
+
+            button.dataset.id =
+                tab.id;
+
+
+            button.title =
+                tab.name;
+
+
+            button.textContent =
+                tab.name;
+
 
             button.addEventListener(
                 "click",
                 ()=>openTab(tab.id)
             );
 
-            tabsElement.appendChild(button);
+
+            tabsElement.appendChild(
+                button
+            );
 
         }
     );
@@ -1776,7 +1699,7 @@ function createTabs(){
 
 
 /* =========================================================
-   SET ACTIVE TAB
+   ACTIVE TAB
 ========================================================= */
 
 function setActiveTab(id){
@@ -1796,16 +1719,16 @@ function setActiveTab(id){
 
 
 /* =========================================================
-   LOADING UI
+   LOADING
 ========================================================= */
 
 function showLoading(name){
 
-    tableWrapper.innerHTML = `
+    tableArea.innerHTML = `
 
-        <div class="loading-container">
+        <div class="loading">
 
-            <div class="loading-box">
+            <div class="loading-card">
 
                 <div class="spinner"></div>
 
@@ -1838,27 +1761,21 @@ async function openTab(id){
         return;
 
 
-    /*
-       Change current tab immediately.
-    */
-
     currentTab = tab;
 
     setActiveTab(id);
 
+
     /*
-       Reset search only when changing tabs.
+       Search starts fresh on each tab.
     */
 
     globalSearch.value = "";
 
-    /*
-       Create filter state if necessary.
-    */
 
-    if(!filterState.has(id)){
+    if(!filters.has(id)){
 
-        filterState.set(
+        filters.set(
             id,
             new Map()
         );
@@ -1866,26 +1783,32 @@ async function openTab(id){
     }
 
 
-    const thisRender =
-        ++renderToken;
+    const version =
+        ++renderVersion;
 
 
     /*
-       If already cached, render immediately.
+       Already loaded?
+       Render immediately.
     */
 
-    if(dataCache.has(
-        "__TAB__" + tab.id
-    )){
+    if(
+        dataCache.has(
+            "__TAB__" + tab.id
+        )
+    ){
 
-        const rows =
+        tab.rows =
             dataCache.get(
                 "__TAB__" + tab.id
             );
 
-        tab.rows = rows;
 
-        renderTable(tab,thisRender);
+        renderTable(
+            tab,
+            version
+        );
+
 
         return;
 
@@ -1894,7 +1817,9 @@ async function openTab(id){
 
     showLoading(tab.name);
 
-    recordNumber.textContent = "Loading";
+
+    recordNumber.textContent =
+        "Loading";
 
 
     try{
@@ -1903,35 +1828,34 @@ async function openTab(id){
             await loadTab(tab);
 
 
-        /*
-           User may have clicked another tab
-           while this one was loading.
-        */
-
-        if(thisRender !== renderToken)
+        if(version !== renderVersion)
             return;
 
 
         tab.rows = rows;
 
-        renderTable(tab,thisRender);
+
+        renderTable(
+            tab,
+            version
+        );
 
     }
     catch(error){
 
-        if(thisRender !== renderToken)
+        if(version !== renderVersion)
             return;
 
 
         console.error(error);
 
 
-        tableWrapper.innerHTML = `
+        tableArea.innerHTML = `
 
-            <div class="error-state">
+            <div class="error">
 
                 <strong>
-                    Unable to load ${escapeHTML(tab.name)}
+                    Could not load ${escapeHTML(tab.name)}
                 </strong>
 
                 <br><br>
@@ -1941,14 +1865,16 @@ async function openTab(id){
                 <br><br>
 
                 Check that the JSON filename in GitHub
-                exactly matches the filename in this HTML.
+                exactly matches the filename configured
+                in this HTML file.
 
             </div>
 
         `;
 
 
-        recordNumber.textContent = "Error";
+        recordNumber.textContent =
+            "Error";
 
     }
 
@@ -1959,7 +1885,7 @@ async function openTab(id){
    SEARCH
 ========================================================= */
 
-function rowMatchesSearch(row){
+function matchesSearch(row){
 
     const search =
         globalSearch.value
@@ -1973,47 +1899,38 @@ function rowMatchesSearch(row){
 
     /*
        % = AND
-
-       Example:
-
-       500%10%4.2
-
-       means all 3 terms must exist.
     */
 
     const terms =
         search
             .split("%")
-            .map(term=>term.trim())
+            .map(x=>x.trim())
             .filter(Boolean);
 
 
-    /*
-       Search across all columns.
-    */
-
-    const text =
+    const rowText =
         Object.values(row)
-            .map(valueToString)
+            .map(valueString)
             .join(" ")
             .toLowerCase();
 
 
     return terms.every(
-        term => text.includes(term)
+        term =>
+            rowText.includes(term)
     );
 
 }
 
 
 /* =========================================================
-   FILTER MATCH
+   FILTER
 ========================================================= */
 
-function rowMatchesFilters(row){
+function matchesFilters(row){
 
     const state =
-        filterState.get(
+        filters.get(
             currentTab.id
         );
 
@@ -2027,16 +1944,12 @@ function rowMatchesFilters(row){
         of state
     ){
 
-        if(
-            !selected ||
-            selected.size === 0
-        ){
+        if(!selected)
             continue;
-        }
 
 
         const value =
-            valueToString(
+            valueString(
                 row[column]
             );
 
@@ -2053,24 +1966,28 @@ function rowMatchesFilters(row){
 
 
 /* =========================================================
-   FILTER + SEARCH DATA
+   GET VISIBLE ROWS
 ========================================================= */
 
 function getVisibleRows(rows){
 
     const result = [];
 
+
     for(const row of rows){
 
-        if(!rowMatchesFilters(row))
+        if(!matchesFilters(row))
             continue;
 
-        if(!rowMatchesSearch(row))
+
+        if(!matchesSearch(row))
             continue;
+
 
         result.push(row);
 
     }
+
 
     return result;
 
@@ -2081,9 +1998,9 @@ function getVisibleRows(rows){
    RENDER TABLE
 ========================================================= */
 
-function renderTable(tab,token){
+function renderTable(tab,version){
 
-    if(token !== renderToken)
+    if(version !== renderVersion)
         return;
 
 
@@ -2093,12 +2010,13 @@ function renderTable(tab,token){
 
     if(rows.length === 0){
 
-        tableWrapper.innerHTML =
-            `<div class="empty-state">
+        tableArea.innerHTML =
+            `<div class="empty">
                 No data found.
-            </div>`;
+             </div>`;
 
-        recordNumber.textContent = "0";
+        recordNumber.textContent =
+            "0";
 
         return;
 
@@ -2109,21 +2027,19 @@ function renderTable(tab,token){
         getColumns(rows);
 
 
-    const visibleRows =
+    const visible =
         getVisibleRows(rows);
 
 
     recordNumber.textContent =
-        visibleRows.length.toLocaleString();
+        visible.length.toLocaleString();
 
 
     /*
-       Build table shell immediately.
-
-       This makes the interface feel much faster.
+       Build table.
     */
 
-    tableWrapper.innerHTML = "";
+    tableArea.innerHTML = "";
 
 
     const table =
@@ -2139,11 +2055,11 @@ function renderTable(tab,token){
 
 
     const state =
-        filterState.get(tab.id);
+        filters.get(tab.id);
 
 
     columns.forEach(
-        (column,index)=>{
+        column=>{
 
             const th =
                 document.createElement("th");
@@ -2152,6 +2068,7 @@ function renderTable(tab,token){
             const inner =
                 document.createElement("div");
 
+
             inner.className =
                 "th-inner";
 
@@ -2159,11 +2076,14 @@ function renderTable(tab,token){
             const name =
                 document.createElement("span");
 
+
             name.className =
                 "th-name";
 
+
             name.textContent =
                 column;
+
 
             name.title =
                 column;
@@ -2171,6 +2091,7 @@ function renderTable(tab,token){
 
             const button =
                 document.createElement("button");
+
 
             button.className =
                 "filter-button";
@@ -2181,12 +2102,16 @@ function renderTable(tab,token){
                 state.has(column)
             ){
 
-                button.classList.add("active");
+                button.classList.add(
+                    "active"
+                );
 
             }
 
 
-            button.innerHTML = "▼";
+            button.textContent =
+                "▼";
+
 
             button.title =
                 "Filter " + column;
@@ -2197,6 +2122,7 @@ function renderTable(tab,token){
                 event=>{
 
                     event.stopPropagation();
+
 
                     openFilter(
                         column,
@@ -2230,24 +2156,23 @@ function renderTable(tab,token){
 
     table.appendChild(tbody);
 
-    tableWrapper.appendChild(table);
+    tableArea.appendChild(table);
 
 
     /*
-       Chunked rendering.
-
-       Instead of creating thousands of DOM rows
-       in one operation, create them in batches.
+       Render in chunks.
     */
 
-    const CHUNK_SIZE = 250;
+    const CHUNK =
+        300;
+
 
     let position = 0;
 
 
     function renderChunk(){
 
-        if(token !== renderToken)
+        if(version !== renderVersion)
             return;
 
 
@@ -2257,8 +2182,8 @@ function renderTable(tab,token){
 
         const end =
             Math.min(
-                position + CHUNK_SIZE,
-                visibleRows.length
+                position + CHUNK,
+                visible.length
             );
 
 
@@ -2269,7 +2194,7 @@ function renderTable(tab,token){
         ){
 
             const row =
-                visibleRows[i];
+                visible[i];
 
 
             const tr =
@@ -2283,7 +2208,7 @@ function renderTable(tab,token){
 
 
                 td.textContent =
-                    valueToString(
+                    valueString(
                         row[column]
                     );
 
@@ -2304,7 +2229,7 @@ function renderTable(tab,token){
         position = end;
 
 
-        if(position < visibleRows.length){
+        if(position < visible.length){
 
             requestAnimationFrame(
                 renderChunk
@@ -2332,15 +2257,9 @@ function openFilter(column,button){
         return;
 
 
-    currentFilterColumn =
+    filterColumn =
         column;
 
-
-    /*
-       Get all values from current dataset.
-
-       Use Set to eliminate duplicates.
-    */
 
     const values =
         new Set();
@@ -2351,7 +2270,7 @@ function openFilter(column,button){
     ){
 
         values.add(
-            valueToString(
+            valueString(
                 row[column]
             )
         );
@@ -2359,11 +2278,11 @@ function openFilter(column,button){
     }
 
 
-    let allValues =
+    filterAllValues =
         Array.from(values);
 
 
-    allValues.sort(
+    filterAllValues.sort(
         (a,b)=>
             a.localeCompare(
                 b,
@@ -2376,16 +2295,8 @@ function openFilter(column,button){
     );
 
 
-    currentFilterAllValues =
-        allValues;
-
-
-    /*
-       Existing selected values.
-    */
-
     const state =
-        filterState.get(
+        filters.get(
             currentTab.id
         );
 
@@ -2395,28 +2306,18 @@ function openFilter(column,button){
         state.get(column);
 
 
-    /*
-       Clone selection.
-
-       Important so Cancel does not alter
-       the real filter.
-    */
-
     if(existing){
 
-        currentFilterValues =
+        temporarySelection =
             new Set(existing);
 
     }
     else{
 
-        /*
-           No active filter =
-           everything selected.
-        */
-
-        currentFilterValues =
-            new Set(allValues);
+        temporarySelection =
+            new Set(
+                filterAllValues
+            );
 
     }
 
@@ -2431,6 +2332,10 @@ function openFilter(column,button){
     renderFilterValues();
 
 
+    filterPopup.style.display =
+        "block";
+
+
     /*
        Position popup.
     */
@@ -2439,19 +2344,11 @@ function openFilter(column,button){
         button.getBoundingClientRect();
 
 
-    filterPopup.style.display =
-        "block";
-
-
-    /*
-       Temporarily make visible so dimensions
-       are available.
-    */
-
-    const popupWidth =
+    const width =
         filterPopup.offsetWidth;
 
-    const popupHeight =
+
+    const height =
         filterPopup.offsetHeight;
 
 
@@ -2460,41 +2357,41 @@ function openFilter(column,button){
 
 
     let top =
-        rect.bottom + 6;
+        rect.bottom + 5;
 
 
     if(
-        left + popupWidth >
+        left + width >
         window.innerWidth - 10
     ){
 
         left =
             window.innerWidth -
-            popupWidth -
+            width -
             10;
 
     }
 
 
     if(
-        top + popupHeight >
+        top + height >
         window.innerHeight - 10
     ){
 
         top =
             rect.top -
-            popupHeight -
-            6;
+            height -
+            5;
 
     }
 
 
-    if(top < 10)
-        top = 10;
-
-
     if(left < 10)
         left = 10;
+
+
+    if(top < 10)
+        top = 10;
 
 
     filterPopup.style.left =
@@ -2511,7 +2408,7 @@ function openFilter(column,button){
 
 
 /* =========================================================
-   RENDER FILTER VALUES
+   FILTER VALUES
 ========================================================= */
 
 function renderFilterValues(){
@@ -2529,9 +2426,11 @@ function renderFilterValues(){
         document.createDocumentFragment();
 
 
-    for(const value of currentFilterAllValues){
+    for(
+        const value of filterAllValues
+    ){
 
-        const displayValue =
+        const display =
             value === ""
                 ? "(Blank)"
                 : value;
@@ -2539,7 +2438,7 @@ function renderFilterValues(){
 
         if(
             search &&
-            !displayValue
+            !display
                 .toLowerCase()
                 .includes(search)
         ){
@@ -2566,11 +2465,9 @@ function renderFilterValues(){
 
 
         checkbox.checked =
-            currentFilterValues.has(value);
-
-
-        checkbox.dataset.value =
-            value;
+            temporarySelection.has(
+                value
+            );
 
 
         checkbox.addEventListener(
@@ -2579,14 +2476,14 @@ function renderFilterValues(){
 
                 if(checkbox.checked){
 
-                    currentFilterValues.add(
+                    temporarySelection.add(
                         value
                     );
 
                 }
                 else{
 
-                    currentFilterValues.delete(
+                    temporarySelection.delete(
                         value
                     );
 
@@ -2605,11 +2502,11 @@ function renderFilterValues(){
 
 
         text.textContent =
-            displayValue;
+            display;
 
 
         text.title =
-            displayValue;
+            display;
 
 
         label.appendChild(
@@ -2651,14 +2548,14 @@ filterSearch.addEventListener(
 ========================================================= */
 
 document
-    .getElementById("selectAllButton")
+    .getElementById("selectAll")
     .addEventListener(
         "click",
         ()=>{
 
-            currentFilterValues =
+            temporarySelection =
                 new Set(
-                    currentFilterAllValues
+                    filterAllValues
                 );
 
 
@@ -2673,12 +2570,12 @@ document
 ========================================================= */
 
 document
-    .getElementById("uncheckAllButton")
+    .getElementById("uncheckAll")
     .addEventListener(
         "click",
         ()=>{
 
-            currentFilterValues =
+            temporarySelection =
                 new Set();
 
 
@@ -2689,62 +2586,52 @@ document
 
 
 /* =========================================================
-   APPLY FILTER
+   APPLY
 ========================================================= */
 
 document
-    .getElementById("applyFilterButton")
+    .getElementById("applyFilter")
     .addEventListener(
         "click",
         ()=>{
 
             if(
                 !currentTab ||
-                currentFilterColumn === null
+                filterColumn === null
             ){
+
                 return;
+
             }
 
 
             const state =
-                filterState.get(
+                filters.get(
                     currentTab.id
                 );
 
 
             /*
-               All selected =
-               no filter required.
+               All values selected =
+               no active filter.
             */
 
             if(
-                currentFilterValues.size ===
-                currentFilterAllValues.length
+                temporarySelection.size ===
+                filterAllValues.length
             ){
 
                 state.delete(
-                    currentFilterColumn
+                    filterColumn
                 );
 
             }
             else{
 
-                /*
-                   Store exact selected values.
-
-                   This is important:
-
-                   If user selects "Combination",
-                   only "Combination" is shown.
-
-                   Other values containing
-                   "Combination" are NOT automatically shown.
-                */
-
                 state.set(
-                    currentFilterColumn,
+                    filterColumn,
                     new Set(
-                        currentFilterValues
+                        temporarySelection
                     )
                 );
 
@@ -2756,7 +2643,7 @@ document
 
             renderTable(
                 currentTab,
-                ++renderToken
+                ++renderVersion
             );
 
         }
@@ -2764,11 +2651,11 @@ document
 
 
 /* =========================================================
-   CANCEL FILTER
+   CANCEL
 ========================================================= */
 
 document
-    .getElementById("cancelFilterButton")
+    .getElementById("cancelFilter")
     .addEventListener(
         "click",
         closeFilter
@@ -2784,20 +2671,14 @@ function closeFilter(){
     filterPopup.style.display =
         "none";
 
-    currentFilterColumn =
-        null;
-
-    currentFilterValues =
-        null;
-
-    currentFilterAllValues =
+    filterColumn =
         null;
 
 }
 
 
 /* =========================================================
-   CLEAR ALL
+   CLEAR SEARCH + FILTERS
 ========================================================= */
 
 document
@@ -2813,15 +2694,18 @@ document
             globalSearch.value = "";
 
 
-            filterState.set(
+            filters.set(
                 currentTab.id,
                 new Map()
             );
 
 
+            closeFilter();
+
+
             renderTable(
                 currentTab,
-                ++renderToken
+                ++renderVersion
             );
 
         }
@@ -2829,7 +2713,7 @@ document
 
 
 /* =========================================================
-   GLOBAL SEARCH
+   SEARCH DEBOUNCE
 ========================================================= */
 
 let searchTimer = null;
@@ -2838,11 +2722,6 @@ let searchTimer = null;
 globalSearch.addEventListener(
     "input",
     ()=>{
-
-        /*
-           Small debounce prevents rendering
-           on every single keystroke.
-        */
 
         clearTimeout(searchTimer);
 
@@ -2857,7 +2736,7 @@ globalSearch.addEventListener(
 
                     renderTable(
                         currentTab,
-                        ++renderToken
+                        ++renderVersion
                     );
 
                 },
@@ -2916,13 +2795,13 @@ createTabs();
 
 
 /*
-   APG is ALWAYS first and loads first.
+   APG is always first.
 */
 
 openTab("apg");
-
 
 </script>
 
 </body>
 </html>
+```
