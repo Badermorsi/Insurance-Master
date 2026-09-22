@@ -31,7 +31,7 @@ body{
 
 .topbar{
     height:54px;
-    background:#ffffff;
+    background:#fff;
     border-bottom:1px solid #dfe7ea;
     display:flex;
     align-items:center;
@@ -46,7 +46,6 @@ body{
     font-size:18px;
     font-weight:800;
     color:#15343d;
-    letter-spacing:-.3px;
 }
 
 .brand-logo{
@@ -55,7 +54,6 @@ body{
     border-radius:8px;
     background:linear-gradient(145deg,#147b8c,#0e5969);
     position:relative;
-    box-shadow:0 3px 8px rgba(15,100,120,.2);
 }
 
 .brand-logo:before,
@@ -85,7 +83,7 @@ body{
 ========================================================= */
 
 .tabs-area{
-    background:#ffffff;
+    background:#fff;
     border-bottom:1px solid #dce5e8;
     padding:7px 10px 8px;
 }
@@ -126,7 +124,7 @@ body{
 }
 
 /* =========================================================
-   TABLE HEADER BAR
+   TOOLBAR
 ========================================================= */
 
 .table-toolbar{
@@ -172,7 +170,7 @@ body{
 }
 
 /* =========================================================
-   TABLE AREA
+   NORMAL TABLE
 ========================================================= */
 
 .table-wrap{
@@ -234,7 +232,7 @@ tbody tr:hover td{
 }
 
 /* =========================================================
-   FILTER BUTTON
+   FILTER
 ========================================================= */
 
 .filter-btn{
@@ -260,10 +258,6 @@ tbody tr:hover td{
     background:#55c3d4;
     color:#07353e;
 }
-
-/* =========================================================
-   FILTER POPUP
-========================================================= */
 
 .filter-popup{
     position:fixed;
@@ -297,13 +291,8 @@ tbody tr:hover td{
     font-size:11px;
 }
 
-.filter-search:focus{
-    border-color:#14778a;
-}
-
 .filter-actions{
     display:flex;
-    align-items:center;
     gap:5px;
     margin-top:7px;
 }
@@ -315,10 +304,6 @@ tbody tr:hover td{
     padding:4px 7px;
     font-size:10px;
     cursor:pointer;
-}
-
-.filter-actions button:hover{
-    background:#edf5f6;
 }
 
 .filter-options{
@@ -408,18 +393,20 @@ tbody tr:hover td{
 }
 
 @keyframes spin{
-    to{transform:rotate(360deg)}
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 /* =========================================================
-   ELIGIBILITY PORTALS SPECIAL TABLE
+   ELIGIBILITY PORTALS
 ========================================================= */
 
 .eligibility-wrap{
     height:100%;
     overflow:auto;
     background:#fff;
-    padding:18px;
+    padding:16px;
 }
 
 .eligibility-table{
@@ -429,79 +416,149 @@ tbody tr:hover td{
     min-width:900px;
 }
 
-.eligibility-table th,
-.eligibility-table td{
-    border:1px solid #cbd9dc;
+.eligibility-table td,
+.eligibility-table th{
+    border:1px solid #bfcfd3;
 }
 
-.eligibility-table td{
-    height:35px;
-    font-size:12px;
-    padding:6px 9px;
+/* A1:B2 EMPTY */
+
+.eligibility-empty{
+    background:#fff !important;
+    height:34px;
+}
+
+/* C1 / C2 */
+
+.eligibility-top-label{
+    background:#eef4f5 !important;
+    font-weight:800 !important;
+    font-size:13px !important;
     text-align:center;
     vertical-align:middle;
-    background:#fff;
-    white-space:normal;
-    overflow:visible;
-    text-overflow:clip;
 }
 
-.eligibility-table .top-label{
-    background:#eef5f6;
-    font-weight:800;
-    color:#29474f;
-    font-size:12px;
+/* AL AIN */
+
+.eligibility-alain{
+    background:#dceff2 !important;
+    color:#174954 !important;
+    font-size:16px !important;
+    font-weight:900 !important;
+    text-align:center;
+    vertical-align:middle;
 }
 
-.eligibility-table .al-ain{
-    background:#dceff2;
-    font-size:15px;
-    font-weight:900;
-    color:#174954;
+/* BRANCHES */
+
+.eligibility-branch{
+    background:#f5f8f9 !important;
+    color:#29474f !important;
+    font-size:12px !important;
+    font-weight:800 !important;
+    text-align:center;
+    vertical-align:middle;
+    height:38px;
 }
 
-.eligibility-table .branch{
-    background:#f5f8f9;
-    font-weight:800;
-    font-size:12px;
-}
+/* ROW 3 */
 
-.eligibility-table .main-header{
-    height:52px;
-    background:#173d47;
-    color:#fff;
-    font-size:14px;
-    font-weight:900;
+.eligibility-header{
+    height:52px !important;
+    background:#173d47 !important;
+    color:#fff !important;
+    font-size:15px !important;
+    font-weight:900 !important;
+    text-align:center;
+    vertical-align:middle;
+    position:relative;
     line-height:1.15;
 }
 
-.eligibility-table .portal-name{
-    font-weight:800;
-    font-size:12px;
-    color:#183d46;
+/* COLUMN A ALL BOLD */
+
+.eligibility-portal{
+    font-weight:900 !important;
+    font-size:13px !important;
+    color:#163d47 !important;
+    text-align:center;
+    vertical-align:middle;
+    background:#f7fafb !important;
+    white-space:normal !important;
 }
 
-.eligibility-table .link-cell a{
+/* COLUMN B */
+
+.eligibility-link{
+    text-align:center;
+    vertical-align:middle;
+    font-size:11px !important;
+    background:#fff !important;
+    word-break:break-word;
+}
+
+.eligibility-link a{
     color:#08728a;
     font-weight:700;
     text-decoration:none;
 }
 
-.eligibility-table .link-cell a:hover{
+.eligibility-link a:hover{
     text-decoration:underline;
 }
 
-.eligibility-table .license{
-    font-weight:700;
-    color:#405960;
+/* C-F */
+
+.eligibility-data{
+    text-align:center;
+    vertical-align:middle;
+    font-size:12px !important;
+    color:#263a41;
+    background:#fff !important;
+    white-space:normal !important;
+    word-break:break-word;
 }
 
-.eligibility-table tr.data-row:hover td{
-    background:#edf6f8;
+.eligibility-label{
+    font-weight:800 !important;
+    color:#31525b !important;
+    background:#f6f9fa !important;
 }
 
-.eligibility-table tr.data-row:hover td[rowspan]{
-    background:#e4f2f4;
+/* HOVER */
+
+.eligibility-data-row:hover td{
+    background:#edf6f8 !important;
+}
+
+.eligibility-data-row:hover .eligibility-portal{
+    background:#e3f1f3 !important;
+}
+
+/* ONLY A3 FILTER */
+
+.eligibility-filter-btn{
+    position:absolute;
+    right:6px;
+    top:50%;
+    transform:translateY(-50%);
+    width:25px;
+    height:25px;
+    border:0;
+    border-radius:5px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    cursor:pointer;
+    font-size:11px;
+}
+
+.eligibility-filter-btn:hover{
+    background:rgba(255,255,255,.25);
+}
+
+.eligibility-filter-btn.filtered{
+    background:#55c3d4;
+    color:#07353e;
 }
 
 /* =========================================================
@@ -537,10 +594,6 @@ tbody tr:hover td{
         grid-template-columns:repeat(3,minmax(0,1fr));
     }
 
-    .tab{
-        font-size:9px;
-    }
-
     .eligibility-wrap{
         padding:8px;
     }
@@ -561,6 +614,7 @@ tbody tr:hover td{
     </div>
 </div>
 
+
 <!-- =========================================================
      TABS
 ========================================================= -->
@@ -569,29 +623,48 @@ tbody tr:hover td{
     <div id="tabs" class="tabs"></div>
 </div>
 
+
 <!-- =========================================================
      TOOLBAR
 ========================================================= -->
 
 <div class="table-toolbar">
-    <div id="tableTitle" class="table-title">Loading...</div>
+
+    <div id="tableTitle" class="table-title">
+        Loading...
+    </div>
 
     <div class="table-info">
+
         <div id="recordCount" class="record-count"></div>
-        <button id="clearFilters" class="clear-btn">Clear Filters</button>
+
+        <button
+            id="clearFilters"
+            class="clear-btn"
+        >
+            Clear Filters
+        </button>
+
     </div>
 </div>
+
 
 <!-- =========================================================
      MAIN
 ========================================================= -->
 
 <div id="mainArea" class="table-wrap">
+
     <div class="loading">
+
         <div class="spinner"></div>
+
         Loading...
+
     </div>
+
 </div>
+
 
 <!-- =========================================================
      FILTER POPUP
@@ -600,6 +673,7 @@ tbody tr:hover td{
 <div id="filterPopup" class="filter-popup">
 
     <div class="filter-top">
+
         <input
             id="filterSearch"
             class="filter-search"
@@ -608,24 +682,49 @@ tbody tr:hover td{
         >
 
         <div class="filter-actions">
-            <button id="selectAll">Select All</button>
-            <button id="unselectAll">Unselect All</button>
+
+            <button id="selectAll">
+                Select All
+            </button>
+
+            <button id="unselectAll">
+                Unselect All
+            </button>
+
         </div>
+
     </div>
 
-    <div id="filterOptions" class="filter-options"></div>
+    <div
+        id="filterOptions"
+        class="filter-options"
+    ></div>
 
     <div class="filter-bottom">
-        <button id="cancelFilter" class="cancel-filter">Cancel</button>
-        <button id="applyFilter" class="apply-filter">Apply</button>
+
+        <button
+            id="cancelFilter"
+            class="cancel-filter"
+        >
+            Cancel
+        </button>
+
+        <button
+            id="applyFilter"
+            class="apply-filter"
+        >
+            Apply
+        </button>
+
     </div>
 
 </div>
 
+
 <script>
 
 /* =========================================================
-   FILE CONFIGURATION
+   TAB CONFIGURATION
 ========================================================= */
 
 const tabsConfig = [
@@ -826,8 +925,8 @@ const filterState = new Map();
 
 let currentTab = null;
 
-let activeFilterColumn = null;
 let activeFilterTab = null;
+let activeFilterColumn = null;
 
 let temporaryFilterValues = new Set();
 
@@ -836,20 +935,76 @@ let temporaryFilterValues = new Set();
    DOM
 ========================================================= */
 
-const tabsEl = document.getElementById("tabs");
-const mainArea = document.getElementById("mainArea");
-const tableTitle = document.getElementById("tableTitle");
-const recordCount = document.getElementById("recordCount");
-const clearFilters = document.getElementById("clearFilters");
+const tabsEl =
+    document.getElementById("tabs");
 
-const filterPopup = document.getElementById("filterPopup");
-const filterSearch = document.getElementById("filterSearch");
-const filterOptions = document.getElementById("filterOptions");
+const mainArea =
+    document.getElementById("mainArea");
 
-const selectAll = document.getElementById("selectAll");
-const unselectAll = document.getElementById("unselectAll");
-const cancelFilter = document.getElementById("cancelFilter");
-const applyFilter = document.getElementById("applyFilter");
+const tableTitle =
+    document.getElementById("tableTitle");
+
+const recordCount =
+    document.getElementById("recordCount");
+
+const clearFilters =
+    document.getElementById("clearFilters");
+
+const filterPopup =
+    document.getElementById("filterPopup");
+
+const filterSearch =
+    document.getElementById("filterSearch");
+
+const filterOptions =
+    document.getElementById("filterOptions");
+
+const selectAll =
+    document.getElementById("selectAll");
+
+const unselectAll =
+    document.getElementById("unselectAll");
+
+const cancelFilter =
+    document.getElementById("cancelFilter");
+
+const applyFilter =
+    document.getElementById("applyFilter");
+
+
+/* =========================================================
+   NORMALIZE
+========================================================= */
+
+function normalize(value){
+
+    return String(value ?? "")
+        .trim()
+        .toLowerCase();
+}
+
+
+/* =========================================================
+   FORMAT VALUE
+========================================================= */
+
+function formatValue(value){
+
+    if(value === null || value === undefined){
+        return "";
+    }
+
+    if(typeof value === "object"){
+
+        try{
+            return JSON.stringify(value);
+        }catch{
+            return String(value);
+        }
+    }
+
+    return String(value);
+}
 
 
 /* =========================================================
@@ -862,15 +1017,17 @@ function createTabs(){
 
     tabsConfig.forEach(tab => {
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
 
         button.className = "tab";
         button.textContent = tab.name;
         button.dataset.id = tab.id;
 
-        button.addEventListener("click", () => {
-            openTab(tab.id);
-        });
+        button.addEventListener(
+            "click",
+            () => openTab(tab.id)
+        );
 
         tabsEl.appendChild(button);
     });
@@ -883,20 +1040,23 @@ function createTabs(){
 
 async function loadFile(file){
 
-    const response = await fetch(
-        "./" + encodeURIComponent(file),
-        {
-            cache:"force-cache"
-        }
-    );
+    const response =
+        await fetch(
+            "./" + encodeURIComponent(file),
+            {
+                cache:"force-cache"
+            }
+        );
 
     if(!response.ok){
+
         throw new Error(
             `Cannot load ${file} (${response.status})`
         );
     }
 
-    const json = await response.json();
+    const json =
+        await response.json();
 
     if(Array.isArray(json)){
         return json;
@@ -932,9 +1092,12 @@ async function loadTab(tab){
         return cache.get(tab.id);
     }
 
-    const parts = await Promise.all(
-        tab.files.map(file => loadFile(file))
-    );
+    const parts =
+        await Promise.all(
+            tab.files.map(
+                file => loadFile(file)
+            )
+        );
 
     let rows = [];
 
@@ -942,7 +1105,10 @@ async function loadTab(tab){
         rows = rows.concat(part);
     });
 
-    cache.set(tab.id, rows);
+    cache.set(
+        tab.id,
+        rows
+    );
 
     return rows;
 }
@@ -952,7 +1118,7 @@ async function loadTab(tab){
    GET COLUMNS
 ========================================================= */
 
-function getColumns(tab, rows){
+function getColumns(tab,rows){
 
     const set = new Set();
 
@@ -967,23 +1133,29 @@ function getColumns(tab, rows){
         });
     });
 
-    let columns = Array.from(set);
-
-    /* APG THIQA/BASIC MUST BE FAR RIGHT */
+    let columns =
+        Array.from(set);
 
     if(tab.id === "apg"){
 
-        const thiqa = columns.find(
-            c => String(c).trim().toLowerCase() === "thiqa"
-        );
+        const thiqa =
+            columns.find(
+                c =>
+                    normalize(c) === "thiqa"
+            );
 
-        const basic = columns.find(
-            c => String(c).trim().toLowerCase() === "basic"
-        );
+        const basic =
+            columns.find(
+                c =>
+                    normalize(c) === "basic"
+            );
 
-        columns = columns.filter(
-            c => c !== thiqa && c !== basic
-        );
+        columns =
+            columns.filter(
+                c =>
+                    c !== thiqa &&
+                    c !== basic
+            );
 
         if(thiqa){
             columns.push(thiqa);
@@ -999,89 +1171,34 @@ function getColumns(tab, rows){
 
 
 /* =========================================================
-   FORMAT VALUE
-========================================================= */
-
-function formatValue(value){
-
-    if(value === null || value === undefined){
-        return "";
-    }
-
-    if(typeof value === "object"){
-        try{
-            return JSON.stringify(value);
-        }catch{
-            return String(value);
-        }
-    }
-
-    return String(value);
-}
-
-
-/* =========================================================
-   NORMALIZE
-========================================================= */
-
-function normalize(value){
-
-    return String(value ?? "")
-        .trim()
-        .toLowerCase();
-}
-
-
-/* =========================================================
-   YES / NO
-========================================================= */
-
-function yesNoClass(tab,column,value){
-
-    if(tab.id !== "apg"){
-        return "";
-    }
-
-    const name = normalize(column);
-    const val = normalize(value);
-
-    if(
-        (name === "thiqa" || name === "basic") &&
-        val === "yes"
-    ){
-        return "apg-yes";
-    }
-
-    if(
-        (name === "thiqa" || name === "basic") &&
-        val === "no"
-    ){
-        return "apg-no";
-    }
-
-    return "";
-}
-
-
-/* =========================================================
    FILTER MATCH
 ========================================================= */
 
 function matchesFilters(tabId,row){
 
-    const filters = filterState.get(tabId);
+    const filters =
+        filterState.get(tabId);
 
     if(!filters){
         return true;
     }
 
-    for(const [column,selected] of filters){
+    for(
+        const [column,selected]
+        of filters
+    ){
 
-        if(!selected || selected.size === 0){
+        if(
+            !selected ||
+            selected.size === 0
+        ){
             continue;
         }
 
-        const value = formatValue(row[column]);
+        const value =
+            formatValue(
+                row[column]
+            );
 
         if(!selected.has(value)){
             return false;
@@ -1093,31 +1210,19 @@ function matchesFilters(tabId,row){
 
 
 /* =========================================================
-   FILTER ROWS
+   FILTERED ROWS
 ========================================================= */
 
 function filteredRows(tabId,rows){
 
     return rows.filter(
-        row => matchesFilters(tabId,row)
+        row =>
+            matchesFilters(
+                tabId,
+                row
+            )
     );
 }
-
-
-/* =========================================================
-   CLEAR FILTERS
-========================================================= */
-
-clearFilters.addEventListener("click",()=>{
-
-    if(!currentTab){
-        return;
-    }
-
-    filterState.delete(currentTab.id);
-
-    renderCurrentTab();
-});
 
 
 /* =========================================================
@@ -1126,9 +1231,10 @@ clearFilters.addEventListener("click",()=>{
 
 async function openTab(id){
 
-    const tab = tabsConfig.find(
-        t => t.id === id
-    );
+    const tab =
+        tabsConfig.find(
+            t => t.id === id
+        );
 
     if(!tab){
         return;
@@ -1146,7 +1252,9 @@ async function openTab(id){
             );
         });
 
-    tableTitle.textContent = tab.name;
+    tableTitle.textContent =
+        tab.name;
+
     recordCount.textContent = "";
 
     closeFilterPopup();
@@ -1160,9 +1268,13 @@ async function openTab(id){
 
     try{
 
-        const rows = await loadTab(tab);
+        const rows =
+            await loadTab(tab);
 
-        if(currentTab.id !== id){
+        if(
+            !currentTab ||
+            currentTab.id !== id
+        ){
             return;
         }
 
@@ -1182,26 +1294,29 @@ async function openTab(id){
 
 
 /* =========================================================
-   RENDER CURRENT
+   RENDER CURRENT TAB
 ========================================================= */
 
-async function renderCurrentTab(rows){
+function renderCurrentTab(rows){
 
     if(!currentTab){
         return;
     }
 
-    if(!rows){
-        rows = cache.get(currentTab.id) || [];
-    }
-
-    if(currentTab.special === "eligibility"){
+    if(
+        currentTab.special ===
+        "eligibility"
+    ){
 
         renderEligibility(rows);
+
         return;
     }
 
-    renderNormalTable(currentTab,rows);
+    renderNormalTable(
+        currentTab,
+        rows
+    );
 }
 
 
@@ -1211,24 +1326,36 @@ async function renderCurrentTab(rows){
 
 function renderNormalTable(tab,rows){
 
-    const columns = getColumns(tab,rows);
-    const visibleRows = filteredRows(tab.id,rows);
+    const columns =
+        getColumns(
+            tab,
+            rows
+        );
+
+    const visibleRows =
+        filteredRows(
+            tab.id,
+            rows
+        );
 
     recordCount.textContent =
         `${visibleRows.length.toLocaleString()} / ${rows.length.toLocaleString()} records`;
 
     mainArea.innerHTML = "";
 
-    const table = document.createElement("table");
-    table.className = "table";
+    const table =
+        document.createElement("table");
 
-    /* WIDTHS */
+    table.className =
+        "table";
 
-    const colgroup = document.createElement("colgroup");
+    const colgroup =
+        document.createElement("colgroup");
 
     columns.forEach(column => {
 
-        const col = document.createElement("col");
+        const col =
+            document.createElement("col");
 
         let width = 110;
 
@@ -1239,16 +1366,24 @@ function renderNormalTable(tab,rows){
                 normalize(column) === "basic"
             )
         ){
+
             width = 82;
+
         }else{
 
             let maxLength =
                 String(column).length;
 
-            for(let i=0;i<Math.min(rows.length,180);i++){
+            for(
+                let i=0;
+                i<Math.min(rows.length,180);
+                i++
+            ){
 
                 const value =
-                    formatValue(rows[i]?.[column]);
+                    formatValue(
+                        rows[i]?.[column]
+                    );
 
                 maxLength =
                     Math.max(
@@ -1267,87 +1402,145 @@ function renderNormalTable(tab,rows){
                 );
 
             if(maxLength <= 12){
-                width = Math.min(width,105);
+                width =
+                    Math.min(
+                        width,
+                        105
+                    );
             }
         }
 
-        col.style.width = width + "px";
+        col.style.width =
+            width + "px";
 
         colgroup.appendChild(col);
     });
 
     table.appendChild(colgroup);
 
+
     /* HEADER */
 
-    const thead = document.createElement("thead");
-    const headerRow = document.createElement("tr");
+    const thead =
+        document.createElement("thead");
+
+    const headerRow =
+        document.createElement("tr");
 
     columns.forEach(column => {
 
-        const th = document.createElement("th");
+        const th =
+            document.createElement("th");
 
-        th.textContent = column;
+        th.textContent =
+            column;
 
         const button =
             document.createElement("button");
 
-        button.className = "filter-btn";
-        button.innerHTML = "▼";
-        button.title = "Filter";
+        button.className =
+            "filter-btn";
+
+        button.innerHTML =
+            "▼";
 
         const existing =
-            filterState.get(tab.id)?.get(column);
+            filterState
+                .get(tab.id)
+                ?.get(column);
 
         if(existing){
-            button.classList.add("filtered");
+            button.classList.add(
+                "filtered"
+            );
         }
 
-        button.addEventListener("click",(event)=>{
-            event.stopPropagation();
+        button.addEventListener(
+            "click",
+            event => {
 
-            openFilter(
-                tab,
-                rows,
-                column,
-                button
-            );
-        });
+                event.stopPropagation();
+
+                openFilter(
+                    tab,
+                    rows,
+                    column,
+                    button
+                );
+            }
+        );
 
         th.appendChild(button);
+
         headerRow.appendChild(th);
     });
 
     thead.appendChild(headerRow);
+
     table.appendChild(thead);
+
 
     /* BODY */
 
-    const tbody = document.createElement("tbody");
+    const tbody =
+        document.createElement("tbody");
 
     visibleRows.forEach(row => {
 
-        const tr = document.createElement("tr");
+        const tr =
+            document.createElement("tr");
 
         columns.forEach(column => {
 
-            const td = document.createElement("td");
+            const td =
+                document.createElement("td");
 
             const value =
-                formatValue(row[column]);
-
-            td.textContent = value;
-            td.title = value;
-
-            const specialClass =
-                yesNoClass(
-                    tab,
-                    column,
-                    value
+                formatValue(
+                    row[column]
                 );
 
-            if(specialClass){
-                td.classList.add(specialClass);
+            td.textContent =
+                value;
+
+            td.title =
+                value;
+
+            if(
+                tab.id === "apg"
+            ){
+
+                const name =
+                    normalize(column);
+
+                const val =
+                    normalize(value);
+
+                if(
+                    (
+                        name === "thiqa" ||
+                        name === "basic"
+                    ) &&
+                    val === "yes"
+                ){
+
+                    td.classList.add(
+                        "apg-yes"
+                    );
+                }
+
+                if(
+                    (
+                        name === "thiqa" ||
+                        name === "basic"
+                    ) &&
+                    val === "no"
+                ){
+
+                    td.classList.add(
+                        "apg-no"
+                    );
+                }
             }
 
             tr.appendChild(td);
@@ -1364,12 +1557,60 @@ function renderNormalTable(tab,rows){
 
 /* =========================================================
    ELIGIBILITY PORTALS
+   EXACT JSON STRUCTURE
 ========================================================= */
 
 function renderEligibility(rows){
 
+    /*
+       JSON structure:
+
+       Row 0 = Area / branches
+       Row 1 = Row 3 headers
+       Row 2/3 = OPENJET
+       Row 4/5 = PULSE
+       ...
+       Row 30/31 = GlobMed
+
+       Therefore:
+       - JSON row 0 is used for rows 1-2
+       - JSON row 1 is used for row 3
+       - JSON rows 2 onward are paired
+    */
+
+    const data =
+        rows.slice(2);
+
+    const portalPairs = [];
+
+    for(
+        let i=0;
+        i<data.length;
+        i+=2
+    ){
+
+        const usernameRow =
+            data[i];
+
+        const passwordRow =
+            data[i+1];
+
+        if(
+            usernameRow &&
+            usernameRow["Unnamed: 0"]
+        ){
+
+            portalPairs.push({
+                username:usernameRow,
+                password:passwordRow || {}
+            });
+        }
+    }
+
+
     recordCount.textContent =
-        `${rows.length.toLocaleString()} records`;
+        `${portalPairs.length} portals`;
+
 
     mainArea.innerHTML = "";
 
@@ -1379,32 +1620,35 @@ function renderEligibility(rows){
     wrap.className =
         "eligibility-wrap";
 
+
     const table =
         document.createElement("table");
 
     table.className =
         "eligibility-table";
 
-    /* -----------------------------------------------------
+
+    /* =====================================================
        COLUMN WIDTHS
-    ----------------------------------------------------- */
+    ===================================================== */
 
     const colgroup =
         document.createElement("colgroup");
 
     [
-        "25%",
-        "17%",
+        "20%",
+        "28%",
         "14%",
-        "14.67%",
-        "14.67%",
-        "14.66%"
+        "12.67%",
+        "12.67%",
+        "12.66%"
     ].forEach(width => {
 
         const col =
             document.createElement("col");
 
-        col.style.width = width;
+        col.style.width =
+            width;
 
         colgroup.appendChild(col);
     });
@@ -1412,456 +1656,523 @@ function renderEligibility(rows){
     table.appendChild(colgroup);
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ROW 1
-       A1:B1 EMPTY
-       C1 AREA
-       D1:F1 MERGED AL AIN
-    ----------------------------------------------------- */
+
+       A1 EMPTY
+       B1 EMPTY
+       C1 Area
+       D1:F1 Al Ain merged
+    ===================================================== */
 
     const row1 =
         document.createElement("tr");
 
-    row1.appendChild(
-        document.createElement("td")
-    );
 
-    row1.appendChild(
-        document.createElement("td")
-    );
+    const a1 =
+        document.createElement("td");
+
+    a1.className =
+        "eligibility-empty";
+
+    row1.appendChild(a1);
+
+
+    const b1 =
+        document.createElement("td");
+
+    b1.className =
+        "eligibility-empty";
+
+    row1.appendChild(b1);
+
 
     const c1 =
         document.createElement("td");
 
-    c1.className = "top-label";
-    c1.textContent = "Area";
+    c1.className =
+        "eligibility-top-label";
+
+    c1.textContent =
+        "Area";
 
     row1.appendChild(c1);
 
-    const alAin =
+
+    const d1 =
         document.createElement("td");
 
-    alAin.className = "al-ain";
-    alAin.colSpan = 3;
-    alAin.textContent = "Al Ain";
+    d1.colSpan = 3;
 
-    row1.appendChild(alAin);
+    d1.className =
+        "eligibility-alain";
+
+    d1.textContent =
+        "Al Ain";
+
+    row1.appendChild(d1);
+
 
     table.appendChild(row1);
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ROW 2
-    ----------------------------------------------------- */
+
+       A2 EMPTY
+       B2 EMPTY
+       C2 Branch
+       D2 Sama
+       E2 Al Noud...
+       F2 Falaj 2
+    ===================================================== */
 
     const row2 =
         document.createElement("tr");
 
-    row2.appendChild(
-        document.createElement("td")
-    );
 
-    row2.appendChild(
-        document.createElement("td")
-    );
+    const a2 =
+        document.createElement("td");
+
+    a2.className =
+        "eligibility-empty";
+
+    row2.appendChild(a2);
+
+
+    const b2 =
+        document.createElement("td");
+
+    b2.className =
+        "eligibility-empty";
+
+    row2.appendChild(b2);
+
 
     const c2 =
         document.createElement("td");
 
-    c2.className = "top-label";
-    c2.textContent = "Branch";
+    c2.className =
+        "eligibility-top-label";
+
+    c2.textContent =
+        "Branch";
 
     row2.appendChild(c2);
 
-    const branches = [
+
+    [
         "Sama",
         "Al Noud (Enhanced only)",
         "Falaj 2"
-    ];
-
-    branches.forEach(branch => {
+    ].forEach(branch => {
 
         const td =
             document.createElement("td");
 
-        td.className = "branch";
-        td.textContent = branch;
+        td.className =
+            "eligibility-branch";
+
+        td.textContent =
+            branch;
 
         row2.appendChild(td);
     });
 
+
     table.appendChild(row2);
 
 
-    /* -----------------------------------------------------
+    /* =====================================================
        ROW 3
-    ----------------------------------------------------- */
+
+       A3 Eligibility portal
+       B3 Link
+       C3 H.A. License Code
+       D3 PF1681
+       E3 PF 5068
+       F3 PF 5408
+
+       ONLY A3 HAS FILTER
+    ===================================================== */
 
     const row3 =
         document.createElement("tr");
 
-    const headers = [
-        "Eligibility portal",
-        "Link",
-        "H.A. License Code",
+
+    /* A3 */
+
+    const a3 =
+        document.createElement("th");
+
+    a3.className =
+        "eligibility-header";
+
+    a3.textContent =
+        "Eligibility portal";
+
+
+    const filterButton =
+        document.createElement("button");
+
+    filterButton.className =
+        "eligibility-filter-btn";
+
+    filterButton.innerHTML =
+        "▼";
+
+    filterButton.title =
+        "Filter Eligibility Portals";
+
+
+    const existingFilter =
+        filterState
+            .get("eligibility")
+            ?.get("__PORTAL__");
+
+    if(existingFilter){
+
+        filterButton.classList.add(
+            "filtered"
+        );
+    }
+
+
+    filterButton.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            openEligibilityFilter(
+                portalPairs,
+                filterButton
+            );
+        }
+    );
+
+
+    a3.appendChild(
+        filterButton
+    );
+
+    row3.appendChild(a3);
+
+
+    /* B3 */
+
+    const b3 =
+        document.createElement("th");
+
+    b3.className =
+        "eligibility-header";
+
+    b3.textContent =
+        "Link";
+
+    row3.appendChild(b3);
+
+
+    /* C3 */
+
+    const c3 =
+        document.createElement("th");
+
+    c3.className =
+        "eligibility-header";
+
+    c3.textContent =
+        "H.A. License Code";
+
+    row3.appendChild(c3);
+
+
+    /* D3 */
+
+    [
         "PF1681",
         "PF 5068",
         "PF 5408"
-    ];
-
-    headers.forEach(header => {
+    ].forEach(header => {
 
         const th =
             document.createElement("th");
 
         th.className =
-            "main-header";
+            "eligibility-header";
 
-        th.textContent = header;
+        th.textContent =
+            header;
 
         row3.appendChild(th);
     });
 
+
     table.appendChild(row3);
 
 
-    /* -----------------------------------------------------
-       DATA
-       
-       Each portal occupies TWO rows.
-       A4:A5, A6:A7, A8:A9 ... A32:A33
-    ----------------------------------------------------- */
+    /* =====================================================
+       DATA ROWS
 
-    const dataRows =
-        rows.slice(0,30);
+       A4:A5 merged
+       B4:B5 merged
 
-    for(let i=0;i<dataRows.length;i++){
+       A6:A7 merged
+       B6:B7 merged
 
-        const item =
-            dataRows[i];
+       ...
 
-        const tr =
-            document.createElement("tr");
+       A32:A33 merged
+       B32:B33 merged
+    ===================================================== */
 
-        tr.className =
-            "data-row";
+    portalPairs.forEach(
+        (pair,index) => {
 
+            const username =
+                pair.username;
 
-        /* -------------------------------------------------
-           PORTAL NAME
-           MERGED VERTICALLY FOR TWO ROWS
-        ------------------------------------------------- */
-
-        const portal =
-            getEligibilityValue(
-                item,
-                [
-                    "Eligibility portal",
-                    "Eligibility Portal",
-                    "Portal",
-                    "Name",
-                    "Eligibility"
-                ]
-            );
-
-        const portalCell =
-            document.createElement("td");
-
-        portalCell.className =
-            "portal-name";
-
-        portalCell.rowSpan = 2;
-
-        portalCell.textContent =
-            portal;
-
-        tr.appendChild(portalCell);
+            const password =
+                pair.password;
 
 
-        /* -------------------------------------------------
-           LINK
-        ------------------------------------------------- */
+            /* ---------------------------------------------
+               FIRST ROW
+            --------------------------------------------- */
 
-        const link =
-            getEligibilityValue(
-                item,
-                [
-                    "Link",
-                    "LINK",
-                    "URL",
-                    "Url",
-                    "Website"
-                ]
-            );
+            const firstRow =
+                document.createElement("tr");
 
-        const linkCell =
-            document.createElement("td");
-
-        linkCell.className =
-            "link-cell";
-
-        if(isURL(link)){
-
-            const a =
-                document.createElement("a");
-
-            a.href =
-                link;
-
-            a.target =
-                "_blank";
-
-            a.rel =
-                "noopener noreferrer";
-
-            a.textContent =
-                "Open";
-
-            linkCell.appendChild(a);
-
-        }else{
-
-            linkCell.textContent =
-                link;
-        }
-
-        tr.appendChild(linkCell);
+            firstRow.className =
+                "eligibility-data-row";
 
 
-        /* -------------------------------------------------
-           LICENSE / BRANCH DATA
-        ------------------------------------------------- */
+            /* A merged */
 
-        const license =
-            getEligibilityValue(
-                item,
-                [
-                    "H.A. License Code",
-                    "HA License Code",
-                    "H.A License Code",
-                    "License Code",
-                    "HAAD License Code"
-                ]
-            );
-
-        const licenseCell =
-            document.createElement("td");
-
-        licenseCell.className =
-            "license";
-
-        licenseCell.textContent =
-            license;
-
-        tr.appendChild(licenseCell);
-
-
-        /* -------------------------------------------------
-           D / E / F VALUES
-        ------------------------------------------------- */
-
-        const branchValues = [
-            getBranchValue(item,"PF1681"),
-            getBranchValue(item,"PF 5068"),
-            getBranchValue(item,"PF 5408")
-        ];
-
-        branchValues.forEach(value => {
-
-            const td =
+            const portalCell =
                 document.createElement("td");
 
-            td.textContent =
-                value;
+            portalCell.className =
+                "eligibility-portal";
 
-            tr.appendChild(td);
-        });
+            portalCell.rowSpan = 2;
 
+            portalCell.textContent =
+                username["Unnamed: 0"] || "";
 
-        table.appendChild(tr);
-
-
-        /* -------------------------------------------------
-           SECOND ROW
-           
-           This is intentionally empty except for the
-           cells corresponding to B:F.
-           
-           A is already rowspan=2.
-        ------------------------------------------------- */
-
-        const second =
-            document.createElement("tr");
-
-        second.className =
-            "data-row";
+            firstRow.appendChild(
+                portalCell
+            );
 
 
-        const secondValues =
-            getEligibilitySecondRow(item);
+            /* B merged */
 
-        for(let j=0;j<5;j++){
-
-            const td =
+            const linkCell =
                 document.createElement("td");
 
-            td.textContent =
-                secondValues[j] ?? "";
+            linkCell.className =
+                "eligibility-link";
 
-            second.appendChild(td);
+            linkCell.rowSpan = 2;
+
+
+            const link =
+                username["Unnamed: 1"] || "";
+
+
+            if(isURL(link)){
+
+                const a =
+                    document.createElement("a");
+
+                a.href =
+                    link;
+
+                a.target =
+                    "_blank";
+
+                a.rel =
+                    "noopener noreferrer";
+
+                a.textContent =
+                    "Open Portal";
+
+                a.title =
+                    link;
+
+                linkCell.appendChild(a);
+
+            }else{
+
+                linkCell.textContent =
+                    link;
+            }
+
+
+            firstRow.appendChild(
+                linkCell
+            );
+
+
+            /* C username label */
+
+            const cUsername =
+                document.createElement("td");
+
+            cUsername.className =
+                "eligibility-data eligibility-label";
+
+            cUsername.textContent =
+                username["Area"] || "";
+
+            firstRow.appendChild(
+                cUsername
+            );
+
+
+            /* D username */
+
+            const dUsername =
+                document.createElement("td");
+
+            dUsername.className =
+                "eligibility-data";
+
+            dUsername.textContent =
+                username["Al Ain"] ?? "";
+
+            firstRow.appendChild(
+                dUsername
+            );
+
+
+            /* E username */
+
+            const eUsername =
+                document.createElement("td");
+
+            eUsername.className =
+                "eligibility-data";
+
+            eUsername.textContent =
+                username["Al Ain.1"] ?? "";
+
+            firstRow.appendChild(
+                eUsername
+            );
+
+
+            /* F username */
+
+            const fUsername =
+                document.createElement("td");
+
+            fUsername.className =
+                "eligibility-data";
+
+            fUsername.textContent =
+                username["Al Ain.2"] ?? "";
+
+            firstRow.appendChild(
+                fUsername
+            );
+
+
+            table.appendChild(
+                firstRow
+            );
+
+
+            /* ---------------------------------------------
+               SECOND ROW
+            --------------------------------------------- */
+
+            const secondRow =
+                document.createElement("tr");
+
+            secondRow.className =
+                "eligibility-data-row";
+
+
+            /* C password */
+
+            const cPassword =
+                document.createElement("td");
+
+            cPassword.className =
+                "eligibility-data eligibility-label";
+
+            cPassword.textContent =
+                password["Area"] || "";
+
+            secondRow.appendChild(
+                cPassword
+            );
+
+
+            /* D password */
+
+            const dPassword =
+                document.createElement("td");
+
+            dPassword.className =
+                "eligibility-data";
+
+            dPassword.textContent =
+                password["Al Ain"] ?? "";
+
+            secondRow.appendChild(
+                dPassword
+            );
+
+
+            /* E password */
+
+            const ePassword =
+                document.createElement("td");
+
+            ePassword.className =
+                "eligibility-data";
+
+            ePassword.textContent =
+                password["Al Ain.1"] ?? "";
+
+            secondRow.appendChild(
+                ePassword
+            );
+
+
+            /* F password */
+
+            const fPassword =
+                document.createElement("td");
+
+            fPassword.className =
+                "eligibility-data";
+
+            fPassword.textContent =
+                password["Al Ain.2"] ?? "";
+
+            secondRow.appendChild(
+                fPassword
+            );
+
+
+            table.appendChild(
+                secondRow
+            );
         }
-
-        table.appendChild(second);
-    }
+    );
 
 
     wrap.appendChild(table);
+
     mainArea.appendChild(wrap);
 }
 
 
 /* =========================================================
-   ELIGIBILITY HELPERS
-========================================================= */
-
-function getEligibilityValue(item,keys){
-
-    if(!item || typeof item !== "object"){
-        return "";
-    }
-
-    for(const key of keys){
-
-        if(
-            Object.prototype.hasOwnProperty.call(
-                item,
-                key
-            )
-        ){
-
-            return formatValue(item[key]);
-        }
-    }
-
-    /* Case-insensitive fallback */
-
-    const normalizedKeys =
-        keys.map(k => normalize(k));
-
-    for(const actualKey of Object.keys(item)){
-
-        if(
-            normalizedKeys.includes(
-                normalize(actualKey)
-            )
-        ){
-
-            return formatValue(
-                item[actualKey]
-            );
-        }
-    }
-
-    return "";
-}
-
-
-/* =========================================================
-   GET BRANCH VALUE
-========================================================= */
-
-function getBranchValue(item,branch){
-
-    if(!item || typeof item !== "object"){
-        return "";
-    }
-
-    const wanted =
-        normalize(branch);
-
-    for(const key of Object.keys(item)){
-
-        if(
-            normalize(key) === wanted
-        ){
-            return formatValue(item[key]);
-        }
-    }
-
-    return "";
-}
-
-
-/* =========================================================
-   SECOND ELIGIBILITY ROW
-========================================================= */
-
-function getEligibilitySecondRow(item){
-
-    /*
-       Supports JSON files where the second line of
-       each portal is stored using alternate field names.
-    */
-
-    const values = [];
-
-    values.push(
-        getEligibilityValue(
-            item,
-            [
-                "Link 2",
-                "LINK 2",
-                "URL 2",
-                "Website 2"
-            ]
-        )
-    );
-
-    values.push(
-        getEligibilityValue(
-            item,
-            [
-                "H.A. License Code 2",
-                "HA License Code 2",
-                "License Code 2"
-            ]
-        )
-    );
-
-    values.push(
-        getEligibilityValue(
-            item,
-            [
-                "PF1681 2",
-                "PF 1681 2"
-            ]
-        )
-    );
-
-    values.push(
-        getEligibilityValue(
-            item,
-            [
-                "PF 5068 2"
-            ]
-        )
-    );
-
-    values.push(
-        getEligibilityValue(
-            item,
-            [
-                "PF 5408 2"
-            ]
-        )
-    );
-
-    return values;
-}
-
-
-/* =========================================================
-   URL CHECK
+   URL
 ========================================================= */
 
 function isURL(value){
@@ -1888,51 +2199,59 @@ function isURL(value){
 
 
 /* =========================================================
-   FILTER
+   ELIGIBILITY FILTER
+   ONLY A3
 ========================================================= */
 
-function openFilter(tab,rows,column,button){
+function openEligibilityFilter(
+    portalPairs,
+    button
+){
 
-    activeFilterTab = tab;
-    activeFilterColumn = column;
+    activeFilterTab =
+        {
+            id:"eligibility"
+        };
+
+    activeFilterColumn =
+        "__PORTAL__";
+
 
     const values =
-        new Set();
-
-    rows.forEach(row => {
-
-        values.add(
-            formatValue(row[column])
+        portalPairs.map(
+            pair =>
+                pair.username[
+                    "Unnamed: 0"
+                ] || ""
         );
-    });
+
 
     const existing =
-        filterState.get(tab.id)?.get(column);
+        filterState
+            .get("eligibility")
+            ?.get("__PORTAL__");
+
 
     if(existing){
+
         temporaryFilterValues =
             new Set(existing);
+
     }else{
+
         temporaryFilterValues =
             new Set(values);
     }
 
+
     renderFilterOptions(
-        Array.from(values).sort(
-            (a,b) =>
-                a.localeCompare(
-                    b,
-                    undefined,
-                    {
-                        numeric:true,
-                        sensitivity:"base"
-                    }
-                )
-        )
+        values
     );
+
 
     const rect =
         button.getBoundingClientRect();
+
 
     let left =
         rect.left;
@@ -1940,15 +2259,26 @@ function openFilter(tab,rows,column,button){
     let top =
         rect.bottom + 5;
 
-    if(left + 300 > window.innerWidth){
+
+    if(
+        left + 300 >
+        window.innerWidth
+    ){
+
         left =
             window.innerWidth - 310;
     }
 
-    if(top + 410 > window.innerHeight){
+
+    if(
+        top + 410 >
+        window.innerHeight
+    ){
+
         top =
             rect.top - 415;
     }
+
 
     filterPopup.style.left =
         Math.max(5,left) + "px";
@@ -1956,12 +2286,19 @@ function openFilter(tab,rows,column,button){
     filterPopup.style.top =
         Math.max(5,top) + "px";
 
-    filterPopup.classList.add("show");
 
-    filterSearch.value = "";
+    filterPopup.classList.add(
+        "show"
+    );
+
+
+    filterSearch.value =
+        "";
+
 
     setTimeout(
-        () => filterSearch.focus(),
+        () =>
+            filterSearch.focus(),
         0
     );
 }
@@ -1983,6 +2320,7 @@ function renderFilterOptions(values){
         label.className =
             "filter-option";
 
+
         const checkbox =
             document.createElement("input");
 
@@ -1993,29 +2331,53 @@ function renderFilterOptions(values){
             value;
 
         checkbox.checked =
-            temporaryFilterValues.has(value);
+            temporaryFilterValues.has(
+                value
+            );
+
 
         checkbox.addEventListener(
             "change",
-            ()=>{
-                if(checkbox.checked){
-                    temporaryFilterValues.add(value);
+            () => {
+
+                if(
+                    checkbox.checked
+                ){
+
+                    temporaryFilterValues.add(
+                        value
+                    );
+
                 }else{
-                    temporaryFilterValues.delete(value);
+
+                    temporaryFilterValues.delete(
+                        value
+                    );
                 }
             }
         );
+
 
         const text =
             document.createElement("span");
 
         text.textContent =
-            value === "" ? "(blank)" : value;
+            value === ""
+                ? "(blank)"
+                : value;
 
-        label.appendChild(checkbox);
-        label.appendChild(text);
 
-        filterOptions.appendChild(label);
+        label.appendChild(
+            checkbox
+        );
+
+        label.appendChild(
+            text
+        );
+
+        filterOptions.appendChild(
+            label
+        );
     });
 }
 
@@ -2026,9 +2388,13 @@ function renderFilterOptions(values){
 
 filterSearch.addEventListener(
     "input",
-    ()=>{
+    () => {
+
         const search =
-            normalize(filterSearch.value);
+            normalize(
+                filterSearch.value
+            );
+
 
         document
             .querySelectorAll(
@@ -2039,9 +2405,12 @@ filterSearch.addEventListener(
                 const text =
                     normalize(
                         option
-                            .querySelector("span")
+                            .querySelector(
+                                "span"
+                            )
                             .textContent
                     );
+
 
                 option.style.display =
                     text.includes(search)
@@ -2058,7 +2427,7 @@ filterSearch.addEventListener(
 
 selectAll.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         document
             .querySelectorAll(
@@ -2067,17 +2436,22 @@ selectAll.addEventListener(
             .forEach(option => {
 
                 if(
-                    option.style.display === "none"
+                    option.style.display ===
+                    "none"
                 ){
                     return;
                 }
+
 
                 const checkbox =
                     option.querySelector(
                         "input"
                     );
 
-                checkbox.checked = true;
+
+                checkbox.checked =
+                    true;
+
 
                 temporaryFilterValues.add(
                     checkbox.value
@@ -2093,7 +2467,7 @@ selectAll.addEventListener(
 
 unselectAll.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         document
             .querySelectorAll(
@@ -2102,17 +2476,22 @@ unselectAll.addEventListener(
             .forEach(option => {
 
                 if(
-                    option.style.display === "none"
+                    option.style.display ===
+                    "none"
                 ){
                     return;
                 }
+
 
                 const checkbox =
                     option.querySelector(
                         "input"
                     );
 
-                checkbox.checked = false;
+
+                checkbox.checked =
+                    false;
+
 
                 temporaryFilterValues.delete(
                     checkbox.value
@@ -2128,7 +2507,7 @@ unselectAll.addEventListener(
 
 applyFilter.addEventListener(
     "click",
-    ()=>{
+    () => {
 
         if(
             !activeFilterTab ||
@@ -2137,40 +2516,111 @@ applyFilter.addEventListener(
             return;
         }
 
-        if(!filterState.has(
-            activeFilterTab.id
-        )){
+
+        if(
+            !filterState.has(
+                activeFilterTab.id
+            )
+        ){
+
             filterState.set(
                 activeFilterTab.id,
                 new Map()
             );
         }
 
+
         const filters =
             filterState.get(
                 activeFilterTab.id
             );
 
-        const allValues =
-            new Set();
 
         const rows =
             cache.get(
                 activeFilterTab.id
             ) || [];
 
-        rows.forEach(row=>{
+
+        /* ================================================
+           SPECIAL ELIGIBILITY FILTER
+        ================================================ */
+
+        if(
+            activeFilterTab.id ===
+            "eligibility"
+        ){
+
+            const portals = [];
+
+
+            for(
+                let i=2;
+                i<rows.length;
+                i+=2
+            ){
+
+                if(
+                    rows[i] &&
+                    rows[i]["Unnamed: 0"]
+                ){
+
+                    portals.push(
+                        rows[i][
+                            "Unnamed: 0"
+                        ]
+                    );
+                }
+            }
+
+
+            if(
+                temporaryFilterValues.size ===
+                portals.length
+            ){
+
+                filters.delete(
+                    "__PORTAL__"
+                );
+
+            }else{
+
+                filters.set(
+                    "__PORTAL__",
+                    new Set(
+                        temporaryFilterValues
+                    )
+                );
+            }
+
+
+            closeFilterPopup();
+
+            renderEligibilityFiltered();
+
+            return;
+        }
+
+
+        /* ================================================
+           NORMAL FILTER
+        ================================================ */
+
+        const allValues =
+            new Set();
+
+
+        rows.forEach(row => {
+
             allValues.add(
                 formatValue(
-                    row[activeFilterColumn]
+                    row[
+                        activeFilterColumn
+                    ]
                 )
             );
         });
 
-        /*
-           If every value is selected,
-           remove the filter completely.
-        */
 
         if(
             temporaryFilterValues.size ===
@@ -2191,11 +2641,100 @@ applyFilter.addEventListener(
             );
         }
 
+
         closeFilterPopup();
 
         renderCurrentTab();
     }
 );
+
+
+/* =========================================================
+   RENDER ELIGIBILITY AFTER FILTER
+========================================================= */
+
+function renderEligibilityFiltered(){
+
+    const rows =
+        cache.get(
+            "eligibility"
+        ) || [];
+
+
+    const selected =
+        filterState
+            .get("eligibility")
+            ?.get("__PORTAL__");
+
+
+    if(
+        !selected ||
+        selected.size === 0
+    ){
+
+        renderEligibility(rows);
+
+        return;
+    }
+
+
+    const filtered = [];
+
+
+    for(
+        let i=2;
+        i<rows.length;
+        i+=2
+    ){
+
+        const username =
+            rows[i];
+
+        const password =
+            rows[i+1];
+
+
+        if(!username){
+            continue;
+        }
+
+
+        const portal =
+            username[
+                "Unnamed: 0"
+            ] || "";
+
+
+        if(
+            selected.has(
+                portal
+            )
+        ){
+
+            filtered.push(
+                username
+            );
+
+            if(password){
+                filtered.push(
+                    password
+                );
+            }
+        }
+    }
+
+
+    const allRows =
+        rows.slice(
+            0,
+            2
+        );
+
+
+    renderEligibility(
+        allRows.concat(filtered)
+    );
+}
 
 
 /* =========================================================
@@ -2214,15 +2753,58 @@ cancelFilter.addEventListener(
 
 function closeFilterPopup(){
 
-    filterPopup.classList.remove("show");
+    filterPopup.classList.remove(
+        "show"
+    );
 
-    activeFilterTab = null;
-    activeFilterColumn = null;
+    activeFilterTab =
+        null;
+
+    activeFilterColumn =
+        null;
 }
 
 
 /* =========================================================
-   CLICK OUTSIDE
+   CLEAR FILTERS
+========================================================= */
+
+clearFilters.addEventListener(
+    "click",
+    () => {
+
+        if(!currentTab){
+            return;
+        }
+
+
+        filterState.delete(
+            currentTab.id
+        );
+
+
+        if(
+            currentTab.special ===
+            "eligibility"
+        ){
+
+            const rows =
+                cache.get(
+                    currentTab.id
+                ) || [];
+
+            renderEligibility(rows);
+
+        }else{
+
+            renderCurrentTab();
+        }
+    }
+);
+
+
+/* =========================================================
+   CLICK OUTSIDE FILTER
 ========================================================= */
 
 document.addEventListener(
@@ -2230,10 +2812,20 @@ document.addEventListener(
     event => {
 
         if(
-            filterPopup.classList.contains("show") &&
-            !filterPopup.contains(event.target) &&
-            !event.target.classList.contains("filter-btn")
+            filterPopup.classList.contains(
+                "show"
+            ) &&
+            !filterPopup.contains(
+                event.target
+            ) &&
+            !event.target.classList.contains(
+                "filter-btn"
+            ) &&
+            !event.target.classList.contains(
+                "eligibility-filter-btn"
+            )
         ){
+
             closeFilterPopup();
         }
     }
@@ -2248,7 +2840,10 @@ document.addEventListener(
     "keydown",
     event => {
 
-        if(event.key === "Escape"){
+        if(
+            event.key === "Escape"
+        ){
+
             closeFilterPopup();
         }
     }
@@ -2256,41 +2851,60 @@ document.addEventListener(
 
 
 /* =========================================================
-   PRELOAD OTHER TABS
+   PRELOAD
 ========================================================= */
 
 function preloadOtherTabs(){
 
     const others =
         tabsConfig.filter(
-            t => t.id !== currentTab?.id
+            t =>
+                t.id !==
+                currentTab?.id
         );
+
 
     let index = 0;
 
+
     function next(){
 
-        if(index >= others.length){
+        if(
+            index >=
+            others.length
+        ){
             return;
         }
+
 
         const tab =
             others[index++];
 
-        if(!cache.has(tab.id)){
+
+        if(
+            !cache.has(
+                tab.id
+            )
+        ){
 
             loadTab(tab)
-                .catch(error=>{
-                    console.warn(
-                        "Preload failed:",
-                        tab.name,
-                        error
-                    );
-                });
+                .catch(
+                    error =>
+                        console.warn(
+                            "Preload failed:",
+                            tab.name,
+                            error
+                        )
+                );
         }
 
-        setTimeout(next,35);
+
+        setTimeout(
+            next,
+            35
+        );
     }
+
 
     next();
 }
@@ -2304,7 +2918,11 @@ createTabs();
 
 openTab("apg");
 
-if("requestIdleCallback" in window){
+
+if(
+    "requestIdleCallback"
+    in window
+){
 
     requestIdleCallback(
         preloadOtherTabs,
