@@ -1,1207 +1,639 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Insurance All List</title>
 
 <style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     box-sizing:border-box;
 }
 
-html,
-body{
-    width:100%;
-    height:100%;
+html,body{
     margin:0;
     padding:0;
+    width:100%;
+    height:100%;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f7f8;
+    color:#17252b;
 }
 
 body{
-    font-family:
-        Inter,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
-
-    background:#f3f6f8;
-    color:#17232d;
-
     overflow:hidden;
 }
 
-
 /* =========================================================
-   APP
+   TOP BAR
 ========================================================= */
 
-.app{
-    width:100%;
-    height:100vh;
-
-    display:flex;
-    flex-direction:column;
-
-    overflow:hidden;
-}
-
-
-/* =========================================================
-   TOP BRAND
-========================================================= */
-
-.brand-bar{
-    flex:0 0 50px;
-
-    display:flex;
-    align-items:center;
-
-    padding:0 18px;
-
+.topbar{
+    height:54px;
     background:#ffffff;
-
-    border-bottom:1px solid #e5eaee;
-}
-
-
-/* =========================================================
-   INSURANCE LOGO
-========================================================= */
-
-.logo{
-    width:31px;
-    height:31px;
-
-    border-radius:8px;
-
+    border-bottom:1px solid #dfe7ea;
     display:flex;
     align-items:center;
-    justify-content:center;
+    padding:0 18px;
+    box-shadow:0 2px 10px rgba(20,50,60,.05);
+}
 
-    background:
-        linear-gradient(
-            145deg,
-            #0f6878,
-            #238da0
-        );
-
-    color:#ffffff;
-
+.brand{
+    display:flex;
+    align-items:center;
+    gap:11px;
     font-size:18px;
     font-weight:800;
-
-    box-shadow:
-        0 4px 10px rgba(15,104,120,.20);
-}
-
-.logo::before{
-    content:"+";
-
-    line-height:1;
-}
-
-
-/* =========================================================
-   BRAND NAME
-========================================================= */
-
-.brand-name{
-    margin-left:10px;
-
-    font-size:16px;
-
-    font-weight:750;
-
+    color:#15343d;
     letter-spacing:-.3px;
-
-    color:#20313b;
 }
 
+.brand-logo{
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    background:linear-gradient(145deg,#147b8c,#0e5969);
+    position:relative;
+    box-shadow:0 3px 8px rgba(15,100,120,.2);
+}
+
+.brand-logo:before,
+.brand-logo:after{
+    content:"";
+    position:absolute;
+    background:#fff;
+    border-radius:2px;
+}
+
+.brand-logo:before{
+    width:16px;
+    height:4px;
+    left:7px;
+    top:13px;
+}
+
+.brand-logo:after{
+    width:4px;
+    height:16px;
+    left:13px;
+    top:7px;
+}
 
 /* =========================================================
-   TAB NAVIGATION
+   TABS
 ========================================================= */
 
-.tabs-section{
-    flex:0 0 auto;
-
-    padding:8px 12px 9px;
-
-    background:#f3f6f8;
-
-    border-bottom:1px solid #dfe5e9;
+.tabs-area{
+    background:#ffffff;
+    border-bottom:1px solid #dce5e8;
+    padding:7px 10px 8px;
 }
 
-
-/*
-   15 columns on large screens.
-*/
-
-.tabs-grid{
-    width:100%;
-
+.tabs{
     display:grid;
-
-    grid-template-columns:
-        repeat(15,minmax(0,1fr));
-
-    gap:4px;
+    grid-template-columns:repeat(15,minmax(0,1fr));
+    gap:5px;
+    width:100%;
 }
-
-
-/* =========================================================
-   TAB BUTTON
-========================================================= */
 
 .tab{
-    width:100%;
-    min-width:0;
-
-    height:30px;
-
-    padding:0 6px;
-
-    border:1px solid #d8e0e5;
-
-    border-radius:6px;
-
-    background:#ffffff;
-
-    color:#53636e;
-
-    font-family:inherit;
-
+    height:31px;
+    border:1px solid #d7e2e5;
+    background:#f7f9fa;
+    color:#40545b;
+    border-radius:7px;
     font-size:10.5px;
-
-    font-weight:650;
-
-    letter-spacing:-.05px;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
+    font-weight:700;
+    padding:0 5px;
     cursor:pointer;
-
-    transition:
-        background .12s ease,
-        color .12s ease,
-        border-color .12s ease,
-        box-shadow .12s ease,
-        transform .08s ease;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    transition:.15s ease;
 }
 
 .tab:hover{
-    background:#edf7f9;
-
-    border-color:#9fc3cb;
-
-    color:#12697a;
-}
-
-.tab:active{
-    transform:scale(.985);
+    background:#eef5f6;
+    border-color:#b8d1d6;
 }
 
 .tab.active{
-    background:
-        linear-gradient(
-            135deg,
-            #125f70,
-            #19869a
-        );
-
-    color:#ffffff;
-
-    border-color:#125f70;
-
-    box-shadow:
-        0 3px 8px rgba(18,95,112,.22);
+    background:#126f81;
+    color:#fff;
+    border-color:#126f81;
+    box-shadow:0 3px 8px rgba(18,111,129,.2);
 }
 
-
 /* =========================================================
-   TABLE BAR
+   TABLE HEADER BAR
 ========================================================= */
 
-.table-bar{
-    flex:0 0 43px;
-
+.table-toolbar{
+    height:45px;
     display:flex;
     align-items:center;
-
+    justify-content:space-between;
     padding:0 14px;
-
-    background:#ffffff;
-
-    border-bottom:1px solid #dfe5e9;
+    background:#f8fafb;
+    border-bottom:1px solid #dfe7ea;
 }
 
-.list-name{
-    display:flex;
-    align-items:center;
-
-    color:#263943;
-
-    font-size:11.5px;
-
-    font-weight:750;
-}
-
-.list-dot{
-    width:6px;
-    height:6px;
-
-    margin-right:7px;
-
-    border-radius:50%;
-
-    background:#1b9a85;
-}
-
-.record-pill{
-    margin-left:9px;
-
-    padding:3px 9px;
-
-    border-radius:20px;
-
-    background:#eef5f6;
-
-    color:#337483;
-
-    font-size:9.5px;
-
-    font-weight:700;
-}
-
-.bar-space{
-    flex:1;
-}
-
-.clear-button{
-    height:28px;
-
-    padding:0 11px;
-
-    border:1px solid #d8e0e4;
-
-    border-radius:6px;
-
-    background:#ffffff;
-
-    color:#667680;
-
-    font-family:inherit;
-
-    font-size:9.5px;
-
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.12s;
-}
-
-.clear-button:hover{
-    background:#edf7f8;
-
-    color:#12697a;
-
-    border-color:#9fc3cb;
-}
-
-
-/* =========================================================
-   TABLE VIEW
-========================================================= */
-
-.table-view{
-    position:relative;
-
-    flex:1 1 auto;
-
-    min-height:0;
-
-    overflow:auto;
-
-    background:#ffffff;
-}
-
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-.data-table{
-    border-collapse:separate;
-
-    border-spacing:0;
-
-    width:max-content;
-
-    min-width:100%;
-
-    table-layout:fixed;
-
-    font-size:11px;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.data-table thead{
-    position:sticky;
-
-    top:0;
-
-    z-index:100;
-}
-
-.data-table th{
-    height:46px;
-
-    padding:0;
-
-    background:#eaf1f3;
-
-    color:#263a44;
-
-    border-right:1px solid #d5dfe3;
-
-    border-bottom:2px solid #c3d1d6;
-
-    font-size:11.5px;
-
+.table-title{
+    font-size:14px;
     font-weight:800;
-
-    text-align:center;
-
-    vertical-align:middle;
+    color:#17353e;
 }
 
-.data-table th:first-child{
-    border-left:1px solid #d5dfe3;
+.table-info{
+    display:flex;
+    align-items:center;
+    gap:9px;
 }
 
+.record-count{
+    font-size:11px;
+    color:#71838a;
+}
+
+.clear-btn{
+    border:1px solid #cddcdf;
+    background:#fff;
+    color:#34515a;
+    border-radius:6px;
+    padding:5px 10px;
+    font-size:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.clear-btn:hover{
+    background:#eef5f6;
+}
 
 /* =========================================================
-   HEADER CONTENT
+   TABLE AREA
 ========================================================= */
 
-.header-content{
-    width:100%;
+.table-wrap{
+    position:relative;
+    height:calc(100vh - 54px - 46px - 45px);
+    overflow:auto;
+    background:#fff;
+}
+
+.table{
+    border-collapse:separate;
+    border-spacing:0;
+    table-layout:fixed;
+    width:max-content;
+    min-width:100%;
+}
+
+thead{
+    position:sticky;
+    top:0;
+    z-index:30;
+}
+
+th{
     height:46px;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    gap:5px;
-
-    padding:4px 5px;
-}
-
-.header-label{
-    line-height:14px;
-
+    background:#173d47;
+    color:#fff;
+    border-right:1px solid rgba(255,255,255,.12);
+    border-bottom:1px solid #12343d;
+    font-size:12px;
+    font-weight:800;
     text-align:center;
-
-    overflow-wrap:anywhere;
+    padding:7px 8px;
+    white-space:normal;
+    line-height:1.15;
+    position:relative;
 }
 
+td{
+    height:34px;
+    padding:5px 8px;
+    border-right:1px solid #e4ebed;
+    border-bottom:1px solid #e8eef0;
+    font-size:11px;
+    color:#263a41;
+    background:#fff;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    text-align:center;
+}
+
+tbody tr:nth-child(even) td{
+    background:#f8fafb;
+}
+
+tbody tr:hover td{
+    background:#edf6f8;
+}
 
 /* =========================================================
    FILTER BUTTON
 ========================================================= */
 
-.filter-button{
-    flex:0 0 20px;
-
-    width:20px;
-    height:20px;
-
-    padding:0;
-
-    border:1px solid #c6d1d6;
-
+.filter-btn{
+    position:absolute;
+    right:4px;
+    top:5px;
+    width:22px;
+    height:22px;
+    border:0;
     border-radius:4px;
-
-    background:#ffffff;
-
-    color:#65757e;
-
-    font-size:8px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
+    background:rgba(255,255,255,.1);
+    color:#fff;
     cursor:pointer;
-
-    transition:.12s;
-}
-
-.filter-button:hover{
-    background:#dff0f3;
-
-    color:#12697a;
-
-    border-color:#75aeb9;
-}
-
-.filter-button.active{
-    background:#12697a;
-
-    color:#ffffff;
-
-    border-color:#12697a;
-}
-
-
-/* =========================================================
-   BODY
-========================================================= */
-
-.data-table td{
-    height:34px;
-
-    padding:5px 7px;
-
-    background:#ffffff;
-
-    color:#34434c;
-
-    border-right:1px solid #e8edef;
-
-    border-bottom:1px solid #e7ecef;
-
-    text-align:center;
-
-    vertical-align:middle;
-
-    line-height:15px;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-}
-
-.data-table tbody tr:nth-child(even) td{
-    background:#fbfcfd;
-}
-
-.data-table tbody tr:hover td{
-    background:#eef7f8;
-}
-
-
-/* =========================================================
-   APG THIQA / BASIC
-========================================================= */
-
-.apg-yes{
-    background:#dff3e7 !important;
-
-    color:#17683b !important;
-
-    font-weight:750 !important;
-}
-
-.apg-no{
-    background:#fde5e5 !important;
-
-    color:#a43d3d !important;
-
-    font-weight:750 !important;
-}
-
-
-/* =========================================================
-   FROZEN RIGHT COLUMNS
-========================================================= */
-
-.freeze-right-1{
-    position:sticky !important;
-
-    right:0;
-
-    z-index:80;
-
-    box-shadow:
-        -4px 0 7px rgba(30,50,60,.07);
-}
-
-.freeze-right-2{
-    position:sticky !important;
-
-    right:82px;
-
-    z-index:80;
-}
-
-
-/*
-   Header frozen columns must sit above
-   normal header cells.
-*/
-
-thead .freeze-right-1,
-thead .freeze-right-2{
-    z-index:150;
-}
-
-
-/*
-   APG frozen columns.
-*/
-
-.apg-frozen{
-    font-weight:800 !important;
-}
-
-
-/* =========================================================
-   VIRTUAL TABLE SPACERS
-========================================================= */
-
-.virtual-spacer td{
-    padding:0 !important;
-
-    height:0 !important;
-
-    border:0 !important;
-
-    background:transparent !important;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-    position:absolute;
-
-    inset:0;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    background:#ffffff;
-}
-
-.loading-box{
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-.spinner{
-    width:26px;
-    height:26px;
-
-    border:2px solid #dce7ea;
-
-    border-top-color:#14778a;
-
-    border-radius:50%;
-
-    animation:
-        spin .6s linear infinite;
-}
-
-@keyframes spin{
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-.loading-text{
-    color:#7c8b94;
-
-    font-size:10.5px;
-
-    font-weight:650;
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty{
-    position:absolute;
-
-    inset:0;
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    color:#89969e;
-
     font-size:11px;
+    padding:0;
 }
 
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.error{
-    margin:20px;
-
-    padding:16px 18px;
-
-    border-radius:8px;
-
-    background:#fff7f7;
-
-    border:1px solid #edd0d0;
-
-    color:#a04444;
-
-    font-size:11px;
-
-    line-height:1.6;
+.filter-btn:hover{
+    background:rgba(255,255,255,.22);
 }
 
+.filter-btn.filtered{
+    background:#55c3d4;
+    color:#07353e;
+}
 
 /* =========================================================
    FILTER POPUP
 ========================================================= */
 
 .filter-popup{
-    display:none;
-
     position:fixed;
-
-    z-index:9999;
-
     width:300px;
-
-    background:#ffffff;
-
-    border:1px solid #d5dfe3;
-
+    max-height:410px;
+    background:#fff;
+    border:1px solid #ccdadd;
     border-radius:9px;
-
+    box-shadow:0 12px 35px rgba(20,45,55,.22);
+    z-index:1000;
+    display:none;
     overflow:hidden;
-
-    box-shadow:
-        0 18px 45px rgba(25,45,55,.17),
-        0 3px 9px rgba(25,45,55,.08);
 }
 
-.filter-header{
-    padding:11px 12px 9px;
-
-    background:#f5f9fa;
-
-    border-bottom:1px solid #e3e9ec;
+.filter-popup.show{
+    display:block;
 }
 
-.filter-title{
-    color:#263a44;
-
-    font-size:11px;
-
-    font-weight:800;
-}
-
-.filter-subtitle{
-    margin-top:2px;
-
-    color:#87949c;
-
-    font-size:8.5px;
-}
-
-.filter-search-wrap{
-    padding:8px 9px 4px;
+.filter-top{
+    padding:9px;
+    border-bottom:1px solid #e1e8ea;
 }
 
 .filter-search{
     width:100%;
-
     height:31px;
-
+    border:1px solid #ccdadd;
+    border-radius:6px;
     padding:0 9px;
-
-    border:1px solid #d6dfe3;
-
-    border-radius:5px;
-
     outline:none;
-
-    font-family:inherit;
-
-    font-size:10px;
-
-    color:#33434c;
+    font-size:11px;
 }
 
 .filter-search:focus{
-    border-color:#78acb6;
-
-    box-shadow:
-        0 0 0 3px rgba(20,119,138,.07);
+    border-color:#14778a;
 }
 
 .filter-actions{
     display:flex;
-
-    gap:5px;
-
-    padding:4px 9px 7px;
-}
-
-.filter-action{
-    flex:1;
-
-    height:27px;
-
-    border:1px solid #dce2e5;
-
-    border-radius:5px;
-
-    background:#ffffff;
-
-    color:#64747d;
-
-    font-family:inherit;
-
-    font-size:9px;
-
-    font-weight:700;
-
-    cursor:pointer;
-}
-
-.filter-action:hover{
-    background:#f2f7f8;
-}
-
-.filter-values{
-    max-height:245px;
-
-    overflow-y:auto;
-
-    border-top:1px solid #e4e9ec;
-
-    border-bottom:1px solid #e4e9ec;
-}
-
-.filter-value{
-    min-height:29px;
-
-    display:flex;
-
     align-items:center;
-
-    gap:7px;
-
-    padding:4px 10px;
-
-    color:#44525b;
-
-    font-size:9.5px;
-
-    cursor:pointer;
-}
-
-.filter-value:hover{
-    background:#eef7f8;
-}
-
-.filter-value input{
-    width:13px;
-    height:13px;
-
-    margin:0;
-
-    accent-color:#14778a;
-}
-
-.filter-value-text{
-    min-width:0;
-
-    overflow:hidden;
-
-    text-overflow:ellipsis;
-
-    white-space:nowrap;
-}
-
-.filter-footer{
-    display:flex;
-
     gap:5px;
-
-    padding:8px 9px;
+    margin-top:7px;
 }
 
-.filter-footer button{
-    flex:1;
-
-    height:31px;
-
+.filter-actions button{
+    border:1px solid #d0dfe2;
+    background:#f8fafb;
     border-radius:5px;
-
-    font-family:inherit;
-
-    font-size:9.5px;
-
-    font-weight:750;
-
+    padding:4px 7px;
+    font-size:10px;
     cursor:pointer;
 }
 
-.cancel{
-    background:#ffffff;
-
-    border:1px solid #d8e0e4;
-
-    color:#697780;
+.filter-actions button:hover{
+    background:#edf5f6;
 }
 
-.apply{
+.filter-options{
+    max-height:295px;
+    overflow:auto;
+    padding:5px 8px;
+}
+
+.filter-option{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    min-height:27px;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.filter-option input{
+    width:14px;
+    height:14px;
+}
+
+.filter-bottom{
+    border-top:1px solid #e1e8ea;
+    padding:8px;
+    display:flex;
+    justify-content:flex-end;
+    gap:6px;
+}
+
+.filter-bottom button{
+    border-radius:5px;
+    padding:6px 12px;
+    font-size:10px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.cancel-filter{
+    background:#fff;
+    border:1px solid #ccdadd;
+}
+
+.apply-filter{
     background:#14778a;
-
     border:1px solid #14778a;
-
-    color:#ffffff;
+    color:#fff;
 }
-
-.apply:hover{
-    background:#0f6575;
-}
-
 
 /* =========================================================
-   SCROLLBAR
+   APG YES / NO
 ========================================================= */
 
-::-webkit-scrollbar{
-    width:8px;
-    height:8px;
+.apg-yes{
+    background:#dff3e4 !important;
+    color:#176b31 !important;
+    font-weight:800;
 }
 
-::-webkit-scrollbar-track{
-    background:#f1f4f5;
+.apg-no{
+    background:#fbe1e1 !important;
+    color:#9a2929 !important;
+    font-weight:800;
 }
 
-::-webkit-scrollbar-thumb{
-    background:#c6d1d5;
+/* =========================================================
+   LOADING
+========================================================= */
 
-    border-radius:20px;
+.loading{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#60767d;
+    font-size:13px;
 }
 
-::-webkit-scrollbar-thumb:hover{
-    background:#aebdc2;
+.spinner{
+    width:20px;
+    height:20px;
+    border:3px solid #d8e7ea;
+    border-top-color:#14778a;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    margin-right:9px;
 }
 
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+/* =========================================================
+   ELIGIBILITY PORTALS SPECIAL TABLE
+========================================================= */
+
+.eligibility-wrap{
+    height:100%;
+    overflow:auto;
+    background:#fff;
+    padding:18px;
+}
+
+.eligibility-table{
+    border-collapse:collapse;
+    table-layout:fixed;
+    width:100%;
+    min-width:900px;
+}
+
+.eligibility-table th,
+.eligibility-table td{
+    border:1px solid #cbd9dc;
+}
+
+.eligibility-table td{
+    height:35px;
+    font-size:12px;
+    padding:6px 9px;
+    text-align:center;
+    vertical-align:middle;
+    background:#fff;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+}
+
+.eligibility-table .top-label{
+    background:#eef5f6;
+    font-weight:800;
+    color:#29474f;
+    font-size:12px;
+}
+
+.eligibility-table .al-ain{
+    background:#dceff2;
+    font-size:15px;
+    font-weight:900;
+    color:#174954;
+}
+
+.eligibility-table .branch{
+    background:#f5f8f9;
+    font-weight:800;
+    font-size:12px;
+}
+
+.eligibility-table .main-header{
+    height:52px;
+    background:#173d47;
+    color:#fff;
+    font-size:14px;
+    font-weight:900;
+    line-height:1.15;
+}
+
+.eligibility-table .portal-name{
+    font-weight:800;
+    font-size:12px;
+    color:#183d46;
+}
+
+.eligibility-table .link-cell a{
+    color:#08728a;
+    font-weight:700;
+    text-decoration:none;
+}
+
+.eligibility-table .link-cell a:hover{
+    text-decoration:underline;
+}
+
+.eligibility-table .license{
+    font-weight:700;
+    color:#405960;
+}
+
+.eligibility-table tr.data-row:hover td{
+    background:#edf6f8;
+}
+
+.eligibility-table tr.data-row:hover td[rowspan]{
+    background:#e4f2f4;
+}
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
 
 @media(max-width:1500px){
-
-    .tabs-grid{
-        grid-template-columns:
-            repeat(12,minmax(0,1fr));
+    .tabs{
+        grid-template-columns:repeat(12,minmax(0,1fr));
     }
-
 }
 
 @media(max-width:1200px){
-
-    .tabs-grid{
-        grid-template-columns:
-            repeat(10,minmax(0,1fr));
+    .tabs{
+        grid-template-columns:repeat(10,minmax(0,1fr));
     }
-
 }
 
 @media(max-width:1000px){
-
-    .tabs-grid{
-        grid-template-columns:
-            repeat(8,minmax(0,1fr));
+    .tabs{
+        grid-template-columns:repeat(8,minmax(0,1fr));
     }
-
 }
 
 @media(max-width:800px){
+    .tabs{
+        grid-template-columns:repeat(6,minmax(0,1fr));
+    }
+}
 
-    .tabs-grid{
-        grid-template-columns:
-            repeat(6,minmax(0,1fr));
+@media(max-width:600px){
+    .tabs{
+        grid-template-columns:repeat(3,minmax(0,1fr));
     }
 
     .tab{
         font-size:9px;
     }
 
+    .eligibility-wrap{
+        padding:8px;
+    }
 }
-
-@media(max-width:600px){
-
-    body{
-        overflow:auto;
-    }
-
-    .app{
-        height:auto;
-
-        min-height:100vh;
-    }
-
-    .tabs-grid{
-        grid-template-columns:
-            repeat(3,minmax(0,1fr));
-    }
-
-    .table-view{
-        height:calc(100vh - 250px);
-
-        min-height:400px;
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
+<!-- =========================================================
+     TOP
+========================================================= -->
 
-<div class="app">
-
-
-<!-- =======================================================
-     BRAND
-======================================================= -->
-
-<div class="brand-bar">
-
-    <div class="logo"></div>
-
-    <div class="brand-name">
-        Insurance All List
+<div class="topbar">
+    <div class="brand">
+        <div class="brand-logo"></div>
+        <div>Insurance All List</div>
     </div>
-
 </div>
 
-
-<!-- =======================================================
+<!-- =========================================================
      TABS
-======================================================= -->
+========================================================= -->
 
-<div class="tabs-section">
-
-    <div
-        id="tabs"
-        class="tabs-grid"
-    ></div>
-
+<div class="tabs-area">
+    <div id="tabs" class="tabs"></div>
 </div>
 
+<!-- =========================================================
+     TOOLBAR
+========================================================= -->
 
-<!-- =======================================================
-     TABLE BAR
-======================================================= -->
+<div class="table-toolbar">
+    <div id="tableTitle" class="table-title">Loading...</div>
 
-<div class="table-bar">
-
-    <div class="list-name">
-
-        <span class="list-dot"></span>
-
-        <span id="currentList">
-            APG Formulary 09-09
-        </span>
-
+    <div class="table-info">
+        <div id="recordCount" class="record-count"></div>
+        <button id="clearFilters" class="clear-btn">Clear Filters</button>
     </div>
-
-
-    <div
-        id="recordNumber"
-        class="record-pill"
-    >
-        —
-    </div>
-
-
-    <div class="bar-space"></div>
-
-
-    <button
-        id="clearButton"
-        class="clear-button"
-    >
-        Clear Filters
-    </button>
-
 </div>
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
-<!-- =======================================================
-     TABLE
-======================================================= -->
-
-<div
-    id="tableArea"
-    class="table-view"
->
-
+<div id="mainArea" class="table-wrap">
     <div class="loading">
-
-        <div class="loading-box">
-
-            <div class="spinner"></div>
-
-            <div class="loading-text">
-                Loading APG Formulary...
-            </div>
-
-        </div>
-
+        <div class="spinner"></div>
+        Loading...
     </div>
-
 </div>
-
-
-</div>
-
 
 <!-- =========================================================
      FILTER POPUP
 ========================================================= -->
 
-<div
-    id="filterPopup"
-    class="filter-popup"
->
+<div id="filterPopup" class="filter-popup">
 
-    <div class="filter-header">
-
-        <div
-            id="filterTitle"
-            class="filter-title"
-        >
-            Filter
-        </div>
-
-        <div class="filter-subtitle">
-            Select exact values to display
-        </div>
-
-    </div>
-
-
-    <div class="filter-search-wrap">
-
+    <div class="filter-top">
         <input
             id="filterSearch"
             class="filter-search"
             type="text"
-            autocomplete="off"
-            placeholder="Search values..."
+            placeholder="Search filter values..."
         >
 
+        <div class="filter-actions">
+            <button id="selectAll">Select All</button>
+            <button id="unselectAll">Unselect All</button>
+        </div>
     </div>
 
+    <div id="filterOptions" class="filter-options"></div>
 
-    <div class="filter-actions">
-
-        <button
-            id="selectAll"
-            class="filter-action"
-        >
-            Select All
-        </button>
-
-        <button
-            id="uncheckAll"
-            class="filter-action"
-        >
-            Uncheck All
-        </button>
-
-    </div>
-
-
-    <div
-        id="filterValues"
-        class="filter-values"
-    ></div>
-
-
-    <div class="filter-footer">
-
-        <button
-            id="cancelFilter"
-            class="cancel"
-        >
-            Cancel
-        </button>
-
-        <button
-            id="applyFilter"
-            class="apply"
-        >
-            Apply
-        </button>
-
+    <div class="filter-bottom">
+        <button id="cancelFilter" class="cancel-filter">Cancel</button>
+        <button id="applyFilter" class="apply-filter">Apply</button>
     </div>
 
 </div>
 
-
 <script>
 
 /* =========================================================
-   TAB CONFIG
+   FILE CONFIGURATION
 ========================================================= */
 
-const firstTabs = [
+const tabsConfig = [
 
     {
         id:"apg",
         name:"APG Formulary 09-09",
-        files:[
-            "APG Formulary 09-09.json"
-        ]
+        files:["APG Formulary 09-09.json"]
     },
 
     {
@@ -1212,12 +644,14 @@ const firstTabs = [
             "HAAD_LIST_2.json",
             "HAAD_LIST_3.json"
         ]
-    }
+    },
 
-];
-
-
-const remainingTabs = [
+    {
+        id:"eligibility",
+        name:"Eligibility Portals",
+        files:["Eligibility Portals.json"],
+        special:"eligibility"
+    },
 
     {
         id:"adnic",
@@ -1226,7 +660,7 @@ const remainingTabs = [
     },
 
     {
-        id:"apg-hcpcs",
+        id:"apg_hcpcs",
         name:"APG HCPCs Cap",
         files:["APG HCPCs Cap.json"]
     },
@@ -1262,7 +696,7 @@ const remainingTabs = [
     },
 
     {
-        id:"dha-shifa",
+        id:"dha_shifa",
         name:"DHA SHIFA",
         files:["DHA SHIFA.json"]
     },
@@ -1280,21 +714,15 @@ const remainingTabs = [
     },
 
     {
-        id:"dubai",
+        id:"dubai_policy",
         name:"Dubai Policy",
         files:["Dubai Policy.json"]
     },
 
     {
-        id:"eye",
+        id:"eye_drops",
         name:"EYE DROPS",
         files:["EYE DROPS.json"]
-    },
-
-    {
-        id:"eligibility",
-        name:"Eligibility Portals",
-        files:["Eligibility Portals.json"]
     },
 
     {
@@ -1316,13 +744,13 @@ const remainingTabs = [
     },
 
     {
-        id:"plans",
+        id:"plans_proactive",
         name:"Ins. Plans Proactive",
         files:["Ins. Plans Proactive.json"]
     },
 
     {
-        id:"invalid-dx",
+        id:"invalid_dx",
         name:"Invalid Principle Dx",
         files:["Invalid Principle Dx.json"]
     },
@@ -1334,14 +762,14 @@ const remainingTabs = [
     },
 
     {
-        id:"nas-haad",
+        id:"nas_haad",
         name:"NAS-HAAD",
         files:["NAS-HAAD.json"]
     },
 
     {
-        id:"nas-dha",
-        name:"NAS DHA",
+        id:"nas_dha",
+        name:"NAS_DHA",
         files:["NAS_DHA.json"]
     },
 
@@ -1370,7 +798,7 @@ const remainingTabs = [
     },
 
     {
-        id:"rx",
+        id:"rx_validity",
         name:"Rx Validity",
         files:["Rx Validity.json"]
     },
@@ -1386,53 +814,6 @@ const remainingTabs = [
         name:"Vitamins",
         files:["Vitamins.json"]
     }
-
-];
-
-
-/* =========================================================
-   RANDOMIZE REMAINING
-========================================================= */
-
-function shuffle(array){
-
-    const result = [...array];
-
-    for(
-        let i=result.length-1;
-        i>0;
-        i--
-    ){
-
-        const j =
-            Math.floor(
-                Math.random()*(i+1)
-            );
-
-        [
-            result[i],
-            result[j]
-        ] =
-        [
-            result[j],
-            result[i]
-        ];
-
-    }
-
-    return result;
-
-}
-
-
-const tabsConfig = [
-
-    ...firstTabs,
-
-    ...shuffle(
-        remainingTabs
-    )
-
 ];
 
 
@@ -1440,102 +821,59 @@ const tabsConfig = [
    STATE
 ========================================================= */
 
+const cache = new Map();
+const filterState = new Map();
+
 let currentTab = null;
 
-let renderVersion = 0;
+let activeFilterColumn = null;
+let activeFilterTab = null;
 
-let filterColumn = null;
-
-let temporarySelection = new Set();
-
-let filterAllValues = [];
-
-const dataCache = new Map();
-
-const filters = new Map();
-
-const columnsCache = new Map();
-
-const widthCache = new Map();
+let temporaryFilterValues = new Set();
 
 
 /* =========================================================
-   ELEMENTS
+   DOM
 ========================================================= */
 
-const tabsElement =
-    document.getElementById("tabs");
+const tabsEl = document.getElementById("tabs");
+const mainArea = document.getElementById("mainArea");
+const tableTitle = document.getElementById("tableTitle");
+const recordCount = document.getElementById("recordCount");
+const clearFilters = document.getElementById("clearFilters");
 
-const tableArea =
-    document.getElementById("tableArea");
+const filterPopup = document.getElementById("filterPopup");
+const filterSearch = document.getElementById("filterSearch");
+const filterOptions = document.getElementById("filterOptions");
 
-const currentList =
-    document.getElementById("currentList");
-
-const recordNumber =
-    document.getElementById("recordNumber");
-
-const filterPopup =
-    document.getElementById("filterPopup");
-
-const filterTitle =
-    document.getElementById("filterTitle");
-
-const filterSearch =
-    document.getElementById("filterSearch");
-
-const filterValues =
-    document.getElementById("filterValues");
+const selectAll = document.getElementById("selectAll");
+const unselectAll = document.getElementById("unselectAll");
+const cancelFilter = document.getElementById("cancelFilter");
+const applyFilter = document.getElementById("applyFilter");
 
 
 /* =========================================================
-   VALUE STRING
+   CREATE TABS
 ========================================================= */
 
-function valueString(value){
+function createTabs(){
 
-    if(
-        value === null ||
-        value === undefined
-    ){
+    tabsEl.innerHTML = "";
 
-        return "";
+    tabsConfig.forEach(tab => {
 
-    }
+        const button = document.createElement("button");
 
+        button.className = "tab";
+        button.textContent = tab.name;
+        button.dataset.id = tab.id;
 
-    if(
-        typeof value === "object"
-    ){
+        button.addEventListener("click", () => {
+            openTab(tab.id);
+        });
 
-        try{
-
-            return JSON.stringify(value);
-
-        }
-        catch{
-
-            return String(value);
-
-        }
-
-    }
-
-
-    return String(value);
-
-}
-
-
-/* =========================================================
-   FILE URL
-========================================================= */
-
-function jsonURL(file){
-
-    return "./" +
-        encodeURIComponent(file);
-
+        tabsEl.appendChild(button);
+    });
 }
 
 
@@ -1545,89 +883,42 @@ function jsonURL(file){
 
 async function loadFile(file){
 
-    if(
-        dataCache.has(file)
-    ){
-
-        return dataCache.get(file);
-
-    }
-
-
-    const response =
-        await fetch(
-            jsonURL(file),
-            {
-                cache:"force-cache"
-            }
-        );
-
-
-    if(!response.ok){
-
-        throw new Error(
-            file +
-            " — HTTP " +
-            response.status
-        );
-
-    }
-
-
-    const data =
-        await response.json();
-
-
-    let rows = data;
-
-
-    if(!Array.isArray(rows)){
-
-        if(
-            Array.isArray(data.data)
-        ){
-
-            rows = data.data;
-
+    const response = await fetch(
+        "./" + encodeURIComponent(file),
+        {
+            cache:"force-cache"
         }
-        else if(
-            Array.isArray(data.rows)
-        ){
-
-            rows = data.rows;
-
-        }
-        else if(
-            Array.isArray(data.records)
-        ){
-
-            rows = data.records;
-
-        }
-        else if(
-            Array.isArray(data.items)
-        ){
-
-            rows = data.items;
-
-        }
-        else{
-
-            rows = [data];
-
-        }
-
-    }
-
-
-    dataCache.set(
-        file,
-        rows
     );
 
+    if(!response.ok){
+        throw new Error(
+            `Cannot load ${file} (${response.status})`
+        );
+    }
 
-    return rows;
+    const json = await response.json();
 
+    if(Array.isArray(json)){
+        return json;
+    }
+
+    if(Array.isArray(json.data)){
+        return json.data;
+    }
+
+    if(Array.isArray(json.rows)){
+        return json.rows;
+    }
+
+    if(Array.isArray(json.records)){
+        return json.records;
+    }
+
+    if(Array.isArray(json.items)){
+        return json.items;
+    }
+
+    return [];
 }
 
 
@@ -1637,52 +928,23 @@ async function loadFile(file){
 
 async function loadTab(tab){
 
-    const cacheKey =
-        "__TAB__" + tab.id;
-
-
-    if(
-        dataCache.has(cacheKey)
-    ){
-
-        return dataCache.get(
-            cacheKey
-        );
-
+    if(cache.has(tab.id)){
+        return cache.get(tab.id);
     }
 
-
-    const results =
-        await Promise.all(
-            tab.files.map(
-                file =>
-                    loadFile(file)
-            )
-        );
-
-
-    const rows = [];
-
-
-    for(
-        const result of results
-    ){
-
-        rows.push(
-            ...result
-        );
-
-    }
-
-
-    dataCache.set(
-        cacheKey,
-        rows
+    const parts = await Promise.all(
+        tab.files.map(file => loadFile(file))
     );
 
+    let rows = [];
+
+    parts.forEach(part => {
+        rows = rows.concat(part);
+    });
+
+    cache.set(tab.id, rows);
 
     return rows;
-
 }
 
 
@@ -1690,219 +952,114 @@ async function loadTab(tab){
    GET COLUMNS
 ========================================================= */
 
-function getColumns(
-    tab,
-    rows
-){
+function getColumns(tab, rows){
 
-    if(
-        columnsCache.has(tab.id)
-    ){
+    const set = new Set();
 
-        return columnsCache.get(
-            tab.id
+    rows.forEach(row => {
+
+        if(!row || typeof row !== "object"){
+            return;
+        }
+
+        Object.keys(row).forEach(key => {
+            set.add(key);
+        });
+    });
+
+    let columns = Array.from(set);
+
+    /* APG THIQA/BASIC MUST BE FAR RIGHT */
+
+    if(tab.id === "apg"){
+
+        const thiqa = columns.find(
+            c => String(c).trim().toLowerCase() === "thiqa"
         );
 
-    }
+        const basic = columns.find(
+            c => String(c).trim().toLowerCase() === "basic"
+        );
 
+        columns = columns.filter(
+            c => c !== thiqa && c !== basic
+        );
 
-    const columns = [];
-
-    const seen = new Set();
-
-
-    for(
-        const row of rows
-    ){
-
-        if(
-            !row ||
-            typeof row !== "object"
-        ){
-
-            continue;
-
+        if(thiqa){
+            columns.push(thiqa);
         }
 
-
-        for(
-            const key of Object.keys(row)
-        ){
-
-            if(
-                !seen.has(key)
-            ){
-
-                seen.add(key);
-
-                columns.push(key);
-
-            }
-
+        if(basic){
+            columns.push(basic);
         }
-
     }
-
-
-    /*
-       APG:
-       Move THIQA and BASIC to the far right.
-    */
-
-    if(
-        tab.id === "apg"
-    ){
-
-        const thiqa =
-            columns.find(
-                c =>
-                    c.trim().toLowerCase()
-                    === "thiqa"
-            );
-
-        const basic =
-            columns.find(
-                c =>
-                    c.trim().toLowerCase()
-                    === "basic"
-            );
-
-
-        if(
-            thiqa &&
-            basic
-        ){
-
-            const normal =
-                columns.filter(
-                    c =>
-                        c !== thiqa &&
-                        c !== basic
-                );
-
-
-            columns.length = 0;
-
-            columns.push(
-                ...normal,
-                thiqa,
-                basic
-            );
-
-        }
-
-    }
-
-
-    columnsCache.set(
-        tab.id,
-        columns
-    );
-
 
     return columns;
-
 }
 
 
 /* =========================================================
-   CREATE TABS
+   FORMAT VALUE
 ========================================================= */
 
-function createTabs(){
+function formatValue(value){
 
-    tabsElement.innerHTML = "";
+    if(value === null || value === undefined){
+        return "";
+    }
 
-
-    tabsConfig.forEach(
-        tab=>{
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "tab";
-
-
-            button.dataset.id =
-                tab.id;
-
-
-            button.textContent =
-                tab.name;
-
-
-            button.title =
-                tab.name;
-
-
-            button.addEventListener(
-                "click",
-                ()=>{
-                    openTab(tab.id);
-                }
-            );
-
-
-            tabsElement.appendChild(
-                button
-            );
-
+    if(typeof value === "object"){
+        try{
+            return JSON.stringify(value);
+        }catch{
+            return String(value);
         }
-    );
+    }
 
+    return String(value);
 }
 
 
 /* =========================================================
-   ACTIVE TAB
+   NORMALIZE
 ========================================================= */
 
-function setActiveTab(id){
+function normalize(value){
 
-    document
-        .querySelectorAll(".tab")
-        .forEach(
-            button=>{
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.id === id
-                );
-
-            }
-        );
-
+    return String(value ?? "")
+        .trim()
+        .toLowerCase();
 }
 
 
 /* =========================================================
-   LOADING
+   YES / NO
 ========================================================= */
 
-function showLoading(name){
+function yesNoClass(tab,column,value){
 
-    tableArea.innerHTML = `
+    if(tab.id !== "apg"){
+        return "";
+    }
 
-        <div class="loading">
+    const name = normalize(column);
+    const val = normalize(value);
 
-            <div class="loading-box">
+    if(
+        (name === "thiqa" || name === "basic") &&
+        val === "yes"
+    ){
+        return "apg-yes";
+    }
 
-                <div class="spinner"></div>
+    if(
+        (name === "thiqa" || name === "basic") &&
+        val === "no"
+    ){
+        return "apg-no";
+    }
 
-                <div class="loading-text">
-                    Loading ${name}...
-                </div>
-
-            </div>
-
-        </div>
-
-    `;
-
+    return "";
 }
 
 
@@ -1910,1027 +1067,57 @@ function showLoading(name){
    FILTER MATCH
 ========================================================= */
 
-function matchesFilters(row){
+function matchesFilters(tabId,row){
 
-    const state =
-        filters.get(
-            currentTab.id
-        );
+    const filters = filterState.get(tabId);
 
-
-    if(
-        !state ||
-        state.size === 0
-    ){
-
+    if(!filters){
         return true;
-
     }
 
+    for(const [column,selected] of filters){
 
-    for(
-        const [
-            column,
-            selected
-        ]
-        of state
-    ){
-
-        const value =
-            valueString(
-                row[column]
-            );
-
-
-        if(
-            !selected.has(value)
-        ){
-
-            return false;
-
+        if(!selected || selected.size === 0){
+            continue;
         }
 
-    }
+        const value = formatValue(row[column]);
 
+        if(!selected.has(value)){
+            return false;
+        }
+    }
 
     return true;
-
 }
 
 
 /* =========================================================
-   GET VISIBLE ROWS
+   FILTER ROWS
 ========================================================= */
 
-function getVisibleRows(rows){
+function filteredRows(tabId,rows){
 
-    const result = [];
-
-
-    for(
-        let i=0;
-        i<rows.length;
-        i++
-    ){
-
-        if(
-            matchesFilters(
-                rows[i]
-            )
-        ){
-
-            result.push(
-                rows[i]
-            );
-
-        }
-
-    }
-
-
-    return result;
-
+    return rows.filter(
+        row => matchesFilters(tabId,row)
+    );
 }
 
 
 /* =========================================================
-   COLUMN WIDTHS
+   CLEAR FILTERS
 ========================================================= */
 
-function calculateWidths(
-    tab,
-    rows,
-    columns
-){
+clearFilters.addEventListener("click",()=>{
 
-    if(
-        widthCache.has(tab.id)
-    ){
-
-        return widthCache.get(
-            tab.id
-        );
-
-    }
-
-
-    const widths = [];
-
-
-    /*
-       Sample only a limited number
-       of rows.
-       This avoids scanning huge files.
-    */
-
-    const sample =
-        rows.slice(
-            0,
-            Math.min(
-                rows.length,
-                180
-            )
-        );
-
-
-    for(
-        const column of columns
-    ){
-
-        const lower =
-            column
-                .trim()
-                .toLowerCase();
-
-
-        /*
-           APG frozen columns.
-        */
-
-        if(
-            tab.id === "apg" &&
-            (
-                lower === "thiqa" ||
-                lower === "basic"
-            )
-        ){
-
-            widths.push(82);
-
-            continue;
-
-        }
-
-
-        let longest =
-            Math.min(
-                column.length,
-                22
-            );
-
-
-        for(
-            const row of sample
-        ){
-
-            const text =
-                valueString(
-                    row[column]
-                )
-                .replace(
-                    /\s+/g,
-                    " "
-                );
-
-
-            /*
-               Ignore very long values when
-               calculating width.
-            */
-
-            const len =
-                Math.min(
-                    text.length,
-                    26
-                );
-
-
-            if(
-                len > longest
-            ){
-
-                longest = len;
-
-            }
-
-        }
-
-
-        /*
-           Much tighter width model.
-        */
-
-        let width =
-            42 +
-            longest * 4.7;
-
-
-        /*
-           Minimum.
-        */
-
-        width =
-            Math.max(
-                width,
-                78
-            );
-
-
-        /*
-           Maximum.
-           This is deliberately much smaller
-           than previous versions.
-        */
-
-        width =
-            Math.min(
-                width,
-                190
-            );
-
-
-        /*
-           Very short fields.
-        */
-
-        if(
-            longest <= 6
-        ){
-
-            width =
-                Math.min(
-                    width,
-                    105
-                );
-
-        }
-
-
-        widths.push(
-            Math.round(width)
-        );
-
-    }
-
-
-    widthCache.set(
-        tab.id,
-        widths
-    );
-
-
-    return widths;
-
-}
-
-
-/* =========================================================
-   CHECK YES / NO
-========================================================= */
-
-function yesNoClass(
-    tab,
-    column,
-    value
-){
-
-    if(
-        tab.id !== "apg"
-    ){
-
-        return "";
-
-    }
-
-
-    const lower =
-        column
-            .trim()
-            .toLowerCase();
-
-
-    if(
-        lower !== "thiqa" &&
-        lower !== "basic"
-    ){
-
-        return "";
-
-    }
-
-
-    const normalized =
-        value
-            .trim()
-            .toLowerCase();
-
-
-    if(
-        normalized === "yes"
-    ){
-
-        return "apg-yes";
-
-    }
-
-
-    if(
-        normalized === "no"
-    ){
-
-        return "apg-no";
-
-    }
-
-
-    return "apg-frozen";
-
-}
-
-
-/* =========================================================
-   CREATE HEADER
-========================================================= */
-
-function createHeader(
-    table,
-    tab,
-    columns,
-    widths
-){
-
-    const thead =
-        document.createElement(
-            "thead"
-        );
-
-
-    const tr =
-        document.createElement(
-            "tr"
-        );
-
-
-    const total =
-        columns.length;
-
-
-    columns.forEach(
-        (
-            column,
-            index
-        )=>{
-
-            const th =
-                document.createElement(
-                    "th"
-                );
-
-
-            th.style.width =
-                widths[index] + "px";
-
-
-            th.style.minWidth =
-                widths[index] + "px";
-
-
-            th.style.maxWidth =
-                widths[index] + "px";
-
-
-            /*
-               Freeze last two APG columns.
-            */
-
-            if(
-                tab.id === "apg" &&
-                total >= 2 &&
-                index === total - 2
-            ){
-
-                th.classList.add(
-                    "freeze-right-2"
-                );
-
-            }
-
-
-            if(
-                tab.id === "apg" &&
-                total >= 1 &&
-                index === total - 1
-            ){
-
-                th.classList.add(
-                    "freeze-right-1"
-                );
-
-            }
-
-
-            const content =
-                document.createElement(
-                    "div"
-                );
-
-
-            content.className =
-                "header-content";
-
-
-            const label =
-                document.createElement(
-                    "span"
-                );
-
-
-            label.className =
-                "header-label";
-
-
-            label.textContent =
-                column;
-
-
-            label.title =
-                column;
-
-
-            const filter =
-                document.createElement(
-                    "button"
-                );
-
-
-            filter.className =
-                "filter-button";
-
-
-            filter.type =
-                "button";
-
-
-            filter.textContent =
-                "▼";
-
-
-            filter.title =
-                "Filter " + column;
-
-
-            const state =
-                filters.get(
-                    tab.id
-                );
-
-
-            if(
-                state &&
-                state.has(column)
-            ){
-
-                filter.classList.add(
-                    "active"
-                );
-
-            }
-
-
-            filter.addEventListener(
-                "click",
-                event=>{
-
-                    event.stopPropagation();
-
-
-                    openFilter(
-                        column,
-                        filter
-                    );
-
-                }
-            );
-
-
-            content.appendChild(
-                label
-            );
-
-
-            content.appendChild(
-                filter
-            );
-
-
-            th.appendChild(
-                content
-            );
-
-
-            tr.appendChild(
-                th
-            );
-
-        }
-    );
-
-
-    thead.appendChild(
-        tr
-    );
-
-
-    table.appendChild(
-        thead
-    );
-
-}
-
-
-/* =========================================================
-   VIRTUAL TABLE
-========================================================= */
-
-function renderVirtualTable(
-    tab,
-    rows,
-    columns,
-    widths,
-    version
-){
-
-    tableArea.innerHTML = "";
-
-
-    const table =
-        document.createElement(
-            "table"
-        );
-
-
-    table.className =
-        "data-table";
-
-
-    /*
-       COLGROUP.
-    */
-
-    const colgroup =
-        document.createElement(
-            "colgroup"
-        );
-
-
-    widths.forEach(
-        width=>{
-
-            const col =
-                document.createElement(
-                    "col"
-                );
-
-
-            col.style.width =
-                width + "px";
-
-
-            col.style.minWidth =
-                width + "px";
-
-
-            colgroup.appendChild(
-                col
-            );
-
-        }
-    );
-
-
-    table.appendChild(
-        colgroup
-    );
-
-
-    createHeader(
-        table,
-        tab,
-        columns,
-        widths
-    );
-
-
-    const tbody =
-        document.createElement(
-            "tbody"
-        );
-
-
-    table.appendChild(
-        tbody
-    );
-
-
-    tableArea.appendChild(
-        table
-    );
-
-
-    /*
-       Fixed row height.
-       This makes virtualization extremely fast.
-    */
-
-    const ROW_HEIGHT = 34;
-
-    const BUFFER = 12;
-
-
-    let raf = 0;
-
-
-    function draw(){
-
-        raf = 0;
-
-
-        if(
-            version !==
-            renderVersion
-        ){
-
-            return;
-
-        }
-
-
-        const scrollTop =
-            tableArea.scrollTop;
-
-
-        const viewportHeight =
-            tableArea.clientHeight;
-
-
-        let start =
-            Math.floor(
-                Math.max(
-                    0,
-                    scrollTop - 46
-                )
-                /
-                ROW_HEIGHT
-            );
-
-
-        start =
-            Math.max(
-                0,
-                start - BUFFER
-            );
-
-
-        let end =
-            Math.ceil(
-                (
-                    scrollTop +
-                    viewportHeight
-                )
-                /
-                ROW_HEIGHT
-            );
-
-
-        end =
-            Math.min(
-                rows.length,
-                end + BUFFER
-            );
-
-
-        /*
-           Only remove/rebuild the small
-           visible portion.
-        */
-
-        tbody.innerHTML = "";
-
-
-        /*
-           Top spacer.
-        */
-
-        if(start > 0){
-
-            const spacer =
-                document.createElement(
-                    "tr"
-                );
-
-
-            spacer.className =
-                "virtual-spacer";
-
-
-            const cell =
-                document.createElement(
-                    "td"
-                );
-
-
-            cell.colSpan =
-                columns.length;
-
-
-            cell.style.height =
-                (
-                    start *
-                    ROW_HEIGHT
-                ) + "px";
-
-
-            spacer.appendChild(
-                cell
-            );
-
-
-            tbody.appendChild(
-                spacer
-            );
-
-        }
-
-
-        /*
-           Visible rows.
-        */
-
-        for(
-            let i=start;
-            i<end;
-            i++
-        ){
-
-            const row =
-                rows[i];
-
-
-            const tr =
-                document.createElement(
-                    "tr"
-                );
-
-
-            for(
-                let c=0;
-                c<columns.length;
-                c++
-            ){
-
-                const column =
-                    columns[c];
-
-
-                const td =
-                    document.createElement(
-                        "td"
-                    );
-
-
-                const value =
-                    valueString(
-                        row[column]
-                    );
-
-
-                td.textContent =
-                    value;
-
-
-                if(
-                    value.length > 35
-                ){
-
-                    td.title =
-                        value;
-
-                }
-
-
-                /*
-                   Freeze APG last two.
-                */
-
-                if(
-                    tab.id === "apg" &&
-                    c === columns.length - 2
-                ){
-
-                    td.classList.add(
-                        "freeze-right-2"
-                    );
-
-                }
-
-
-                if(
-                    tab.id === "apg" &&
-                    c === columns.length - 1
-                ){
-
-                    td.classList.add(
-                        "freeze-right-1"
-                    );
-
-                }
-
-
-                /*
-                   YES / NO coloring.
-                */
-
-                const colorClass =
-                    yesNoClass(
-                        tab,
-                        column,
-                        value
-                    );
-
-
-                if(colorClass){
-
-                    td.classList.add(
-                        colorClass
-                    );
-
-                }
-
-
-                tr.appendChild(
-                    td
-                );
-
-            }
-
-
-            tbody.appendChild(
-                tr
-            );
-
-        }
-
-
-        /*
-           Bottom spacer.
-        */
-
-        if(
-            end < rows.length
-        ){
-
-            const spacer =
-                document.createElement(
-                    "tr"
-                );
-
-
-            spacer.className =
-                "virtual-spacer";
-
-
-            const cell =
-                document.createElement(
-                    "td"
-                );
-
-
-            cell.colSpan =
-                columns.length;
-
-
-            cell.style.height =
-                (
-                    (
-                        rows.length -
-                        end
-                    )
-                    *
-                    ROW_HEIGHT
-                ) + "px";
-
-
-            spacer.appendChild(
-                cell
-            );
-
-
-            tbody.appendChild(
-                spacer
-            );
-
-        }
-
-    }
-
-
-    function scheduleDraw(){
-
-        if(raf)
-            return;
-
-
-        raf =
-            requestAnimationFrame(
-                draw
-            );
-
-    }
-
-
-    tableArea.addEventListener(
-        "scroll",
-        scheduleDraw,
-        {
-            passive:true
-        }
-    );
-
-
-    draw();
-
-}
-
-
-/* =========================================================
-   RENDER TABLE
-========================================================= */
-
-function renderTable(
-    tab,
-    version
-){
-
-    if(
-        version !==
-        renderVersion
-    ){
-
+    if(!currentTab){
         return;
-
     }
 
+    filterState.delete(currentTab.id);
 
-    const rows =
-        tab.rows || [];
-
-
-    if(
-        rows.length === 0
-    ){
-
-        tableArea.innerHTML = `
-
-            <div class="empty">
-                No data found.
-            </div>
-
-        `;
-
-
-        recordNumber.textContent =
-            "0";
-
-
-        return;
-
-    }
-
-
-    const columns =
-        getColumns(
-            tab,
-            rows
-        );
-
-
-    const visible =
-        getVisibleRows(
-            rows
-        );
-
-
-    recordNumber.textContent =
-        visible.length.toLocaleString();
-
-
-    const widths =
-        calculateWidths(
-            tab,
-            rows,
-            columns
-        );
-
-
-    renderVirtualTable(
-        tab,
-        visible,
-        columns,
-        widths,
-        version
-    );
-
-}
+    renderCurrentTab();
+});
 
 
 /* =========================================================
@@ -2939,574 +1126,897 @@ function renderTable(
 
 async function openTab(id){
 
-    const tab =
-        tabsConfig.find(
-            item =>
-                item.id === id
-        );
-
-
-    if(!tab)
-        return;
-
-
-    currentTab =
-        tab;
-
-
-    setActiveTab(id);
-
-
-    currentList.textContent =
-        tab.name;
-
-
-    if(
-        !filters.has(id)
-    ){
-
-        filters.set(
-            id,
-            new Map()
-        );
-
-    }
-
-
-    const version =
-        ++renderVersion;
-
-
-    /*
-       Already loaded:
-       switch almost immediately.
-    */
-
-    if(
-        dataCache.has(
-            "__TAB__" + id
-        )
-    ){
-
-        tab.rows =
-            dataCache.get(
-                "__TAB__" + id
-            );
-
-
-        renderTable(
-            tab,
-            version
-        );
-
-
-        return;
-
-    }
-
-
-    showLoading(
-        tab.name
+    const tab = tabsConfig.find(
+        t => t.id === id
     );
 
+    if(!tab){
+        return;
+    }
 
-    recordNumber.textContent =
-        "Loading";
+    currentTab = tab;
 
+    document
+        .querySelectorAll(".tab")
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.id === id
+            );
+        });
+
+    tableTitle.textContent = tab.name;
+    recordCount.textContent = "";
+
+    closeFilterPopup();
+
+    mainArea.innerHTML = `
+        <div class="loading">
+            <div class="spinner"></div>
+            Loading...
+        </div>
+    `;
 
     try{
 
-        const rows =
-            await loadTab(
-                tab
-            );
+        const rows = await loadTab(tab);
 
-
-        if(
-            version !==
-            renderVersion
-        ){
-
+        if(currentTab.id !== id){
             return;
-
         }
 
+        renderCurrentTab(rows);
 
-        tab.rows =
-            rows;
-
-
-        renderTable(
-            tab,
-            version
-        );
-
-
-        /*
-           Start background preload only AFTER
-           the selected tab is visible.
-        */
-
-        scheduleBackgroundPreload();
-
-    }
-    catch(error){
-
-        if(
-            version !==
-            renderVersion
-        ){
-
-            return;
-
-        }
-
+    }catch(error){
 
         console.error(error);
 
-
-        tableArea.innerHTML = `
-
-            <div class="error">
-
-                <strong>
-                    Could not load ${tab.name}
-                </strong>
-
-                <br><br>
-
-                ${error.message}
-
-                <br><br>
-
-                Check the JSON filename in GitHub.
-
+        mainArea.innerHTML = `
+            <div class="loading">
+                Failed to load data.
             </div>
-
         `;
-
-
-        recordNumber.textContent =
-            "Error";
-
     }
-
 }
 
 
 /* =========================================================
-   BACKGROUND PRELOAD
+   RENDER CURRENT
 ========================================================= */
 
-let preloadStarted = false;
+async function renderCurrentTab(rows){
 
-async function scheduleBackgroundPreload(){
-
-    if(preloadStarted)
+    if(!currentTab){
         return;
-
-
-    preloadStarted = true;
-
-
-    /*
-       Wait until browser is idle.
-    */
-
-    if(
-        "requestIdleCallback"
-        in window
-    ){
-
-        await new Promise(
-            resolve =>
-                requestIdleCallback(
-                    resolve,
-                    {
-                        timeout:2500
-                    }
-                )
-        );
-
-    }
-    else{
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    1000
-                )
-        );
-
     }
 
+    if(!rows){
+        rows = cache.get(currentTab.id) || [];
+    }
 
-    /*
-       Load files sequentially in the background.
-       This prevents 30 simultaneous requests from
-       slowing the first screen.
-    */
+    if(currentTab.special === "eligibility"){
 
-    for(
-        const tab of tabsConfig
-    ){
+        renderEligibility(rows);
+        return;
+    }
+
+    renderNormalTable(currentTab,rows);
+}
+
+
+/* =========================================================
+   NORMAL TABLE
+========================================================= */
+
+function renderNormalTable(tab,rows){
+
+    const columns = getColumns(tab,rows);
+    const visibleRows = filteredRows(tab.id,rows);
+
+    recordCount.textContent =
+        `${visibleRows.length.toLocaleString()} / ${rows.length.toLocaleString()} records`;
+
+    mainArea.innerHTML = "";
+
+    const table = document.createElement("table");
+    table.className = "table";
+
+    /* WIDTHS */
+
+    const colgroup = document.createElement("colgroup");
+
+    columns.forEach(column => {
+
+        const col = document.createElement("col");
+
+        let width = 110;
 
         if(
-            dataCache.has(
-                "__TAB__" + tab.id
+            tab.id === "apg" &&
+            (
+                normalize(column) === "thiqa" ||
+                normalize(column) === "basic"
+            )
+        ){
+            width = 82;
+        }else{
+
+            let maxLength =
+                String(column).length;
+
+            for(let i=0;i<Math.min(rows.length,180);i++){
+
+                const value =
+                    formatValue(rows[i]?.[column]);
+
+                maxLength =
+                    Math.max(
+                        maxLength,
+                        value.length
+                    );
+            }
+
+            width =
+                Math.max(
+                    78,
+                    Math.min(
+                        190,
+                        25 + maxLength * 6
+                    )
+                );
+
+            if(maxLength <= 12){
+                width = Math.min(width,105);
+            }
+        }
+
+        col.style.width = width + "px";
+
+        colgroup.appendChild(col);
+    });
+
+    table.appendChild(colgroup);
+
+    /* HEADER */
+
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+
+    columns.forEach(column => {
+
+        const th = document.createElement("th");
+
+        th.textContent = column;
+
+        const button =
+            document.createElement("button");
+
+        button.className = "filter-btn";
+        button.innerHTML = "▼";
+        button.title = "Filter";
+
+        const existing =
+            filterState.get(tab.id)?.get(column);
+
+        if(existing){
+            button.classList.add("filtered");
+        }
+
+        button.addEventListener("click",(event)=>{
+            event.stopPropagation();
+
+            openFilter(
+                tab,
+                rows,
+                column,
+                button
+            );
+        });
+
+        th.appendChild(button);
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    /* BODY */
+
+    const tbody = document.createElement("tbody");
+
+    visibleRows.forEach(row => {
+
+        const tr = document.createElement("tr");
+
+        columns.forEach(column => {
+
+            const td = document.createElement("td");
+
+            const value =
+                formatValue(row[column]);
+
+            td.textContent = value;
+            td.title = value;
+
+            const specialClass =
+                yesNoClass(
+                    tab,
+                    column,
+                    value
+                );
+
+            if(specialClass){
+                td.classList.add(specialClass);
+            }
+
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+
+    mainArea.appendChild(table);
+}
+
+
+/* =========================================================
+   ELIGIBILITY PORTALS
+========================================================= */
+
+function renderEligibility(rows){
+
+    recordCount.textContent =
+        `${rows.length.toLocaleString()} records`;
+
+    mainArea.innerHTML = "";
+
+    const wrap =
+        document.createElement("div");
+
+    wrap.className =
+        "eligibility-wrap";
+
+    const table =
+        document.createElement("table");
+
+    table.className =
+        "eligibility-table";
+
+    /* -----------------------------------------------------
+       COLUMN WIDTHS
+    ----------------------------------------------------- */
+
+    const colgroup =
+        document.createElement("colgroup");
+
+    [
+        "25%",
+        "17%",
+        "14%",
+        "14.67%",
+        "14.67%",
+        "14.66%"
+    ].forEach(width => {
+
+        const col =
+            document.createElement("col");
+
+        col.style.width = width;
+
+        colgroup.appendChild(col);
+    });
+
+    table.appendChild(colgroup);
+
+
+    /* -----------------------------------------------------
+       ROW 1
+       A1:B1 EMPTY
+       C1 AREA
+       D1:F1 MERGED AL AIN
+    ----------------------------------------------------- */
+
+    const row1 =
+        document.createElement("tr");
+
+    row1.appendChild(
+        document.createElement("td")
+    );
+
+    row1.appendChild(
+        document.createElement("td")
+    );
+
+    const c1 =
+        document.createElement("td");
+
+    c1.className = "top-label";
+    c1.textContent = "Area";
+
+    row1.appendChild(c1);
+
+    const alAin =
+        document.createElement("td");
+
+    alAin.className = "al-ain";
+    alAin.colSpan = 3;
+    alAin.textContent = "Al Ain";
+
+    row1.appendChild(alAin);
+
+    table.appendChild(row1);
+
+
+    /* -----------------------------------------------------
+       ROW 2
+    ----------------------------------------------------- */
+
+    const row2 =
+        document.createElement("tr");
+
+    row2.appendChild(
+        document.createElement("td")
+    );
+
+    row2.appendChild(
+        document.createElement("td")
+    );
+
+    const c2 =
+        document.createElement("td");
+
+    c2.className = "top-label";
+    c2.textContent = "Branch";
+
+    row2.appendChild(c2);
+
+    const branches = [
+        "Sama",
+        "Al Noud (Enhanced only)",
+        "Falaj 2"
+    ];
+
+    branches.forEach(branch => {
+
+        const td =
+            document.createElement("td");
+
+        td.className = "branch";
+        td.textContent = branch;
+
+        row2.appendChild(td);
+    });
+
+    table.appendChild(row2);
+
+
+    /* -----------------------------------------------------
+       ROW 3
+    ----------------------------------------------------- */
+
+    const row3 =
+        document.createElement("tr");
+
+    const headers = [
+        "Eligibility portal",
+        "Link",
+        "H.A. License Code",
+        "PF1681",
+        "PF 5068",
+        "PF 5408"
+    ];
+
+    headers.forEach(header => {
+
+        const th =
+            document.createElement("th");
+
+        th.className =
+            "main-header";
+
+        th.textContent = header;
+
+        row3.appendChild(th);
+    });
+
+    table.appendChild(row3);
+
+
+    /* -----------------------------------------------------
+       DATA
+       
+       Each portal occupies TWO rows.
+       A4:A5, A6:A7, A8:A9 ... A32:A33
+    ----------------------------------------------------- */
+
+    const dataRows =
+        rows.slice(0,30);
+
+    for(let i=0;i<dataRows.length;i++){
+
+        const item =
+            dataRows[i];
+
+        const tr =
+            document.createElement("tr");
+
+        tr.className =
+            "data-row";
+
+
+        /* -------------------------------------------------
+           PORTAL NAME
+           MERGED VERTICALLY FOR TWO ROWS
+        ------------------------------------------------- */
+
+        const portal =
+            getEligibilityValue(
+                item,
+                [
+                    "Eligibility portal",
+                    "Eligibility Portal",
+                    "Portal",
+                    "Name",
+                    "Eligibility"
+                ]
+            );
+
+        const portalCell =
+            document.createElement("td");
+
+        portalCell.className =
+            "portal-name";
+
+        portalCell.rowSpan = 2;
+
+        portalCell.textContent =
+            portal;
+
+        tr.appendChild(portalCell);
+
+
+        /* -------------------------------------------------
+           LINK
+        ------------------------------------------------- */
+
+        const link =
+            getEligibilityValue(
+                item,
+                [
+                    "Link",
+                    "LINK",
+                    "URL",
+                    "Url",
+                    "Website"
+                ]
+            );
+
+        const linkCell =
+            document.createElement("td");
+
+        linkCell.className =
+            "link-cell";
+
+        if(isURL(link)){
+
+            const a =
+                document.createElement("a");
+
+            a.href =
+                link;
+
+            a.target =
+                "_blank";
+
+            a.rel =
+                "noopener noreferrer";
+
+            a.textContent =
+                "Open";
+
+            linkCell.appendChild(a);
+
+        }else{
+
+            linkCell.textContent =
+                link;
+        }
+
+        tr.appendChild(linkCell);
+
+
+        /* -------------------------------------------------
+           LICENSE / BRANCH DATA
+        ------------------------------------------------- */
+
+        const license =
+            getEligibilityValue(
+                item,
+                [
+                    "H.A. License Code",
+                    "HA License Code",
+                    "H.A License Code",
+                    "License Code",
+                    "HAAD License Code"
+                ]
+            );
+
+        const licenseCell =
+            document.createElement("td");
+
+        licenseCell.className =
+            "license";
+
+        licenseCell.textContent =
+            license;
+
+        tr.appendChild(licenseCell);
+
+
+        /* -------------------------------------------------
+           D / E / F VALUES
+        ------------------------------------------------- */
+
+        const branchValues = [
+            getBranchValue(item,"PF1681"),
+            getBranchValue(item,"PF 5068"),
+            getBranchValue(item,"PF 5408")
+        ];
+
+        branchValues.forEach(value => {
+
+            const td =
+                document.createElement("td");
+
+            td.textContent =
+                value;
+
+            tr.appendChild(td);
+        });
+
+
+        table.appendChild(tr);
+
+
+        /* -------------------------------------------------
+           SECOND ROW
+           
+           This is intentionally empty except for the
+           cells corresponding to B:F.
+           
+           A is already rowspan=2.
+        ------------------------------------------------- */
+
+        const second =
+            document.createElement("tr");
+
+        second.className =
+            "data-row";
+
+
+        const secondValues =
+            getEligibilitySecondRow(item);
+
+        for(let j=0;j<5;j++){
+
+            const td =
+                document.createElement("td");
+
+            td.textContent =
+                secondValues[j] ?? "";
+
+            second.appendChild(td);
+        }
+
+        table.appendChild(second);
+    }
+
+
+    wrap.appendChild(table);
+    mainArea.appendChild(wrap);
+}
+
+
+/* =========================================================
+   ELIGIBILITY HELPERS
+========================================================= */
+
+function getEligibilityValue(item,keys){
+
+    if(!item || typeof item !== "object"){
+        return "";
+    }
+
+    for(const key of keys){
+
+        if(
+            Object.prototype.hasOwnProperty.call(
+                item,
+                key
             )
         ){
 
-            continue;
-
+            return formatValue(item[key]);
         }
-
-
-        try{
-
-            const rows =
-                await loadTab(
-                    tab
-                );
-
-
-            tab.rows =
-                rows;
-
-        }
-        catch(error){
-
-            console.warn(
-                "Background preload failed:",
-                tab.name,
-                error
-            );
-
-        }
-
-
-        /*
-           Give browser a moment between files.
-        */
-
-        await new Promise(
-            resolve =>
-                setTimeout(
-                    resolve,
-                    20
-                )
-        );
-
     }
 
+    /* Case-insensitive fallback */
+
+    const normalizedKeys =
+        keys.map(k => normalize(k));
+
+    for(const actualKey of Object.keys(item)){
+
+        if(
+            normalizedKeys.includes(
+                normalize(actualKey)
+            )
+        ){
+
+            return formatValue(
+                item[actualKey]
+            );
+        }
+    }
+
+    return "";
 }
 
 
 /* =========================================================
-   OPEN FILTER
+   GET BRANCH VALUE
 ========================================================= */
 
-function openFilter(
-    column,
-    button
-){
+function getBranchValue(item,branch){
 
-    if(!currentTab)
-        return;
+    if(!item || typeof item !== "object"){
+        return "";
+    }
+
+    const wanted =
+        normalize(branch);
+
+    for(const key of Object.keys(item)){
+
+        if(
+            normalize(key) === wanted
+        ){
+            return formatValue(item[key]);
+        }
+    }
+
+    return "";
+}
 
 
-    filterColumn =
-        column;
+/* =========================================================
+   SECOND ELIGIBILITY ROW
+========================================================= */
 
+function getEligibilitySecondRow(item){
+
+    /*
+       Supports JSON files where the second line of
+       each portal is stored using alternate field names.
+    */
+
+    const values = [];
+
+    values.push(
+        getEligibilityValue(
+            item,
+            [
+                "Link 2",
+                "LINK 2",
+                "URL 2",
+                "Website 2"
+            ]
+        )
+    );
+
+    values.push(
+        getEligibilityValue(
+            item,
+            [
+                "H.A. License Code 2",
+                "HA License Code 2",
+                "License Code 2"
+            ]
+        )
+    );
+
+    values.push(
+        getEligibilityValue(
+            item,
+            [
+                "PF1681 2",
+                "PF 1681 2"
+            ]
+        )
+    );
+
+    values.push(
+        getEligibilityValue(
+            item,
+            [
+                "PF 5068 2"
+            ]
+        )
+    );
+
+    values.push(
+        getEligibilityValue(
+            item,
+            [
+                "PF 5408 2"
+            ]
+        )
+    );
+
+    return values;
+}
+
+
+/* =========================================================
+   URL CHECK
+========================================================= */
+
+function isURL(value){
+
+    if(!value){
+        return false;
+    }
+
+    try{
+
+        const url =
+            new URL(value);
+
+        return (
+            url.protocol === "http:" ||
+            url.protocol === "https:"
+        );
+
+    }catch{
+
+        return false;
+    }
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function openFilter(tab,rows,column,button){
+
+    activeFilterTab = tab;
+    activeFilterColumn = column;
 
     const values =
         new Set();
 
-
-    for(
-        const row of currentTab.rows
-    ){
+    rows.forEach(row => {
 
         values.add(
-            valueString(
-                row[column]
-            )
+            formatValue(row[column])
         );
-
-    }
-
-
-    filterAllValues =
-        Array.from(values);
-
-
-    filterAllValues.sort(
-        (a,b)=>
-            a.localeCompare(
-                b,
-                undefined,
-                {
-                    numeric:true,
-                    sensitivity:"base"
-                }
-            )
-    );
-
-
-    const state =
-        filters.get(
-            currentTab.id
-        );
-
+    });
 
     const existing =
-        state &&
-        state.get(column);
-
+        filterState.get(tab.id)?.get(column);
 
     if(existing){
-
-        temporarySelection =
-            new Set(
-                existing
-            );
-
-    }
-    else{
-
-        temporarySelection =
-            new Set(
-                filterAllValues
-            );
-
+        temporaryFilterValues =
+            new Set(existing);
+    }else{
+        temporaryFilterValues =
+            new Set(values);
     }
 
-
-    filterTitle.textContent =
-        "Filter: " + column;
-
-
-    filterSearch.value =
-        "";
-
-
-    renderFilterValues();
-
-
-    filterPopup.style.display =
-        "block";
-
-
-    /*
-       Position.
-    */
+    renderFilterOptions(
+        Array.from(values).sort(
+            (a,b) =>
+                a.localeCompare(
+                    b,
+                    undefined,
+                    {
+                        numeric:true,
+                        sensitivity:"base"
+                    }
+                )
+        )
+    );
 
     const rect =
         button.getBoundingClientRect();
 
-
-    const width =
-        filterPopup.offsetWidth;
-
-
-    const height =
-        filterPopup.offsetHeight;
-
-
     let left =
         rect.left;
-
 
     let top =
         rect.bottom + 5;
 
-
-    if(
-        left + width >
-        window.innerWidth - 10
-    ){
-
+    if(left + 300 > window.innerWidth){
         left =
-            window.innerWidth -
-            width -
-            10;
-
+            window.innerWidth - 310;
     }
 
-
-    if(
-        top + height >
-        window.innerHeight - 10
-    ){
-
+    if(top + 410 > window.innerHeight){
         top =
-            rect.top -
-            height -
-            5;
-
+            rect.top - 415;
     }
-
-
-    left =
-        Math.max(
-            10,
-            left
-        );
-
-
-    top =
-        Math.max(
-            10,
-            top
-        );
-
 
     filterPopup.style.left =
-        left + "px";
-
+        Math.max(5,left) + "px";
 
     filterPopup.style.top =
-        top + "px";
+        Math.max(5,top) + "px";
 
+    filterPopup.classList.add("show");
 
-    filterSearch.focus();
+    filterSearch.value = "";
 
+    setTimeout(
+        () => filterSearch.focus(),
+        0
+    );
 }
 
 
 /* =========================================================
-   FILTER VALUES
+   RENDER FILTER OPTIONS
 ========================================================= */
 
-function renderFilterValues(){
+function renderFilterOptions(values){
 
-    const search =
-        filterSearch.value
-            .trim()
-            .toLowerCase();
+    filterOptions.innerHTML = "";
 
-
-    filterValues.innerHTML =
-        "";
-
-
-    const fragment =
-        document.createDocumentFragment();
-
-
-    for(
-        const value of filterAllValues
-    ){
-
-        const display =
-            value === ""
-                ? "(Blank)"
-                : value;
-
-
-        if(
-            search &&
-            !display
-                .toLowerCase()
-                .includes(search)
-        ){
-
-            continue;
-
-        }
-
+    values.forEach(value => {
 
         const label =
-            document.createElement(
-                "label"
-            );
-
+            document.createElement("label");
 
         label.className =
-            "filter-value";
-
+            "filter-option";
 
         const checkbox =
-            document.createElement(
-                "input"
-            );
-
+            document.createElement("input");
 
         checkbox.type =
             "checkbox";
 
+        checkbox.value =
+            value;
 
         checkbox.checked =
-            temporarySelection.has(
-                value
-            );
-
+            temporaryFilterValues.has(value);
 
         checkbox.addEventListener(
             "change",
             ()=>{
-
-                if(
-                    checkbox.checked
-                ){
-
-                    temporarySelection.add(
-                        value
-                    );
-
+                if(checkbox.checked){
+                    temporaryFilterValues.add(value);
+                }else{
+                    temporaryFilterValues.delete(value);
                 }
-                else{
-
-                    temporarySelection.delete(
-                        value
-                    );
-
-                }
-
             }
         );
 
-
         const text =
-            document.createElement(
-                "span"
-            );
-
-
-        text.className =
-            "filter-value-text";
-
+            document.createElement("span");
 
         text.textContent =
-            display;
+            value === "" ? "(blank)" : value;
 
+        label.appendChild(checkbox);
+        label.appendChild(text);
 
-        text.title =
-            display;
-
-
-        label.appendChild(
-            checkbox
-        );
-
-
-        label.appendChild(
-            text
-        );
-
-
-        fragment.appendChild(
-            label
-        );
-
-    }
-
-
-    filterValues.appendChild(
-        fragment
-    );
-
+        filterOptions.appendChild(label);
+    });
 }
 
 
@@ -3516,7 +2026,29 @@ function renderFilterValues(){
 
 filterSearch.addEventListener(
     "input",
-    renderFilterValues
+    ()=>{
+        const search =
+            normalize(filterSearch.value);
+
+        document
+            .querySelectorAll(
+                ".filter-option"
+            )
+            .forEach(option => {
+
+                const text =
+                    normalize(
+                        option
+                            .querySelector("span")
+                            .textContent
+                    );
+
+                option.style.display =
+                    text.includes(search)
+                        ? "flex"
+                        : "none";
+            });
+    }
 );
 
 
@@ -3524,210 +2056,244 @@ filterSearch.addEventListener(
    SELECT ALL
 ========================================================= */
 
-document
-    .getElementById("selectAll")
-    .addEventListener(
-        "click",
-        ()=>{
+selectAll.addEventListener(
+    "click",
+    ()=>{
 
-            temporarySelection =
-                new Set(
-                    filterAllValues
+        document
+            .querySelectorAll(
+                ".filter-option"
+            )
+            .forEach(option => {
+
+                if(
+                    option.style.display === "none"
+                ){
+                    return;
+                }
+
+                const checkbox =
+                    option.querySelector(
+                        "input"
+                    );
+
+                checkbox.checked = true;
+
+                temporaryFilterValues.add(
+                    checkbox.value
                 );
-
-
-            renderFilterValues();
-
-        }
-    );
+            });
+    }
+);
 
 
 /* =========================================================
-   UNCHECK ALL
+   UNSELECT ALL
 ========================================================= */
 
-document
-    .getElementById("uncheckAll")
-    .addEventListener(
-        "click",
-        ()=>{
+unselectAll.addEventListener(
+    "click",
+    ()=>{
 
-            temporarySelection =
-                new Set();
+        document
+            .querySelectorAll(
+                ".filter-option"
+            )
+            .forEach(option => {
 
+                if(
+                    option.style.display === "none"
+                ){
+                    return;
+                }
 
-            renderFilterValues();
+                const checkbox =
+                    option.querySelector(
+                        "input"
+                    );
 
-        }
-    );
+                checkbox.checked = false;
+
+                temporaryFilterValues.delete(
+                    checkbox.value
+                );
+            });
+    }
+);
 
 
 /* =========================================================
-   APPLY
+   APPLY FILTER
 ========================================================= */
 
-document
-    .getElementById("applyFilter")
-    .addEventListener(
-        "click",
-        ()=>{
+applyFilter.addEventListener(
+    "click",
+    ()=>{
 
-            if(
-                !currentTab ||
-                filterColumn === null
-            ){
+        if(
+            !activeFilterTab ||
+            !activeFilterColumn
+        ){
+            return;
+        }
 
-                return;
+        if(!filterState.has(
+            activeFilterTab.id
+        )){
+            filterState.set(
+                activeFilterTab.id,
+                new Map()
+            );
+        }
 
-            }
-
-
-            const state =
-                filters.get(
-                    currentTab.id
-                );
-
-
-            if(
-                temporarySelection.size ===
-                filterAllValues.length
-            ){
-
-                state.delete(
-                    filterColumn
-                );
-
-            }
-            else{
-
-                state.set(
-                    filterColumn,
-                    new Set(
-                        temporarySelection
-                    )
-                );
-
-            }
-
-
-            closeFilter();
-
-
-            renderTable(
-                currentTab,
-                ++renderVersion
+        const filters =
+            filterState.get(
+                activeFilterTab.id
             );
 
+        const allValues =
+            new Set();
+
+        const rows =
+            cache.get(
+                activeFilterTab.id
+            ) || [];
+
+        rows.forEach(row=>{
+            allValues.add(
+                formatValue(
+                    row[activeFilterColumn]
+                )
+            );
+        });
+
+        /*
+           If every value is selected,
+           remove the filter completely.
+        */
+
+        if(
+            temporaryFilterValues.size ===
+            allValues.size
+        ){
+
+            filters.delete(
+                activeFilterColumn
+            );
+
+        }else{
+
+            filters.set(
+                activeFilterColumn,
+                new Set(
+                    temporaryFilterValues
+                )
+            );
         }
-    );
+
+        closeFilterPopup();
+
+        renderCurrentTab();
+    }
+);
 
 
 /* =========================================================
    CANCEL
 ========================================================= */
 
-document
-    .getElementById("cancelFilter")
-    .addEventListener(
-        "click",
-        closeFilter
-    );
+cancelFilter.addEventListener(
+    "click",
+    closeFilterPopup
+);
 
 
 /* =========================================================
    CLOSE FILTER
 ========================================================= */
 
-function closeFilter(){
+function closeFilterPopup(){
 
-    filterPopup.style.display =
-        "none";
+    filterPopup.classList.remove("show");
 
-    filterColumn =
-        null;
-
+    activeFilterTab = null;
+    activeFilterColumn = null;
 }
 
 
 /* =========================================================
-   CLEAR FILTERS
-========================================================= */
-
-document
-    .getElementById("clearButton")
-    .addEventListener(
-        "click",
-        ()=>{
-
-            if(!currentTab)
-                return;
-
-
-            filters.set(
-                currentTab.id,
-                new Map()
-            );
-
-
-            closeFilter();
-
-
-            renderTable(
-                currentTab,
-                ++renderVersion
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   OUTSIDE CLICK
+   CLICK OUTSIDE
 ========================================================= */
 
 document.addEventListener(
-    "mousedown",
-    event=>{
+    "click",
+    event => {
 
         if(
-            filterPopup.style.display ===
-            "block" &&
-
-            !filterPopup.contains(
-                event.target
-            ) &&
-
-            !event.target.closest(
-                ".filter-button"
-            )
+            filterPopup.classList.contains("show") &&
+            !filterPopup.contains(event.target) &&
+            !event.target.classList.contains("filter-btn")
         ){
-
-            closeFilter();
-
+            closeFilterPopup();
         }
-
     }
 );
 
 
 /* =========================================================
-   ESCAPE
+   ESC
 ========================================================= */
 
 document.addEventListener(
     "keydown",
-    event=>{
+    event => {
 
-        if(
-            event.key === "Escape"
-        ){
-
-            closeFilter();
-
+        if(event.key === "Escape"){
+            closeFilterPopup();
         }
-
     }
 );
+
+
+/* =========================================================
+   PRELOAD OTHER TABS
+========================================================= */
+
+function preloadOtherTabs(){
+
+    const others =
+        tabsConfig.filter(
+            t => t.id !== currentTab?.id
+        );
+
+    let index = 0;
+
+    function next(){
+
+        if(index >= others.length){
+            return;
+        }
+
+        const tab =
+            others[index++];
+
+        if(!cache.has(tab.id)){
+
+            loadTab(tab)
+                .catch(error=>{
+                    console.warn(
+                        "Preload failed:",
+                        tab.name,
+                        error
+                    );
+                });
+        }
+
+        setTimeout(next,35);
+    }
+
+    next();
+}
 
 
 /* =========================================================
@@ -3737,6 +2303,23 @@ document.addEventListener(
 createTabs();
 
 openTab("apg");
+
+if("requestIdleCallback" in window){
+
+    requestIdleCallback(
+        preloadOtherTabs,
+        {
+            timeout:1200
+        }
+    );
+
+}else{
+
+    setTimeout(
+        preloadOtherTabs,
+        1200
+    );
+}
 
 </script>
 
