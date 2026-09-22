@@ -7,496 +7,1168 @@
 <title>Insurance All List</title>
 
 <style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
 *{
     box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
     margin:0;
     padding:0;
     width:100%;
     height:100%;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f3f5f7;
-    color:#222;
 }
 
-/* =========================
-   HEADER
-========================= */
+body{
+    font-family:
+        Inter,
+        ui-sans-serif,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
 
-.header{
-    background:#075e36;
-    color:white;
-    padding:16px 20px;
-    position:sticky;
-    top:0;
+    background:#f6f7f9;
+    color:#202124;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   APP HEADER
+========================================================= */
+
+.app-header{
+    height:68px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 22px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e7e9ed;
+
+    position:relative;
     z-index:1000;
-    box-shadow:0 2px 8px rgba(0,0,0,.18);
 }
 
-.header h1{
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    min-width:260px;
+}
+
+.brand-icon{
+    width:38px;
+    height:38px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:10px;
+
+    background:#176b45;
+    color:#ffffff;
+
+    font-size:19px;
+    font-weight:800;
+
+    box-shadow:0 4px 10px rgba(23,107,69,.18);
+}
+
+.brand-text h1{
     margin:0;
-    font-size:24px;
-    font-weight:700;
+
+    font-size:17px;
+    line-height:20px;
+
+    font-weight:750;
+
+    letter-spacing:-.2px;
 }
 
-.header-sub{
-    margin-top:4px;
-    font-size:13px;
-    opacity:.9;
+.brand-text span{
+    display:block;
+
+    margin-top:2px;
+
+    color:#8a9099;
+
+    font-size:11px;
+    font-weight:500;
 }
 
-/* =========================
-   TABS
-========================= */
 
-.tabs-container{
-    background:white;
-    border-bottom:1px solid #ccc;
-    position:sticky;
-    top:72px;
+/* =========================================================
+   TOP RIGHT
+========================================================= */
+
+.header-status{
+    margin-left:auto;
+
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    color:#7b818a;
+
+    font-size:12px;
+}
+
+.status-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#35a66f;
+
+    box-shadow:0 0 0 3px rgba(53,166,111,.12);
+}
+
+
+/* =========================================================
+   TAB BAR
+========================================================= */
+
+.tabs-shell{
+    height:58px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e7e9ed;
+
+    position:relative;
     z-index:900;
-    box-shadow:0 2px 5px rgba(0,0,0,.08);
 }
 
 .tabs{
+    height:100%;
+
     display:flex;
+    align-items:flex-end;
+
+    gap:3px;
+
+    padding:0 14px;
+
     overflow-x:auto;
     overflow-y:hidden;
-    white-space:nowrap;
+
     scrollbar-width:thin;
 }
 
+.tabs::-webkit-scrollbar{
+    height:5px;
+}
+
+.tabs::-webkit-scrollbar-track{
+    background:#f5f6f8;
+}
+
+.tabs::-webkit-scrollbar-thumb{
+    background:#c9cdd3;
+    border-radius:20px;
+}
+
 .tab{
-    flex:none;
-    padding:12px 16px;
+    height:42px;
+
+    flex:0 0 auto;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 15px;
+
     border:none;
-    background:#f1f3f4;
-    color:#333;
+    border-radius:8px 8px 0 0;
+
+    background:transparent;
+
+    color:#666d76;
+
+    font-family:inherit;
+
+    font-size:12px;
+    font-weight:650;
+
     cursor:pointer;
-    font-size:13px;
-    font-weight:600;
-    border-right:1px solid #ddd;
-    transition:.15s;
+
+    white-space:nowrap;
+
+    position:relative;
+
+    transition:
+        background .15s ease,
+        color .15s ease;
 }
 
 .tab:hover{
-    background:#e4e7e9;
+    background:#f3f5f7;
+    color:#30343a;
 }
 
 .tab.active{
-    background:#075e36;
-    color:white;
+    background:#eef7f2;
+    color:#176b45;
 }
 
-/* =========================
+.tab.active::after{
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+    right:10px;
+    bottom:0;
+
+    height:2px;
+
+    border-radius:4px 4px 0 0;
+
+    background:#176b45;
+}
+
+.tab-number{
+    margin-right:7px;
+
+    color:#a0a5ac;
+
+    font-size:10px;
+    font-weight:700;
+}
+
+.tab.active .tab-number{
+    color:#4c9773;
+}
+
+
+/* =========================================================
    TOOLBAR
-========================= */
+========================================================= */
 
 .toolbar{
-    background:white;
-    padding:12px;
-    border-bottom:1px solid #ddd;
+    height:64px;
+
     display:flex;
-    flex-wrap:wrap;
-    gap:8px;
     align-items:center;
-    position:sticky;
-    top:117px;
+
+    gap:9px;
+
+    padding:10px 16px;
+
+    background:#ffffff;
+
+    border-bottom:1px solid #e7e9ed;
+
+    position:relative;
     z-index:800;
 }
 
-.search{
-    height:36px;
-    min-width:190px;
-    border:1px solid #bbb;
-    border-radius:5px;
-    padding:0 10px;
-    font-size:14px;
+.search-box{
+    height:40px;
+
+    width:330px;
+
+    display:flex;
+    align-items:center;
+
+    border:1px solid #dfe2e7;
+
+    border-radius:8px;
+
+    background:#fafbfc;
+
+    transition:
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
 }
 
-.search:focus{
-    outline:none;
-    border-color:#075e36;
-    box-shadow:0 0 0 2px rgba(7,94,54,.12);
+.search-box:focus-within{
+    background:#ffffff;
+
+    border-color:#67a987;
+
+    box-shadow:0 0 0 3px rgba(23,107,69,.08);
 }
 
-.btn{
-    height:36px;
-    border:none;
-    border-radius:5px;
+.search-icon{
+    width:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#9298a0;
+
+    font-size:15px;
+}
+
+.search-input{
+    flex:1;
+
+    height:100%;
+
+    border:0;
+    outline:0;
+
+    background:transparent;
+
+    padding:0 10px 0 0;
+
+    color:#292d32;
+
+    font-family:inherit;
+
+    font-size:13px;
+}
+
+.search-input::placeholder{
+    color:#9da2aa;
+}
+
+.clear-btn{
+    height:40px;
+
     padding:0 14px;
+
+    border:1px solid #dfe2e7;
+
+    border-radius:8px;
+
+    background:#ffffff;
+
+    color:#646a73;
+
+    font-family:inherit;
+
+    font-size:12px;
+    font-weight:650;
+
     cursor:pointer;
-    font-weight:600;
-    font-size:13px;
+
+    transition:.15s;
 }
 
-.btn-clear{
-    background:#d32f2f;
-    color:white;
+.clear-btn:hover{
+    border-color:#c9cdd3;
+    background:#f6f7f9;
+    color:#33383e;
 }
 
-.btn-clear:hover{
-    background:#b71c1c;
+.toolbar-spacer{
+    flex:1;
 }
 
-.info{
-    margin-left:auto;
-    font-size:13px;
-    color:#555;
+.record-info{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    color:#7d838c;
+
+    font-size:12px;
+
+    white-space:nowrap;
 }
 
-/* =========================
+.record-number{
+    color:#30353a;
+    font-weight:700;
+}
+
+
+/* =========================================================
    TABLE AREA
-========================= */
+========================================================= */
+
+.content{
+    position:absolute;
+
+    left:0;
+    right:0;
+    top:190px;
+    bottom:0;
+}
 
 .table-wrapper{
     width:100%;
-    height:calc(100vh - 170px);
+    height:100%;
+
     overflow:auto;
-    background:white;
+
+    background:#ffffff;
+
+    scrollbar-width:auto;
 }
+
+.table-wrapper::-webkit-scrollbar{
+    width:10px;
+    height:10px;
+}
+
+.table-wrapper::-webkit-scrollbar-track{
+    background:#f3f4f6;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb{
+    background:#c7cbd1;
+    border-radius:8px;
+
+    border:2px solid #f3f4f6;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
 
 table{
     border-collapse:separate;
     border-spacing:0;
-    min-width:max-content;
-    width:100%;
-    font-size:13px;
+
+    width:max-content;
+    min-width:100%;
+
+    table-layout:auto;
+
+    font-size:12px;
 }
 
 thead{
     position:sticky;
     top:0;
+
     z-index:500;
 }
 
 th{
-    background:#075e36;
-    color:white;
-    font-weight:700;
+    height:43px;
+
+    min-width:145px;
+
     padding:0;
-    border-right:1px solid rgba(255,255,255,.25);
-    border-bottom:1px solid #064d2d;
-    min-width:150px;
-    max-width:350px;
-    height:42px;
+
+    background:#f7f8fa;
+
+    color:#555b64;
+
+    border-right:1px solid #e4e6ea;
+    border-bottom:1px solid #dfe2e7;
+
+    font-size:11px;
+
+    font-weight:750;
+
+    white-space:nowrap;
+
     position:relative;
 }
 
-.th-content{
+.th-inner{
+    height:43px;
+
     display:flex;
     align-items:center;
+
     justify-content:space-between;
-    height:42px;
-    padding:0 7px;
-    gap:5px;
+
+    gap:7px;
+
+    padding:0 8px 0 11px;
 }
 
-.th-title{
+.th-name{
     overflow:hidden;
+
     text-overflow:ellipsis;
+
     white-space:nowrap;
 }
 
-.filter-btn{
-    flex:none;
+.filter-button{
+    flex:0 0 auto;
+
     width:25px;
     height:25px;
-    border:1px solid rgba(255,255,255,.5);
-    background:rgba(255,255,255,.12);
-    color:white;
-    border-radius:3px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:1px solid #d6d9de;
+
+    border-radius:5px;
+
+    background:#ffffff;
+
+    color:#8a9098;
+
     cursor:pointer;
-    font-size:12px;
+
+    font-size:10px;
+
+    transition:.12s;
 }
 
-.filter-btn:hover{
-    background:white;
-    color:#075e36;
+.filter-button:hover{
+    border-color:#9ebcae;
+
+    background:#eef7f2;
+
+    color:#176b45;
 }
 
-.filter-btn.active{
-    background:#ffd54f;
-    color:#222;
-    border-color:#ffd54f;
+.filter-button.active{
+    background:#176b45;
+
+    border-color:#176b45;
+
+    color:#ffffff;
 }
 
 td{
-    padding:8px 10px;
-    border-right:1px solid #ddd;
-    border-bottom:1px solid #ddd;
+    height:40px;
+
+    padding:0 11px;
+
+    border-right:1px solid #eceef1;
+    border-bottom:1px solid #eceef1;
+
+    background:#ffffff;
+
+    color:#3e434a;
+
     text-align:center;
+
     vertical-align:middle;
-    background:white;
+
     white-space:nowrap;
 }
 
 tbody tr:hover td{
-    background:#f1f8f4;
+    background:#f8fbf9;
 }
 
 tbody tr:nth-child(even) td{
-    background:#fafafa;
+    background:#fbfbfc;
 }
 
 tbody tr:nth-child(even):hover td{
-    background:#f1f8f4;
+    background:#f8fbf9;
 }
 
-/* =========================
-   LOADING
-========================= */
 
-.loading{
-    padding:40px;
-    text-align:center;
-    font-size:18px;
-    color:#075e36;
+/* =========================================================
+   SPECIAL STATUS CELLS
+========================================================= */
+
+.status-thiqa{
+    color:#087443;
+    font-weight:750;
 }
 
-.error{
-    margin:20px;
-    padding:18px;
-    background:#ffebee;
-    color:#b71c1c;
-    border:1px solid #ef9a9a;
-    border-radius:6px;
+.status-basic{
+    color:#c23b3b;
+    font-weight:750;
 }
 
-/* =========================
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+.loading-container{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.loading-box{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+
+    color:#727880;
+
+    font-size:13px;
+}
+
+.spinner{
+    width:30px;
+    height:30px;
+
+    border:3px solid #e6ebe8;
+
+    border-top-color:#176b45;
+
+    border-radius:50%;
+
+    animation:spin .65s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   EMPTY / ERROR
+========================================================= */
+
+.empty-state{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#8b9097;
+
+    font-size:14px;
+}
+
+.error-state{
+    margin:30px;
+
+    padding:20px;
+
+    border:1px solid #f0cccc;
+
+    border-radius:10px;
+
+    background:#fff7f7;
+
+    color:#a83232;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
    FILTER POPUP
-========================= */
+========================================================= */
 
 .filter-popup{
     position:fixed;
-    z-index:3000;
-    width:300px;
-    max-height:430px;
-    background:white;
-    border:1px solid #bbb;
-    border-radius:6px;
-    box-shadow:0 5px 20px rgba(0,0,0,.25);
-    display:none;
+
+    z-index:5000;
+
+    width:310px;
+    max-width:calc(100vw - 20px);
+
+    background:#ffffff;
+
+    border:1px solid #dfe2e7;
+
+    border-radius:10px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.15),
+        0 3px 8px rgba(0,0,0,.08);
+
     overflow:hidden;
+
+    display:none;
 }
 
-.filter-header{
-    background:#075e36;
-    color:white;
-    padding:10px;
-    font-weight:bold;
+.filter-top{
+    padding:13px 14px 10px;
+
+    border-bottom:1px solid #eceef1;
+}
+
+.filter-title{
+    color:#30353a;
+
+    font-size:13px;
+
+    font-weight:750;
+}
+
+.filter-subtitle{
+    margin-top:3px;
+
+    color:#959ba3;
+
+    font-size:10px;
+}
+
+.filter-search-wrap{
+    padding:10px 12px 5px;
 }
 
 .filter-search{
-    width:calc(100% - 20px);
-    margin:10px;
+    width:100%;
     height:34px;
-    padding:0 8px;
-    border:1px solid #bbb;
-    border-radius:4px;
+
+    padding:0 9px;
+
+    border:1px solid #dfe2e7;
+
+    border-radius:6px;
+
+    outline:0;
+
+    font-family:inherit;
+
+    font-size:12px;
+}
+
+.filter-search:focus{
+    border-color:#67a987;
+
+    box-shadow:0 0 0 3px rgba(23,107,69,.07);
 }
 
 .filter-actions{
     display:flex;
+
     gap:6px;
-    padding:0 10px 8px;
+
+    padding:6px 12px 9px;
 }
 
-.filter-actions button{
+.filter-action{
     flex:1;
+
     height:30px;
-    border:1px solid #aaa;
-    background:#f5f5f5;
-    border-radius:4px;
+
+    border:1px solid #dfe2e7;
+
+    border-radius:6px;
+
+    background:#ffffff;
+
+    color:#666d76;
+
+    font-family:inherit;
+
+    font-size:11px;
+
+    font-weight:650;
+
     cursor:pointer;
-    font-size:12px;
+}
+
+.filter-action:hover{
+    background:#f6f7f8;
 }
 
 .filter-values{
-    max-height:280px;
+    max-height:245px;
+
     overflow-y:auto;
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
+
+    border-top:1px solid #eceef1;
+    border-bottom:1px solid #eceef1;
+
     padding:5px 0;
 }
 
+.filter-values::-webkit-scrollbar{
+    width:7px;
+}
+
+.filter-values::-webkit-scrollbar-thumb{
+    background:#cfd3d8;
+
+    border-radius:10px;
+}
+
 .filter-value{
+    min-height:32px;
+
     display:flex;
     align-items:center;
-    gap:7px;
-    padding:6px 10px;
+
+    gap:8px;
+
+    padding:5px 12px;
+
     cursor:pointer;
-    font-size:13px;
+
+    color:#444a51;
+
+    font-size:12px;
 }
 
 .filter-value:hover{
-    background:#f0f5f2;
+    background:#f5f8f6;
 }
 
 .filter-value input{
+    width:15px;
+    height:15px;
+
+    accent-color:#176b45;
+
     cursor:pointer;
+}
+
+.filter-value-text{
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    white-space:nowrap;
 }
 
 .filter-footer{
     display:flex;
+
     gap:7px;
-    padding:9px;
+
+    padding:10px 12px;
 }
 
 .filter-footer button{
     flex:1;
-    height:34px;
-    border:none;
-    border-radius:4px;
-    cursor:pointer;
-    font-weight:bold;
-}
 
-.apply-filter{
-    background:#075e36;
-    color:white;
+    height:35px;
+
+    border-radius:6px;
+
+    font-family:inherit;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    cursor:pointer;
 }
 
 .cancel-filter{
-    background:#ddd;
-    color:#222;
+    border:1px solid #dfe2e7;
+
+    background:#ffffff;
+
+    color:#666d76;
 }
 
-/* =========================
-   EMPTY
-========================= */
+.apply-filter{
+    border:1px solid #176b45;
 
-.empty{
-    padding:40px;
-    text-align:center;
-    color:#777;
-    font-size:16px;
+    background:#176b45;
+
+    color:#ffffff;
 }
 
-/* =========================
+.apply-filter:hover{
+    background:#125638;
+}
+
+
+/* =========================================================
    MOBILE
-========================= */
+========================================================= */
 
-@media(max-width:700px){
+@media(max-width:800px){
 
-    .header h1{
-        font-size:19px;
+    .app-header{
+        height:60px;
+
+        padding:0 12px;
+    }
+
+    .brand{
+        min-width:auto;
+    }
+
+    .brand-text span{
+        display:none;
+    }
+
+    .brand-text h1{
+        font-size:15px;
+    }
+
+    .brand-icon{
+        width:34px;
+        height:34px;
+    }
+
+    .header-status{
+        display:none;
+    }
+
+    .tabs-shell{
+        height:52px;
+    }
+
+    .tabs{
+        padding:0 8px;
     }
 
     .tab{
-        padding:10px 12px;
-        font-size:12px;
+        height:38px;
+
+        padding:0 11px;
+
+        font-size:11px;
     }
 
     .toolbar{
-        top:64px;
+        height:62px;
+
+        padding:9px;
+
+        gap:6px;
     }
 
-    .tabs-container{
-        top:61px;
-    }
-
-    .search{
-        min-width:140px;
+    .search-box{
         flex:1;
+
+        min-width:0;
+
+        width:auto;
+
+        height:38px;
     }
 
-    .info{
-        width:100%;
-        margin-left:0;
+    .clear-btn{
+        height:38px;
+
+        padding:0 9px;
     }
 
-    .table-wrapper{
-        height:calc(100vh - 205px);
+    .record-info{
+        display:none;
+    }
+
+    .content{
+        top:174px;
     }
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h1>Insurance All List</h1>
-    <div class="header-sub">
-        Insurance / Formulary / Coverage Reference
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="app-header">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            I
+        </div>
+
+        <div class="brand-text">
+
+            <h1>Insurance All List</h1>
+
+            <span>
+                Insurance • Formulary • Coverage Reference
+            </span>
+
+        </div>
+
     </div>
+
+    <div class="header-status">
+
+        <span class="status-dot"></span>
+
+        <span>Ready</span>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     TABS
+========================================================= -->
+
+<div class="tabs-shell">
+
+    <div
+        class="tabs"
+        id="tabs"
+    ></div>
+
 </div>
 
-<div class="tabs-container">
-    <div class="tabs" id="tabs"></div>
-</div>
+
+<!-- =========================================================
+     TOOLBAR
+========================================================= -->
 
 <div class="toolbar">
 
-    <input
-        id="globalSearch"
-        class="search"
-        type="text"
-        placeholder="Search all columns..."
-    >
+    <div class="search-box">
+
+        <div class="search-icon">
+            🔍
+        </div>
+
+        <input
+            id="globalSearch"
+            class="search-input"
+            type="text"
+            autocomplete="off"
+            placeholder="Search this list..."
+        >
+
+    </div>
 
     <button
-        class="btn btn-clear"
-        onclick="clearAllFilters()"
+        class="clear-btn"
+        id="clearButton"
     >
-        Clear Search & Filters
+        Clear
     </button>
 
-    <div class="info" id="info">
-        Loading...
-    </div>
+    <div class="toolbar-spacer"></div>
 
-</div>
-
-<div class="table-wrapper" id="tableWrapper">
-    <div class="loading">
-        Loading...
-    </div>
-</div>
-
-<div class="filter-popup" id="filterPopup">
-
-    <div class="filter-header" id="filterTitle">
-        Filter
-    </div>
-
-    <input
-        id="filterSearch"
-        class="filter-search"
-        placeholder="Search values..."
+    <div
+        class="record-info"
+        id="recordInfo"
     >
+        <span>Records</span>
+
+        <span
+            class="record-number"
+            id="recordNumber"
+        >
+            —
+        </span>
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CONTENT
+========================================================= -->
+
+<main class="content">
+
+    <div
+        class="table-wrapper"
+        id="tableWrapper"
+    >
+
+        <div class="loading-container">
+
+            <div class="loading-box">
+
+                <div class="spinner"></div>
+
+                <span>Loading...</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     FILTER POPUP
+========================================================= -->
+
+<div
+    class="filter-popup"
+    id="filterPopup"
+>
+
+    <div class="filter-top">
+
+        <div
+            class="filter-title"
+            id="filterTitle"
+        >
+            Filter
+        </div>
+
+        <div class="filter-subtitle">
+            Select the values you want to display
+        </div>
+
+    </div>
+
+
+    <div class="filter-search-wrap">
+
+        <input
+            id="filterSearch"
+            class="filter-search"
+            type="text"
+            autocomplete="off"
+            placeholder="Search values..."
+        >
+
+    </div>
+
 
     <div class="filter-actions">
 
-        <button onclick="selectAllFilterValues()">
+        <button
+            class="filter-action"
+            id="selectAllButton"
+        >
             Select All
         </button>
 
-        <button onclick="clearFilterValues()">
+        <button
+            class="filter-action"
+            id="uncheckAllButton"
+        >
             Uncheck All
         </button>
 
     </div>
+
 
     <div
         class="filter-values"
         id="filterValues"
     ></div>
 
+
     <div class="filter-footer">
 
         <button
             class="cancel-filter"
-            onclick="closeFilter()"
+            id="cancelFilterButton"
         >
             Cancel
         </button>
 
         <button
             class="apply-filter"
-            onclick="applyFilter()"
+            id="applyFilterButton"
         >
             Apply
         </button>
@@ -505,24 +1177,47 @@ tbody tr:nth-child(even):hover td{
 
 </div>
 
+
 <script>
 
 /* =========================================================
    TAB CONFIGURATION
+=========================================================
+
+   APG = FIRST
+   HAAD = SECOND
+   Everything else = randomized automatically.
 ========================================================= */
 
-const tabsConfig = [
+const firstTabs = [
+
+    {
+        id:"apg",
+        name:"APG Formulary 09-09",
+        files:[
+            "APG Formulary 09-09.json"
+        ]
+    },
+
+    {
+        id:"haad",
+        name:"HAAD List",
+        files:[
+            "HAAD_LIST_1.json",
+            "HAAD_LIST_2.json",
+            "HAAD_LIST_3.json"
+        ]
+    }
+
+];
+
+
+const remainingTabs = [
 
     {
         id:"adnic",
         name:"ADNIC List",
         files:["ADNIC List.json"]
-    },
-
-    {
-        id:"apg",
-        name:"APG Formulary 09-09",
-        files:["APG Formulary 09-09.json"]
     },
 
     {
@@ -601,16 +1296,6 @@ const tabsConfig = [
         id:"fmc",
         name:"FMC list",
         files:["FMC list.json"]
-    },
-
-    {
-        id:"haad",
-        name:"HAAD List",
-        files:[
-            "HAAD_LIST_1.json",
-            "HAAD_LIST_2.json",
-            "HAAD_LIST_3.json"
-        ]
     },
 
     {
@@ -701,259 +1386,115 @@ const tabsConfig = [
 
 
 /* =========================================================
-   GLOBAL STATE
+   RANDOMIZE REMAINING TABS
+========================================================= */
+
+function shuffle(array){
+
+    const copy = [...array];
+
+    for(
+        let i = copy.length - 1;
+        i > 0;
+        i--
+    ){
+
+        const j =
+            Math.floor(
+                Math.random() * (i + 1)
+            );
+
+        [
+            copy[i],
+            copy[j]
+        ] = [
+            copy[j],
+            copy[i]
+        ];
+
+    }
+
+    return copy;
+
+}
+
+
+const tabsConfig = [
+    ...firstTabs,
+    ...shuffle(remainingTabs)
+];
+
+
+/* =========================================================
+   STATE
 ========================================================= */
 
 let currentTab = null;
 
-const dataCache = {};
-
-const filters = {};
-
 let currentFilterColumn = null;
 
+let currentFilterValues = null;
+
+let currentFilterAllValues = null;
+
+
+/*
+   Data is cached permanently after first load.
+
+   This is the main speed improvement:
+   reopening a tab does NOT download
+   the JSON again.
+*/
+
+const dataCache = new Map();
+
+
+/*
+   Filter state is kept separately for every tab.
+*/
+
+const filterState = new Map();
+
+
+/*
+   Render token prevents an old render from
+   overwriting a newer tab.
+*/
+
+let renderToken = 0;
+
 
 /* =========================================================
-   CREATE TABS
+   DOM
 ========================================================= */
 
-function createTabs(){
+const tabsElement =
+    document.getElementById("tabs");
 
-    const tabs = document.getElementById("tabs");
+const tableWrapper =
+    document.getElementById("tableWrapper");
 
-    tabs.innerHTML = "";
+const globalSearch =
+    document.getElementById("globalSearch");
 
-    tabsConfig.forEach((tab,index)=>{
+const recordNumber =
+    document.getElementById("recordNumber");
 
-        const button = document.createElement("button");
+const filterPopup =
+    document.getElementById("filterPopup");
 
-        button.className = "tab";
+const filterTitle =
+    document.getElementById("filterTitle");
 
-        button.textContent = tab.name;
+const filterSearch =
+    document.getElementById("filterSearch");
 
-        button.dataset.id = tab.id;
-
-        button.onclick = ()=>{
-
-            openTab(tab.id);
-
-        };
-
-        tabs.appendChild(button);
-
-    });
-
-}
+const filterValues =
+    document.getElementById("filterValues");
 
 
 /* =========================================================
-   JSON URL
-========================================================= */
-
-function jsonURL(file){
-
-    return "./" + encodeURIComponent(file)
-        .replace(/%2F/g,"/");
-
-}
-
-
-/* =========================================================
-   LOAD JSON
-========================================================= */
-
-async function loadFile(file){
-
-    if(dataCache[file]){
-
-        return dataCache[file];
-
-    }
-
-    const response = await fetch(jsonURL(file),{
-        cache:"default"
-    });
-
-    if(!response.ok){
-
-        throw new Error(
-            "Could not load " + file +
-            " (" + response.status + ")"
-        );
-
-    }
-
-    const data = await response.json();
-
-    let rows = data;
-
-    /*
-       Support several common JSON structures.
-    */
-
-    if(!Array.isArray(rows)){
-
-        if(Array.isArray(data.data))
-            rows = data.data;
-
-        else if(Array.isArray(data.rows))
-            rows = data.rows;
-
-        else if(Array.isArray(data.records))
-            rows = data.records;
-
-        else if(Array.isArray(data.items))
-            rows = data.items;
-
-        else
-            rows = [data];
-
-    }
-
-    dataCache[file] = rows;
-
-    return rows;
-
-}
-
-
-/* =========================================================
-   LOAD MULTIPLE FILES
-========================================================= */
-
-async function loadTab(tab){
-
-    let allRows = [];
-
-    for(const file of tab.files){
-
-        const rows = await loadFile(file);
-
-        allRows = allRows.concat(rows);
-
-    }
-
-    return allRows;
-
-}
-
-
-/* =========================================================
-   OPEN TAB
-========================================================= */
-
-async function openTab(id){
-
-    const tab = tabsConfig.find(x=>x.id === id);
-
-    if(!tab) return;
-
-    currentTab = tab;
-
-    document.querySelectorAll(".tab").forEach(btn=>{
-
-        btn.classList.toggle(
-            "active",
-            btn.dataset.id === id
-        );
-
-    });
-
-    document.getElementById("globalSearch").value = "";
-
-    if(!filters[id]){
-
-        filters[id] = {};
-
-    }
-
-    document.getElementById("tableWrapper").innerHTML =
-        `<div class="loading">Loading ${escapeHTML(tab.name)}...</div>`;
-
-    try{
-
-        const rows = await loadTab(tab);
-
-        tab.rows = rows;
-
-        renderTable(tab);
-
-    }
-    catch(error){
-
-        console.error(error);
-
-        document.getElementById("tableWrapper").innerHTML =
-            `<div class="error">
-                <strong>Error loading ${escapeHTML(tab.name)}</strong>
-                <br><br>
-                ${escapeHTML(error.message)}
-                <br><br>
-                Check that the JSON filename in GitHub exactly matches
-                the filename configured in index.html.
-            </div>`;
-
-        document.getElementById("info").textContent =
-            "Error";
-
-    }
-
-}
-
-
-/* =========================================================
-   GET COLUMNS
-========================================================= */
-
-function getColumns(rows){
-
-    const columns = [];
-
-    const seen = new Set();
-
-    rows.forEach(row=>{
-
-        if(!row || typeof row !== "object")
-            return;
-
-        Object.keys(row).forEach(key=>{
-
-            if(!seen.has(key)){
-
-                seen.add(key);
-
-                columns.push(key);
-
-            }
-
-        });
-
-    });
-
-    return columns;
-
-}
-
-
-/* =========================================================
-   VALUE TO STRING
-========================================================= */
-
-function valueToString(value){
-
-    if(value === null || value === undefined)
-        return "";
-
-    if(typeof value === "object")
-        return JSON.stringify(value);
-
-    return String(value);
-
-}
-
-
-/* =========================================================
-   ESCAPE HTML
+   HTML ESCAPE
 ========================================================= */
 
 function escapeHTML(value){
@@ -969,18 +1510,500 @@ function escapeHTML(value){
 
 
 /* =========================================================
-   GLOBAL SEARCH
+   VALUE TO STRING
 ========================================================= */
 
-document.getElementById("globalSearch")
-.addEventListener("input",function(){
+function valueToString(value){
 
-    if(!currentTab)
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return "";
+    }
+
+    if(typeof value === "object"){
+
+        try{
+            return JSON.stringify(value);
+        }
+        catch{
+            return String(value);
+        }
+
+    }
+
+    return String(value);
+
+}
+
+
+/* =========================================================
+   JSON URL
+========================================================= */
+
+function getJSONURL(file){
+
+    return "./" +
+        encodeURIComponent(file)
+        .replace(/%2F/g,"/");
+
+}
+
+
+/* =========================================================
+   LOAD JSON
+========================================================= */
+
+async function loadFile(file){
+
+    /*
+       CACHE CHECK
+    */
+
+    if(dataCache.has(file)){
+
+        return dataCache.get(file);
+
+    }
+
+
+    const response =
+        await fetch(
+            getJSONURL(file),
+            {
+                cache:"force-cache"
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            `Could not load "${file}" — HTTP ${response.status}`
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    let rows = data;
+
+
+    /*
+       Support several JSON structures.
+    */
+
+    if(!Array.isArray(rows)){
+
+        if(Array.isArray(data.data)){
+
+            rows = data.data;
+
+        }
+        else if(Array.isArray(data.rows)){
+
+            rows = data.rows;
+
+        }
+        else if(Array.isArray(data.records)){
+
+            rows = data.records;
+
+        }
+        else if(Array.isArray(data.items)){
+
+            rows = data.items;
+
+        }
+        else{
+
+            rows = [data];
+
+        }
+
+    }
+
+
+    dataCache.set(file,rows);
+
+    return rows;
+
+}
+
+
+/* =========================================================
+   LOAD TAB
+========================================================= */
+
+async function loadTab(tab){
+
+    /*
+       Entire tab cached.
+    */
+
+    if(dataCache.has(
+        "__TAB__" + tab.id
+    )){
+
+        return dataCache.get(
+            "__TAB__" + tab.id
+        );
+
+    }
+
+
+    /*
+       IMPORTANT:
+
+       Promise.all loads HAAD 1,2,3
+       simultaneously instead of one after another.
+    */
+
+    const fileResults =
+        await Promise.all(
+            tab.files.map(
+                file => loadFile(file)
+            )
+        );
+
+
+    let rows = [];
+
+    for(const result of fileResults){
+
+        rows.push(...result);
+
+    }
+
+
+    dataCache.set(
+        "__TAB__" + tab.id,
+        rows
+    );
+
+
+    return rows;
+
+}
+
+
+/* =========================================================
+   GET COLUMNS
+========================================================= */
+
+function getColumns(rows){
+
+    const columns = [];
+
+    const seen = new Set();
+
+    /*
+       Only inspect objects until all columns
+       have been discovered.
+
+       Usually this is very quick.
+    */
+
+    for(const row of rows){
+
+        if(
+            !row ||
+            typeof row !== "object"
+        ){
+            continue;
+        }
+
+
+        for(const key of Object.keys(row)){
+
+            if(!seen.has(key)){
+
+                seen.add(key);
+
+                columns.push(key);
+
+            }
+
+        }
+
+    }
+
+    return columns;
+
+}
+
+
+/* =========================================================
+   CREATE TABS
+========================================================= */
+
+function createTabs(){
+
+    tabsElement.innerHTML = "";
+
+    tabsConfig.forEach(
+        (tab,index)=>{
+
+            const button =
+                document.createElement("button");
+
+            button.className = "tab";
+
+            button.dataset.id = tab.id;
+
+            button.innerHTML = `
+                <span class="tab-number">
+                    ${String(index + 1).padStart(2,"0")}
+                </span>
+                ${escapeHTML(tab.name)}
+            `;
+
+            button.addEventListener(
+                "click",
+                ()=>openTab(tab.id)
+            );
+
+            tabsElement.appendChild(button);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SET ACTIVE TAB
+========================================================= */
+
+function setActiveTab(id){
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(button=>{
+
+            button.classList.toggle(
+                "active",
+                button.dataset.id === id
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   LOADING UI
+========================================================= */
+
+function showLoading(name){
+
+    tableWrapper.innerHTML = `
+
+        <div class="loading-container">
+
+            <div class="loading-box">
+
+                <div class="spinner"></div>
+
+                <span>
+                    Loading ${escapeHTML(name)}...
+                </span>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   OPEN TAB
+========================================================= */
+
+async function openTab(id){
+
+    const tab =
+        tabsConfig.find(
+            item => item.id === id
+        );
+
+
+    if(!tab)
         return;
 
-    renderTable(currentTab);
 
-});
+    /*
+       Change current tab immediately.
+    */
+
+    currentTab = tab;
+
+    setActiveTab(id);
+
+    /*
+       Reset search only when changing tabs.
+    */
+
+    globalSearch.value = "";
+
+    /*
+       Create filter state if necessary.
+    */
+
+    if(!filterState.has(id)){
+
+        filterState.set(
+            id,
+            new Map()
+        );
+
+    }
+
+
+    const thisRender =
+        ++renderToken;
+
+
+    /*
+       If already cached, render immediately.
+    */
+
+    if(dataCache.has(
+        "__TAB__" + tab.id
+    )){
+
+        const rows =
+            dataCache.get(
+                "__TAB__" + tab.id
+            );
+
+        tab.rows = rows;
+
+        renderTable(tab,thisRender);
+
+        return;
+
+    }
+
+
+    showLoading(tab.name);
+
+    recordNumber.textContent = "Loading";
+
+
+    try{
+
+        const rows =
+            await loadTab(tab);
+
+
+        /*
+           User may have clicked another tab
+           while this one was loading.
+        */
+
+        if(thisRender !== renderToken)
+            return;
+
+
+        tab.rows = rows;
+
+        renderTable(tab,thisRender);
+
+    }
+    catch(error){
+
+        if(thisRender !== renderToken)
+            return;
+
+
+        console.error(error);
+
+
+        tableWrapper.innerHTML = `
+
+            <div class="error-state">
+
+                <strong>
+                    Unable to load ${escapeHTML(tab.name)}
+                </strong>
+
+                <br><br>
+
+                ${escapeHTML(error.message)}
+
+                <br><br>
+
+                Check that the JSON filename in GitHub
+                exactly matches the filename in this HTML.
+
+            </div>
+
+        `;
+
+
+        recordNumber.textContent = "Error";
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function rowMatchesSearch(row){
+
+    const search =
+        globalSearch.value
+            .trim()
+            .toLowerCase();
+
+
+    if(!search)
+        return true;
+
+
+    /*
+       % = AND
+
+       Example:
+
+       500%10%4.2
+
+       means all 3 terms must exist.
+    */
+
+    const terms =
+        search
+            .split("%")
+            .map(term=>term.trim())
+            .filter(Boolean);
+
+
+    /*
+       Search across all columns.
+    */
+
+    const text =
+        Object.values(row)
+            .map(valueToString)
+            .join(" ")
+            .toLowerCase();
+
+
+    return terms.every(
+        term => text.includes(term)
+    );
+
+}
 
 
 /* =========================================================
@@ -989,21 +2012,40 @@ document.getElementById("globalSearch")
 
 function rowMatchesFilters(row){
 
-    const tabFilters = filters[currentTab.id] || {};
+    const state =
+        filterState.get(
+            currentTab.id
+        );
 
-    for(const column in tabFilters){
 
-        const selected = tabFilters[column];
+    if(!state || state.size === 0)
+        return true;
 
-        if(!selected || selected.size === 0)
+
+    for(
+        const [column,selected]
+        of state
+    ){
+
+        if(
+            !selected ||
+            selected.size === 0
+        ){
             continue;
+        }
 
-        const value = valueToString(row[column]);
+
+        const value =
+            valueToString(
+                row[column]
+            );
+
 
         if(!selected.has(value))
             return false;
 
     }
+
 
     return true;
 
@@ -1011,72 +2053,12 @@ function rowMatchesFilters(row){
 
 
 /* =========================================================
-   SEARCH MATCH
+   FILTER + SEARCH DATA
 ========================================================= */
 
-function rowMatchesSearch(row){
+function getVisibleRows(rows){
 
-    const search =
-        document.getElementById("globalSearch")
-        .value
-        .trim()
-        .toLowerCase();
-
-    if(!search)
-        return true;
-
-    /*
-       Search every column.
-    */
-
-    const values = Object.values(row)
-        .map(valueToString)
-        .join(" ")
-        .toLowerCase();
-
-    /*
-       % means AND.
-       Example:
-       500%10%4.2
-    */
-
-    const terms = search
-        .split("%")
-        .map(x=>x.trim())
-        .filter(Boolean);
-
-    return terms.every(term =>
-        values.includes(term)
-    );
-
-}
-
-
-/* =========================================================
-   RENDER TABLE
-========================================================= */
-
-function renderTable(tab){
-
-    const rows = tab.rows || [];
-
-    const columns = getColumns(rows);
-
-    const wrapper = document.getElementById("tableWrapper");
-
-    if(!rows.length){
-
-        wrapper.innerHTML =
-            `<div class="empty">No data found.</div>`;
-
-        document.getElementById("info")
-            .textContent = "0 records";
-
-        return;
-
-    }
-
-    const filteredRows = [];
+    const result = [];
 
     for(const row of rows){
 
@@ -1086,84 +2068,256 @@ function renderTable(tab){
         if(!rowMatchesSearch(row))
             continue;
 
-        filteredRows.push(row);
+        result.push(row);
 
     }
 
-    let html = "";
+    return result;
 
-    html += "<table>";
+}
 
-    /* ================= HEADER ================= */
 
-    html += "<thead><tr>";
+/* =========================================================
+   RENDER TABLE
+========================================================= */
 
-    columns.forEach((column,index)=>{
+function renderTable(tab,token){
 
-        const active =
-            filters[tab.id] &&
-            filters[tab.id][column] &&
-            filters[tab.id][column].size > 0;
+    if(token !== renderToken)
+        return;
 
-        html += `
-            <th>
-                <div class="th-content">
 
-                    <span
-                        class="th-title"
-                        title="${escapeHTML(column)}"
-                    >
-                        ${escapeHTML(column)}
-                    </span>
+    const rows =
+        tab.rows || [];
 
-                    <button
-                        class="filter-btn ${active ? "active" : ""}"
-                        onclick="event.stopPropagation(); openFilter(${index})"
-                        title="Filter ${escapeHTML(column)}"
-                    >
-                        ▼
-                    </button>
 
-                </div>
-            </th>
-        `;
+    if(rows.length === 0){
 
-    });
+        tableWrapper.innerHTML =
+            `<div class="empty-state">
+                No data found.
+            </div>`;
 
-    html += "</tr></thead>";
+        recordNumber.textContent = "0";
 
-    /* ================= BODY ================= */
-
-    html += "<tbody>";
-
-    for(const row of filteredRows){
-
-        html += "<tr>";
-
-        columns.forEach(column=>{
-
-            html +=
-                "<td>" +
-                escapeHTML(valueToString(row[column])) +
-                "</td>";
-
-        });
-
-        html += "</tr>";
+        return;
 
     }
 
-    html += "</tbody>";
 
-    html += "</table>";
+    const columns =
+        getColumns(rows);
 
-    wrapper.innerHTML = html;
 
-    document.getElementById("info").textContent =
-        filteredRows.length.toLocaleString() +
-        " / " +
-        rows.length.toLocaleString() +
-        " records";
+    const visibleRows =
+        getVisibleRows(rows);
+
+
+    recordNumber.textContent =
+        visibleRows.length.toLocaleString();
+
+
+    /*
+       Build table shell immediately.
+
+       This makes the interface feel much faster.
+    */
+
+    tableWrapper.innerHTML = "";
+
+
+    const table =
+        document.createElement("table");
+
+
+    const thead =
+        document.createElement("thead");
+
+
+    const headerRow =
+        document.createElement("tr");
+
+
+    const state =
+        filterState.get(tab.id);
+
+
+    columns.forEach(
+        (column,index)=>{
+
+            const th =
+                document.createElement("th");
+
+
+            const inner =
+                document.createElement("div");
+
+            inner.className =
+                "th-inner";
+
+
+            const name =
+                document.createElement("span");
+
+            name.className =
+                "th-name";
+
+            name.textContent =
+                column;
+
+            name.title =
+                column;
+
+
+            const button =
+                document.createElement("button");
+
+            button.className =
+                "filter-button";
+
+
+            if(
+                state &&
+                state.has(column)
+            ){
+
+                button.classList.add("active");
+
+            }
+
+
+            button.innerHTML = "▼";
+
+            button.title =
+                "Filter " + column;
+
+
+            button.addEventListener(
+                "click",
+                event=>{
+
+                    event.stopPropagation();
+
+                    openFilter(
+                        column,
+                        button
+                    );
+
+                }
+            );
+
+
+            inner.appendChild(name);
+
+            inner.appendChild(button);
+
+            th.appendChild(inner);
+
+            headerRow.appendChild(th);
+
+        }
+    );
+
+
+    thead.appendChild(headerRow);
+
+
+    const tbody =
+        document.createElement("tbody");
+
+
+    table.appendChild(thead);
+
+    table.appendChild(tbody);
+
+    tableWrapper.appendChild(table);
+
+
+    /*
+       Chunked rendering.
+
+       Instead of creating thousands of DOM rows
+       in one operation, create them in batches.
+    */
+
+    const CHUNK_SIZE = 250;
+
+    let position = 0;
+
+
+    function renderChunk(){
+
+        if(token !== renderToken)
+            return;
+
+
+        const fragment =
+            document.createDocumentFragment();
+
+
+        const end =
+            Math.min(
+                position + CHUNK_SIZE,
+                visibleRows.length
+            );
+
+
+        for(
+            let i = position;
+            i < end;
+            i++
+        ){
+
+            const row =
+                visibleRows[i];
+
+
+            const tr =
+                document.createElement("tr");
+
+
+            for(const column of columns){
+
+                const td =
+                    document.createElement("td");
+
+
+                td.textContent =
+                    valueToString(
+                        row[column]
+                    );
+
+
+                tr.appendChild(td);
+
+            }
+
+
+            fragment.appendChild(tr);
+
+        }
+
+
+        tbody.appendChild(fragment);
+
+
+        position = end;
+
+
+        if(position < visibleRows.length){
+
+            requestAnimationFrame(
+                renderChunk
+            );
+
+        }
+
+    }
+
+
+    requestAnimationFrame(
+        renderChunk
+    );
 
 }
 
@@ -1172,143 +2326,312 @@ function renderTable(tab){
    OPEN FILTER
 ========================================================= */
 
-function openFilter(columnIndex){
+function openFilter(column,button){
 
     if(!currentTab)
         return;
 
-    const rows = currentTab.rows || [];
 
-    const columns = getColumns(rows);
+    currentFilterColumn =
+        column;
 
-    const column = columns[columnIndex];
 
-    currentFilterColumn = column;
+    /*
+       Get all values from current dataset.
 
-    document.getElementById("filterTitle")
-        .textContent = "Filter: " + column;
+       Use Set to eliminate duplicates.
+    */
 
-    document.getElementById("filterSearch").value = "";
+    const values =
+        new Set();
 
-    const valueSet = new Set();
 
-    rows.forEach(row=>{
+    for(
+        const row of currentTab.rows
+    ){
 
-        valueSet.add(
-            valueToString(row[column])
+        values.add(
+            valueToString(
+                row[column]
+            )
         );
 
-    });
+    }
 
-    const values = Array.from(valueSet);
 
-    values.sort((a,b)=>
-        a.localeCompare(b,undefined,{
-            numeric:true,
-            sensitivity:"base"
-        })
+    let allValues =
+        Array.from(values);
+
+
+    allValues.sort(
+        (a,b)=>
+            a.localeCompare(
+                b,
+                undefined,
+                {
+                    numeric:true,
+                    sensitivity:"base"
+                }
+            )
     );
 
+
+    currentFilterAllValues =
+        allValues;
+
+
+    /*
+       Existing selected values.
+    */
+
+    const state =
+        filterState.get(
+            currentTab.id
+        );
+
+
     const existing =
-        filters[currentTab.id] &&
-        filters[currentTab.id][column];
+        state &&
+        state.get(column);
 
-    const popup =
-        document.getElementById("filterPopup");
 
-    const valueContainer =
-        document.getElementById("filterValues");
+    /*
+       Clone selection.
 
-    valueContainer.innerHTML = "";
+       Important so Cancel does not alter
+       the real filter.
+    */
 
-    values.forEach(value=>{
+    if(existing){
 
-        const label =
-            document.createElement("label");
+        currentFilterValues =
+            new Set(existing);
 
-        label.className = "filter-value";
-
-        const checkbox =
-            document.createElement("input");
-
-        checkbox.type = "checkbox";
-
-        checkbox.value = value;
+    }
+    else{
 
         /*
-           Important Excel-style behavior:
-
-           If there is no active filter:
-           everything starts selected.
-
-           If there is an active filter:
-           only previously selected values are checked.
+           No active filter =
+           everything selected.
         */
 
-        checkbox.checked =
-            !existing ||
-            existing.has(value);
+        currentFilterValues =
+            new Set(allValues);
 
-        const span =
-            document.createElement("span");
+    }
 
-        span.textContent =
-            value === "" ? "(Blank)" : value;
 
-        label.appendChild(checkbox);
+    filterTitle.textContent =
+        "Filter: " + column;
 
-        label.appendChild(span);
 
-        valueContainer.appendChild(label);
+    filterSearch.value = "";
 
-    });
 
-    positionPopup(popup);
+    renderFilterValues();
 
-    popup.style.display = "block";
+
+    /*
+       Position popup.
+    */
+
+    const rect =
+        button.getBoundingClientRect();
+
+
+    filterPopup.style.display =
+        "block";
+
+
+    /*
+       Temporarily make visible so dimensions
+       are available.
+    */
+
+    const popupWidth =
+        filterPopup.offsetWidth;
+
+    const popupHeight =
+        filterPopup.offsetHeight;
+
+
+    let left =
+        rect.left;
+
+
+    let top =
+        rect.bottom + 6;
+
+
+    if(
+        left + popupWidth >
+        window.innerWidth - 10
+    ){
+
+        left =
+            window.innerWidth -
+            popupWidth -
+            10;
+
+    }
+
+
+    if(
+        top + popupHeight >
+        window.innerHeight - 10
+    ){
+
+        top =
+            rect.top -
+            popupHeight -
+            6;
+
+    }
+
+
+    if(top < 10)
+        top = 10;
+
+
+    if(left < 10)
+        left = 10;
+
+
+    filterPopup.style.left =
+        left + "px";
+
+
+    filterPopup.style.top =
+        top + "px";
+
+
+    filterSearch.focus();
 
 }
 
 
 /* =========================================================
-   POSITION FILTER
+   RENDER FILTER VALUES
 ========================================================= */
 
-function positionPopup(popup){
+function renderFilterValues(){
 
-    const button =
-        event &&
-        event.target &&
-        event.target.closest(".filter-btn");
+    const search =
+        filterSearch.value
+            .trim()
+            .toLowerCase();
 
-    if(!button){
 
-        popup.style.left = "50%";
+    filterValues.innerHTML = "";
 
-        popup.style.top = "180px";
 
-        return;
+    const fragment =
+        document.createDocumentFragment();
+
+
+    for(const value of currentFilterAllValues){
+
+        const displayValue =
+            value === ""
+                ? "(Blank)"
+                : value;
+
+
+        if(
+            search &&
+            !displayValue
+                .toLowerCase()
+                .includes(search)
+        ){
+
+            continue;
+
+        }
+
+
+        const label =
+            document.createElement("label");
+
+
+        label.className =
+            "filter-value";
+
+
+        const checkbox =
+            document.createElement("input");
+
+
+        checkbox.type =
+            "checkbox";
+
+
+        checkbox.checked =
+            currentFilterValues.has(value);
+
+
+        checkbox.dataset.value =
+            value;
+
+
+        checkbox.addEventListener(
+            "change",
+            ()=>{
+
+                if(checkbox.checked){
+
+                    currentFilterValues.add(
+                        value
+                    );
+
+                }
+                else{
+
+                    currentFilterValues.delete(
+                        value
+                    );
+
+                }
+
+            }
+        );
+
+
+        const text =
+            document.createElement("span");
+
+
+        text.className =
+            "filter-value-text";
+
+
+        text.textContent =
+            displayValue;
+
+
+        text.title =
+            displayValue;
+
+
+        label.appendChild(
+            checkbox
+        );
+
+
+        label.appendChild(
+            text
+        );
+
+
+        fragment.appendChild(
+            label
+        );
 
     }
 
-    const rect =
-        button.getBoundingClientRect();
 
-    let left = rect.left;
-
-    let top = rect.bottom + 5;
-
-    const width = 300;
-
-    if(left + width > window.innerWidth - 10)
-        left = window.innerWidth - width - 10;
-
-    if(top + 430 > window.innerHeight)
-        top = Math.max(10,rect.top - 430);
-
-    popup.style.left = left + "px";
-
-    popup.style.top = top + "px";
+    filterValues.appendChild(
+        fragment
+    );
 
 }
 
@@ -1317,142 +2640,139 @@ function positionPopup(popup){
    FILTER SEARCH
 ========================================================= */
 
-document.getElementById("filterSearch")
-.addEventListener("input",function(){
-
-    const search =
-        this.value
-        .trim()
-        .toLowerCase();
-
-    document
-        .querySelectorAll(".filter-value")
-        .forEach(label=>{
-
-            const text =
-                label.textContent
-                .toLowerCase();
-
-            label.style.display =
-                text.includes(search)
-                    ? "flex"
-                    : "none";
-
-        });
-
-});
+filterSearch.addEventListener(
+    "input",
+    renderFilterValues
+);
 
 
 /* =========================================================
    SELECT ALL
 ========================================================= */
 
-function selectAllFilterValues(){
+document
+    .getElementById("selectAllButton")
+    .addEventListener(
+        "click",
+        ()=>{
 
-    document
-        .querySelectorAll(
-            "#filterValues .filter-value input"
-        )
-        .forEach(input=>{
+            currentFilterValues =
+                new Set(
+                    currentFilterAllValues
+                );
 
-            if(
-                input.closest(".filter-value")
-                .style.display !== "none"
-            ){
 
-                input.checked = true;
+            renderFilterValues();
 
-            }
-
-        });
-
-}
+        }
+    );
 
 
 /* =========================================================
    UNCHECK ALL
 ========================================================= */
 
-function clearFilterValues(){
+document
+    .getElementById("uncheckAllButton")
+    .addEventListener(
+        "click",
+        ()=>{
 
-    document
-        .querySelectorAll(
-            "#filterValues .filter-value input"
-        )
-        .forEach(input=>{
+            currentFilterValues =
+                new Set();
 
-            if(
-                input.closest(".filter-value")
-                .style.display !== "none"
-            ){
 
-                input.checked = false;
+            renderFilterValues();
 
-            }
-
-        });
-
-}
+        }
+    );
 
 
 /* =========================================================
    APPLY FILTER
 ========================================================= */
 
-function applyFilter(){
+document
+    .getElementById("applyFilterButton")
+    .addEventListener(
+        "click",
+        ()=>{
 
-    if(!currentTab || currentFilterColumn === null)
-        return;
+            if(
+                !currentTab ||
+                currentFilterColumn === null
+            ){
+                return;
+            }
 
-    const selected = new Set();
 
-    document
-        .querySelectorAll(
-            "#filterValues .filter-value input"
-        )
-        .forEach(input=>{
+            const state =
+                filterState.get(
+                    currentTab.id
+                );
 
-            if(input.checked){
 
-                selected.add(input.value);
+            /*
+               All selected =
+               no filter required.
+            */
+
+            if(
+                currentFilterValues.size ===
+                currentFilterAllValues.length
+            ){
+
+                state.delete(
+                    currentFilterColumn
+                );
+
+            }
+            else{
+
+                /*
+                   Store exact selected values.
+
+                   This is important:
+
+                   If user selects "Combination",
+                   only "Combination" is shown.
+
+                   Other values containing
+                   "Combination" are NOT automatically shown.
+                */
+
+                state.set(
+                    currentFilterColumn,
+                    new Set(
+                        currentFilterValues
+                    )
+                );
 
             }
 
-        });
 
-    if(!filters[currentTab.id])
-        filters[currentTab.id] = {};
+            closeFilter();
 
-    /*
-       If ALL values are selected,
-       remove the filter.
 
-       This keeps the state clean.
-    */
+            renderTable(
+                currentTab,
+                ++renderToken
+            );
 
-    const total =
-        document.querySelectorAll(
-            "#filterValues .filter-value input"
-        ).length;
+        }
+    );
 
-    if(selected.size === total){
 
-        delete filters[currentTab.id]
-            [currentFilterColumn];
+/* =========================================================
+   CANCEL FILTER
+========================================================= */
 
-    }
-    else{
-
-        filters[currentTab.id]
-            [currentFilterColumn] = selected;
-
-    }
-
-    closeFilter();
-
-    renderTable(currentTab);
-
-}
+document
+    .getElementById("cancelFilterButton")
+    .addEventListener(
+        "click",
+        closeFilter
+    );
 
 
 /* =========================================================
@@ -1461,10 +2781,17 @@ function applyFilter(){
 
 function closeFilter(){
 
-    document.getElementById("filterPopup")
-        .style.display = "none";
+    filterPopup.style.display =
+        "none";
 
-    currentFilterColumn = null;
+    currentFilterColumn =
+        null;
+
+    currentFilterValues =
+        null;
+
+    currentFilterAllValues =
+        null;
 
 }
 
@@ -1473,58 +2800,112 @@ function closeFilter(){
    CLEAR ALL
 ========================================================= */
 
-function clearAllFilters(){
+document
+    .getElementById("clearButton")
+    .addEventListener(
+        "click",
+        ()=>{
 
-    if(!currentTab)
-        return;
-
-    filters[currentTab.id] = {};
-
-    document.getElementById("globalSearch")
-        .value = "";
-
-    closeFilter();
-
-    renderTable(currentTab);
-
-}
+            if(!currentTab)
+                return;
 
 
-/* =========================================================
-   CLOSE POPUP WHEN CLICKING OUTSIDE
-========================================================= */
+            globalSearch.value = "";
 
-document.addEventListener("click",function(e){
 
-    const popup =
-        document.getElementById("filterPopup");
+            filterState.set(
+                currentTab.id,
+                new Map()
+            );
 
-    if(
-        popup.style.display === "block" &&
-        !popup.contains(e.target) &&
-        !e.target.closest(".filter-btn")
-    ){
 
-        closeFilter();
+            renderTable(
+                currentTab,
+                ++renderToken
+            );
 
-    }
-
-});
+        }
+    );
 
 
 /* =========================================================
-   ESC KEY
+   GLOBAL SEARCH
 ========================================================= */
 
-document.addEventListener("keydown",function(e){
+let searchTimer = null;
 
-    if(e.key === "Escape"){
 
-        closeFilter();
+globalSearch.addEventListener(
+    "input",
+    ()=>{
+
+        /*
+           Small debounce prevents rendering
+           on every single keystroke.
+        */
+
+        clearTimeout(searchTimer);
+
+
+        searchTimer =
+            setTimeout(
+                ()=>{
+
+                    if(!currentTab)
+                        return;
+
+
+                    renderTable(
+                        currentTab,
+                        ++renderToken
+                    );
+
+                },
+                80
+            );
 
     }
+);
 
-});
+
+/* =========================================================
+   CLICK OUTSIDE FILTER
+========================================================= */
+
+document.addEventListener(
+    "mousedown",
+    event=>{
+
+        if(
+            filterPopup.style.display === "block" &&
+            !filterPopup.contains(event.target) &&
+            !event.target.closest(".filter-button")
+        ){
+
+            closeFilter();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key === "Escape"){
+
+            closeFilter();
+
+        }
+
+    }
+);
 
 
 /* =========================================================
@@ -1533,7 +2914,13 @@ document.addEventListener("keydown",function(e){
 
 createTabs();
 
-openTab(tabsConfig[0].id);
+
+/*
+   APG is ALWAYS first and loads first.
+*/
+
+openTab("apg");
+
 
 </script>
 
