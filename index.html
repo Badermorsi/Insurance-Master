@@ -9,10 +9,6 @@
 
 <style>
 
-/* =========================================================
-   RESET
-========================================================= */
-
 *{
     box-sizing:border-box;
 }
@@ -361,24 +357,29 @@ input{
     align-items:center;
     justify-content:center;
 
-    gap:5px;
+    gap:4px;
 
-    padding:4px 5px;
+    padding:4px 4px;
 }
 
 .header-label{
+    min-width:0;
+
     line-height:14px;
+
     text-align:center;
 
     overflow-wrap:anywhere;
     word-break:break-word;
+
+    white-space:normal;
 }
 
 .filter-button{
-    flex:0 0 20px;
+    flex:0 0 19px;
 
-    width:20px;
-    height:20px;
+    width:19px;
+    height:19px;
 
     padding:0;
 
@@ -413,16 +414,17 @@ input{
 
 
 /* =========================================================
-   NORMAL BODY
-   LONG TEXT IS NOW WRAPPED
+   BODY CELLS
+   NEVER CUT TEXT
 ========================================================= */
 
 .data-table td{
-    min-height:34px;
 
     height:auto;
 
-    padding:7px 7px;
+    min-height:34px;
+
+    padding:6px 6px;
 
     background:#ffffff;
 
@@ -434,12 +436,11 @@ input{
     text-align:center;
     vertical-align:middle;
 
-    line-height:16px;
+    line-height:15px;
 
     /*
        IMPORTANT:
-       Do not cut long text.
-       Allow the complete value to wrap.
+       Long text is NEVER hidden.
     */
 
     white-space:normal;
@@ -449,6 +450,8 @@ input{
     overflow-wrap:anywhere;
 
     word-break:break-word;
+
+    hyphens:auto;
 }
 
 .data-table tbody tr:nth-child(even) td{
@@ -461,39 +464,72 @@ input{
 
 
 /* =========================================================
-   SPECIAL COLUMN WIDTH CONTROL
+   IMPORTANT:
+   FORCE ALL NORMAL TABLE COLUMNS TO STAY COMPACT
 ========================================================= */
 
-/*
+.data-table col{
+    width:150px;
+    min-width:150px;
+    max-width:150px;
+}
+
+
+/* =========================================================
    HAAD
-   Generic Name is intentionally narrower.
-*/
+========================================================= */
 
 .data-table.haad-table td,
 .data-table.haad-table th{
     font-size:11px;
 }
 
-
 /*
-   ADNIC
-   Generic Name is intentionally narrower.
+   HAAD Generic Name
+   Deliberately narrow.
 */
+
+.data-table.haad-table col.generic-name-column{
+    width:125px !important;
+    min-width:125px !important;
+    max-width:125px !important;
+}
+
+
+/* =========================================================
+   ADNIC
+========================================================= */
 
 .data-table.adnic-table td,
 .data-table.adnic-table th{
     font-size:11px;
 }
 
+.data-table.adnic-table col.generic-name-column{
+    width:125px !important;
+    min-width:125px !important;
+    max-width:125px !important;
+}
 
-/*
+
+/* =========================================================
    DENIAL CODE
-   Examples / Description is intentionally controlled.
-*/
+========================================================= */
 
 .data-table.denial-table td,
 .data-table.denial-table th{
     font-size:11px;
+}
+
+/*
+   Examples / Description
+   Deliberately controlled.
+*/
+
+.data-table.denial-table col.denial-description-column{
+    width:165px !important;
+    min-width:165px !important;
+    max-width:165px !important;
 }
 
 
@@ -549,6 +585,7 @@ thead .freeze-right-2{
 
 /* =========================================================
    ELIGIBILITY PORTALS
+   KEEP THIS TABLE UNCHANGED
 ========================================================= */
 
 .eligibility-table{
@@ -696,8 +733,9 @@ thead .freeze-right-2{
 
 .virtual-spacer td{
     padding:0 !important;
-    height:0 !important;
+
     border:0 !important;
+
     background:transparent !important;
 }
 
@@ -1571,6 +1609,46 @@ function valueString(value){
 
 
 /* =========================================================
+   NORMALIZE COLUMN NAME
+========================================================= */
+
+function normalizeColumnName(column){
+
+    return String(column)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g," ");
+
+}
+
+
+function isGenericNameColumn(column){
+
+    return normalizeColumnName(column) ===
+        "generic name";
+
+}
+
+
+function isDenialDescriptionColumn(column){
+
+    const name =
+        normalizeColumnName(column);
+
+    return (
+        name === "examples/description" ||
+        name === "examples / description" ||
+        name === "example/description" ||
+        (
+            name.includes("example") &&
+            name.includes("description")
+        )
+    );
+
+}
+
+
+/* =========================================================
    FILE URL
 ========================================================= */
 
@@ -1882,6 +1960,16 @@ function matchesFilters(row){
 
 function getVisibleRows(rows){
 
+    const state =
+        filters.get(currentTab.id);
+
+    if(
+        !state ||
+        state.size === 0
+    ){
+        return rows;
+    }
+
     const result = [];
 
     for(
@@ -1901,7 +1989,7 @@ function getVisibleRows(rows){
 
 
 /* =========================================================
-   INTELLIGENT COLUMN WIDTHS
+   INTELLIGENT BUT STRICT COLUMN WIDTHS
 ========================================================= */
 
 function calculateWidths(
@@ -1918,21 +2006,15 @@ function calculateWidths(
 
     const widths = [];
 
-    const sample =
-        rows.slice(
-            0,
-            Math.min(rows.length,120)
-        );
-
 
     for(const column of columns){
 
         const lower =
-            column.trim().toLowerCase();
+            normalizeColumnName(column);
 
 
-        /* =================================================
-           APG FROZEN COLUMNS
+        /* ================================================
+           APG FROZEN
         ================================================= */
 
         if(
@@ -1949,138 +2031,75 @@ function calculateWidths(
         }
 
 
-        /* =================================================
-           SPECIFIC NARROW COLUMNS
+        /* ================================================
+           HAAD GENERIC NAME
         ================================================= */
 
         if(
             tab.id === "haad" &&
-            lower === "generic name"
+            isGenericNameColumn(column)
         ){
 
-            widths.push(145);
+            widths.push(125);
 
             continue;
         }
 
+
+        /* ================================================
+           ADNIC GENERIC NAME
+        ================================================= */
 
         if(
             tab.id === "adnic" &&
-            lower === "generic name"
+            isGenericNameColumn(column)
         ){
 
-            widths.push(145);
+            widths.push(125);
 
             continue;
         }
 
+
+        /* ================================================
+           DENIAL DESCRIPTION
+        ================================================= */
 
         if(
             tab.id === "denial" &&
-            (
-                lower === "examples/description" ||
-                lower === "examples / description" ||
-                lower === "example/description" ||
-                lower === "examples" ||
-                lower === "description"
-            )
+            isDenialDescriptionColumn(column)
         ){
 
-            widths.push(230);
+            widths.push(165);
 
             continue;
         }
 
 
-        /* =================================================
-           IDENTIFY COLUMN TYPE
+        /* ================================================
+           COLUMN TYPE
         ================================================= */
 
-        let longest =
-            Math.min(
-                column.length,
-                18
-            );
-
-
-        for(const row of sample){
-
-            const text =
-                valueString(
-                    row[column]
-                )
-                .replace(/\s+/g," ")
-                .trim();
-
-            /*
-               Do not let one huge paragraph
-               determine the entire column width.
-            */
-
-            const len =
-                Math.min(
-                    text.length,
-                    24
-                );
-
-            if(len > longest){
-                longest = len;
-            }
-
-        }
-
-
-        let width;
-
-
-        /* Short code / ID columns */
-
-        if(
+        const isCode =
             lower.includes("code") ||
-            lower.includes("id") ||
-            lower.includes("status")
-        ){
-
-            width =
-                105 + Math.min(
-                    longest * 2.2,
-                    50
-                );
-
-        }
+            lower.includes("status") ||
+            lower === "id" ||
+            lower.endsWith(" id");
 
 
-        /* Date columns */
-
-        else if(
-            lower.includes("date")
-        ){
-
-            width =
-                115;
-
-        }
+        const isDate =
+            lower.includes("date");
 
 
-        /* Price / numeric columns */
-
-        else if(
+        const isNumeric =
             lower.includes("price") ||
             lower.includes("amount") ||
             lower.includes("copay") ||
             lower.includes("quantity") ||
-            lower.includes("qty")
-        ){
-
-            width =
-                110;
-
-        }
+            lower.includes("qty");
 
 
-        /* Long text columns */
-
-        else if(
+        const isText =
             lower.includes("name") ||
             lower.includes("description") ||
             lower.includes("remarks") ||
@@ -2088,130 +2107,65 @@ function calculateWidths(
             lower.includes("comment") ||
             lower.includes("instruction") ||
             lower.includes("detail") ||
-            lower.includes("reason")
-        ){
+            lower.includes("reason") ||
+            lower.includes("address") ||
+            lower.includes("specialty") ||
+            lower.includes("indication");
 
-            width =
-                150 +
-                Math.min(
-                    longest * 2.0,
-                    65
-                );
+
+        /*
+           IMPORTANT:
+           We no longer calculate width from
+           the longest data value.
+
+           This prevents one huge paragraph,
+           drug name, URL or description from
+           making the whole column huge.
+        */
+
+        let width = 140;
+
+
+        if(isCode){
+
+            width = 105;
 
         }
+        else if(isDate){
 
+            width = 110;
 
-        /* Normal columns */
+        }
+        else if(isNumeric){
 
-        else{
+            width = 105;
 
-            width =
-                48 +
-                longest * 4.0;
+        }
+        else if(isText){
+
+            width = 145;
 
         }
 
 
         /*
-           GLOBAL LIMITS
+           HARD GLOBAL LIMIT.
 
-           Nothing should become extremely wide.
+           No normal column is allowed to
+           become larger than 150px.
         */
 
         width =
             Math.max(
-                width,
-                82
-            );
-
-        width =
-            Math.min(
-                width,
-                175
-            );
-
-
-        /*
-           Very short columns should stay compact.
-        */
-
-        if(longest <= 6){
-
-            width =
+                90,
                 Math.min(
                     width,
-                    105
-                );
-
-        }
-
-
-        widths.push(
-            Math.round(width)
-        );
-
-    }
-
-
-    /* =====================================================
-       FINAL SPECIFIC OVERRIDES
-    ===================================================== */
-
-    if(tab.id === "haad"){
-
-        const genericIndex =
-            columns.findIndex(
-                c =>
-                    c.trim().toLowerCase() ===
-                    "generic name"
+                    150
+                )
             );
 
-        if(genericIndex >= 0){
-            widths[genericIndex] = 145;
-        }
 
-    }
-
-
-    if(tab.id === "adnic"){
-
-        const genericIndex =
-            columns.findIndex(
-                c =>
-                    c.trim().toLowerCase() ===
-                    "generic name"
-            );
-
-        if(genericIndex >= 0){
-            widths[genericIndex] = 145;
-        }
-
-    }
-
-
-    if(tab.id === "denial"){
-
-        const denialIndex =
-            columns.findIndex(
-                c => {
-
-                    const x =
-                        c.trim().toLowerCase();
-
-                    return (
-                        x === "examples/description" ||
-                        x === "examples / description" ||
-                        x === "example/description" ||
-                        x === "examples" ||
-                        x === "description"
-                    );
-
-                }
-            );
-
-        if(denialIndex >= 0){
-            widths[denialIndex] = 230;
-        }
+        widths.push(width);
 
     }
 
@@ -2431,6 +2385,7 @@ function createHeader(
 
 /* =========================================================
    NORMAL VIRTUAL TABLE
+   VARIABLE HEIGHT
 ========================================================= */
 
 function renderVirtualTable(
@@ -2443,12 +2398,6 @@ function renderVirtualTable(
 
     tableArea.innerHTML = "";
 
-
-    /*
-       Remove previous virtual scroll listener.
-       This prevents listeners from accumulating
-       after filtering / switching tabs.
-    */
 
     if(tableArea._virtualScrollHandler){
 
@@ -2474,23 +2423,61 @@ function renderVirtualTable(
         document.createElement("colgroup");
 
 
-    widths.forEach(width => {
+    columns.forEach(
+        (column,index) => {
 
-        const col =
-            document.createElement("col");
+            const col =
+                document.createElement("col");
 
-        col.style.width =
-            width + "px";
 
-        col.style.minWidth =
-            width + "px";
+            /*
+               Generic Name is narrow.
+            */
 
-        col.style.maxWidth =
-            width + "px";
+            if(
+                (
+                    tab.id === "haad" ||
+                    tab.id === "adnic"
+                ) &&
+                isGenericNameColumn(column)
+            ){
 
-        colgroup.appendChild(col);
+                col.className =
+                    "generic-name-column";
 
-    });
+            }
+
+
+            /*
+               DENIAL description is controlled.
+            */
+
+            if(
+                tab.id === "denial" &&
+                isDenialDescriptionColumn(column)
+            ){
+
+                col.classList.add(
+                    "denial-description-column"
+                );
+
+            }
+
+
+            col.style.width =
+                widths[index] + "px";
+
+            col.style.minWidth =
+                widths[index] + "px";
+
+            col.style.maxWidth =
+                widths[index] + "px";
+
+
+            colgroup.appendChild(col);
+
+        }
+    );
 
 
     table.appendChild(colgroup);
@@ -2513,17 +2500,265 @@ function renderVirtualTable(
 
 
     /*
-       Approximate row height.
-       Actual rows can grow when text wraps.
-       Virtual rendering is mainly intended
-       for large datasets.
+       Estimated row height.
+
+       Rows can grow naturally because text
+       wraps. The virtualizer calculates the
+       estimated space and then measures the
+       visible rows.
     */
 
-    const ROW_HEIGHT = 48;
+    const DEFAULT_HEIGHT = 34;
 
-    const BUFFER = 14;
+    const BUFFER = 12;
+
+    const heights =
+        new Array(rows.length)
+            .fill(DEFAULT_HEIGHT);
+
+    let prefix =
+        new Array(rows.length + 1)
+            .fill(0);
+
+
+    function estimateHeight(row){
+
+        let maxLines = 1;
+
+
+        for(
+            let c=0;
+            c<columns.length;
+            c++
+        ){
+
+            const value =
+                valueString(
+                    row[columns[c]]
+                );
+
+
+            if(!value){
+                continue;
+            }
+
+
+            const availableWidth =
+                Math.max(
+                    25,
+                    widths[c] - 12
+                );
+
+
+            /*
+               Approximate average character
+               width for this font.
+
+               This is only an initial estimate.
+               Actual visible rows are measured
+               by the browser afterwards.
+            */
+
+            const charsPerLine =
+                Math.max(
+                    6,
+                    Math.floor(
+                        availableWidth / 6
+                    )
+                );
+
+
+            const lines =
+                value
+                    .split(/\r?\n/)
+                    .reduce(
+                        (
+                            total,
+                            part
+                        ) =>
+                            total +
+                            Math.max(
+                                1,
+                                Math.ceil(
+                                    part.length /
+                                    charsPerLine
+                                )
+                            ),
+                        0
+                    );
+
+
+            maxLines =
+                Math.max(
+                    maxLines,
+                    lines
+                );
+
+        }
+
+
+        return Math.max(
+            DEFAULT_HEIGHT,
+            10 + maxLines * 15
+        );
+
+    }
+
+
+    /*
+       Build initial estimated heights.
+    */
+
+    for(
+        let i=0;
+        i<rows.length;
+        i++
+    ){
+
+        heights[i] =
+            estimateHeight(
+                rows[i]
+            );
+
+    }
+
+
+    function rebuildPrefix(){
+
+        prefix[0] = 0;
+
+        for(
+            let i=0;
+            i<rows.length;
+            i++
+        ){
+
+            prefix[i+1] =
+                prefix[i] +
+                heights[i];
+
+        }
+
+    }
+
+
+    rebuildPrefix();
+
+
+    function findIndex(position){
+
+        let low = 0;
+
+        let high = rows.length;
+
+
+        while(low < high){
+
+            const mid =
+                (low + high) >> 1;
+
+
+            if(
+                prefix[mid] <
+                position
+            ){
+
+                low =
+                    mid + 1;
+
+            }
+            else{
+
+                high =
+                    mid;
+
+            }
+
+        }
+
+
+        return Math.max(
+            0,
+            Math.min(
+                rows.length,
+                low
+            )
+        );
+
+    }
+
 
     let raf = 0;
+
+
+    function measureRows(){
+
+        if(
+            version !== renderVersion
+        ){
+            return;
+        }
+
+
+        const rendered =
+            tbody.querySelectorAll(
+                "tr[data-row-index]"
+            );
+
+
+        let changed = false;
+
+
+        rendered.forEach(tr => {
+
+            const index =
+                Number(
+                    tr.dataset.rowIndex
+                );
+
+
+            if(
+                !Number.isFinite(index) ||
+                index < 0 ||
+                index >= rows.length
+            ){
+                return;
+            }
+
+
+            const actual =
+                Math.ceil(
+                    tr.getBoundingClientRect()
+                        .height
+                );
+
+
+            if(
+                actual >= DEFAULT_HEIGHT &&
+                Math.abs(
+                    actual - heights[index]
+                ) > 1
+            ){
+
+                heights[index] =
+                    actual;
+
+                changed = true;
+
+            }
+
+        });
+
+
+        if(changed){
+
+            rebuildPrefix();
+
+            scheduleDraw();
+
+        }
+
+    }
 
 
     function draw(){
@@ -2545,28 +2780,38 @@ function renderVirtualTable(
             tableArea.clientHeight;
 
 
-        let start =
-            Math.floor(
-                Math.max(
-                    0,
-                    scrollTop - 46
-                ) / ROW_HEIGHT
+        /*
+           Header is approximately 46px high.
+        */
+
+        const bodyTop =
+            Math.max(
+                0,
+                scrollTop - 46
             );
+
+
+        const bodyBottom =
+            Math.max(
+                0,
+                scrollTop +
+                viewportHeight -
+                46
+            );
+
+
+        let start =
+            findIndex(bodyTop);
+
+
+        let end =
+            findIndex(bodyBottom) + 1;
 
 
         start =
             Math.max(
                 0,
                 start - BUFFER
-            );
-
-
-        let end =
-            Math.ceil(
-                (
-                    scrollTop +
-                    viewportHeight
-                ) / ROW_HEIGHT
             );
 
 
@@ -2579,6 +2824,10 @@ function renderVirtualTable(
 
         tbody.innerHTML = "";
 
+
+        /*
+           TOP SPACER
+        */
 
         if(start > 0){
 
@@ -2595,12 +2844,8 @@ function renderVirtualTable(
             cell.colSpan =
                 columns.length;
 
-
             cell.style.height =
-                (
-                    start *
-                    ROW_HEIGHT
-                ) + "px";
+                prefix[start] + "px";
 
 
             spacer.appendChild(cell);
@@ -2609,6 +2854,10 @@ function renderVirtualTable(
 
         }
 
+
+        /*
+           VISIBLE ROWS
+        */
 
         for(
             let i=start;
@@ -2622,6 +2871,10 @@ function renderVirtualTable(
 
             const tr =
                 document.createElement("tr");
+
+
+            tr.dataset.rowIndex =
+                String(i);
 
 
             for(
@@ -2644,20 +2897,27 @@ function renderVirtualTable(
                     );
 
 
+                /*
+                   IMPORTANT:
+                   textContent shows the FULL
+                   value and CSS wraps it.
+                */
+
                 td.textContent =
                     value;
 
 
-                /*
-                   Full text is visible.
-                   Title is still useful for
-                   very long values.
-                */
-
                 if(value.length > 60){
-                    td.title = value;
+
+                    td.title =
+                        value;
+
                 }
 
+
+                /*
+                   APG frozen columns
+                */
 
                 if(
                     tab.id === "apg" &&
@@ -2710,6 +2970,10 @@ function renderVirtualTable(
         }
 
 
+        /*
+           BOTTOM SPACER
+        */
+
         if(end < rows.length){
 
             const spacer =
@@ -2728,10 +2992,8 @@ function renderVirtualTable(
 
             cell.style.height =
                 (
-                    (
-                        rows.length-end
-                    ) *
-                    ROW_HEIGHT
+                    prefix[rows.length] -
+                    prefix[end]
                 ) + "px";
 
 
@@ -2740,6 +3002,16 @@ function renderVirtualTable(
             tbody.appendChild(spacer);
 
         }
+
+
+        /*
+           Browser measures actual wrapped
+           row heights after painting.
+        */
+
+        requestAnimationFrame(
+            measureRows
+        );
 
     }
 
@@ -2835,6 +3107,7 @@ function createEligibilityFilterButton(){
 
 /* =========================================================
    ELIGIBILITY TABLE
+   UNCHANGED
 ========================================================= */
 
 function renderEligibilityTable(
@@ -3009,9 +3282,7 @@ function renderEligibilityTable(
         document.createElement("thead");
 
 
-    /* =====================================================
-       ROW 1
-    ===================================================== */
+    /* ROW 1 */
 
     const row1 =
         document.createElement("tr");
@@ -3064,9 +3335,7 @@ function renderEligibilityTable(
     thead.appendChild(row1);
 
 
-    /* =====================================================
-       ROW 2
-    ===================================================== */
+    /* ROW 2 */
 
     const row2 =
         document.createElement("tr");
@@ -3141,9 +3410,7 @@ function renderEligibilityTable(
     thead.appendChild(row2);
 
 
-    /* =====================================================
-       ROW 3
-    ===================================================== */
+    /* ROW 3 */
 
     const row3 =
         document.createElement("tr");
@@ -3213,9 +3480,7 @@ function renderEligibilityTable(
     table.appendChild(thead);
 
 
-    /* =====================================================
-       TBODY
-    ===================================================== */
+    /* TBODY */
 
     const tbody =
         document.createElement("tbody");
@@ -3540,7 +3805,7 @@ async function openTab(id){
         ++renderVersion;
 
 
-    /* INSTANT CACHED SWITCH */
+    /* CACHED */
 
     if(
         dataCache.has(
@@ -3657,12 +3922,6 @@ async function scheduleBackgroundPreload(){
     preloadStarted = true;
 
 
-    /*
-       Wait until the first table is visible.
-       This prevents background loading from
-       competing with the initial page load.
-    */
-
     await new Promise(
         resolve =>
             setTimeout(
@@ -3681,11 +3940,6 @@ async function scheduleBackgroundPreload(){
                 )
         );
 
-
-    /*
-       Smaller batches reduce network / CPU
-       competition with the visible table.
-    */
 
     const BATCH_SIZE = 2;
 
@@ -3917,8 +4171,7 @@ function openFilter(
 
         left =
             window.innerWidth -
-            width -
-            10;
+            width - 10;
 
     }
 
@@ -3930,8 +4183,7 @@ function openFilter(
 
         top =
             rect.top -
-            height -
-            5;
+            height - 5;
 
     }
 
