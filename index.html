@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -579,9 +580,15 @@ thead .freeze-right-2{
 
     display:grid;
 
+    /*
+       A-F main table
+       small gap
+       H specialty table
+    */
+
     grid-template-columns:
         minmax(0,1fr)
-        86px
+        8px
         270px;
 
     align-items:stretch;
@@ -616,90 +623,30 @@ thead .freeze-right-2{
 }
 
 
-/*
-   PPI main table fills the complete
-   available main area.
-*/
-
 .ppi-main-area .data-table{
 
     width:100%;
 
-    min-width:900px;
+    min-width:760px;
 
     table-layout:fixed;
 }
 
 
 /* =========================================================
-   PPI SPECIALIST LABEL AREA
+   PPI GAP
 ========================================================= */
 
-.ppi-specialist-label-area{
+.ppi-gap{
 
-    width:86px;
+    width:8px;
 
-    min-width:86px;
+    min-width:8px;
 
     height:100%;
 
     background:#ffffff;
-
-    display:block;
-
-    padding:0 7px;
-
 }
-
-
-/*
-   Specialist >>> is deliberately
-   styled exactly like a normal header,
-   but with a different font color.
-*/
-
-.ppi-specialist-label{
-
-    height:46px;
-
-    min-height:46px;
-
-    width:100%;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:4px 5px;
-
-    background:#eaf1f3;
-
-    color:#9a5b16;
-
-    border-left:1px solid #d5dfe3;
-
-    border-right:1px solid #d5dfe3;
-
-    border-bottom:2px solid #c3d1d6;
-
-    font-size:11.5px;
-
-    font-weight:900;
-
-    line-height:14px;
-
-    text-align:center;
-
-    white-space:nowrap;
-}
-
-
-/*
-   Nothing is created below Specialist >>>.
-   G2 onward remains completely empty.
-*/
 
 
 /* =========================================================
@@ -720,7 +667,7 @@ thead .freeze-right-2{
 
     background:#ffffff;
 
-    border-left:8px solid #ffffff;
+    border-left:0;
 }
 
 
@@ -744,10 +691,6 @@ thead .freeze-right-2{
 }
 
 
-/*
-   H1 header.
-*/
-
 .ppi-specialty-table thead{
 
     position:sticky;
@@ -756,6 +699,7 @@ thead .freeze-right-2{
 
     z-index:120;
 }
+
 
 .ppi-specialty-table th{
 
@@ -767,11 +711,11 @@ thead .freeze-right-2{
 
     color:#263a44;
 
+    border-left:1px solid #d5dfe3;
+
     border-right:1px solid #d5dfe3;
 
     border-bottom:2px solid #c3d1d6;
-
-    border-left:1px solid #d5dfe3;
 
     font-size:11.5px;
 
@@ -782,9 +726,47 @@ thead .freeze-right-2{
     vertical-align:middle;
 }
 
-.ppi-specialty-header-content{
+
+/*
+   Specialist is attached directly to
+   Eligible Clinician Specialty.
+*/
+
+.ppi-specialty-header{
+
+    width:100%;
 
     min-height:46px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:3px 5px;
+}
+
+
+.ppi-specialist-title{
+
+    color:#9a5b16;
+
+    font-size:11px;
+
+    font-weight:900;
+
+    line-height:14px;
+
+    text-align:center;
+
+    white-space:nowrap;
+}
+
+
+.ppi-specialty-title-row{
 
     width:100%;
 
@@ -796,14 +778,15 @@ thead .freeze-right-2{
 
     gap:5px;
 
-    padding:4px 6px;
+    margin-top:1px;
 }
+
 
 .ppi-specialty-header-label{
 
     min-width:0;
 
-    line-height:14px;
+    line-height:13px;
 
     text-align:center;
 
@@ -813,9 +796,9 @@ thead .freeze-right-2{
 }
 
 
-/*
-   H2 onward.
-*/
+/* =========================================================
+   PPI SPECIALTY BODY
+========================================================= */
 
 .ppi-specialty-table td{
 
@@ -857,9 +840,9 @@ thead .freeze-right-2{
 }
 
 
-/*
-   Independent specialty filter.
-*/
+/* =========================================================
+   PPI SPECIALTY FILTER
+========================================================= */
 
 .ppi-specialty-filter{
 
@@ -913,16 +896,37 @@ thead .freeze-right-2{
    PPI SPECIAL WIDTHS
 ========================================================= */
 
-.ppi-main-area .ppi-diagnosis-column{
+/*
+   ICD-10 is intentionally reduced.
+*/
+
+.ppi-main-area .ppi-icd10-column{
+    width:95px !important;
+    min-width:95px !important;
+    max-width:95px !important;
+}
+
+
+/*
+   PPI Dose is intentionally increased.
+*/
+
+.ppi-main-area .ppi-dose-column{
     width:220px !important;
     min-width:220px !important;
     max-width:220px !important;
 }
 
-.ppi-main-area .ppi-dose-column{
-    width:190px !important;
-    min-width:190px !important;
-    max-width:190px !important;
+
+/*
+   Diagnosis column, when it is actually a
+   separate Diagnosis field, keeps a useful width.
+*/
+
+.ppi-main-area .ppi-diagnosis-column{
+    width:145px !important;
+    min-width:145px !important;
+    max-width:145px !important;
 }
 
 
@@ -1432,7 +1436,7 @@ thead .freeze-right-2{
     .ppi-layout{
         grid-template-columns:
             minmax(0,1fr)
-            76px
+            8px
             240px;
     }
 
@@ -1461,7 +1465,7 @@ thead .freeze-right-2{
     .ppi-layout{
         grid-template-columns:
             minmax(0,1fr)
-            70px
+            8px
             220px;
     }
 
@@ -1500,7 +1504,7 @@ thead .freeze-right-2{
     .ppi-layout{
         grid-template-columns:
             minmax(0,1fr)
-            60px
+            8px
             210px;
     }
 
@@ -1512,11 +1516,6 @@ thead .freeze-right-2{
     .ppi-specialty-table{
         width:210px;
         min-width:210px;
-    }
-
-    .ppi-specialist-label-area{
-        width:60px;
-        min-width:60px;
     }
 
 }
@@ -2023,26 +2022,36 @@ function valueString(value){
 
 
 /* =========================================================
-   NORMALIZE COLUMN NAME
+   ROBUST HEADER NORMALIZATION
 ========================================================= */
 
 function normalizeColumnName(column){
 
-    return String(column)
+    return String(column ?? "")
+        .replace(/\uFEFF/g,"")
+        .replace(/\u200B/g,"")
         .trim()
         .toLowerCase()
-        .replace(/\s+/g," ");
+        .replace(/[^a-z0-9]+/g,"");
 
 }
 
+
+/* =========================================================
+   GENERIC NAME
+========================================================= */
 
 function isGenericNameColumn(column){
 
     return normalizeColumnName(column) ===
-        "generic name";
+        "genericname";
 
 }
 
+
+/* =========================================================
+   DENIAL DESCRIPTION
+========================================================= */
 
 function isDenialDescriptionColumn(column){
 
@@ -2050,9 +2059,8 @@ function isDenialDescriptionColumn(column){
         normalizeColumnName(column);
 
     return (
-        name === "examples/description" ||
-        name === "examples / description" ||
-        name === "example/description" ||
+        name === "examplesdescription" ||
+        name === "exampledescription" ||
         (
             name.includes("example") &&
             name.includes("description")
@@ -2066,28 +2074,33 @@ function isDenialDescriptionColumn(column){
    FIND PPI SPECIALTY COLUMN
 ========================================================= */
 
+/*
+   IMPORTANT:
+
+   This function finds the REAL specialty column
+   directly from PPI.json.
+
+   It handles:
+   - Eligible Clinician Specialty
+   - Eligible Clinical Specialty
+   - Eligible Clinician Speciality
+   - Eligible Clinical Specialist
+   - Clinician Specialty
+   - Clinical Specialty
+   - Specialty
+
+   It also removes hidden BOM / spaces /
+   punctuation differences.
+*/
+
 function findPpiSpecialtyColumn(rows){
 
-    if(!rows || !rows.length){
+    if(
+        !rows ||
+        !rows.length
+    ){
         return null;
     }
-
-
-    const possibleNames = [
-
-        "eligible clinician specialty",
-
-        "eligible clinical specialty",
-
-        "eligible clinician specialties",
-
-        "clinician specialty",
-
-        "clinical specialty",
-
-        "specialty"
-
-    ];
 
 
     const columns = [];
@@ -2099,7 +2112,8 @@ function findPpiSpecialtyColumn(rows){
 
         if(
             !row ||
-            typeof row !== "object"
+            typeof row !== "object" ||
+            Array.isArray(row)
         ){
             continue;
         }
@@ -2107,7 +2121,9 @@ function findPpiSpecialtyColumn(rows){
 
         for(const key of Object.keys(row)){
 
-            if(!seen.has(key)){
+            if(
+                !seen.has(key)
+            ){
 
                 seen.add(key);
 
@@ -2120,21 +2136,68 @@ function findPpiSpecialtyColumn(rows){
     }
 
 
-    for(const wanted of possibleNames){
+    /*
+       Exact normalized names.
+    */
+
+    const exactNames = [
+
+        "eligibleclinicianspecialty",
+
+        "eligibleclinicianspecialties",
+
+        "eligibleclinicalspecialty",
+
+        "eligibleclinicianspeciality",
+
+        "eligibleclinicianspecialities",
+
+        "eligibleclinicalspeciality",
+
+        "eligibleclinicalspecialist",
+
+        "eligibleclinicalspecialists",
+
+        "clinicianspecialty",
+
+        "clinicalspecialty",
+
+        "specialty"
+
+    ];
+
+
+    for(
+        const wanted of exactNames
+    ){
 
         const found =
             columns.find(
                 column =>
                     normalizeColumnName(column) ===
-                    normalizeColumnName(wanted)
+                    wanted
             );
 
+
         if(found){
+
             return found;
+
         }
 
     }
 
+
+    /*
+       Broader detection.
+
+       This catches unexpected column names
+       such as:
+
+       Eligible Clinician Specialty:
+       Eligible Clinical Specialist
+       Eligible Clinician Speciality Name
+    */
 
     const broad =
         columns.find(
@@ -2143,9 +2206,24 @@ function findPpiSpecialtyColumn(rows){
                 const name =
                     normalizeColumnName(column);
 
+
+                const hasEligible =
+                    name.includes("eligible");
+
+
+                const hasSpecial =
+                    name.includes("special");
+
+
+                const hasClinicianOrClinical =
+                    name.includes("clinician") ||
+                    name.includes("clinical");
+
+
                 return (
-                    name.includes("eligible") &&
-                    name.includes("special")
+                    hasEligible &&
+                    hasSpecial &&
+                    hasClinicianOrClinical
                 );
 
             }
@@ -2153,11 +2231,67 @@ function findPpiSpecialtyColumn(rows){
 
 
     if(broad){
+
         return broad;
+
+    }
+
+
+    /*
+       Last fallback:
+       any column containing both
+       specialty/speciality and clinician/clinical.
+    */
+
+    const fallback =
+        columns.find(
+            column => {
+
+                const name =
+                    normalizeColumnName(column);
+
+                return (
+                    (
+                        name.includes("specialty") ||
+                        name.includes("speciality") ||
+                        name.includes("specialist")
+                    ) &&
+                    (
+                        name.includes("clinician") ||
+                        name.includes("clinical")
+                    )
+                );
+
+            }
+        );
+
+
+    if(fallback){
+
+        return fallback;
+
     }
 
 
     return null;
+}
+
+
+/* =========================================================
+   FIND PPI ICD-10 COLUMN
+========================================================= */
+
+function isPpiIcd10Column(column){
+
+    const name =
+        normalizeColumnName(column);
+
+    return (
+        name === "icd10" ||
+        name === "icd10code" ||
+        name.includes("icd10")
+    );
+
 }
 
 
@@ -2172,7 +2306,10 @@ function isPpiDiagnosisColumn(column){
 
     return (
         name === "diagnosis" ||
-        name.includes("diagnosis")
+        (
+            name.includes("diagnosis") &&
+            !name.includes("icd10")
+        )
     );
 
 }
@@ -2188,7 +2325,7 @@ function isPpiDoseColumn(column){
         normalizeColumnName(column);
 
     return (
-        name === "ppi dose" ||
+        name === "ppidose" ||
         (
             name.includes("ppi") &&
             name.includes("dose")
@@ -2348,13 +2485,15 @@ function getColumns(tab,rows){
         const thiqa =
             columns.find(
                 c =>
-                    c.trim().toLowerCase() === "thiqa"
+                    normalizeColumnName(c) ===
+                    "thiqa"
             );
 
         const basic =
             columns.find(
                 c =>
-                    c.trim().toLowerCase() === "basic"
+                    normalizeColumnName(c) ===
+                    "basic"
             );
 
         if(thiqa && basic){
@@ -2379,7 +2518,10 @@ function getColumns(tab,rows){
     }
 
 
-    columnsCache.set(tab.id,columns);
+    columnsCache.set(
+        tab.id,
+        columns
+    );
 
     return columns;
 }
@@ -2680,7 +2822,7 @@ function calculateWidths(
             lower.includes("code") ||
             lower.includes("status") ||
             lower === "id" ||
-            lower.endsWith(" id");
+            lower.endsWith("id");
 
 
         const isDate =
@@ -2704,7 +2846,6 @@ function calculateWidths(
             lower.includes("instruction") ||
             lower.includes("detail") ||
             lower.includes("reason") ||
-            lower.includes("address") ||
             lower.includes("specialty") ||
             lower.includes("indication");
 
@@ -2765,7 +2906,7 @@ function yesNoClass(
     }
 
     const lower =
-        column.trim().toLowerCase();
+        normalizeColumnName(column);
 
     if(
         lower !== "thiqa" &&
@@ -3568,13 +3709,24 @@ function calculatePpiWidths(columns){
         column => {
 
             /*
-               IMPORTANT:
-               Diagnosis and PPI Dose are intentionally
-               wider than the other PPI columns.
+               ICD-10 reduced.
             */
 
             if(
-                isPpiDiagnosisColumn(column)
+                isPpiIcd10Column(column)
+            ){
+
+                return 95;
+
+            }
+
+
+            /*
+               PPI Dose increased.
+            */
+
+            if(
+                isPpiDoseColumn(column)
             ){
 
                 return 220;
@@ -3582,11 +3734,15 @@ function calculatePpiWidths(columns){
             }
 
 
+            /*
+               Separate Diagnosis field.
+            */
+
             if(
-                isPpiDoseColumn(column)
+                isPpiDiagnosisColumn(column)
             ){
 
-                return 190;
+                return 145;
 
             }
 
@@ -3598,7 +3754,7 @@ function calculatePpiWidths(columns){
             const isCode =
                 lower.includes("code") ||
                 lower === "id" ||
-                lower.endsWith(" id");
+                lower.endsWith("id");
 
 
             const isDate =
@@ -3672,8 +3828,8 @@ function renderPpiMainTable(
 
 
     /*
-       Exclude Eligible Clinician Specialty
-       from the main A-F table.
+       Exclude the specialty column
+       from the main table.
     */
 
     let mainColumns =
@@ -3684,8 +3840,7 @@ function renderPpiMainTable(
 
 
     /*
-       Main PPI table is EXACTLY six
-       columns whenever six exist.
+       Main PPI table = first six columns.
     */
 
     mainColumns =
@@ -3721,6 +3876,17 @@ function renderPpiMainTable(
 
             const col =
                 document.createElement("col");
+
+
+            if(
+                isPpiIcd10Column(column)
+            ){
+
+                col.classList.add(
+                    "ppi-icd10-column"
+                );
+
+            }
 
 
             if(
@@ -3912,8 +4078,10 @@ function renderPpiMainTable(
 
 
                 if(value.length > 60){
+
                     td.title =
                         value;
+
                 }
 
 
@@ -3947,6 +4115,10 @@ function renderPpiSpecialtyTable(
     rows
 ){
 
+    /*
+       Get the actual column name from PPI.json.
+    */
+
     const specialtyColumn =
         findPpiSpecialtyColumn(rows);
 
@@ -3965,6 +4137,27 @@ function renderPpiSpecialtyTable(
         "ppi-specialty-table";
 
 
+    const colgroup =
+        document.createElement("colgroup");
+
+
+    const col =
+        document.createElement("col");
+
+    col.style.width = "270px";
+    col.style.minWidth = "270px";
+    col.style.maxWidth = "270px";
+
+
+    colgroup.appendChild(col);
+
+    table.appendChild(colgroup);
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
     const thead =
         document.createElement("thead");
 
@@ -3977,11 +4170,33 @@ function renderPpiSpecialtyTable(
         document.createElement("th");
 
 
-    const content =
+    /*
+       Specialist + Eligible Clinician Specialty
+       are now ONE attached header.
+    */
+
+    const header =
         document.createElement("div");
 
-    content.className =
-        "ppi-specialty-header-content";
+    header.className =
+        "ppi-specialty-header";
+
+
+    const specialistTitle =
+        document.createElement("div");
+
+    specialistTitle.className =
+        "ppi-specialist-title";
+
+    specialistTitle.textContent =
+        "Specialist";
+
+
+    const titleRow =
+        document.createElement("div");
+
+    titleRow.className =
+        "ppi-specialty-title-row";
 
 
     const label =
@@ -3991,6 +4206,9 @@ function renderPpiSpecialtyTable(
         "ppi-specialty-header-label";
 
     label.textContent =
+        "Eligible Clinician Specialty";
+
+    label.title =
         "Eligible Clinician Specialty";
 
 
@@ -4035,10 +4253,18 @@ function renderPpiSpecialtyTable(
     );
 
 
-    content.appendChild(label);
-    content.appendChild(filter);
+    titleRow.appendChild(label);
+    titleRow.appendChild(filter);
 
-    th.appendChild(content);
+    header.appendChild(
+        specialistTitle
+    );
+
+    header.appendChild(
+        titleRow
+    );
+
+    th.appendChild(header);
 
     tr.appendChild(th);
 
@@ -4047,32 +4273,21 @@ function renderPpiSpecialtyTable(
     table.appendChild(thead);
 
 
+    /* =====================================================
+       BODY
+    ===================================================== */
+
     const tbody =
         document.createElement("tbody");
 
 
     /*
-       IMPORTANT FIX:
+       IMPORTANT:
 
-       The specialty table now uses EVERY
-       PPI JSON row.
+       We use EVERY row from PPI.json.
 
-       It does NOT use the unique-value list
-       for the displayed table.
-
-       Therefore if the JSON contains:
-
-       Row 1 = Gastroenterology
-       Row 2 = Cardiology
-       Row 3 = Gastroenterology
-
-       the table displays:
-
-       Gastroenterology
-       Cardiology
-       Gastroenterology
-
-       exactly according to the source rows.
+       We do NOT use the unique specialty
+       values list for the displayed rows.
     */
 
     if(specialtyColumn){
@@ -4084,11 +4299,6 @@ function renderPpiSpecialtyTable(
                     row[specialtyColumn]
                 ).trim();
 
-
-            /*
-               Blank values remain blank in
-               the table.
-            */
 
             if(
                 !ppiSpecialtyMatches(value)
@@ -4110,8 +4320,10 @@ function renderPpiSpecialtyTable(
 
 
             if(value.length > 60){
+
                 td.title =
                     value;
+
             }
 
 
@@ -4124,48 +4336,50 @@ function renderPpiSpecialtyTable(
         }
 
     }
+    else{
+
+        /*
+           If the column genuinely does not exist,
+           show a clear message rather than allowing
+           an apparently empty table.
+        */
+
+        const specialtyRow =
+            document.createElement("tr");
+
+
+        const td =
+            document.createElement("td");
+
+
+        td.textContent =
+            "No specialty column found in PPI.json";
+
+
+        td.style.color =
+            "#a04444";
+
+        td.style.fontWeight =
+            "700";
+
+
+        specialtyRow.appendChild(td);
+
+        tbody.appendChild(
+            specialtyRow
+        );
+
+        console.warn(
+            "PPI: Eligible Clinician Specialty column was not found.",
+            Object.keys(rows[0] || {})
+        );
+
+    }
 
 
     table.appendChild(tbody);
 
     area.appendChild(table);
-
-
-    return area;
-
-}
-
-
-/* =========================================================
-   PPI SPECIALIST LABEL
-========================================================= */
-
-function renderPpiSpecialistLabel(){
-
-    const area =
-        document.createElement("div");
-
-    area.className =
-        "ppi-specialist-label-area";
-
-
-    const label =
-        document.createElement("div");
-
-    label.className =
-        "ppi-specialist-label";
-
-    label.textContent =
-        "Specialist >>>";
-
-
-    area.appendChild(label);
-
-
-    /*
-       No table and no cells are created
-       underneath the Specialist >>> header.
-    */
 
 
     return area;
@@ -4190,9 +4404,13 @@ function renderPpiTable(
     }
 
 
-    if(!rows || rows.length === 0){
+    if(
+        !rows ||
+        rows.length === 0
+    ){
 
-        tableArea.style.overflow = "auto";
+        tableArea.style.overflow =
+            "auto";
 
         tableArea.innerHTML = `
             <div class="empty">
@@ -4207,10 +4425,6 @@ function renderPpiTable(
     }
 
 
-    /*
-       PPI uses its own internal layout.
-    */
-
     tableArea.style.overflow =
         "hidden";
 
@@ -4223,8 +4437,8 @@ function renderPpiTable(
 
 
     /*
-       Filter popup values are unique,
-       but the displayed H table is NOT unique.
+       Get specialty filter values
+       directly from the JSON column.
     */
 
     ppiSpecialtyAllValues =
@@ -4241,7 +4455,7 @@ function renderPpiTable(
 
 
     /*
-       A-F
+       A-F MAIN TABLE
     */
 
     layout.appendChild(
@@ -4253,18 +4467,20 @@ function renderPpiTable(
 
 
     /*
-       G
-       Specialist >>>
+       SMALL SPACE BETWEEN F AND H
     */
 
-    layout.appendChild(
-        renderPpiSpecialistLabel()
-    );
+    const gap =
+        document.createElement("div");
+
+    gap.className =
+        "ppi-gap";
+
+    layout.appendChild(gap);
 
 
     /*
-       H
-       Eligible Clinician Specialty
+       H SPECIALTY TABLE
     */
 
     layout.appendChild(
@@ -4282,8 +4498,8 @@ function renderPpiTable(
 
 
     /*
-       Record number represents the
-       A-F filtered PPI rows.
+       Record number represents
+       A-F filtered rows.
     */
 
     const visibleRows =
@@ -4374,7 +4590,10 @@ function renderEligibilityTable(
         "auto";
 
 
-    if(!rows || rows.length < 2){
+    if(
+        !rows ||
+        rows.length < 2
+    ){
 
         tableArea.innerHTML = `
             <div class="empty">
@@ -5989,3 +6208,4 @@ openTab("apg");
 
 </body>
 </html>
+```
