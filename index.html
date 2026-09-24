@@ -1635,6 +1635,56 @@ thead .freeze-right-2{
 
 }
 
+/* =========================================================
+   PPI MOBILE FIX
+   Keep desktop widths unchanged.
+   Prevent Specialty table from covering Notes.
+========================================================= */
+
+@media (max-width: 768px){
+
+    .ppi-layout{
+        display:block !important;
+        width:100% !important;
+        overflow:visible !important;
+    }
+
+    .ppi-main-area{
+        width:100% !important;
+        max-width:100% !important;
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+    }
+
+    .ppi-main-table{
+        width:max-content !important;
+        min-width:760px !important;
+    }
+
+    .ppi-gap{
+        width:100% !important;
+        height:12px !important;
+        min-width:0 !important;
+    }
+
+    .ppi-specialty-area{
+        width:100% !important;
+        max-width:100% !important;
+        margin-top:12px !important;
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+        position:relative !important;
+        z-index:1 !important;
+    }
+
+    .ppi-specialty-table{
+        width:270px !important;
+        min-width:270px !important;
+        max-width:270px !important;
+    }
+
+}
+    
 </style>
 
 </head>
