@@ -595,6 +595,11 @@ thead .freeze-right-2{
     overflow:hidden;
 }
 
+
+/* =========================================================
+   PPI MAIN A-F AREA
+========================================================= */
+
 .ppi-main-area{
 
     min-width:0;
@@ -621,6 +626,11 @@ thead .freeze-right-2{
     table-layout:fixed;
 }
 
+
+/* =========================================================
+   PPI GAP
+========================================================= */
+
 .ppi-gap{
 
     width:8px;
@@ -631,6 +641,11 @@ thead .freeze-right-2{
 
     background:#ffffff;
 }
+
+
+/* =========================================================
+   PPI SPECIALTY AREA
+========================================================= */
 
 .ppi-specialty-area{
 
@@ -648,6 +663,11 @@ thead .freeze-right-2{
 
     border-left:0;
 }
+
+
+/* =========================================================
+   PPI SPECIALTY TABLE
+========================================================= */
 
 .ppi-specialty-table{
 
@@ -697,6 +717,11 @@ thead .freeze-right-2{
 
     vertical-align:middle;
 }
+
+
+/* =========================================================
+   SPECIALIST HEADER
+========================================================= */
 
 .ppi-specialty-header{
 
@@ -758,6 +783,11 @@ thead .freeze-right-2{
     word-break:break-word;
 }
 
+
+/* =========================================================
+   PPI SPECIALTY BODY
+========================================================= */
+
 .ppi-specialty-table td{
 
     min-height:34px;
@@ -796,6 +826,11 @@ thead .freeze-right-2{
 .ppi-specialty-table tbody tr:hover td{
     background:#eef7f8;
 }
+
+
+/* =========================================================
+   PPI SPECIALTY FILTER
+========================================================= */
 
 .ppi-specialty-filter{
 
@@ -843,6 +878,11 @@ thead .freeze-right-2{
 
     border-color:#12697a;
 }
+
+
+/* =========================================================
+   PPI SPECIAL WIDTHS
+========================================================= */
 
 .ppi-main-area .ppi-diagnosis-column{
     width:220px !important;
@@ -1025,296 +1065,256 @@ thead .freeze-right-2{
 
 
 /* =========================================================
-   REFILL CALCULATOR
+   REFILL DATE CALCULATOR
 ========================================================= */
 
 .refill-container{
 
-    width:100%;
-    height:100%;
+    width:max-content;
 
-    overflow:auto;
+    min-width:100%;
+
+    min-height:100%;
+
+    padding:0 0 40px 0;
 
     background:#ffffff;
 
-    padding:24px 28px 40px;
-}
-
-
-/* Instruction area */
-
-.refill-instructions{
-
-    width:100%;
-
-    margin-bottom:24px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:flex-start;
-
-    gap:7px;
-}
-
-.refill-instruction-title{
-
-    color:#111111;
-
-    font-size:16px;
-
-    font-weight:900;
-
-    line-height:22px;
-}
-
-.refill-instruction-green{
-
-    color:#168447;
-
-    font-size:13px;
-
-    font-weight:900;
-
-    line-height:19px;
-}
-
-.refill-instruction-blue{
-
-    color:#2874b5;
-
-    font-size:13px;
-
-    font-weight:900;
-
-    line-height:19px;
-}
-
-.refill-instruction-orange{
-
-    color:#d28b3f;
-
-    font-size:13px;
-
-    font-weight:900;
-
-    line-height:19px;
+    overflow:visible;
 }
 
 
 /*
-   The actual calculator table.
    Column A is intentionally only empty space.
+   The actual table begins after this spacer.
 */
 
 .refill-table-wrap{
 
-    width:100%;
+    margin-left:35px;
 
-    overflow-x:auto;
+    width:760px;
+
+    min-width:760px;
 
     background:#ffffff;
 }
 
+
+/*
+   Exact B:E table structure.
+*/
+
 .refill-table{
+
+    width:760px;
+
+    min-width:760px;
+
+    table-layout:fixed;
 
     border-collapse:collapse;
 
     border-spacing:0;
 
-    table-layout:fixed;
-
-    width:900px;
-
-    min-width:900px;
-
     background:#ffffff;
+
+    font-size:12px;
+}
+
+
+/*
+   B, C, D, E widths.
+*/
+
+.refill-table col.refill-col-a{
+    width:35px;
+    min-width:35px;
+}
+
+.refill-table col.refill-col-b{
+    width:220px;
+    min-width:220px;
+}
+
+.refill-table col.refill-col-c{
+    width:140px;
+    min-width:140px;
+}
+
+.refill-table col.refill-col-d{
+    width:182.5px;
+    min-width:182.5px;
+}
+
+.refill-table col.refill-col-e{
+    width:182.5px;
+    min-width:182.5px;
 }
 
 
 /*
    Column A:
-   completely empty visual space.
+   no borders, no color, no styling.
 */
 
-.refill-table .refill-col-a{
-    width:70px;
-}
+.refill-table td.refill-no-border{
 
-.refill-table .refill-col-b{
-    width:230px;
-}
+    border:0 !important;
 
-.refill-table .refill-col-c{
-    width:180px;
-}
+    background:#ffffff !important;
 
-.refill-table .refill-col-d{
-    width:210px;
-}
+    color:transparent !important;
 
-.refill-table .refill-col-e{
-    width:210px;
+    box-shadow:none !important;
 }
 
 
 /*
-   Instruction rows B1:E5.
-   No borders.
+   Rows 1 and 6 are empty spaces.
 */
 
-.refill-no-border{
+.refill-table .blank-row td{
 
-    border:none !important;
+    height:20px;
+
+    padding:0;
+
+    border:0 !important;
 
     background:#ffffff !important;
-
-    text-align:center;
-
-    vertical-align:middle;
 }
 
-.refill-space-row{
 
-    height:22px;
-}
+/*
+   Instruction rows:
+   absolutely no table lines.
+*/
 
 .refill-instruction-cell{
 
-    height:34px;
+    height:30px;
 
-    padding:4px 10px;
+    padding:5px 8px;
 
-    border:none !important;
+    border:0 !important;
 
     background:#ffffff !important;
 
-    text-align:center;
+    text-align:left;
 
     vertical-align:middle;
 
     font-size:13px;
 
-    font-weight:900;
+    font-weight:800;
 
     line-height:18px;
 }
 
+.refill-instruction-title{
 
-/*
-   Row 1 is blank.
-*/
+    color:#111111 !important;
 
-.refill-table .blank-row{
+    font-weight:900 !important;
+}
 
-    height:18px;
+.refill-instruction-green{
+
+    color:#168447 !important;
+
+    font-weight:900 !important;
+}
+
+.refill-instruction-blue{
+
+    color:#2874b5 !important;
+
+    font-weight:900 !important;
+}
+
+.refill-instruction-orange{
+
+    color:#d28b3f !important;
+
+    font-weight:900 !important;
 }
 
 
 /*
-   Main table headers.
+   Row 6 extra empty space.
 */
 
-.refill-header{
+.refill-space-row td{
 
-    background:#dcebed;
+    height:20px;
 
-    color:#243943;
+    padding:0;
 
-    border:1px solid #c4d4d9;
+    border:0 !important;
+
+    background:#ffffff !important;
+}
+
+
+/*
+   Main table headings.
+*/
+
+.refill-header-merged,
+.refill-header-main,
+.refill-header-sub{
+
+    background:#eaf1f3;
+
+    color:#263a44;
+
+    border:1px solid #c8d5da;
 
     text-align:center;
 
     vertical-align:middle;
-
-    font-size:13px;
 
     font-weight:900;
 
     line-height:17px;
+}
 
-    padding:6px 8px;
+.refill-header-merged{
+
+    height:52px;
+
+    font-size:13px;
 }
 
 .refill-header-main{
 
-    height:42px;
+    height:28px;
 
-    background:#dcebed;
-
-    color:#243943;
-
-    border:1px solid #c4d4d9;
-
-    text-align:center;
-
-    vertical-align:middle;
-
-    font-size:14px;
-
-    font-weight:900;
+    font-size:13px;
 }
 
 .refill-header-sub{
 
-    height:34px;
-
-    background:#edf4f5;
-
-    color:#344952;
-
-    border:1px solid #cbd9dd;
-
-    text-align:center;
-
-    vertical-align:middle;
+    height:24px;
 
     font-size:12px;
 
-    font-weight:850;
+    background:#f1f5f6;
 }
 
 
 /*
-   B7:B8 and C7:C8 are vertically merged.
+   Data row.
 */
 
-.refill-header-merged{
+.refill-table tr:last-child td:not(.refill-no-border){
 
-    height:76px;
+    border:1px solid #d4dee2;
 
-    background:#dcebed;
+    height:52px;
 
-    color:#243943;
-
-    border:1px solid #c4d4d9;
-
-    text-align:center;
-
-    vertical-align:middle;
-
-    font-size:14px;
-
-    font-weight:900;
-}
-
-
-/*
-   Entry/calculation fields.
-*/
-
-.refill-input{
-
-    width:100%;
-
-    height:44px;
-
-    border:1px solid #c7d5da;
-
-    border-radius:4px;
-
-    outline:none;
+    padding:5px;
 
     text-align:center;
 
@@ -1323,62 +1323,125 @@ thead .freeze-right-2{
     font-size:13px;
 
     font-weight:750;
-
-    color:#253a43;
-
-    padding:4px 8px;
 }
 
-.refill-input:focus{
+
+/*
+   B9 green input.
+*/
+
+.refill-input{
+
+    width:100%;
+
+    height:40px;
+
+    border-radius:5px;
 
     outline:none;
 
-    box-shadow:
-        0 0 0 3px rgba(20,119,138,.10);
+    text-align:center;
 
-    border-color:#77aeb9;
+    font-size:13px;
+
+    font-weight:800;
+
+    transition:
+        border-color .12s ease,
+        box-shadow .12s ease;
 }
-
-
-/*
-   B9 = light green
-*/
 
 .refill-date-input{
 
-    background:#dff3e5 !important;
+    background:#dff3e7;
 
-    border-color:#a9cfb5 !important;
+    border:1px solid #9ccbab;
 
-    color:#17683b !important;
+    color:#17683b;
+}
 
+.refill-date-input::placeholder{
+
+    color:#55936d;
+
+    opacity:1;
+}
+
+.refill-date-input:focus{
+
+    border-color:#49a96d;
+
+    box-shadow:
+        0 0 0 3px rgba(73,169,109,.13);
 }
 
 
 /*
-   C9 = light blue
+   C9 blue input.
 */
 
 .refill-duration-input{
 
-    background:#dcecf9 !important;
+    background:#e2effc;
 
-    border-color:#a8c8e3 !important;
+    border:1px solid #9dbddd;
 
-    color:#27699d !important;
+    color:#246fa8;
+}
+
+.refill-duration-input::placeholder{
+
+    color:#5d8db8;
+
+    opacity:1;
+}
+
+.refill-duration-input:focus{
+
+    border-color:#4e8fca;
+
+    box-shadow:
+        0 0 0 3px rgba(78,143,202,.13);
 }
 
 
 /*
-   D9/E9 = light orange.
-   These are calculated, not editable.
+   Remove number input arrows.
 */
+
+.refill-duration-input::-webkit-outer-spin-button,
+.refill-duration-input::-webkit-inner-spin-button{
+
+    margin:0;
+
+    -webkit-appearance:none;
+}
+
+.refill-duration-input{
+
+    -moz-appearance:textfield;
+}
+
+
+/*
+   D9 and E9 light orange result fields.
+*/
+
+.refill-table tr:last-child td.refill-result-cell{
+
+    background:#fff1dc !important;
+
+    color:#9a5b16;
+
+    border-color:#e6cda7;
+
+}
 
 .refill-result{
 
     width:100%;
 
-    height:44px;
+    min-height:40px;
 
     display:flex;
 
@@ -1386,48 +1449,51 @@ thead .freeze-right-2{
 
     justify-content:center;
 
-    padding:4px 8px;
-
-    border:1px solid #e4c69f;
+    padding:4px;
 
     border-radius:4px;
 
-    background:#fff0dc;
+    background:#fff1dc;
 
-    color:#c17b2e;
+    color:#9a5b16;
 
     font-size:13px;
 
-    font-weight:850;
+    font-weight:900;
 
-    text-align:center;
 }
 
 
 /*
-   Date inputs.
+   Apply orange background to D9/E9 cells.
 */
 
-.refill-date-input::-webkit-calendar-picker-indicator{
-    cursor:pointer;
+.refill-table tr:nth-child(9) td:nth-child(4),
+.refill-table tr:nth-child(9) td:nth-child(5){
+
+    background:#fff1dc;
+
+    color:#9a5b16;
+
+    border-color:#e6cda7;
+
 }
 
 
 /*
-   Responsive refill layout.
+   Small hover/focus visual feedback.
 */
 
-@media(max-width:900px){
+.refill-table tr:nth-child(9) td:nth-child(2):focus-within{
 
-    .refill-container{
-        padding:20px 16px 35px;
-    }
+    box-shadow:
+        inset 0 0 0 2px rgba(73,169,109,.12);
+}
 
-    .refill-table{
-        width:850px;
-        min-width:850px;
-    }
+.refill-table tr:nth-child(9) td:nth-child(3):focus-within{
 
+    box-shadow:
+        inset 0 0 0 2px rgba(78,143,202,.12);
 }
 
 
@@ -1985,12 +2051,15 @@ thead .freeze-right-2{
         max-width:105px !important;
     }
 
+    .refill-table-wrap{
+        margin-left:20px;
+    }
+
 }
 
 </style>
 
 </head>
-
 
 <body>
 
@@ -2006,7 +2075,6 @@ thead .freeze-right-2{
 
 </div>
 
-
 <div class="tabs-section">
 
     <div
@@ -2015,7 +2083,6 @@ thead .freeze-right-2{
     ></div>
 
 </div>
-
 
 <div class="table-bar">
 
@@ -2047,7 +2114,6 @@ thead .freeze-right-2{
 
 </div>
 
-
 <div
     id="tableArea"
     class="table-view"
@@ -2071,7 +2137,6 @@ thead .freeze-right-2{
 
 </div>
 
-
 <div
     id="filterPopup"
     class="filter-popup"
@@ -2092,7 +2157,6 @@ thead .freeze-right-2{
 
     </div>
 
-
     <div class="filter-search-wrap">
 
         <input
@@ -2104,7 +2168,6 @@ thead .freeze-right-2{
         >
 
     </div>
-
 
     <div class="filter-actions">
 
@@ -2124,12 +2187,10 @@ thead .freeze-right-2{
 
     </div>
 
-
     <div
         id="filterValues"
         class="filter-values"
     ></div>
-
 
     <div class="filter-footer">
 
@@ -2150,7 +2211,6 @@ thead .freeze-right-2{
     </div>
 
 </div>
-
 
 <script>
 
@@ -2177,7 +2237,6 @@ const firstTabs = [
     }
 
 ];
-
 
 const remainingTabs = [
 
@@ -2351,7 +2410,6 @@ const remainingTabs = [
 
 ];
 
-
 function shuffle(array){
 
     const result = [...array];
@@ -2380,7 +2438,6 @@ function shuffle(array){
 
     return result;
 }
-
 
 const tabsConfig = [
     ...firstTabs,
@@ -2424,6 +2481,18 @@ let ppiSpecialtyAllValues = [];
 let ppiSpecialtyTemporarySelection = new Set();
 
 let ppiSpecialtyFilterOpen = false;
+
+
+/*
+   REFILL STATE
+*/
+
+const refillState = {
+
+    dispenseDate:"",
+    duration:""
+
+};
 
 
 /* =========================================================
@@ -2548,11 +2617,9 @@ function findPpiSpecialtyColumn(rows){
         return null;
     }
 
-
     const columns = [];
 
     const seen = new Set();
-
 
     for(const row of rows){
 
@@ -2563,7 +2630,6 @@ function findPpiSpecialtyColumn(rows){
         ){
             continue;
         }
-
 
         for(const key of Object.keys(row)){
 
@@ -2581,7 +2647,6 @@ function findPpiSpecialtyColumn(rows){
 
     }
 
-
     const headerColumn =
         columns.find(
             column =>
@@ -2594,13 +2659,11 @@ function findPpiSpecialtyColumn(rows){
                 )
         );
 
-
     if(headerColumn){
 
         return headerColumn;
 
     }
-
 
     const exactNames = [
 
@@ -2628,7 +2691,6 @@ function findPpiSpecialtyColumn(rows){
 
     ];
 
-
     for(
         const wanted of exactNames
     ){
@@ -2640,7 +2702,6 @@ function findPpiSpecialtyColumn(rows){
                     wanted
             );
 
-
         if(found){
 
             return found;
@@ -2648,7 +2709,6 @@ function findPpiSpecialtyColumn(rows){
         }
 
     }
-
 
     const broad =
         columns.find(
@@ -2669,20 +2729,17 @@ function findPpiSpecialtyColumn(rows){
             }
         );
 
-
     if(broad){
 
         return broad;
 
     }
 
-
     if(columns.length >= 8){
 
         return columns[7];
 
     }
-
 
     return null;
 
@@ -2702,11 +2759,9 @@ function findPpiSpecialistMarkerColumn(rows){
         return null;
     }
 
-
     const columns = [];
 
     const seen = new Set();
-
 
     for(const row of rows){
 
@@ -2717,7 +2772,6 @@ function findPpiSpecialistMarkerColumn(rows){
         ){
             continue;
         }
-
 
         for(const key of Object.keys(row)){
 
@@ -2732,7 +2786,6 @@ function findPpiSpecialistMarkerColumn(rows){
         }
 
     }
-
 
     return (
         columns.find(
@@ -2767,7 +2820,6 @@ function getPpiSpecialtyValue(
 
     }
 
-
     if(
         row &&
         typeof row === "object" &&
@@ -2780,7 +2832,6 @@ function getPpiSpecialtyValue(
         ).trim();
 
     }
-
 
     return "";
 
@@ -3047,7 +3098,6 @@ function getColumns(tab,rows){
 
     }
 
-
     if(tab.id === "apg"){
 
         const thiqa =
@@ -3084,7 +3134,6 @@ function getColumns(tab,rows){
         }
 
     }
-
 
     columnsCache.set(
         tab.id,
@@ -3232,7 +3281,6 @@ function matchesFilters(row){
 
         }
 
-
         if(!selected.has(value)){
             return false;
         }
@@ -3290,10 +3338,8 @@ function getPpiSpecialtyValues(rows){
         return [];
     }
 
-
     const values =
         new Set();
-
 
     for(let i=1; i<rows.length; i++){
 
@@ -3306,7 +3352,6 @@ function getPpiSpecialtyValues(rows){
                 column
             );
 
-
         if(
             !value ||
             value === "Eligible Clinician Specialty" ||
@@ -3315,11 +3360,9 @@ function getPpiSpecialtyValues(rows){
             continue;
         }
 
-
         values.add(value);
 
     }
-
 
     return Array.from(values).sort(
         (a,b) =>
@@ -3371,12 +3414,10 @@ function calculateWidths(
 
     const widths = [];
 
-
     for(const column of columns){
 
         const lower =
             normalizeColumnName(column);
-
 
         if(
             tab.id === "apg" &&
@@ -3391,7 +3432,6 @@ function calculateWidths(
             continue;
         }
 
-
         if(
             tab.id === "haad" &&
             isGenericNameColumn(column)
@@ -3400,8 +3440,8 @@ function calculateWidths(
             widths.push(125);
 
             continue;
-        }
 
+        }
 
         if(
             tab.id === "adnic" &&
@@ -3411,8 +3451,8 @@ function calculateWidths(
             widths.push(125);
 
             continue;
-        }
 
+        }
 
         if(
             tab.id === "denial" &&
@@ -3422,8 +3462,8 @@ function calculateWidths(
             widths.push(165);
 
             continue;
-        }
 
+        }
 
         const isCode =
             lower.includes("code") ||
@@ -3431,10 +3471,8 @@ function calculateWidths(
             lower === "id" ||
             lower.endsWith("id");
 
-
         const isDate =
             lower.includes("date");
-
 
         const isNumeric =
             lower.includes("price") ||
@@ -3442,7 +3480,6 @@ function calculateWidths(
             lower.includes("copay") ||
             lower.includes("quantity") ||
             lower.includes("qty");
-
 
         const isText =
             lower.includes("name") ||
@@ -3456,9 +3493,7 @@ function calculateWidths(
             lower.includes("specialty") ||
             lower.includes("indication");
 
-
         let width = 140;
-
 
         if(isCode){
             width = 105;
@@ -3473,7 +3508,6 @@ function calculateWidths(
             width = 145;
         }
 
-
         width =
             Math.max(
                 90,
@@ -3483,11 +3517,9 @@ function calculateWidths(
                 )
             );
 
-
         widths.push(width);
 
     }
-
 
     widthCache.set(
         tab.id,
@@ -3582,13 +3614,11 @@ function createHeader(
     const total =
         columns.length;
 
-
     columns.forEach(
         (column,index) => {
 
             const th =
                 document.createElement("th");
-
 
             th.style.width =
                 widths[index] + "px";
@@ -3598,7 +3628,6 @@ function createHeader(
 
             th.style.maxWidth =
                 widths[index] + "px";
-
 
             if(
                 tab.id === "apg" &&
@@ -3610,7 +3639,6 @@ function createHeader(
                 );
             }
 
-
             if(
                 tab.id === "apg" &&
                 total >= 1 &&
@@ -3621,13 +3649,11 @@ function createHeader(
                 );
             }
 
-
             const content =
                 document.createElement("div");
 
             content.className =
                 "header-content";
-
 
             const label =
                 document.createElement("span");
@@ -3640,7 +3666,6 @@ function createHeader(
 
             label.title =
                 column;
-
 
             const filter =
                 document.createElement("button");
@@ -3657,7 +3682,6 @@ function createHeader(
             filter.title =
                 "Filter " + column;
 
-
             const state =
                 filters.get(tab.id);
 
@@ -3669,7 +3693,6 @@ function createHeader(
                     "active"
                 );
             }
-
 
             filter.addEventListener(
                 "click",
@@ -3685,7 +3708,6 @@ function createHeader(
                 }
             );
 
-
             content.appendChild(label);
             content.appendChild(filter);
 
@@ -3694,7 +3716,6 @@ function createHeader(
 
         }
     );
-
 
     thead.appendChild(tr);
 
@@ -3717,7 +3738,6 @@ function renderVirtualTable(
 
     container.innerHTML = "";
 
-
     if(container._virtualScrollHandler){
 
         container.removeEventListener(
@@ -3730,24 +3750,20 @@ function renderVirtualTable(
 
     }
 
-
     const table =
         document.createElement("table");
 
     table.className =
         getTableClass(tab);
 
-
     const colgroup =
         document.createElement("colgroup");
-
 
     columns.forEach(
         (column,index) => {
 
             const col =
                 document.createElement("col");
-
 
             if(
                 (
@@ -3762,7 +3778,6 @@ function renderVirtualTable(
 
             }
 
-
             if(
                 tab.id === "denial" &&
                 isDenialDescriptionColumn(column)
@@ -3774,7 +3789,6 @@ function renderVirtualTable(
 
             }
 
-
             col.style.width =
                 widths[index] + "px";
 
@@ -3784,15 +3798,12 @@ function renderVirtualTable(
             col.style.maxWidth =
                 widths[index] + "px";
 
-
             colgroup.appendChild(col);
 
         }
     );
 
-
     table.appendChild(colgroup);
-
 
     createHeader(
         table,
@@ -3801,14 +3812,12 @@ function renderVirtualTable(
         widths
     );
 
-
     const tbody =
         document.createElement("tbody");
 
     table.appendChild(tbody);
 
     container.appendChild(table);
-
 
     const DEFAULT_HEIGHT = 34;
 
@@ -3822,11 +3831,9 @@ function renderVirtualTable(
         new Array(rows.length + 1)
             .fill(0);
 
-
     function estimateHeight(row){
 
         let maxLines = 1;
-
 
         for(
             let c=0;
@@ -3841,18 +3848,15 @@ function renderVirtualTable(
                         : row[columns[c]]
                 );
 
-
             if(!value){
                 continue;
             }
-
 
             const availableWidth =
                 Math.max(
                     25,
                     widths[c] - 12
                 );
-
 
             const charsPerLine =
                 Math.max(
@@ -3861,7 +3865,6 @@ function renderVirtualTable(
                         availableWidth / 6
                     )
                 );
-
 
             const lines =
                 value
@@ -3882,7 +3885,6 @@ function renderVirtualTable(
                         0
                     );
 
-
             maxLines =
                 Math.max(
                     maxLines,
@@ -3891,14 +3893,12 @@ function renderVirtualTable(
 
         }
 
-
         return Math.max(
             DEFAULT_HEIGHT,
             10 + maxLines * 15
         );
 
     }
-
 
     for(
         let i=0;
@@ -3912,7 +3912,6 @@ function renderVirtualTable(
             );
 
     }
-
 
     function rebuildPrefix(){
 
@@ -3932,9 +3931,7 @@ function renderVirtualTable(
 
     }
 
-
     rebuildPrefix();
-
 
     function findIndex(position){
 
@@ -3942,12 +3939,10 @@ function renderVirtualTable(
 
         let high = rows.length;
 
-
         while(low < high){
 
             const mid =
                 (low + high) >> 1;
-
 
             if(
                 prefix[mid] <
@@ -3967,7 +3962,6 @@ function renderVirtualTable(
 
         }
 
-
         return Math.max(
             0,
             Math.min(
@@ -3978,9 +3972,7 @@ function renderVirtualTable(
 
     }
 
-
     let raf = 0;
-
 
     function measureRows(){
 
@@ -3990,15 +3982,12 @@ function renderVirtualTable(
             return;
         }
 
-
         const rendered =
             tbody.querySelectorAll(
                 "tr[data-row-index]"
             );
 
-
         let changed = false;
-
 
         rendered.forEach(tr => {
 
@@ -4006,7 +3995,6 @@ function renderVirtualTable(
                 Number(
                     tr.dataset.rowIndex
                 );
-
 
             if(
                 !Number.isFinite(index) ||
@@ -4016,13 +4004,11 @@ function renderVirtualTable(
                 return;
             }
 
-
             const actual =
                 Math.ceil(
                     tr.getBoundingClientRect()
                         .height
                 );
-
 
             if(
                 actual >= DEFAULT_HEIGHT &&
@@ -4040,7 +4026,6 @@ function renderVirtualTable(
 
         });
 
-
         if(changed){
 
             rebuildPrefix();
@@ -4051,11 +4036,9 @@ function renderVirtualTable(
 
     }
 
-
     function draw(){
 
         raf = 0;
-
 
         if(
             version !== renderVersion
@@ -4063,20 +4046,17 @@ function renderVirtualTable(
             return;
         }
 
-
         const scrollTop =
             container.scrollTop;
 
         const viewportHeight =
             container.clientHeight;
 
-
         const bodyTop =
             Math.max(
                 0,
                 scrollTop - 46
             );
-
 
         const bodyBottom =
             Math.max(
@@ -4086,14 +4066,11 @@ function renderVirtualTable(
                 46
             );
 
-
         let start =
             findIndex(bodyTop);
 
-
         let end =
             findIndex(bodyBottom) + 1;
-
 
         start =
             Math.max(
@@ -4101,16 +4078,13 @@ function renderVirtualTable(
                 start - BUFFER
             );
 
-
         end =
             Math.min(
                 rows.length,
                 end + BUFFER
             );
 
-
         tbody.innerHTML = "";
-
 
         if(start > 0){
 
@@ -4119,7 +4093,6 @@ function renderVirtualTable(
 
             spacer.className =
                 "virtual-spacer";
-
 
             const cell =
                 document.createElement("td");
@@ -4130,13 +4103,11 @@ function renderVirtualTable(
             cell.style.height =
                 prefix[start] + "px";
 
-
             spacer.appendChild(cell);
 
             tbody.appendChild(spacer);
 
         }
-
 
         for(
             let i=start;
@@ -4147,14 +4118,11 @@ function renderVirtualTable(
             const row =
                 rows[i];
 
-
             const tr =
                 document.createElement("tr");
 
-
             tr.dataset.rowIndex =
                 String(i);
-
 
             for(
                 let c=0;
@@ -4165,10 +4133,8 @@ function renderVirtualTable(
                 const column =
                     columns[c];
 
-
                 const td =
                     document.createElement("td");
-
 
                 const value =
                     valueString(
@@ -4177,10 +4143,8 @@ function renderVirtualTable(
                             : row[column]
                     );
 
-
                 td.textContent =
                     value;
-
 
                 if(value.length > 60){
 
@@ -4188,7 +4152,6 @@ function renderVirtualTable(
                         value;
 
                 }
-
 
                 if(
                     tab.id === "apg" &&
@@ -4201,7 +4164,6 @@ function renderVirtualTable(
 
                 }
 
-
                 if(
                     tab.id === "apg" &&
                     c === columns.length-1
@@ -4213,14 +4175,12 @@ function renderVirtualTable(
 
                 }
 
-
                 const colorClass =
                     yesNoClass(
                         tab,
                         column,
                         value
                     );
-
 
                 if(colorClass){
 
@@ -4230,16 +4190,13 @@ function renderVirtualTable(
 
                 }
 
-
                 tr.appendChild(td);
 
             }
 
-
             tbody.appendChild(tr);
 
         }
-
 
         if(end < rows.length){
 
@@ -4249,13 +4206,11 @@ function renderVirtualTable(
             spacer.className =
                 "virtual-spacer";
 
-
             const cell =
                 document.createElement("td");
 
             cell.colSpan =
                 columns.length;
-
 
             cell.style.height =
                 (
@@ -4263,20 +4218,17 @@ function renderVirtualTable(
                     prefix[end]
                 ) + "px";
 
-
             spacer.appendChild(cell);
 
             tbody.appendChild(spacer);
 
         }
 
-
         requestAnimationFrame(
             measureRows
         );
 
     }
-
 
     function scheduleDraw(){
 
@@ -4291,10 +4243,8 @@ function renderVirtualTable(
 
     }
 
-
     container._virtualScrollHandler =
         scheduleDraw;
-
 
     container.addEventListener(
         "scroll",
@@ -4303,7 +4253,6 @@ function renderVirtualTable(
             passive:true
         }
     );
-
 
     draw();
 
@@ -4327,7 +4276,6 @@ function calculatePpiWidths(columns){
 
             }
 
-
             if(
                 isPpiIcd10Column(column)
             ){
@@ -4335,7 +4283,6 @@ function calculatePpiWidths(columns){
                 return 75;
 
             }
-
 
             if(
                 isPpiDoseColumn(column)
@@ -4345,7 +4292,6 @@ function calculatePpiWidths(columns){
 
             }
 
-
             if(
                 isPpiDurationColumn(column)
             ){
@@ -4353,7 +4299,6 @@ function calculatePpiWidths(columns){
                 return 65;
 
             }
-
 
             if(
                 isPpiClinicianEligibilityColumn(column)
@@ -4363,7 +4308,6 @@ function calculatePpiWidths(columns){
 
             }
 
-
             if(
                 isPpiNotesColumn(column)
             ){
@@ -4372,20 +4316,16 @@ function calculatePpiWidths(columns){
 
             }
 
-
             const lower =
                 normalizeColumnName(column);
-
 
             const isCode =
                 lower.includes("code") ||
                 lower === "id" ||
                 lower.endsWith("id");
 
-
             const isDate =
                 lower.includes("date");
-
 
             const isNumeric =
                 lower.includes("price") ||
@@ -4393,7 +4333,6 @@ function calculatePpiWidths(columns){
                 lower.includes("copay") ||
                 lower.includes("quantity") ||
                 lower.includes("qty");
-
 
             const isText =
                 lower.includes("name") ||
@@ -4407,9 +4346,7 @@ function calculatePpiWidths(columns){
                 lower.includes("specialty") ||
                 lower.includes("indication");
 
-
             let width = 140;
-
 
             if(isCode){
                 width = 105;
@@ -4423,7 +4360,6 @@ function calculatePpiWidths(columns){
             else if(isText){
                 width = 145;
             }
-
 
             return Math.max(
                 90,
@@ -4451,13 +4387,11 @@ function renderPpiMainTable(
     const specialtyColumn =
         findPpiSpecialtyColumn(rows);
 
-
     let mainColumns =
         allColumns.filter(
             column =>
                 column !== specialtyColumn
         );
-
 
     const desiredOrder = [
 
@@ -4470,9 +4404,7 @@ function renderPpiMainTable(
 
     ];
 
-
     const orderedColumns = [];
-
 
     for(const wanted of desiredOrder){
 
@@ -4482,7 +4414,6 @@ function renderPpiMainTable(
                     normalizeColumnName(column) ===
                     wanted
             );
-
 
         if(
             found &&
@@ -4495,7 +4426,6 @@ function renderPpiMainTable(
 
     }
 
-
     for(const column of mainColumns){
 
         if(
@@ -4503,7 +4433,6 @@ function renderPpiMainTable(
         ){
             break;
         }
-
 
         if(
             !orderedColumns.includes(column)
@@ -4515,10 +4444,8 @@ function renderPpiMainTable(
 
     }
 
-
     mainColumns =
         orderedColumns.slice(0,6);
-
 
     const mainArea =
         document.createElement("div");
@@ -4526,30 +4453,25 @@ function renderPpiMainTable(
     mainArea.className =
         "ppi-main-area";
 
-
     const table =
         document.createElement("table");
 
     table.className =
         "data-table";
 
-
     const colgroup =
         document.createElement("colgroup");
-
 
     const widths =
         calculatePpiWidths(
             mainColumns
         );
 
-
     mainColumns.forEach(
         (column,index) => {
 
             const col =
                 document.createElement("col");
-
 
             if(
                 isPpiIcd10Column(column)
@@ -4561,7 +4483,6 @@ function renderPpiMainTable(
 
             }
 
-
             if(
                 isPpiDiagnosisColumn(column)
             ){
@@ -4571,7 +4492,6 @@ function renderPpiMainTable(
                 );
 
             }
-
 
             if(
                 isPpiDoseColumn(column)
@@ -4583,7 +4503,6 @@ function renderPpiMainTable(
 
             }
 
-
             if(
                 isPpiClinicianEligibilityColumn(column)
             ){
@@ -4593,7 +4512,6 @@ function renderPpiMainTable(
                 );
 
             }
-
 
             if(
                 isPpiDurationColumn(column)
@@ -4605,7 +4523,6 @@ function renderPpiMainTable(
 
             }
 
-
             if(
                 isPpiNotesColumn(column)
             ){
@@ -4616,7 +4533,6 @@ function renderPpiMainTable(
 
             }
 
-
             col.style.width =
                 widths[index] + "px";
 
@@ -4626,15 +4542,12 @@ function renderPpiMainTable(
             col.style.maxWidth =
                 widths[index] + "px";
 
-
             colgroup.appendChild(col);
 
         }
     );
 
-
     table.appendChild(colgroup);
-
 
     const thead =
         document.createElement("thead");
@@ -4642,13 +4555,11 @@ function renderPpiMainTable(
     const headerRow =
         document.createElement("tr");
 
-
     mainColumns.forEach(
         (column,index) => {
 
             const th =
                 document.createElement("th");
-
 
             th.style.width =
                 widths[index] + "px";
@@ -4659,13 +4570,11 @@ function renderPpiMainTable(
             th.style.maxWidth =
                 widths[index] + "px";
 
-
             const content =
                 document.createElement("div");
 
             content.className =
                 "header-content";
-
 
             const label =
                 document.createElement("span");
@@ -4678,7 +4587,6 @@ function renderPpiMainTable(
 
             label.title =
                 column;
-
 
             const filter =
                 document.createElement("button");
@@ -4695,10 +4603,8 @@ function renderPpiMainTable(
             filter.title =
                 "Filter " + column;
 
-
             const state =
                 filters.get("ppi");
-
 
             if(
                 state &&
@@ -4710,7 +4616,6 @@ function renderPpiMainTable(
                 );
 
             }
-
 
             filter.addEventListener(
                 "click",
@@ -4726,7 +4631,6 @@ function renderPpiMainTable(
                 }
             );
 
-
             content.appendChild(label);
             content.appendChild(filter);
 
@@ -4737,32 +4641,26 @@ function renderPpiMainTable(
         }
     );
 
-
     thead.appendChild(headerRow);
 
     table.appendChild(thead);
 
-
     const tbody =
         document.createElement("tbody");
 
-
     const visibleRows =
         getVisibleRows(rows);
-
 
     for(const row of visibleRows){
 
         const tr =
             document.createElement("tr");
 
-
         mainColumns.forEach(
             (column,index) => {
 
                 const td =
                     document.createElement("td");
-
 
                 const value =
                     valueString(
@@ -4771,10 +4669,8 @@ function renderPpiMainTable(
                             : row[column]
                     );
 
-
                 td.textContent =
                     value;
-
 
                 if(value.length > 60){
 
@@ -4783,22 +4679,18 @@ function renderPpiMainTable(
 
                 }
 
-
                 tr.appendChild(td);
 
             }
         );
 
-
         tbody.appendChild(tr);
 
     }
 
-
     table.appendChild(tbody);
 
     mainArea.appendChild(table);
-
 
     return mainArea;
 
@@ -4816,10 +4708,8 @@ function renderPpiSpecialtyTable(
     const specialtyColumn =
         findPpiSpecialtyColumn(rows);
 
-
     const markerColumn =
         findPpiSpecialistMarkerColumn(rows);
-
 
     const area =
         document.createElement("div");
@@ -4827,17 +4717,14 @@ function renderPpiSpecialtyTable(
     area.className =
         "ppi-specialty-area";
 
-
     const table =
         document.createElement("table");
 
     table.className =
         "ppi-specialty-table";
 
-
     const colgroup =
         document.createElement("colgroup");
-
 
     const col =
         document.createElement("col");
@@ -4846,23 +4733,18 @@ function renderPpiSpecialtyTable(
     col.style.minWidth = "270px";
     col.style.maxWidth = "270px";
 
-
     colgroup.appendChild(col);
 
     table.appendChild(colgroup);
 
-
     const thead =
         document.createElement("thead");
-
 
     const tr =
         document.createElement("tr");
 
-
     const th =
         document.createElement("th");
-
 
     const header =
         document.createElement("div");
@@ -4870,17 +4752,14 @@ function renderPpiSpecialtyTable(
     header.className =
         "ppi-specialty-header";
 
-
     const specialistTitle =
         document.createElement("div");
 
     specialistTitle.className =
         "ppi-specialist-title";
 
-
     let specialistText =
         "Specialist";
-
 
     if(
         markerColumn !== null
@@ -4895,7 +4774,6 @@ function renderPpiSpecialtyTable(
                     "Specialist"
             );
 
-
         if(markerRow){
 
             specialistText =
@@ -4907,17 +4785,14 @@ function renderPpiSpecialtyTable(
 
     }
 
-
     specialistTitle.textContent =
         specialistText;
-
 
     const titleRow =
         document.createElement("div");
 
     titleRow.className =
         "ppi-specialty-title-row";
-
 
     const label =
         document.createElement("span");
@@ -4930,7 +4805,6 @@ function renderPpiSpecialtyTable(
 
     label.title =
         "Eligible Clinician Specialty";
-
 
     const filter =
         document.createElement("button");
@@ -4947,7 +4821,6 @@ function renderPpiSpecialtyTable(
     filter.title =
         "Filter Eligible Clinician Specialty";
 
-
     if(
         ppiSpecialtyFilters.size > 0
     ){
@@ -4957,7 +4830,6 @@ function renderPpiSpecialtyTable(
         );
 
     }
-
 
     filter.addEventListener(
         "click",
@@ -4971,7 +4843,6 @@ function renderPpiSpecialtyTable(
 
         }
     );
-
 
     titleRow.appendChild(label);
     titleRow.appendChild(filter);
@@ -4992,10 +4863,8 @@ function renderPpiSpecialtyTable(
 
     table.appendChild(thead);
 
-
     const tbody =
         document.createElement("tbody");
-
 
     if(
         specialtyColumn !== null
@@ -5010,18 +4879,15 @@ function renderPpiSpecialtyTable(
             const row =
                 rows[i];
 
-
             const value =
                 getPpiSpecialtyValue(
                     row,
                     specialtyColumn
                 );
 
-
             if(!value){
                 continue;
             }
-
 
             if(
                 value ===
@@ -5030,7 +4896,6 @@ function renderPpiSpecialtyTable(
                 continue;
             }
 
-
             if(
                 value ===
                 "Specialist"
@@ -5038,25 +4903,20 @@ function renderPpiSpecialtyTable(
                 continue;
             }
 
-
             if(
                 !ppiSpecialtyMatches(value)
             ){
                 continue;
             }
 
-
             const specialtyRow =
                 document.createElement("tr");
-
 
             const td =
                 document.createElement("td");
 
-
             td.textContent =
                 value;
-
 
             if(value.length > 60){
 
@@ -5064,7 +4924,6 @@ function renderPpiSpecialtyTable(
                     value;
 
             }
-
 
             specialtyRow.appendChild(td);
 
@@ -5080,21 +4939,17 @@ function renderPpiSpecialtyTable(
         const specialtyRow =
             document.createElement("tr");
 
-
         const td =
             document.createElement("td");
 
-
         td.textContent =
             "No PPI specialty column found";
-
 
         td.style.color =
             "#a04444";
 
         td.style.fontWeight =
             "700";
-
 
         specialtyRow.appendChild(td);
 
@@ -5104,11 +4959,9 @@ function renderPpiSpecialtyTable(
 
     }
 
-
     table.appendChild(tbody);
 
     area.appendChild(table);
-
 
     return area;
 
@@ -5131,7 +4984,6 @@ function renderPpiTable(
         return;
     }
 
-
     if(
         !rows ||
         rows.length === 0
@@ -5152,10 +5004,8 @@ function renderPpiTable(
         return;
     }
 
-
     tableArea.style.overflow =
         "hidden";
-
 
     const allColumns =
         getColumns(
@@ -5163,12 +5013,10 @@ function renderPpiTable(
             rows
         );
 
-
     ppiSpecialtyAllValues =
         getPpiSpecialtyValues(
             rows
         );
-
 
     const layout =
         document.createElement("div");
@@ -5176,14 +5024,12 @@ function renderPpiTable(
     layout.className =
         "ppi-layout";
 
-
     layout.appendChild(
         renderPpiMainTable(
             rows,
             allColumns
         )
     );
-
 
     const gap =
         document.createElement("div");
@@ -5193,13 +5039,11 @@ function renderPpiTable(
 
     layout.appendChild(gap);
 
-
     layout.appendChild(
         renderPpiSpecialtyTable(
             rows
         )
     );
-
 
     tableArea.innerHTML = "";
 
@@ -5207,10 +5051,8 @@ function renderPpiTable(
         layout
     );
 
-
     const visibleRows =
         getVisibleRows(rows);
-
 
     recordNumber.textContent =
         visibleRows.length.toLocaleString();
@@ -5239,10 +5081,8 @@ function createEligibilityFilterButton(){
     button.title =
         "Filter Eligibility Portal";
 
-
     const state =
         filters.get("eligibility");
-
 
     if(
         state &&
@@ -5254,7 +5094,6 @@ function createEligibilityFilterButton(){
         );
 
     }
-
 
     button.addEventListener(
         "click",
@@ -5269,7 +5108,6 @@ function createEligibilityFilterButton(){
 
         }
     );
-
 
     return button;
 }
@@ -5291,10 +5129,8 @@ function renderEligibilityTable(
         return;
     }
 
-
     tableArea.style.overflow =
         "auto";
-
 
     if(
         !rows ||
@@ -5312,17 +5148,13 @@ function renderEligibilityTable(
         return;
     }
 
-
     const sourceRows =
         rows.slice(2);
-
 
     const state =
         filters.get("eligibility");
 
-
     let allowedPortals = null;
-
 
     if(
         state &&
@@ -5336,9 +5168,7 @@ function renderEligibilityTable(
 
     }
 
-
     const portalGroups = [];
-
 
     for(
         let i=0;
@@ -5352,12 +5182,10 @@ function renderEligibilityTable(
         const passwordRow =
             sourceRows[i+1] || {};
 
-
         const portal =
             valueString(
                 portalRow["Unnamed: 0"]
             );
-
 
         if(
             allowedPortals &&
@@ -5367,7 +5195,6 @@ function renderEligibilityTable(
             continue;
 
         }
-
 
         portalGroups.push({
 
@@ -5412,13 +5239,10 @@ function renderEligibilityTable(
 
     }
 
-
     recordNumber.textContent =
         portalGroups.length.toLocaleString();
 
-
     tableArea.innerHTML = "";
-
 
     const table =
         document.createElement("table");
@@ -5426,10 +5250,8 @@ function renderEligibilityTable(
     table.className =
         "eligibility-table";
 
-
     const colgroup =
         document.createElement("colgroup");
-
 
     [
         "col-a",
@@ -5450,17 +5272,13 @@ function renderEligibilityTable(
 
     });
 
-
     table.appendChild(colgroup);
-
 
     const thead =
         document.createElement("thead");
 
-
     const row1 =
         document.createElement("tr");
-
 
     const a1 =
         document.createElement("th");
@@ -5470,7 +5288,6 @@ function renderEligibilityTable(
 
     row1.appendChild(a1);
 
-
     const b1 =
         document.createElement("th");
 
@@ -5478,7 +5295,6 @@ function renderEligibilityTable(
         "top-header top-empty";
 
     row1.appendChild(b1);
-
 
     const c1 =
         document.createElement("th");
@@ -5490,7 +5306,6 @@ function renderEligibilityTable(
         "Area";
 
     row1.appendChild(c1);
-
 
     const d1 =
         document.createElement("th");
@@ -5505,13 +5320,10 @@ function renderEligibilityTable(
 
     row1.appendChild(d1);
 
-
     thead.appendChild(row1);
-
 
     const row2 =
         document.createElement("tr");
-
 
     const a2 =
         document.createElement("th");
@@ -5521,7 +5333,6 @@ function renderEligibilityTable(
 
     row2.appendChild(a2);
 
-
     const b2 =
         document.createElement("th");
 
@@ -5529,7 +5340,6 @@ function renderEligibilityTable(
         "top-header top-empty";
 
     row2.appendChild(b2);
-
 
     const c2 =
         document.createElement("th");
@@ -5542,7 +5352,6 @@ function renderEligibilityTable(
 
     row2.appendChild(c2);
 
-
     const d2 =
         document.createElement("th");
 
@@ -5553,7 +5362,6 @@ function renderEligibilityTable(
         "Sama";
 
     row2.appendChild(d2);
-
 
     const e2 =
         document.createElement("th");
@@ -5566,7 +5374,6 @@ function renderEligibilityTable(
 
     row2.appendChild(e2);
 
-
     const f2 =
         document.createElement("th");
 
@@ -5578,13 +5385,10 @@ function renderEligibilityTable(
 
     row2.appendChild(f2);
 
-
     thead.appendChild(row2);
-
 
     const row3 =
         document.createElement("tr");
-
 
     const headers = [
 
@@ -5597,7 +5401,6 @@ function renderEligibilityTable(
 
     ];
 
-
     headers.forEach(
         (header,index) => {
 
@@ -5607,13 +5410,11 @@ function renderEligibilityTable(
             th.className =
                 "main-header";
 
-
             const content =
                 document.createElement("div");
 
             content.className =
                 "header-content";
-
 
             const label =
                 document.createElement("span");
@@ -5624,9 +5425,7 @@ function renderEligibilityTable(
             label.textContent =
                 header;
 
-
             content.appendChild(label);
-
 
             if(index === 0){
 
@@ -5636,7 +5435,6 @@ function renderEligibilityTable(
 
             }
 
-
             th.appendChild(content);
 
             row3.appendChild(th);
@@ -5644,21 +5442,17 @@ function renderEligibilityTable(
         }
     );
 
-
     thead.appendChild(row3);
 
     table.appendChild(thead);
 
-
     const tbody =
         document.createElement("tbody");
-
 
     portalGroups.forEach(group => {
 
         const usernameRow =
             document.createElement("tr");
-
 
         const portalCell =
             document.createElement("td");
@@ -5674,17 +5468,14 @@ function renderEligibilityTable(
         portalCell.title =
             group.portal;
 
-
         usernameRow.appendChild(
             portalCell
         );
-
 
         const linkCell =
             document.createElement("td");
 
         linkCell.rowSpan = 2;
-
 
         if(
             group.link &&
@@ -5726,11 +5517,9 @@ function renderEligibilityTable(
 
         }
 
-
         usernameRow.appendChild(
             linkCell
         );
-
 
         const typeUser =
             document.createElement("td");
@@ -5744,7 +5533,6 @@ function renderEligibilityTable(
         usernameRow.appendChild(
             typeUser
         );
-
 
         usernameRow.appendChild(
             createEligibilityCell(
@@ -5764,15 +5552,12 @@ function renderEligibilityTable(
             )
         );
 
-
         tbody.appendChild(
             usernameRow
         );
 
-
         const passwordRow =
             document.createElement("tr");
-
 
         const typePassword =
             document.createElement("td");
@@ -5786,7 +5571,6 @@ function renderEligibilityTable(
         passwordRow.appendChild(
             typePassword
         );
-
 
         passwordRow.appendChild(
             createEligibilityCell(
@@ -5806,13 +5590,11 @@ function renderEligibilityTable(
             )
         );
 
-
         tbody.appendChild(
             passwordRow
         );
 
     });
-
 
     table.appendChild(tbody);
 
@@ -5833,11 +5615,9 @@ function createEligibilityCell(value){
     td.textContent =
         value;
 
-
     if(value.length > 60){
         td.title = value;
     }
-
 
     return td;
 }
@@ -5846,19 +5626,6 @@ function createEligibilityCell(value){
 /* =========================================================
    REFILL DATE PARSING
 ========================================================= */
-
-/*
-   Accepts:
-   dd/mm/yyyy
-   d/m/yyyy
-   d-m-yyyy
-   d/m/yy
-   d-m-yy
-   and similar manual formats.
-
-   The displayed result is always:
-   dd/mm/yyyy
-*/
 
 function parseManualDate(value){
 
@@ -5869,36 +5636,68 @@ function parseManualDate(value){
         return null;
     }
 
-
     const text =
         String(value)
             .trim();
-
 
     if(!text){
         return null;
     }
 
 
-    const match =
+    /*
+       Support:
+       d/m/yy
+       d-m-yy
+       dd/mm/yyyy
+       dd-mm-yyyy
+       yyyy-mm-dd
+    */
+
+    let match =
         text.match(
             /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2}|\d{4})$/
         );
 
 
-    if(!match){
-        return null;
+    let day;
+    let month;
+    let year;
+
+
+    if(match){
+
+        day =
+            Number(match[1]);
+
+        month =
+            Number(match[2]);
+
+        year =
+            Number(match[3]);
+
     }
+    else{
 
+        const iso =
+            text.match(
+                /^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/
+            );
 
-    let day =
-        Number(match[1]);
+        if(!iso){
+            return null;
+        }
 
-    let month =
-        Number(match[2]);
+        year =
+            Number(iso[1]);
 
-    let year =
-        Number(match[3]);
+        month =
+            Number(iso[2]);
+
+        day =
+            Number(iso[3]);
+
+    }
 
 
     if(year < 100){
@@ -5935,9 +5734,9 @@ function parseManualDate(value){
 }
 
 
-/*
-   Format a Date object as dd/mm/yyyy.
-*/
+/* =========================================================
+   FORMAT DATE
+========================================================= */
 
 function formatDateDDMMYYYY(date){
 
@@ -5980,9 +5779,13 @@ function formatDateDDMMYYYY(date){
 }
 
 
+/* =========================================================
+   REFILL CALCULATION
+========================================================= */
+
 /*
-   Convert manual date into the equivalent
-   spreadsheet-style date calculation.
+   D9:
+   =DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11
 */
 
 function calculateRefillFromDate(
@@ -5990,17 +5793,13 @@ function calculateRefillFromDate(
     duration
 ){
 
-    const result =
-        new Date(
-            dispenseDate.getFullYear(),
-            dispenseDate.getMonth(),
-            dispenseDate.getDate() +
-            duration -
-            11
-        );
-
-
-    return result;
+    return new Date(
+        dispenseDate.getFullYear(),
+        dispenseDate.getMonth(),
+        dispenseDate.getDate() +
+        duration -
+        11
+    );
 
 }
 
@@ -6014,21 +5813,18 @@ function calculateRefillToDate(
     fromDate
 ){
 
-    const result =
-        new Date(
-            fromDate.getFullYear(),
-            fromDate.getMonth(),
-            fromDate.getDate() + 40
-        );
-
-
-    return result;
+    return new Date(
+        fromDate.getFullYear(),
+        fromDate.getMonth(),
+        fromDate.getDate() +
+        40
+    );
 
 }
 
 
 /* =========================================================
-   REFILL CALCULATOR
+   REFILL TABLE
 ========================================================= */
 
 function renderRefillTable(){
@@ -6040,82 +5836,12 @@ function renderRefillTable(){
     tableArea.innerHTML = "";
 
 
-    /*
-       Main outer container.
-    */
-
     const container =
         document.createElement("div");
 
     container.className =
         "refill-container";
 
-
-    /*
-       Instructions.
-    */
-
-    const instructions =
-        document.createElement("div");
-
-    instructions.className =
-        "refill-instructions";
-
-
-    const title =
-        document.createElement("div");
-
-    title.className =
-        "refill-instruction-title";
-
-    title.textContent =
-        "Determining the refill date";
-
-
-    const green =
-        document.createElement("div");
-
-    green.className =
-        "refill-instruction-green";
-
-    green.textContent =
-        "Enter the Dispense date in the green field";
-
-
-    const blue =
-        document.createElement("div");
-
-    blue.className =
-        "refill-instruction-blue";
-
-    blue.textContent =
-        "Enter the duration in the blue field";
-
-
-    const orange =
-        document.createElement("div");
-
-    orange.className =
-        "refill-instruction-orange";
-
-    orange.textContent =
-        "The next refill date will be calculated automatically";
-
-
-    instructions.appendChild(title);
-    instructions.appendChild(green);
-    instructions.appendChild(blue);
-    instructions.appendChild(orange);
-
-
-    container.appendChild(
-        instructions
-    );
-
-
-    /*
-       Table wrapper.
-    */
 
     const wrap =
         document.createElement("div");
@@ -6131,9 +5857,14 @@ function renderRefillTable(){
         "refill-table";
 
 
-    /*
-       Column definitions.
-    */
+    /* =====================================================
+       COLUMN STRUCTURE
+       A = blank spacer
+       B = Dispense date
+       C = Duration
+       D = Next refill From
+       E = Next refill To
+    ===================================================== */
 
     const colgroup =
         document.createElement("colgroup");
@@ -6161,12 +5892,10 @@ function renderRefillTable(){
     table.appendChild(colgroup);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 1
-       A1:E1 completely empty.
-       =====================================================
-    */
+       A1:E1 EMPTY
+    ===================================================== */
 
     const row1 =
         document.createElement("tr");
@@ -6191,12 +5920,11 @@ function renderRefillTable(){
     table.appendChild(row1);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 2
-       B2:E2 merged.
-       =====================================================
-    */
+       B2:E2 MERGED
+       Determining the refill date
+    ===================================================== */
 
     const row2 =
         document.createElement("tr");
@@ -6217,27 +5945,21 @@ function renderRefillTable(){
     b2.colSpan = 4;
 
     b2.className =
-        "refill-instruction-cell refill-no-border";
-
-    b2.style.color =
-        "#168447";
+        "refill-instruction-cell refill-no-border refill-instruction-title";
 
     b2.textContent =
-        "Enter the Dispense date in the green field";
+        "Determining the refill date";
 
     row2.appendChild(b2);
 
     table.appendChild(row2);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 3
-       B3:E3 merged.
-       This is intentionally kept as blank visual
-       spacing between the instruction lines.
-       =====================================================
-    */
+       B3:E3 MERGED
+       Green instruction
+    ===================================================== */
 
     const row3 =
         document.createElement("tr");
@@ -6258,25 +5980,21 @@ function renderRefillTable(){
     b3.colSpan = 4;
 
     b3.className =
-        "refill-instruction-cell refill-no-border";
-
-    b3.style.color =
-        "#2874b5";
+        "refill-instruction-cell refill-no-border refill-instruction-green";
 
     b3.textContent =
-        "Enter the duration in the blue field";
+        "Enter the Dispense date in the green field";
 
     row3.appendChild(b3);
 
     table.appendChild(row3);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 4
-       B4:E4 merged.
-       =====================================================
-    */
+       B4:E4 MERGED
+       Blue instruction
+    ===================================================== */
 
     const row4 =
         document.createElement("tr");
@@ -6297,26 +6015,21 @@ function renderRefillTable(){
     b4.colSpan = 4;
 
     b4.className =
-        "refill-instruction-cell refill-no-border";
-
-    b4.style.color =
-        "#d28b3f";
+        "refill-instruction-cell refill-no-border refill-instruction-blue";
 
     b4.textContent =
-        "The next refill date will be calculated automatically";
+        "Enter the duration in the blue field";
 
     row4.appendChild(b4);
 
     table.appendChild(row4);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 5
-       B5:E5 merged.
-       Empty.
-       =====================================================
-    */
+       B5:E5 MERGED
+       Orange instruction
+    ===================================================== */
 
     const row5 =
         document.createElement("tr");
@@ -6337,25 +6050,26 @@ function renderRefillTable(){
     b5.colSpan = 4;
 
     b5.className =
-        "refill-no-border";
+        "refill-instruction-cell refill-no-border refill-instruction-orange";
 
-    b5.style.height =
-        "16px";
+    b5.textContent =
+        "The next refill date will be calculated automatically";
 
     row5.appendChild(b5);
 
     table.appendChild(row5);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 6
-       Empty spacing.
-       =====================================================
-    */
+       EMPTY
+    ===================================================== */
 
     const row6 =
         document.createElement("tr");
+
+    row6.className =
+        "refill-space-row";
 
 
     for(let i=0;i<5;i++){
@@ -6366,9 +6080,6 @@ function renderRefillTable(){
         td.className =
             "refill-no-border";
 
-        td.style.height =
-            "18px";
-
         row6.appendChild(td);
 
     }
@@ -6377,15 +6088,13 @@ function renderRefillTable(){
     table.appendChild(row6);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 7
-       
+
        B7:B8 merged = Dispense date
        C7:C8 merged = Duration
        D7:E7 merged = Next refill
-       =====================================================
-    */
+    ===================================================== */
 
     const row7 =
         document.createElement("tr");
@@ -6445,14 +6154,12 @@ function renderRefillTable(){
     table.appendChild(row7);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 8
-       
+
        D8 = From
        E8 = To
-       =====================================================
-    */
+    ===================================================== */
 
     const row8 =
         document.createElement("tr");
@@ -6494,24 +6201,15 @@ function renderRefillTable(){
     table.appendChild(row8);
 
 
-    /*
-       =====================================================
+    /* =====================================================
        ROW 9
-       
-       B9 = manual dispense date
-       C9 = duration
-       D9 = automatic From
-       E9 = automatic To
-       =====================================================
-    */
+    ===================================================== */
 
     const row9 =
         document.createElement("tr");
 
 
-    /*
-       A9 empty.
-    */
+    /* A9 EMPTY */
 
     const a9 =
         document.createElement("td");
@@ -6522,12 +6220,13 @@ function renderRefillTable(){
     row9.appendChild(a9);
 
 
-    /*
-       B9
-    */
+    /* =====================================================
+       B9 DISPENSE DATE
+    ===================================================== */
 
     const b9 =
         document.createElement("td");
+
 
     const dateInput =
         document.createElement("input");
@@ -6547,6 +6246,9 @@ function renderRefillTable(){
     dateInput.autocomplete =
         "off";
 
+    dateInput.value =
+        refillState.dispenseDate;
+
     dateInput.setAttribute(
         "aria-label",
         "Dispense date"
@@ -6554,7 +6256,13 @@ function renderRefillTable(){
 
 
     /*
-       Normalize the user's typed date.
+       When the user finishes typing:
+       1/9/26
+       1-9-26
+       01/09/2026
+
+       it becomes:
+       01/09/2026
     */
 
     dateInput.addEventListener(
@@ -6574,7 +6282,30 @@ function renderRefillTable(){
                         parsed
                     );
 
+                refillState.dispenseDate =
+                    dateInput.value;
+
             }
+            else{
+
+                refillState.dispenseDate =
+                    dateInput.value;
+
+            }
+
+
+            calculateRefill();
+
+        }
+    );
+
+
+    dateInput.addEventListener(
+        "input",
+        () => {
+
+            refillState.dispenseDate =
+                dateInput.value;
 
             calculateRefill();
 
@@ -6595,9 +6326,9 @@ function renderRefillTable(){
     row9.appendChild(b9);
 
 
-    /*
-       C9
-    */
+    /* =====================================================
+       C9 DURATION
+    ===================================================== */
 
     const c9 =
         document.createElement("td");
@@ -6627,6 +6358,9 @@ function renderRefillTable(){
     durationInput.autocomplete =
         "off";
 
+    durationInput.value =
+        refillState.duration;
+
     durationInput.setAttribute(
         "aria-label",
         "Duration"
@@ -6635,7 +6369,14 @@ function renderRefillTable(){
 
     durationInput.addEventListener(
         "input",
-        calculateRefill
+        () => {
+
+            refillState.duration =
+                durationInput.value;
+
+            calculateRefill();
+
+        }
     );
 
 
@@ -6646,9 +6387,9 @@ function renderRefillTable(){
     row9.appendChild(c9);
 
 
-    /*
-       D9
-    */
+    /* =====================================================
+       D9 FROM
+    ===================================================== */
 
     const d9 =
         document.createElement("td");
@@ -6660,9 +6401,6 @@ function renderRefillTable(){
     fromResult.className =
         "refill-result";
 
-    fromResult.textContent =
-        "";
-
 
     d9.appendChild(
         fromResult
@@ -6671,9 +6409,9 @@ function renderRefillTable(){
     row9.appendChild(d9);
 
 
-    /*
-       E9
-    */
+    /* =====================================================
+       E9 TO
+    ===================================================== */
 
     const e9 =
         document.createElement("td");
@@ -6684,9 +6422,6 @@ function renderRefillTable(){
 
     toResult.className =
         "refill-result";
-
-    toResult.textContent =
-        "";
 
 
     e9.appendChild(
@@ -6699,15 +6434,9 @@ function renderRefillTable(){
     table.appendChild(row9);
 
 
-    /*
-       Calculation function.
-
-       D9:
-       =DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11
-
-       E9:
-       =DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)
-    */
+    /* =====================================================
+       CALCULATE
+    ===================================================== */
 
     function calculateRefill(){
 
@@ -6745,7 +6474,8 @@ function renderRefillTable(){
 
 
         if(
-            !Number.isFinite(duration)
+            !Number.isFinite(duration) ||
+            duration < 0
         ){
 
             return;
@@ -6754,7 +6484,13 @@ function renderRefillTable(){
 
 
         /*
-           DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11
+           D9 EXACT LOGIC:
+
+           =DATE(
+               YEAR(B9),
+               MONTH(B9),
+               DAY(B9)+C9
+             )-11
         */
 
         const fromDate =
@@ -6765,7 +6501,13 @@ function renderRefillTable(){
 
 
         /*
-           DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)
+           E9 EXACT LOGIC:
+
+           =DATE(
+               YEAR(D9),
+               MONTH(D9),
+               DAY(D9)+40
+             )
         */
 
         const toDate =
@@ -6785,25 +6527,27 @@ function renderRefillTable(){
                 toDate
             );
 
+
+        /*
+           Keep the formula equivalent visible
+           as a tooltip when hovering.
+        */
+
+        fromResult.title =
+            "=DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11";
+
+        toResult.title =
+            "=DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)";
+
     }
 
 
     /*
-       Expose the calculator references only on
-       this rendered instance.
+       Initial calculation if returning to
+       the Refill tab.
     */
 
-    container._refillDateInput =
-        dateInput;
-
-    container._refillDurationInput =
-        durationInput;
-
-    container._refillFromResult =
-        fromResult;
-
-    container._refillToResult =
-        toResult;
+    calculateRefill();
 
 
     wrap.appendChild(table);
@@ -6814,9 +6558,7 @@ function renderRefillTable(){
 
 
     /*
-       Refill does not use the JSON as a visible table,
-       so the record pill is replaced with a simple
-       calculator indicator.
+       Refill is a calculator, not a JSON table.
     */
 
     recordNumber.textContent =
@@ -6824,12 +6566,14 @@ function renderRefillTable(){
 
 
     /*
-       Put cursor in the dispense date field.
+       Focus B9 when opening Refill.
     */
 
     setTimeout(
         () => {
+
             dateInput.focus();
+
         },
         50
     );
@@ -6853,15 +6597,16 @@ function renderTable(
     }
 
 
-    /*
+    /* =====================================================
        SPECIAL REFILL CALCULATOR
-    */
+    ===================================================== */
 
     if(tab.id === "refill"){
 
         renderRefillTable();
 
         return;
+
     }
 
 
@@ -6869,9 +6614,9 @@ function renderTable(
         tab.rows || [];
 
 
-    /*
+    /* =====================================================
        SPECIAL ELIGIBILITY
-    */
+    ===================================================== */
 
     if(tab.id === "eligibility"){
 
@@ -6882,12 +6627,13 @@ function renderTable(
         );
 
         return;
+
     }
 
 
-    /*
+    /* =====================================================
        SPECIAL PPI
-    */
+    ===================================================== */
 
     if(tab.id === "ppi"){
 
@@ -6898,6 +6644,7 @@ function renderTable(
         );
 
         return;
+
     }
 
 
@@ -6992,25 +6739,32 @@ async function openTab(id){
     }
 
 
+    closeFilter();
+
+
     const version =
         ++renderVersion;
 
 
-    /*
-       REFILL IS A CUSTOM CALCULATOR.
+    /* =====================================================
+       REFILL IS COMPLETELY CUSTOM.
 
-       We do not need to load the JSON in order
-       to display the calculator.
-    */
+       No JSON is required.
+    ===================================================== */
 
     if(id === "refill"){
+
+        tab.rows = [];
+
+        dataCache.set(
+            "__TAB__refill",
+            []
+        );
 
         renderTable(
             tab,
             version
         );
-
-        scheduleBackgroundPreload();
 
         return;
 
@@ -7036,6 +6790,7 @@ async function openTab(id){
 
 
         return;
+
     }
 
 
@@ -7858,6 +7613,33 @@ document
             }
 
 
+            /*
+               Refill:
+               Clear the calculator fields.
+            */
+
+            if(
+                currentTab.id === "refill"
+            ){
+
+                refillState.dispenseDate =
+                    "";
+
+                refillState.duration =
+                    "";
+
+                closeFilter();
+
+                renderTable(
+                    currentTab,
+                    ++renderVersion
+                );
+
+                return;
+
+            }
+
+
             filters.set(
                 currentTab.id,
                 new Map()
@@ -7872,11 +7654,6 @@ document
 
             }
 
-
-            /*
-               For Refill, Clear Filters simply
-               rebuilds the calculator fields.
-            */
 
             closeFilter();
 
