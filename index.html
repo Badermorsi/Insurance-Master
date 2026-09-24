@@ -1065,276 +1065,269 @@ thead .freeze-right-2{
 
 
 /* =========================================================
-   REFILL DATE CALCULATOR
+   REFILL CALCULATOR
 ========================================================= */
 
 .refill-container{
-
-    width:max-content;
-
-    min-width:100%;
-
-    min-height:100%;
-
-    padding:0 0 40px 0;
-
+    width:100%;
+    height:100%;
+    overflow:auto;
     background:#ffffff;
-
-    overflow:visible;
+    padding:24px 28px 50px;
 }
 
 
-/*
-   Column A is intentionally only empty space.
-   The actual table begins after this spacer.
-*/
+/* =========================================================
+   REFILL TABLE
+========================================================= */
 
 .refill-table-wrap{
-
-    margin-left:35px;
-
-    width:760px;
-
-    min-width:760px;
-
+    width:100%;
+    overflow-x:auto;
     background:#ffffff;
 }
 
-
-/*
-   Exact B:E table structure.
-*/
 
 .refill-table{
-
-    width:760px;
-
-    min-width:760px;
-
+    border-collapse:collapse;
+    border-spacing:0;
     table-layout:fixed;
 
-    border-collapse:collapse;
-
-    border-spacing:0;
+    width:1150px;
+    min-width:1150px;
 
     background:#ffffff;
-
-    font-size:12px;
 }
 
 
-/*
-   B, C, D, E widths.
-*/
+/* =========================================================
+   COLUMN WIDTHS
 
-.refill-table col.refill-col-a{
-    width:35px;
-    min-width:35px;
+   A = empty spacer
+   B = Dispense date
+   C = Duration
+   D = From
+   E = To
+========================================================= */
+
+.refill-table .refill-col-a{
+    width:70px;
 }
 
-.refill-table col.refill-col-b{
-    width:220px;
-    min-width:220px;
+.refill-table .refill-col-b{
+    width:300px;
 }
 
-.refill-table col.refill-col-c{
-    width:140px;
-    min-width:140px;
+.refill-table .refill-col-c{
+    width:210px;
 }
 
-.refill-table col.refill-col-d{
-    width:182.5px;
-    min-width:182.5px;
+.refill-table .refill-col-d{
+    width:285px;
 }
 
-.refill-table col.refill-col-e{
-    width:182.5px;
-    min-width:182.5px;
+.refill-table .refill-col-e{
+    width:285px;
 }
 
 
-/*
-   Column A:
-   no borders, no color, no styling.
-*/
+/* =========================================================
+   COLUMN A
+   COMPLETELY EMPTY
+========================================================= */
 
-.refill-table td.refill-no-border{
+.refill-table .refill-col-a,
+.refill-table td:first-child{
+    background:#ffffff;
+}
 
-    border:0 !important;
 
+/* =========================================================
+   NO BORDER CELLS
+========================================================= */
+
+.refill-no-border{
+    border:none !important;
     background:#ffffff !important;
-
-    color:transparent !important;
-
-    box-shadow:none !important;
 }
 
 
-/*
-   Rows 1 and 6 are empty spaces.
-*/
+/* =========================================================
+   ROW 1
+========================================================= */
 
-.refill-table .blank-row td{
-
+.refill-table .blank-row{
     height:20px;
-
-    padding:0;
-
-    border:0 !important;
-
-    background:#ffffff !important;
 }
 
 
-/*
-   Instruction rows:
-   absolutely no table lines.
-*/
+/* =========================================================
+   INSTRUCTION ROWS
+
+   B2:E5
+
+   All four instructions:
+   1. Determining the refill date
+   2. Enter the Dispense date in the green field
+   3. Enter the duration in the blue field
+   4. The next refill date will be calculated automatically
+
+========================================================= */
 
 .refill-instruction-cell{
+    height:42px;
 
-    height:30px;
+    padding:7px 14px;
 
-    padding:5px 8px;
-
-    border:0 !important;
+    border:none !important;
 
     background:#ffffff !important;
 
-    text-align:left;
+    text-align:left !important;
 
     vertical-align:middle;
 
-    font-size:13px;
-
-    font-weight:800;
-
-    line-height:18px;
-}
-
-.refill-instruction-title{
-
-    color:#111111 !important;
-
-    font-weight:900 !important;
-}
-
-.refill-instruction-green{
-
-    color:#168447 !important;
-
-    font-weight:900 !important;
-}
-
-.refill-instruction-blue{
-
-    color:#2874b5 !important;
-
-    font-weight:900 !important;
-}
-
-.refill-instruction-orange{
-
-    color:#d28b3f !important;
-
-    font-weight:900 !important;
-}
-
-
-/*
-   Row 6 extra empty space.
-*/
-
-.refill-space-row td{
-
-    height:20px;
-
-    padding:0;
-
-    border:0 !important;
-
-    background:#ffffff !important;
-}
-
-
-/*
-   Main table headings.
-*/
-
-.refill-header-merged,
-.refill-header-main,
-.refill-header-sub{
-
-    background:#eaf1f3;
-
-    color:#263a44;
-
-    border:1px solid #c8d5da;
-
-    text-align:center;
-
-    vertical-align:middle;
+    font-size:15px;
 
     font-weight:900;
 
-    line-height:17px;
+    line-height:21px;
+
+    white-space:nowrap;
 }
 
-.refill-header-merged{
 
-    height:52px;
+/* Black title */
 
-    font-size:13px;
+.refill-instruction-title{
+    color:#111111 !important;
 }
+
+
+/* Green instruction */
+
+.refill-instruction-green{
+    color:#168447 !important;
+}
+
+
+/* Blue instruction */
+
+.refill-instruction-blue{
+    color:#2874b5 !important;
+}
+
+
+/* Orange instruction */
+
+.refill-instruction-orange{
+    color:#d28b3f !important;
+}
+
+
+/* =========================================================
+   ROW 6
+========================================================= */
+
+.refill-table tr.refill-spacing-row{
+    height:30px;
+}
+
+
+/* =========================================================
+   MAIN HEADER
+
+   D7:E7 = Next refill
+========================================================= */
 
 .refill-header-main{
 
-    height:28px;
+    height:58px;
 
-    font-size:13px;
-}
+    background:#dcebed;
 
-.refill-header-sub{
+    color:#243943;
 
-    height:24px;
-
-    font-size:12px;
-
-    background:#f1f5f6;
-}
-
-
-/*
-   Data row.
-*/
-
-.refill-table tr:last-child td:not(.refill-no-border){
-
-    border:1px solid #d4dee2;
-
-    height:52px;
-
-    padding:5px;
+    border:1px solid #c4d4d9;
 
     text-align:center;
 
     vertical-align:middle;
 
-    font-size:13px;
+    font-size:17px;
 
-    font-weight:750;
+    font-weight:900;
+
 }
 
 
-/*
-   B9 green input.
-*/
+/* =========================================================
+   SUB HEADERS
+
+   D8 = From
+   E8 = To
+========================================================= */
+
+.refill-header-sub{
+
+    height:42px;
+
+    background:#edf4f5;
+
+    color:#344952;
+
+    border:1px solid #cbd9dd;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:15px;
+
+    font-weight:900;
+
+}
+
+
+/* =========================================================
+   MERGED HEADERS
+
+   B7:B8 = Dispense date
+   C7:C8 = Duration
+========================================================= */
+
+.refill-header-merged{
+
+    height:100px;
+
+    background:#dcebed;
+
+    color:#243943;
+
+    border:1px solid #c4d4d9;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:17px;
+
+    font-weight:900;
+
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
 
 .refill-input{
 
     width:100%;
 
-    height:40px;
+    height:58px;
+
+    border:1px solid #c7d5da;
 
     border-radius:5px;
 
@@ -1342,106 +1335,74 @@ thead .freeze-right-2{
 
     text-align:center;
 
-    font-size:13px;
+    vertical-align:middle;
+
+    font-size:16px;
 
     font-weight:800;
 
-    transition:
-        border-color .12s ease,
-        box-shadow .12s ease;
+    color:#253a43;
+
+    padding:6px 10px;
+
 }
+
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.refill-input:focus{
+
+    outline:none;
+
+    box-shadow:
+        0 0 0 3px rgba(20,119,138,.10);
+
+    border-color:#77aeb9;
+
+}
+
+
+/* =========================================================
+   GREEN DATE FIELD
+========================================================= */
 
 .refill-date-input{
 
-    background:#dff3e7;
+    background:#dff3e5 !important;
 
-    border:1px solid #9ccbab;
+    border-color:#a9cfb5 !important;
 
-    color:#17683b;
-}
+    color:#17683b !important;
 
-.refill-date-input::placeholder{
-
-    color:#55936d;
-
-    opacity:1;
-}
-
-.refill-date-input:focus{
-
-    border-color:#49a96d;
-
-    box-shadow:
-        0 0 0 3px rgba(73,169,109,.13);
 }
 
 
-/*
-   C9 blue input.
-*/
+/* =========================================================
+   BLUE DURATION FIELD
+========================================================= */
 
 .refill-duration-input{
 
-    background:#e2effc;
+    background:#dcecf9 !important;
 
-    border:1px solid #9dbddd;
+    border-color:#a8c8e3 !important;
 
-    color:#246fa8;
-}
-
-.refill-duration-input::placeholder{
-
-    color:#5d8db8;
-
-    opacity:1;
-}
-
-.refill-duration-input:focus{
-
-    border-color:#4e8fca;
-
-    box-shadow:
-        0 0 0 3px rgba(78,143,202,.13);
-}
-
-
-/*
-   Remove number input arrows.
-*/
-
-.refill-duration-input::-webkit-outer-spin-button,
-.refill-duration-input::-webkit-inner-spin-button{
-
-    margin:0;
-
-    -webkit-appearance:none;
-}
-
-.refill-duration-input{
-
-    -moz-appearance:textfield;
-}
-
-
-/*
-   D9 and E9 light orange result fields.
-*/
-
-.refill-table tr:last-child td.refill-result-cell{
-
-    background:#fff1dc !important;
-
-    color:#9a5b16;
-
-    border-color:#e6cda7;
+    color:#27699d !important;
 
 }
+
+
+/* =========================================================
+   ORANGE RESULTS
+========================================================= */
 
 .refill-result{
 
     width:100%;
 
-    min-height:40px;
+    height:58px;
 
     display:flex;
 
@@ -1449,159 +1410,40 @@ thead .freeze-right-2{
 
     justify-content:center;
 
-    padding:4px;
+    padding:6px 10px;
 
-    border-radius:4px;
+    border:1px solid #e4c69f;
 
-    background:#fff1dc;
+    border-radius:5px;
 
-    color:#9a5b16;
+    background:#fff0dc;
 
-    font-size:13px;
+    color:#c17b2e;
+
+    font-size:16px;
 
     font-weight:900;
 
-}
+    text-align:center;
 
-
-/*
-   Apply orange background to D9/E9 cells.
-*/
-
-.refill-table tr:nth-child(9) td:nth-child(4),
-.refill-table tr:nth-child(9) td:nth-child(5){
-
-    background:#fff1dc;
-
-    color:#9a5b16;
-
-    border-color:#e6cda7;
-
-}
-
-
-/*
-   Small hover/focus visual feedback.
-*/
-
-.refill-table tr:nth-child(9) td:nth-child(2):focus-within{
-
-    box-shadow:
-        inset 0 0 0 2px rgba(73,169,109,.12);
-}
-
-.refill-table tr:nth-child(9) td:nth-child(3):focus-within{
-
-    box-shadow:
-        inset 0 0 0 2px rgba(78,143,202,.12);
 }
 
 
 /* =========================================================
-   VIRTUAL SPACER
+   RESPONSIVE
 ========================================================= */
 
-.virtual-spacer td{
-    padding:0 !important;
+@media(max-width:900px){
 
-    border:0 !important;
-
-    background:transparent !important;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading{
-    position:absolute;
-
-    inset:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#ffffff;
-}
-
-.loading-box{
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:10px;
-}
-
-.spinner{
-    width:26px;
-    height:26px;
-
-    border:2px solid #dce7ea;
-
-    border-top-color:#14778a;
-
-    border-radius:50%;
-
-    animation:spin .6s linear infinite;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
+    .refill-container{
+        padding:20px 16px 40px;
     }
-}
 
-.loading-text{
-    color:#7c8b94;
+    .refill-table{
+        width:1100px;
+        min-width:1100px;
+    }
 
-    font-size:10.5px;
-    font-weight:650;
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty{
-    position:absolute;
-
-    inset:0;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#89969e;
-
-    font-size:11px;
-}
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.error{
-    margin:20px;
-
-    padding:16px 18px;
-
-    border-radius:8px;
-
-    background:#fff7f7;
-
-    border:1px solid #edd0d0;
-
-    color:#a04444;
-
-    font-size:11px;
-
-    line-height:1.6;
 }
 
 
@@ -2450,26 +2292,27 @@ const tabsConfig = [
 ========================================================= */
 
 let currentTab = null;
-
 let renderVersion = 0;
-
 let filterColumn = null;
-
 let filterMode = "normal";
-
 let temporarySelection = new Set();
-
 let filterAllValues = [];
 
 const dataCache = new Map();
-
 const filters = new Map();
-
 const columnsCache = new Map();
-
 const widthCache = new Map();
 
+/* =========================================================
+   REFILL CALCULATOR STATE
+========================================================= */
 
+const refillState = {
+    dispenseDate: "",
+    duration: ""
+};
+
+    
 /*
    PPI SPECIALTY FILTER STATE
 */
@@ -5824,14 +5667,12 @@ function calculateRefillToDate(
 
 
 /* =========================================================
-   REFILL TABLE
+   REFILL CALCULATOR
 ========================================================= */
 
 function renderRefillTable(){
 
-    tableArea.style.overflow =
-        "auto";
-
+    tableArea.style.overflow = "auto";
 
     tableArea.innerHTML = "";
 
@@ -5858,12 +5699,7 @@ function renderRefillTable(){
 
 
     /* =====================================================
-       COLUMN STRUCTURE
-       A = blank spacer
-       B = Dispense date
-       C = Duration
-       D = Next refill From
-       E = Next refill To
+       COLUMN WIDTHS
     ===================================================== */
 
     const colgroup =
@@ -5894,7 +5730,7 @@ function renderRefillTable(){
 
     /* =====================================================
        ROW 1
-       A1:E1 EMPTY
+       EMPTY
     ===================================================== */
 
     const row1 =
@@ -5904,7 +5740,7 @@ function renderRefillTable(){
         "blank-row";
 
 
-    for(let i=0;i<5;i++){
+    for(let i = 0; i < 5; i++){
 
         const td =
             document.createElement("td");
@@ -5922,7 +5758,7 @@ function renderRefillTable(){
 
     /* =====================================================
        ROW 2
-       B2:E2 MERGED
+       B2:E2
        Determining the refill date
     ===================================================== */
 
@@ -5945,20 +5781,21 @@ function renderRefillTable(){
     b2.colSpan = 4;
 
     b2.className =
-        "refill-instruction-cell refill-no-border refill-instruction-title";
+        "refill-instruction-cell refill-instruction-title";
 
     b2.textContent =
         "Determining the refill date";
 
     row2.appendChild(b2);
 
+
     table.appendChild(row2);
 
 
     /* =====================================================
        ROW 3
-       B3:E3 MERGED
-       Green instruction
+       B3:E3
+       Enter the Dispense date in the green field
     ===================================================== */
 
     const row3 =
@@ -5980,20 +5817,21 @@ function renderRefillTable(){
     b3.colSpan = 4;
 
     b3.className =
-        "refill-instruction-cell refill-no-border refill-instruction-green";
+        "refill-instruction-cell refill-instruction-green";
 
     b3.textContent =
         "Enter the Dispense date in the green field";
 
     row3.appendChild(b3);
 
+
     table.appendChild(row3);
 
 
     /* =====================================================
        ROW 4
-       B4:E4 MERGED
-       Blue instruction
+       B4:E4
+       Enter the duration in the blue field
     ===================================================== */
 
     const row4 =
@@ -6015,20 +5853,21 @@ function renderRefillTable(){
     b4.colSpan = 4;
 
     b4.className =
-        "refill-instruction-cell refill-no-border refill-instruction-blue";
+        "refill-instruction-cell refill-instruction-blue";
 
     b4.textContent =
         "Enter the duration in the blue field";
 
     row4.appendChild(b4);
 
+
     table.appendChild(row4);
 
 
     /* =====================================================
        ROW 5
-       B5:E5 MERGED
-       Orange instruction
+       B5:E5
+       The next refill date will be calculated automatically
     ===================================================== */
 
     const row5 =
@@ -6050,29 +5889,30 @@ function renderRefillTable(){
     b5.colSpan = 4;
 
     b5.className =
-        "refill-instruction-cell refill-no-border refill-instruction-orange";
+        "refill-instruction-cell refill-instruction-orange";
 
     b5.textContent =
         "The next refill date will be calculated automatically";
 
     row5.appendChild(b5);
 
+
     table.appendChild(row5);
 
 
     /* =====================================================
        ROW 6
-       EMPTY
+       EMPTY SPACE
     ===================================================== */
 
     const row6 =
         document.createElement("tr");
 
     row6.className =
-        "refill-space-row";
+        "refill-spacing-row";
 
 
-    for(let i=0;i<5;i++){
+    for(let i = 0; i < 5; i++){
 
         const td =
             document.createElement("td");
@@ -6090,10 +5930,10 @@ function renderRefillTable(){
 
     /* =====================================================
        ROW 7
-
-       B7:B8 merged = Dispense date
-       C7:C8 merged = Duration
-       D7:E7 merged = Next refill
+       
+       B7:B8 = Dispense date
+       C7:C8 = Duration
+       D7:E7 = Next refill
     ===================================================== */
 
     const row7 =
@@ -6156,7 +5996,7 @@ function renderRefillTable(){
 
     /* =====================================================
        ROW 8
-
+       
        D8 = From
        E8 = To
     ===================================================== */
@@ -6209,7 +6049,9 @@ function renderRefillTable(){
         document.createElement("tr");
 
 
-    /* A9 EMPTY */
+    /* =====================================================
+       A9
+    ===================================================== */
 
     const a9 =
         document.createElement("td");
@@ -6221,7 +6063,8 @@ function renderRefillTable(){
 
 
     /* =====================================================
-       B9 DISPENSE DATE
+       B9
+       DISPENSE DATE
     ===================================================== */
 
     const b9 =
@@ -6246,24 +6089,34 @@ function renderRefillTable(){
     dateInput.autocomplete =
         "off";
 
-    dateInput.value =
-        refillState.dispenseDate;
-
     dateInput.setAttribute(
         "aria-label",
         "Dispense date"
     );
 
 
-    /*
-       When the user finishes typing:
-       1/9/26
-       1-9-26
-       01/09/2026
+    /* Restore previous date */
 
-       it becomes:
-       01/09/2026
-    */
+    dateInput.value =
+        refillState.dispenseDate || "";
+
+
+    /* =====================================================
+       DATE INPUT
+    ===================================================== */
+
+    dateInput.addEventListener(
+        "input",
+        () => {
+
+            refillState.dispenseDate =
+                dateInput.value;
+
+            calculateRefill();
+
+        }
+    );
+
 
     dateInput.addEventListener(
         "blur",
@@ -6286,36 +6139,11 @@ function renderRefillTable(){
                     dateInput.value;
 
             }
-            else{
-
-                refillState.dispenseDate =
-                    dateInput.value;
-
-            }
 
 
             calculateRefill();
 
         }
-    );
-
-
-    dateInput.addEventListener(
-        "input",
-        () => {
-
-            refillState.dispenseDate =
-                dateInput.value;
-
-            calculateRefill();
-
-        }
-    );
-
-
-    dateInput.addEventListener(
-        "change",
-        calculateRefill
     );
 
 
@@ -6323,11 +6151,13 @@ function renderRefillTable(){
         dateInput
     );
 
+
     row9.appendChild(b9);
 
 
     /* =====================================================
-       C9 DURATION
+       C9
+       DURATION
     ===================================================== */
 
     const c9 =
@@ -6358,14 +6188,21 @@ function renderRefillTable(){
     durationInput.autocomplete =
         "off";
 
-    durationInput.value =
-        refillState.duration;
-
     durationInput.setAttribute(
         "aria-label",
         "Duration"
     );
 
+
+    /* Restore previous duration */
+
+    durationInput.value =
+        refillState.duration || "";
+
+
+    /* =====================================================
+       DURATION INPUT
+    ===================================================== */
 
     durationInput.addEventListener(
         "input",
@@ -6384,11 +6221,13 @@ function renderRefillTable(){
         durationInput
     );
 
+
     row9.appendChild(c9);
 
 
     /* =====================================================
-       D9 FROM
+       D9
+       FROM
     ===================================================== */
 
     const d9 =
@@ -6406,11 +6245,13 @@ function renderRefillTable(){
         fromResult
     );
 
+
     row9.appendChild(d9);
 
 
     /* =====================================================
-       E9 TO
+       E9
+       TO
     ===================================================== */
 
     const e9 =
@@ -6428,6 +6269,7 @@ function renderRefillTable(){
         toResult
     );
 
+
     row9.appendChild(e9);
 
 
@@ -6435,7 +6277,7 @@ function renderRefillTable(){
 
 
     /* =====================================================
-       CALCULATE
+       CALCULATION
     ===================================================== */
 
     function calculateRefill(){
@@ -6450,12 +6292,16 @@ function renderRefillTable(){
             durationInput.value.trim();
 
 
+        /* Clear previous results */
+
         fromResult.textContent =
             "";
 
         toResult.textContent =
             "";
 
+
+        /* Need both fields */
 
         if(
             !dispenseDate ||
@@ -6483,15 +6329,17 @@ function renderRefillTable(){
         }
 
 
-        /*
-           D9 EXACT LOGIC:
+        /* =================================================
+           D9
+
+           Excel:
 
            =DATE(
                YEAR(B9),
                MONTH(B9),
                DAY(B9)+C9
              )-11
-        */
+        ================================================= */
 
         const fromDate =
             calculateRefillFromDate(
@@ -6500,15 +6348,17 @@ function renderRefillTable(){
             );
 
 
-        /*
-           E9 EXACT LOGIC:
+        /* =================================================
+           E9
+
+           Excel:
 
            =DATE(
                YEAR(D9),
                MONTH(D9),
                DAY(D9)+40
              )
-        */
+        ================================================= */
 
         const toDate =
             calculateRefillToDate(
@@ -6527,28 +6377,12 @@ function renderRefillTable(){
                 toDate
             );
 
-
-        /*
-           Keep the formula equivalent visible
-           as a tooltip when hovering.
-        */
-
-        fromResult.title =
-            "=DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11";
-
-        toResult.title =
-            "=DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)";
-
     }
 
 
-    /*
-       Initial calculation if returning to
-       the Refill tab.
-    */
-
-    calculateRefill();
-
+    /* =====================================================
+       BUILD TABLE
+    ===================================================== */
 
     wrap.appendChild(table);
 
@@ -6557,26 +6391,19 @@ function renderRefillTable(){
     tableArea.appendChild(container);
 
 
-    /*
-       Refill is a calculator, not a JSON table.
-    */
+    /* =====================================================
+       RECORD COUNT
+    ===================================================== */
 
     recordNumber.textContent =
         "Calculator";
 
 
-    /*
-       Focus B9 when opening Refill.
-    */
+    /* =====================================================
+       CALCULATE RESTORED VALUES
+    ===================================================== */
 
-    setTimeout(
-        () => {
-
-            dateInput.focus();
-
-        },
-        50
-    );
+    calculateRefill();
 
 }
 
