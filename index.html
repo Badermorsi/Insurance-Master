@@ -1722,21 +1722,43 @@ thead .freeze-right-2{
 
 
 /* =========================================================
-   MOBILE LANDSCAPE
-   Make it behave like the desktop layout
+   PPI RESPONSIVE FIX
+   ========================================================= */
+
+/* PPI outer scrolling area */
+.ppi-scroll-container{
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:visible;
+    -webkit-overflow-scrolling:touch;
+}
+
+
+/* =========================================================
+   PORTRAIT MOBILE
+   Horizontal scroll for the COMPLETE PPI layout
 ========================================================= */
 
-@media screen and (max-width: 900px) and (orientation: landscape){
+@media screen and (max-width:768px) and (orientation:portrait){
 
     .ppi-scroll-container{
+        display:block !important;
         width:100% !important;
         max-width:100% !important;
+
         overflow-x:auto !important;
         overflow-y:visible !important;
+
+        -webkit-overflow-scrolling:touch !important;
+        overscroll-behavior-x:contain !important;
+
+        touch-action:pan-x pan-y !important;
     }
 
     .ppi-layout{
         display:grid !important;
+
         grid-template-columns:
             760px
             8px
@@ -1747,13 +1769,18 @@ thead .freeze-right-2{
         max-width:none !important;
 
         margin:0 !important;
+        padding:0 !important;
+
         gap:0 !important;
+
+        overflow:visible !important;
     }
 
     .ppi-main-area{
         width:760px !important;
         min-width:760px !important;
         max-width:760px !important;
+
         overflow:visible !important;
     }
 
@@ -1763,17 +1790,129 @@ thead .freeze-right-2{
         max-width:760px !important;
     }
 
+    .ppi-gap{
+        width:8px !important;
+        min-width:8px !important;
+        max-width:8px !important;
+    }
+
     .ppi-specialty-area{
         width:270px !important;
         min-width:270px !important;
         max-width:270px !important;
+
         overflow:visible !important;
+
+        position:relative !important;
+        z-index:2 !important;
     }
 
     .ppi-specialty-table{
         width:270px !important;
         min-width:270px !important;
         max-width:270px !important;
+    }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+   Keep complete table available + allow VERTICAL scrolling
+========================================================= */
+
+@media screen and (max-width:900px) and (orientation:landscape){
+
+    html,
+    body{
+        height:auto !important;
+        min-height:100% !important;
+        overflow-x:hidden !important;
+        overflow-y:auto !important;
+    }
+
+    .ppi-scroll-container{
+        display:block !important;
+
+        width:100% !important;
+        max-width:100% !important;
+
+        overflow-x:auto !important;
+        overflow-y:visible !important;
+
+        -webkit-overflow-scrolling:touch !important;
+
+        touch-action:pan-x pan-y !important;
+    }
+
+    .ppi-layout{
+        display:grid !important;
+
+        grid-template-columns:
+            760px
+            8px
+            270px !important;
+
+        width:1038px !important;
+        min-width:1038px !important;
+        max-width:none !important;
+
+        height:auto !important;
+        min-height:0 !important;
+        max-height:none !important;
+
+        overflow:visible !important;
+
+        margin:0 !important;
+        padding:0 !important;
+
+        gap:0 !important;
+    }
+
+    .ppi-main-area{
+        width:760px !important;
+        min-width:760px !important;
+        max-width:760px !important;
+
+        height:auto !important;
+        max-height:none !important;
+
+        overflow:visible !important;
+    }
+
+    .ppi-main-table{
+        width:760px !important;
+        min-width:760px !important;
+        max-width:760px !important;
+
+        height:auto !important;
+    }
+
+    .ppi-gap{
+        width:8px !important;
+        min-width:8px !important;
+        max-width:8px !important;
+    }
+
+    .ppi-specialty-area{
+        width:270px !important;
+        min-width:270px !important;
+        max-width:270px !important;
+
+        height:auto !important;
+        max-height:none !important;
+
+        overflow:visible !important;
+
+        position:relative !important;
+        z-index:2 !important;
+    }
+
+    .ppi-specialty-table{
+        width:270px !important;
+        min-width:270px !important;
+        max-width:270px !important;
+
+        height:auto !important;
     }
 }
     
