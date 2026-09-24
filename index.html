@@ -296,10 +296,17 @@ input{
     flex:1 1 auto;
 
     min-height:0;
+    min-width:0;
 
     overflow:auto;
 
     background:#ffffff;
+
+    -webkit-overflow-scrolling:touch;
+
+    overscroll-behavior:auto;
+
+    touch-action:pan-x pan-y;
 }
 
 
@@ -570,29 +577,46 @@ thead .freeze-right-2{
    PPI SPECIAL LAYOUT
 ========================================================= */
 
+/*
+   IMPORTANT PPI FIX
+
+   The PPI layout itself MUST NOT scroll.
+
+   #tableArea is the ONLY scrolling container.
+
+   Desktop:
+   main table + gap + specialty
+
+   Mobile:
+   fixed 1038px content width allows horizontal
+   scrolling to the specialty table.
+*/
+
 .ppi-layout{
 
-    width:100%;
-    min-width:0;
+    width:1038px;
+    min-width:1038px;
 
-    height:100%;
+    height:max-content;
+    min-height:100%;
 
     display:grid;
 
     grid-template-columns:
-        minmax(0,1fr)
+        760px
         8px
         270px;
 
-    align-items:stretch;
+    align-items:start;
 
     column-gap:0;
 
     padding:0;
+    margin:0;
 
     background:#ffffff;
 
-    overflow:hidden;
+    overflow:visible;
 }
 
 
@@ -602,26 +626,28 @@ thead .freeze-right-2{
 
 .ppi-main-area{
 
-    min-width:0;
+    width:760px;
+    min-width:760px;
+    max-width:760px;
 
-    width:100%;
+    height:max-content;
+    min-height:100%;
 
-    height:100%;
-
-    overflow:hidden;
+    overflow:visible;
 
     background:#ffffff;
-
-    border-right:0;
 }
+
+
+/* =========================================================
+   PPI MAIN TABLE
+========================================================= */
 
 .ppi-main-area .data-table{
 
-    width:100%;
-
-    min-width:0;
-
-    max-width:100%;
+    width:760px;
+    min-width:760px;
+    max-width:760px;
 
     table-layout:fixed;
 }
@@ -634,10 +660,12 @@ thead .freeze-right-2{
 .ppi-gap{
 
     width:8px;
-
     min-width:8px;
+    max-width:8px;
 
     height:100%;
+
+    min-height:100%;
 
     background:#ffffff;
 }
@@ -650,18 +678,21 @@ thead .freeze-right-2{
 .ppi-specialty-area{
 
     width:270px;
-
     min-width:270px;
-
     max-width:270px;
 
-    height:100%;
+    height:max-content;
+    min-height:100%;
 
-    overflow:auto;
+    overflow:visible;
 
     background:#ffffff;
 
     border-left:0;
+
+    position:relative;
+
+    z-index:2;
 }
 
 
@@ -671,14 +702,15 @@ thead .freeze-right-2{
 
 .ppi-specialty-table{
 
-    width:100%;
-
+    width:270px;
     min-width:270px;
+    max-width:270px;
+
+    height:auto;
 
     table-layout:fixed;
 
     border-collapse:separate;
-
     border-spacing:0;
 
     font-size:11px;
@@ -881,18 +913,27 @@ thead .freeze-right-2{
 
 
 /* =========================================================
-   PPI SPECIAL WIDTHS
+   PPI EXACT WIDTHS
 ========================================================= */
 
 /*
-   PPI main table is designed to fit the
-   available desktop width.
+   TOTAL:
 
-   Diagnosis increased.
-   Duration reduced.
-   Clinician Eligibility reduced.
+   Diagnosis              220
+   ICD-10                  75
+   PPI Dose               210
+   Duration                65
+   Clinician Eligibility   90
+   Notes                  100
+                           ---
+                           760
+
+   Gap                       8
+
+   Specialty               270
+                           ---
+                          1038
 */
-
 
 .ppi-main-area .ppi-diagnosis-column{
     width:220px !important;
@@ -900,13 +941,11 @@ thead .freeze-right-2{
     max-width:220px !important;
 }
 
-
 .ppi-main-area .ppi-icd10-column{
     width:75px !important;
     min-width:75px !important;
     max-width:75px !important;
 }
-
 
 .ppi-main-area .ppi-dose-column{
     width:210px !important;
@@ -914,20 +953,17 @@ thead .freeze-right-2{
     max-width:210px !important;
 }
 
-
 .ppi-main-area .ppi-duration-column{
     width:65px !important;
     min-width:65px !important;
     max-width:65px !important;
 }
 
-
 .ppi-main-area .ppi-clinician-eligibility-column{
     width:90px !important;
     min-width:90px !important;
     max-width:90px !important;
 }
-
 
 .ppi-main-area .ppi-notes-column{
     width:100px !important;
@@ -1470,44 +1506,60 @@ thead .freeze-right-2{
             repeat(3,minmax(0,1fr));
     }
 
+
+    /*
+       =====================================================
+       MOBILE SCROLL CONTAINER
+
+       THIS IS THE ONLY SCROLLER FOR PPI.
+
+       It handles:
+       - vertical finger scrolling
+       - horizontal finger scrolling
+       - diagonal scrolling
+       =====================================================
+    */
+
     .table-view{
+
+        position:relative;
+
         flex:1 1 auto;
 
-        width:100%;
-        min-width:0;
-        min-height:0;
+        width:100% !important;
+        min-width:0 !important;
+        min-height:0 !important;
 
-        height:auto;
+        height:auto !important;
 
-        /*
-           THIS is the actual PPI/table scrolling container.
-           It handles BOTH horizontal and vertical touch scrolling.
-        */
         overflow:auto !important;
+
+        overflow-x:auto !important;
+        overflow-y:auto !important;
 
         -webkit-overflow-scrolling:touch;
 
         overscroll-behavior:auto;
 
-        touch-action:auto;
+        touch-action:pan-x pan-y;
+
+        scrollbar-width:auto;
     }
+
 
     /*
        =====================================================
-       PPI — PORTRAIT
+       PPI MOBILE
 
-       Keep the exact desktop widths:
-       220 + 75 + 210 + 65 + 90 + 100 = 760px
+       Fixed content width is intentional.
 
-       Plus:
-       8px gap
-       270px specialty
+       760 main
+       + 8 gap
+       + 270 specialty
+       = 1038px
 
-       Total = 1038px
-
-       The whole thing becomes horizontally scrollable
-       inside .table-view.
-       =====================================================
+       The phone viewport scrolls horizontally
+       through this complete width.
     */
 
     .ppi-layout{
@@ -1523,22 +1575,16 @@ thead .freeze-right-2{
         min-width:1038px !important;
         max-width:none !important;
 
-        /*
-           IMPORTANT:
-           Do NOT use height:100%.
-           Allow the table to determine its vertical height.
-        */
-        height:auto !important;
+        height:max-content !important;
         min-height:100% !important;
         max-height:none !important;
 
         overflow:visible !important;
 
-        margin:0;
-        padding:0;
-
-        background:#ffffff;
+        margin:0 !important;
+        padding:0 !important;
     }
+
 
     .ppi-main-area{
 
@@ -1546,12 +1592,13 @@ thead .freeze-right-2{
         min-width:760px !important;
         max-width:760px !important;
 
-        height:auto !important;
+        height:max-content !important;
         min-height:100% !important;
         max-height:none !important;
 
         overflow:visible !important;
     }
+
 
     .ppi-main-area .data-table{
 
@@ -1563,9 +1610,9 @@ thead .freeze-right-2{
     }
 
 
-    /* =====================================================
-       KEEP EXACT PPI WIDTHS ON MOBILE
-    ===================================================== */
+    /*
+       EXACT WIDTHS
+    */
 
     .ppi-main-area .ppi-diagnosis-column{
         width:220px !important;
@@ -1604,9 +1651,9 @@ thead .freeze-right-2{
     }
 
 
-    /* =====================================================
-       PPI GAP
-    ===================================================== */
+    /*
+       GAP
+    */
 
     .ppi-gap{
 
@@ -1614,16 +1661,22 @@ thead .freeze-right-2{
         min-width:8px !important;
         max-width:8px !important;
 
-        height:auto !important;
+        height:100% !important;
         min-height:100% !important;
 
         background:#ffffff;
     }
 
 
-    /* =====================================================
-       SPECIALTY TABLE
-    ===================================================== */
+    /*
+       =====================================================
+       SPECIALTY
+
+       IMPORTANT:
+       NO overflow:auto HERE.
+
+       The parent table-view handles BOTH axes.
+    */
 
     .ppi-specialty-area{
 
@@ -1631,20 +1684,17 @@ thead .freeze-right-2{
         min-width:270px !important;
         max-width:270px !important;
 
-        height:auto !important;
+        height:max-content !important;
         min-height:100% !important;
         max-height:none !important;
 
-        /*
-           Do NOT create another vertical scroll area.
-           The parent .table-view handles scrolling.
-        */
         overflow:visible !important;
 
         position:relative !important;
 
         z-index:2 !important;
     }
+
 
     .ppi-specialty-table{
 
@@ -1687,28 +1737,30 @@ thead .freeze-right-2{
         overflow:hidden;
     }
 
-    /*
-       The same .table-view handles:
-       - vertical scrolling through all rows
-       - horizontal scrolling when needed
-    */
 
     .table-view{
 
+        position:relative;
+
         width:100% !important;
+
         height:auto !important;
 
         flex:1 1 auto;
 
-        min-height:0;
+        min-width:0 !important;
+        min-height:0 !important;
 
         overflow:auto !important;
+
+        overflow-x:auto !important;
+        overflow-y:auto !important;
 
         -webkit-overflow-scrolling:touch;
 
         overscroll-behavior:auto;
 
-        touch-action:auto;
+        touch-action:pan-x pan-y;
     }
 
 
@@ -1729,15 +1781,16 @@ thead .freeze-right-2{
         min-width:1038px !important;
         max-width:none !important;
 
-        height:auto !important;
+        height:max-content !important;
         min-height:100% !important;
         max-height:none !important;
 
         overflow:visible !important;
 
-        margin:0;
-        padding:0;
+        margin:0 !important;
+        padding:0 !important;
     }
+
 
     .ppi-main-area{
 
@@ -1745,12 +1798,13 @@ thead .freeze-right-2{
         min-width:760px !important;
         max-width:760px !important;
 
-        height:auto !important;
+        height:max-content !important;
         min-height:100% !important;
         max-height:none !important;
 
         overflow:visible !important;
     }
+
 
     .ppi-main-area .data-table{
 
@@ -1759,8 +1813,6 @@ thead .freeze-right-2{
         max-width:760px !important;
     }
 
-
-    /* EXACT PPI WIDTHS */
 
     .ppi-main-area .ppi-diagnosis-column{
         width:220px !important;
@@ -1805,7 +1857,7 @@ thead .freeze-right-2{
         min-width:8px !important;
         max-width:8px !important;
 
-        height:auto !important;
+        height:100% !important;
         min-height:100% !important;
     }
 
@@ -1816,7 +1868,7 @@ thead .freeze-right-2{
         min-width:270px !important;
         max-width:270px !important;
 
-        height:auto !important;
+        height:max-content !important;
         min-height:100% !important;
         max-height:none !important;
 
@@ -1824,6 +1876,7 @@ thead .freeze-right-2{
 
         position:relative !important;
     }
+
 
     .ppi-specialty-table{
 
@@ -1835,7 +1888,7 @@ thead .freeze-right-2{
     }
 
 }
-    
+
 </style>
 
 </head>
@@ -2262,9 +2315,7 @@ const columnsCache = new Map();
 const widthCache = new Map();
 
 
-/*
-   PPI SPECIALTY FILTER STATE
-*/
+/* PPI SPECIALTY FILTER STATE */
 
 const ppiSpecialtyFilters = new Set();
 
@@ -2431,16 +2482,6 @@ function findPpiSpecialtyColumn(rows){
     }
 
 
-    /*
-       First find the actual column containing
-       the header value:
-
-       Eligible Clinician Specialty
-
-       This is the safest way to identify
-       Unnamed: 7.
-    */
-
     const headerColumn =
         columns.find(
             column =>
@@ -2455,15 +2496,9 @@ function findPpiSpecialtyColumn(rows){
 
 
     if(headerColumn){
-
         return headerColumn;
-
     }
 
-
-    /*
-       Explicit named-column detection.
-    */
 
     const exactNames = [
 
@@ -2505,17 +2540,11 @@ function findPpiSpecialtyColumn(rows){
 
 
         if(found){
-
             return found;
-
         }
 
     }
 
-
-    /*
-       Broader detection.
-    */
 
     const broad =
         columns.find(
@@ -2538,33 +2567,12 @@ function findPpiSpecialtyColumn(rows){
 
 
     if(broad){
-
         return broad;
-
     }
 
 
-    /*
-       CRITICAL FALLBACK.
-
-       PPI.json has:
-
-       index 0 = Diagnosis
-       index 1 = ICD-10
-       index 2 = PPI Dose
-       index 3 = Duration
-       index 4 = Clinician Eligibility
-       index 5 = Notes
-       index 6 = Unnamed: 6 = Specialist
-       index 7 = Unnamed: 7 = Eligible Clinician Specialty
-
-       Therefore specialty = index 7.
-    */
-
     if(columns.length >= 8){
-
         return columns[7];
-
     }
 
 
@@ -2672,7 +2680,7 @@ function getPpiSpecialtyValue(
 
 
 /* =========================================================
-   FIND PPI ICD-10 COLUMN
+   PPI COLUMN HELPERS
 ========================================================= */
 
 function isPpiIcd10Column(column){
@@ -2688,10 +2696,6 @@ function isPpiIcd10Column(column){
 
 }
 
-
-/* =========================================================
-   FIND PPI DIAGNOSIS COLUMN
-========================================================= */
 
 function isPpiDiagnosisColumn(column){
 
@@ -2709,10 +2713,6 @@ function isPpiDiagnosisColumn(column){
 }
 
 
-/* =========================================================
-   FIND PPI DOSE COLUMN
-========================================================= */
-
 function isPpiDoseColumn(column){
 
     const name =
@@ -2728,10 +2728,6 @@ function isPpiDoseColumn(column){
 
 }
 
-
-/* =========================================================
-   FIND PPI CLINICIAN ELIGIBILITY
-========================================================= */
 
 function isPpiClinicianEligibilityColumn(column){
 
@@ -2749,10 +2745,6 @@ function isPpiClinicianEligibilityColumn(column){
 }
 
 
-/* =========================================================
-   FIND PPI DURATION
-========================================================= */
-
 function isPpiDurationColumn(column){
 
     const name =
@@ -2765,10 +2757,6 @@ function isPpiDurationColumn(column){
 
 }
 
-
-/* =========================================================
-   FIND PPI NOTES
-========================================================= */
 
 function isPpiNotesColumn(column){
 
@@ -3042,7 +3030,14 @@ function setActiveTab(id){
 
 function showLoading(name){
 
+    /*
+       Always allow the normal scroll container
+       to handle the content.
+    */
+
     tableArea.style.overflow = "auto";
+    tableArea.style.overflowX = "auto";
+    tableArea.style.overflowY = "auto";
 
     tableArea.innerHTML = `
 
@@ -3190,15 +3185,6 @@ function getPpiSpecialtyValues(rows){
                 column
             );
 
-
-        /*
-           Only actual specialty values.
-
-           Do NOT include:
-           - blank
-           - Eligible Clinician Specialty
-           - Specialist
-        */
 
         if(
             !value ||
@@ -4212,11 +4198,16 @@ function calculatePpiWidths(columns){
     return columns.map(
         column => {
 
+            /*
+               IMPORTANT:
+               These MUST total 760px.
+            */
+
             if(
                 isPpiDiagnosisColumn(column)
             ){
 
-                return 250;
+                return 220;
 
             }
 
@@ -4234,7 +4225,7 @@ function calculatePpiWidths(columns){
                 isPpiDoseColumn(column)
             ){
 
-                return 120;
+                return 210;
 
             }
 
@@ -4261,7 +4252,7 @@ function calculatePpiWidths(columns){
                 isPpiNotesColumn(column)
             ){
 
-                return 160;
+                return 100;
 
             }
 
@@ -4334,7 +4325,6 @@ function calculatePpiWidths(columns){
 
 /* =========================================================
    PPI MAIN TABLE
-   A-F ONLY
 ========================================================= */
 
 function renderPpiMainTable(
@@ -4352,18 +4342,6 @@ function renderPpiMainTable(
                 column !== specialtyColumn
         );
 
-
-    /*
-       Explicitly use the first six
-       columns of the PPI data.
-
-       Diagnosis
-       ICD-10
-       PPI Dose
-       Duration
-       Clinician Eligibility
-       Notes
-    */
 
     const desiredOrder = [
 
@@ -4401,10 +4379,6 @@ function renderPpiMainTable(
 
     }
 
-
-    /*
-       Fallback for any unexpected header naming.
-    */
 
     for(const column of mainColumns){
 
@@ -4546,9 +4520,7 @@ function renderPpiMainTable(
     table.appendChild(colgroup);
 
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
+    /* HEADER */
 
     const thead =
         document.createElement("thead");
@@ -4657,9 +4629,7 @@ function renderPpiMainTable(
     table.appendChild(thead);
 
 
-    /* =====================================================
-       BODY
-    ===================================================== */
+    /* BODY */
 
     const tbody =
         document.createElement("tbody");
@@ -4770,9 +4740,7 @@ function renderPpiSpecialtyTable(
     table.appendChild(colgroup);
 
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
+    /* HEADER */
 
     const thead =
         document.createElement("thead");
@@ -4792,11 +4760,6 @@ function renderPpiSpecialtyTable(
     header.className =
         "ppi-specialty-header";
 
-
-    /*
-       Use the actual JSON marker:
-       Specialist
-    */
 
     const specialistTitle =
         document.createElement("div");
@@ -4838,10 +4801,6 @@ function renderPpiSpecialtyTable(
     specialistTitle.textContent =
         specialistText;
 
-
-    /*
-       Eligible Clinician Specialty + filter.
-    */
 
     const titleRow =
         document.createElement("div");
@@ -4924,19 +4883,7 @@ function renderPpiSpecialtyTable(
     table.appendChild(thead);
 
 
-    /* =====================================================
-       BODY
-
-       IMPORTANT:
-       Start from row index 1.
-
-       Row 0 contains:
-       Specialist
-       Eligible Clinician Specialty
-
-       Those are header metadata,
-       NOT specialty data.
-    ===================================================== */
+    /* BODY */
 
     const tbody =
         document.createElement("tbody");
@@ -4962,14 +4909,6 @@ function renderPpiSpecialtyTable(
                     specialtyColumn
                 );
 
-
-            /*
-               Skip blanks.
-
-               The specialty table is an
-               independent list, so blank cells
-               are not displayed.
-            */
 
             if(!value){
                 continue;
@@ -5090,13 +5029,25 @@ function renderPpiTable(
     }
 
 
+    /*
+       CRITICAL FIX:
+
+       tableArea is the ONLY scroll container.
+
+       Explicitly enable BOTH directions.
+    */
+
+    tableArea.style.overflow = "auto";
+    tableArea.style.overflowX = "auto";
+    tableArea.style.overflowY = "auto";
+    tableArea.style.webkitOverflowScrolling = "touch";
+    tableArea.style.touchAction = "pan-x pan-y";
+
+
     if(
         !rows ||
         rows.length === 0
     ){
-
-        tableArea.style.overflow =
-            "auto";
 
         tableArea.innerHTML = `
             <div class="empty">
@@ -5111,20 +5062,12 @@ function renderPpiTable(
     }
 
 
-    tableArea.style.overflow =
-        "hidden";
-
-
     const allColumns =
         getColumns(
             tab,
             rows
         );
 
-
-    /*
-       Get actual specialty values.
-    */
 
     ppiSpecialtyAllValues =
         getPpiSpecialtyValues(
@@ -5139,10 +5082,6 @@ function renderPpiTable(
         "ppi-layout";
 
 
-    /*
-       A-F MAIN TABLE
-    */
-
     layout.appendChild(
         renderPpiMainTable(
             rows,
@@ -5150,10 +5089,6 @@ function renderPpiTable(
         )
     );
 
-
-    /*
-       SMALL GAP
-    */
 
     const gap =
         document.createElement("div");
@@ -5163,10 +5098,6 @@ function renderPpiTable(
 
     layout.appendChild(gap);
 
-
-    /*
-       SPECIALTY TABLE
-    */
 
     layout.appendChild(
         renderPpiSpecialtyTable(
@@ -5188,6 +5119,14 @@ function renderPpiTable(
 
     recordNumber.textContent =
         visibleRows.length.toLocaleString();
+
+
+    /*
+       Start at the LEFT side whenever PPI opens/renders.
+    */
+
+    tableArea.scrollLeft = 0;
+    tableArea.scrollTop = 0;
 
 }
 
@@ -5266,8 +5205,9 @@ function renderEligibilityTable(
     }
 
 
-    tableArea.style.overflow =
-        "auto";
+    tableArea.style.overflow = "auto";
+    tableArea.style.overflowX = "auto";
+    tableArea.style.overflowY = "auto";
 
 
     if(
@@ -5871,8 +5811,9 @@ function renderTable(
     }
 
 
-    tableArea.style.overflow =
-        "auto";
+    tableArea.style.overflow = "auto";
+    tableArea.style.overflowX = "auto";
+    tableArea.style.overflowY = "auto";
 
 
     if(rows.length === 0){
@@ -6035,8 +5976,9 @@ async function openTab(id){
         console.error(error);
 
 
-        tableArea.style.overflow =
-            "auto";
+        tableArea.style.overflow = "auto";
+        tableArea.style.overflowX = "auto";
+        tableArea.style.overflowY = "auto";
 
 
         tableArea.innerHTML = `
@@ -6662,10 +6604,6 @@ document
         "click",
         () => {
 
-            /*
-               PPI SPECIALTY FILTER
-            */
-
             if(
                 filterMode === "ppi-specialty"
             ){
@@ -6715,10 +6653,6 @@ document
 
             }
 
-
-            /*
-               NORMAL FILTER
-            */
 
             if(
                 !currentTab ||
