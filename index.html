@@ -1636,45 +1636,47 @@ thead .freeze-right-2{
 }
 
 /* =========================================================
-   PPI MOBILE FIX
-   Keep desktop widths unchanged.
-   Prevent Specialty table from covering Notes.
+   PPI MOBILE FIX — HORIZONTAL SCROLL
+   Keep MAIN TABLE + SPECIALTY table side-by-side
 ========================================================= */
 
 @media (max-width: 768px){
 
     .ppi-layout{
-        display:block !important;
-        width:100% !important;
-        overflow:visible !important;
+        display:grid !important;
+        grid-template-columns:760px 8px 270px !important;
+        width:max-content !important;
+        min-width:1038px !important;
+        max-width:none !important;
+        gap:0 !important;
     }
 
     .ppi-main-area{
-        width:100% !important;
-        max-width:100% !important;
-        overflow-x:auto !important;
-        overflow-y:hidden !important;
+        width:760px !important;
+        min-width:760px !important;
+        max-width:760px !important;
+        overflow:visible !important;
     }
 
     .ppi-main-table{
-        width:max-content !important;
+        width:760px !important;
         min-width:760px !important;
+        max-width:760px !important;
     }
 
     .ppi-gap{
-        width:100% !important;
-        height:12px !important;
-        min-width:0 !important;
+        width:8px !important;
+        min-width:8px !important;
+        max-width:8px !important;
     }
 
     .ppi-specialty-area{
-        width:100% !important;
-        max-width:100% !important;
-        margin-top:12px !important;
-        overflow-x:auto !important;
-        overflow-y:hidden !important;
+        width:270px !important;
+        min-width:270px !important;
+        max-width:270px !important;
+        overflow:visible !important;
         position:relative !important;
-        z-index:1 !important;
+        z-index:2 !important;
     }
 
     .ppi-specialty-table{
