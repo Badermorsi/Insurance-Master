@@ -2354,7 +2354,7 @@ function findPpiSpecialtyColumn(rows){
        index 3 = Duration
        index 4 = Clinician Eligibility
        index 5 = Notes
-       index 6 = Unnamed: 6 = Specialist >>>
+       index 6 = Unnamed: 6 = Specialist
        index 7 = Unnamed: 7 = Eligible Clinician Specialty
 
        Therefore specialty = index 7.
@@ -2425,7 +2425,7 @@ function findPpiSpecialistMarkerColumn(rows){
                         valueString(
                             row[column]
                         ).trim() ===
-                        "Specialist >>>"
+                        "Specialist"
                 )
         ) || null
     );
@@ -2996,13 +2996,13 @@ function getPpiSpecialtyValues(rows){
            Do NOT include:
            - blank
            - Eligible Clinician Specialty
-           - Specialist >>>
+           - Specialist
         */
 
         if(
             !value ||
             value === "Eligible Clinician Specialty" ||
-            value === "Specialist >>>"
+            value === "Specialist"
         ){
             continue;
         }
@@ -4594,7 +4594,7 @@ function renderPpiSpecialtyTable(
 
     /*
        Use the actual JSON marker:
-       Specialist >>>
+       Specialist
     */
 
     const specialistTitle =
@@ -4605,7 +4605,7 @@ function renderPpiSpecialtyTable(
 
 
     let specialistText =
-        "Specialist >>>";
+        "Specialist";
 
 
     if(
@@ -4618,7 +4618,7 @@ function renderPpiSpecialtyTable(
                     valueString(
                         row[markerColumn]
                     ).trim() ===
-                    "Specialist >>>"
+                    "Specialist"
             );
 
 
@@ -4730,7 +4730,7 @@ function renderPpiSpecialtyTable(
        Start from row index 1.
 
        Row 0 contains:
-       Specialist >>>
+       Specialist
        Eligible Clinician Specialty
 
        Those are header metadata,
@@ -4785,7 +4785,7 @@ function renderPpiSpecialtyTable(
 
             if(
                 value ===
-                "Specialist >>>"
+                "Specialist"
             ){
                 continue;
             }
