@@ -572,66 +572,99 @@ thead .freeze-right-2{
 
 .ppi-layout{
 
-    width:max-content;
+    width:100%;
     min-width:100%;
 
-    display:flex;
-    align-items:flex-start;
+    height:100%;
 
-    gap:18px;
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        86px
+        270px;
+
+    align-items:stretch;
+
+    column-gap:0;
 
     padding:0;
 
     background:#ffffff;
+
+    overflow:hidden;
 }
 
 
-/*
-   MAIN PPI AREA
-
-   This contains ONLY columns A-F.
-*/
+/* =========================================================
+   PPI MAIN A-F AREA
+========================================================= */
 
 .ppi-main-area{
-    flex:0 0 auto;
-
-    width:max-content;
 
     min-width:0;
+
+    width:100%;
+
+    height:100%;
+
+    overflow:auto;
+
+    background:#ffffff;
+
+    border-right:0;
 }
 
 
 /*
-   SPECIALIST LABEL AREA
-
-   IMPORTANT:
-   This is NOT a table column.
+   PPI main table fills the complete
+   available main area.
 */
+
+.ppi-main-area .data-table{
+
+    width:100%;
+
+    min-width:900px;
+
+    table-layout:fixed;
+}
+
+
+/* =========================================================
+   PPI SPECIALIST LABEL AREA
+========================================================= */
 
 .ppi-specialist-label-area{
 
-    flex:0 0 70px;
+    width:86px;
 
-    width:70px;
+    min-width:86px;
 
-    min-width:70px;
-
-    padding-top:0;
+    height:100%;
 
     background:#ffffff;
+
+    display:block;
+
+    padding:0 7px;
+
 }
 
 
 /*
-   G1 equivalent.
-
-   The label sits at the same vertical
-   level as the PPI table header.
+   Specialist >>> is deliberately
+   styled exactly like a normal header,
+   but with a different font color.
 */
 
 .ppi-specialist-label{
 
     height:46px;
+
+    min-height:46px;
+
+    width:100%;
 
     display:flex;
 
@@ -639,9 +672,17 @@ thead .freeze-right-2{
 
     justify-content:center;
 
-    padding:4px;
+    padding:4px 5px;
+
+    background:#eaf1f3;
 
     color:#9a5b16;
+
+    border-left:1px solid #d5dfe3;
+
+    border-right:1px solid #d5dfe3;
+
+    border-bottom:2px solid #c3d1d6;
 
     font-size:11.5px;
 
@@ -651,39 +692,47 @@ thead .freeze-right-2{
 
     text-align:center;
 
-    overflow-wrap:anywhere;
+    white-space:nowrap;
 }
 
 
 /*
-   H AREA
-
-   This is a completely separate table.
+   Nothing is created below Specialist >>>.
+   G2 onward remains completely empty.
 */
+
+
+/* =========================================================
+   PPI SPECIALTY AREA
+========================================================= */
 
 .ppi-specialty-area{
 
-    flex:0 0 230px;
+    width:270px;
 
-    width:230px;
+    min-width:270px;
 
-    min-width:230px;
+    max-width:270px;
 
-    max-width:230px;
+    height:100%;
+
+    overflow:auto;
 
     background:#ffffff;
+
+    border-left:8px solid #ffffff;
 }
 
 
-/*
-   Independent specialty table.
-*/
+/* =========================================================
+   PPI SPECIALTY TABLE
+========================================================= */
 
 .ppi-specialty-table{
 
-    width:230px;
+    width:100%;
 
-    min-width:230px;
+    min-width:270px;
 
     table-layout:fixed;
 
@@ -698,6 +747,15 @@ thead .freeze-right-2{
 /*
    H1 header.
 */
+
+.ppi-specialty-table thead{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:120;
+}
 
 .ppi-specialty-table th{
 
@@ -736,9 +794,9 @@ thead .freeze-right-2{
 
     justify-content:center;
 
-    gap:4px;
+    gap:5px;
 
-    padding:4px;
+    padding:4px 6px;
 }
 
 .ppi-specialty-header-label{
@@ -765,7 +823,7 @@ thead .freeze-right-2{
 
     height:auto;
 
-    padding:6px 7px;
+    padding:6px 8px;
 
     background:#ffffff;
 
@@ -800,7 +858,7 @@ thead .freeze-right-2{
 
 
 /*
-   Independent specialty filter button.
+   Independent specialty filter.
 */
 
 .ppi-specialty-filter{
@@ -851,19 +909,20 @@ thead .freeze-right-2{
 }
 
 
-/*
-   Empty G2 onward area.
+/* =========================================================
+   PPI SPECIAL WIDTHS
+========================================================= */
 
-   It is deliberately NOT a table.
-*/
+.ppi-main-area .ppi-diagnosis-column{
+    width:220px !important;
+    min-width:220px !important;
+    max-width:220px !important;
+}
 
-.ppi-specialist-empty{
-
-    width:70px;
-
-    min-height:34px;
-
-    background:#ffffff;
+.ppi-main-area .ppi-dose-column{
+    width:190px !important;
+    min-width:190px !important;
+    max-width:190px !important;
 }
 
 
@@ -1370,6 +1429,22 @@ thead .freeze-right-2{
             repeat(8,minmax(0,1fr));
     }
 
+    .ppi-layout{
+        grid-template-columns:
+            minmax(0,1fr)
+            76px
+            240px;
+    }
+
+    .ppi-specialty-area{
+        width:240px;
+        min-width:240px;
+    }
+
+    .ppi-specialty-table{
+        min-width:240px;
+    }
+
 }
 
 @media(max-width:800px){
@@ -1381,6 +1456,22 @@ thead .freeze-right-2{
 
     .tab{
         font-size:9px;
+    }
+
+    .ppi-layout{
+        grid-template-columns:
+            minmax(0,1fr)
+            70px
+            220px;
+    }
+
+    .ppi-specialty-area{
+        width:220px;
+        min-width:220px;
+    }
+
+    .ppi-specialty-table{
+        min-width:220px;
     }
 
 }
@@ -1406,10 +1497,16 @@ thead .freeze-right-2{
         min-height:400px;
     }
 
+    .ppi-layout{
+        grid-template-columns:
+            minmax(0,1fr)
+            60px
+            210px;
+    }
+
     .ppi-specialty-area{
         width:210px;
         min-width:210px;
-        flex-basis:210px;
     }
 
     .ppi-specialty-table{
@@ -1420,7 +1517,6 @@ thead .freeze-right-2{
     .ppi-specialist-label-area{
         width:60px;
         min-width:60px;
-        flex-basis:60px;
     }
 
 }
@@ -1854,8 +1950,8 @@ const widthCache = new Map();
 /*
    PPI SPECIALTY FILTER STATE
 
-   This is intentionally separate from
-   the normal PPI A-F filter state.
+   Completely independent from
+   normal PPI A-F filters.
 */
 
 const ppiSpecialtyFilters = new Set();
@@ -2024,10 +2120,6 @@ function findPpiSpecialtyColumn(rows){
     }
 
 
-    /*
-       First try exact known names.
-    */
-
     for(const wanted of possibleNames){
 
         const found =
@@ -2043,10 +2135,6 @@ function findPpiSpecialtyColumn(rows){
 
     }
 
-
-    /*
-       Then use a broader match.
-    */
 
     const broad =
         columns.find(
@@ -2070,6 +2158,43 @@ function findPpiSpecialtyColumn(rows){
 
 
     return null;
+}
+
+
+/* =========================================================
+   FIND PPI DIAGNOSIS COLUMN
+========================================================= */
+
+function isPpiDiagnosisColumn(column){
+
+    const name =
+        normalizeColumnName(column);
+
+    return (
+        name === "diagnosis" ||
+        name.includes("diagnosis")
+    );
+
+}
+
+
+/* =========================================================
+   FIND PPI DOSE COLUMN
+========================================================= */
+
+function isPpiDoseColumn(column){
+
+    const name =
+        normalizeColumnName(column);
+
+    return (
+        name === "ppi dose" ||
+        (
+            name.includes("ppi") &&
+            name.includes("dose")
+        )
+    );
+
 }
 
 
@@ -2218,8 +2343,6 @@ function getColumns(tab,rows){
     }
 
 
-    /* APG: THIQA + BASIC at right */
-
     if(tab.id === "apg"){
 
         const thiqa =
@@ -2255,12 +2378,6 @@ function getColumns(tab,rows){
 
     }
 
-
-    /*
-       PPI:
-       The main table will be rendered separately,
-       so getColumns itself remains unchanged.
-    */
 
     columnsCache.set(tab.id,columns);
 
@@ -2330,6 +2447,8 @@ function setActiveTab(id){
 ========================================================= */
 
 function showLoading(name){
+
+    tableArea.style.overflow = "auto";
 
     tableArea.innerHTML = `
 
@@ -2421,7 +2540,7 @@ function getVisibleRows(rows){
 
 
 /* =========================================================
-   PPI SPECIALTY VALUES
+   PPI SPECIALTY FILTER VALUES
 ========================================================= */
 
 function getPpiSpecialtyValues(rows){
@@ -2474,17 +2593,11 @@ function getPpiSpecialtyValues(rows){
 
 function ppiSpecialtyMatches(value){
 
-    /*
-       No specialty filter =
-       show every specialty.
-    */
-
     if(
         ppiSpecialtyFilters.size === 0
     ){
         return true;
     }
-
 
     return ppiSpecialtyFilters.has(value);
 
@@ -2516,8 +2629,6 @@ function calculateWidths(
             normalizeColumnName(column);
 
 
-        /* APG FROZEN */
-
         if(
             tab.id === "apg" &&
             (
@@ -2532,8 +2643,6 @@ function calculateWidths(
         }
 
 
-        /* HAAD GENERIC NAME */
-
         if(
             tab.id === "haad" &&
             isGenericNameColumn(column)
@@ -2545,8 +2654,6 @@ function calculateWidths(
         }
 
 
-        /* ADNIC GENERIC NAME */
-
         if(
             tab.id === "adnic" &&
             isGenericNameColumn(column)
@@ -2557,8 +2664,6 @@ function calculateWidths(
             continue;
         }
 
-
-        /* DENIAL DESCRIPTION */
 
         if(
             tab.id === "denial" &&
@@ -2858,20 +2963,21 @@ function renderVirtualTable(
     rows,
     columns,
     widths,
-    version
+    version,
+    container = tableArea
 ){
 
-    tableArea.innerHTML = "";
+    container.innerHTML = "";
 
 
-    if(tableArea._virtualScrollHandler){
+    if(container._virtualScrollHandler){
 
-        tableArea.removeEventListener(
+        container.removeEventListener(
             "scroll",
-            tableArea._virtualScrollHandler
+            container._virtualScrollHandler
         );
 
-        tableArea._virtualScrollHandler =
+        container._virtualScrollHandler =
             null;
 
     }
@@ -2953,7 +3059,7 @@ function renderVirtualTable(
 
     table.appendChild(tbody);
 
-    tableArea.appendChild(table);
+    container.appendChild(table);
 
 
     const DEFAULT_HEIGHT = 34;
@@ -3209,10 +3315,10 @@ function renderVirtualTable(
 
 
         const scrollTop =
-            tableArea.scrollTop;
+            container.scrollTop;
 
         const viewportHeight =
-            tableArea.clientHeight;
+            container.clientHeight;
 
 
         const bodyTop =
@@ -3434,11 +3540,11 @@ function renderVirtualTable(
     }
 
 
-    tableArea._virtualScrollHandler =
+    container._virtualScrollHandler =
         scheduleDraw;
 
 
-    tableArea.addEventListener(
+    container.addEventListener(
         "scroll",
         scheduleDraw,
         {
@@ -3453,6 +3559,105 @@ function renderVirtualTable(
 
 
 /* =========================================================
+   PPI WIDTHS
+========================================================= */
+
+function calculatePpiWidths(columns){
+
+    return columns.map(
+        column => {
+
+            /*
+               IMPORTANT:
+               Diagnosis and PPI Dose are intentionally
+               wider than the other PPI columns.
+            */
+
+            if(
+                isPpiDiagnosisColumn(column)
+            ){
+
+                return 220;
+
+            }
+
+
+            if(
+                isPpiDoseColumn(column)
+            ){
+
+                return 190;
+
+            }
+
+
+            const lower =
+                normalizeColumnName(column);
+
+
+            const isCode =
+                lower.includes("code") ||
+                lower === "id" ||
+                lower.endsWith(" id");
+
+
+            const isDate =
+                lower.includes("date");
+
+
+            const isNumeric =
+                lower.includes("price") ||
+                lower.includes("amount") ||
+                lower.includes("copay") ||
+                lower.includes("quantity") ||
+                lower.includes("qty");
+
+
+            const isText =
+                lower.includes("name") ||
+                lower.includes("description") ||
+                lower.includes("remarks") ||
+                lower.includes("notes") ||
+                lower.includes("comment") ||
+                lower.includes("instruction") ||
+                lower.includes("detail") ||
+                lower.includes("reason") ||
+                lower.includes("specialty") ||
+                lower.includes("indication");
+
+
+            let width = 140;
+
+
+            if(isCode){
+                width = 105;
+            }
+            else if(isDate){
+                width = 110;
+            }
+            else if(isNumeric){
+                width = 105;
+            }
+            else if(isText){
+                width = 145;
+            }
+
+
+            return Math.max(
+                90,
+                Math.min(
+                    width,
+                    150
+                )
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
    PPI MAIN TABLE
    A-F ONLY
 ========================================================= */
@@ -3462,18 +3667,13 @@ function renderPpiMainTable(
     allColumns
 ){
 
-    /*
-       Find specialty column.
-    */
-
     const specialtyColumn =
         findPpiSpecialtyColumn(rows);
 
 
     /*
-       Main table = first six columns,
-       excluding specialty if it appears
-       among those six.
+       Exclude Eligible Clinician Specialty
+       from the main A-F table.
     */
 
     let mainColumns =
@@ -3483,13 +3683,14 @@ function renderPpiMainTable(
         );
 
 
+    /*
+       Main PPI table is EXACTLY six
+       columns whenever six exist.
+    */
+
     mainColumns =
         mainColumns.slice(0,6);
 
-
-    /*
-       Main area.
-    */
 
     const mainArea =
         document.createElement("div");
@@ -3522,6 +3723,28 @@ function renderPpiMainTable(
                 document.createElement("col");
 
 
+            if(
+                isPpiDiagnosisColumn(column)
+            ){
+
+                col.classList.add(
+                    "ppi-diagnosis-column"
+                );
+
+            }
+
+
+            if(
+                isPpiDoseColumn(column)
+            ){
+
+                col.classList.add(
+                    "ppi-dose-column"
+                );
+
+            }
+
+
             col.style.width =
                 widths[index] + "px";
 
@@ -3541,9 +3764,9 @@ function renderPpiMainTable(
     table.appendChild(colgroup);
 
 
-    /*
-       Header.
-    */
+    /* =====================================================
+       HEADER
+    ===================================================== */
 
     const thead =
         document.createElement("thead");
@@ -3652,12 +3875,10 @@ function renderPpiMainTable(
     table.appendChild(thead);
 
 
-    /*
-       Body.
-
-       Only A-F filters are applied here.
-       Specialty filter is NOT involved.
-    */
+    /* =====================================================
+       BODY
+       ONLY A-F FILTERS
+    ===================================================== */
 
     const tbody =
         document.createElement("tbody");
@@ -3691,7 +3912,8 @@ function renderPpiMainTable(
 
 
                 if(value.length > 60){
-                    td.title = value;
+                    td.title =
+                        value;
                 }
 
 
@@ -3712,81 +3934,6 @@ function renderPpiMainTable(
 
 
     return mainArea;
-
-}
-
-
-/* =========================================================
-   PPI WIDTHS
-========================================================= */
-
-function calculatePpiWidths(columns){
-
-    return columns.map(
-        column => {
-
-            const lower =
-                normalizeColumnName(column);
-
-
-            const isCode =
-                lower.includes("code") ||
-                lower === "id" ||
-                lower.endsWith(" id");
-
-
-            const isDate =
-                lower.includes("date");
-
-
-            const isNumeric =
-                lower.includes("price") ||
-                lower.includes("amount") ||
-                lower.includes("copay") ||
-                lower.includes("quantity") ||
-                lower.includes("qty");
-
-
-            const isText =
-                lower.includes("name") ||
-                lower.includes("description") ||
-                lower.includes("remarks") ||
-                lower.includes("notes") ||
-                lower.includes("comment") ||
-                lower.includes("instruction") ||
-                lower.includes("detail") ||
-                lower.includes("reason") ||
-                lower.includes("specialty") ||
-                lower.includes("indication");
-
-
-            let width = 140;
-
-
-            if(isCode){
-                width = 105;
-            }
-            else if(isDate){
-                width = 110;
-            }
-            else if(isNumeric){
-                width = 105;
-            }
-            else if(isText){
-                width = 145;
-            }
-
-
-            return Math.max(
-                90,
-                Math.min(
-                    width,
-                    150
-                )
-            );
-
-        }
-    );
 
 }
 
@@ -3905,49 +4052,76 @@ function renderPpiSpecialtyTable(
 
 
     /*
-       IMPORTANT:
+       IMPORTANT FIX:
 
-       Specialty values come directly
-       from ALL PPI rows.
+       The specialty table now uses EVERY
+       PPI JSON row.
 
-       They are NOT taken from the
-       A-F filtered rows.
+       It does NOT use the unique-value list
+       for the displayed table.
 
-       Therefore A-F filtering never
-       changes this list.
+       Therefore if the JSON contains:
+
+       Row 1 = Gastroenterology
+       Row 2 = Cardiology
+       Row 3 = Gastroenterology
+
+       the table displays:
+
+       Gastroenterology
+       Cardiology
+       Gastroenterology
+
+       exactly according to the source rows.
     */
 
-    const values =
-        ppiSpecialtyAllValues;
+    if(specialtyColumn){
+
+        for(const row of rows){
+
+            const value =
+                valueString(
+                    row[specialtyColumn]
+                ).trim();
 
 
-    for(const value of values){
+            /*
+               Blank values remain blank in
+               the table.
+            */
 
-        if(
-            !ppiSpecialtyMatches(value)
-        ){
-            continue;
+            if(
+                !ppiSpecialtyMatches(value)
+            ){
+                continue;
+            }
+
+
+            const specialtyRow =
+                document.createElement("tr");
+
+
+            const td =
+                document.createElement("td");
+
+
+            td.textContent =
+                value;
+
+
+            if(value.length > 60){
+                td.title =
+                    value;
+            }
+
+
+            specialtyRow.appendChild(td);
+
+            tbody.appendChild(
+                specialtyRow
+            );
+
         }
-
-
-        const tr =
-            document.createElement("tr");
-
-
-        const td =
-            document.createElement("td");
-
-
-        td.textContent =
-            value;
-
-        td.title =
-            value;
-
-
-        tr.appendChild(td);
-
-        tbody.appendChild(tr);
 
     }
 
@@ -3982,15 +4156,15 @@ function renderPpiSpecialistLabel(){
         "ppi-specialist-label";
 
     label.textContent =
-        "Specialist";
+        "Specialist >>>";
 
 
     area.appendChild(label);
 
 
     /*
-       No cells/table are created below.
-       G2 onward is simply empty space.
+       No table and no cells are created
+       underneath the Specialist >>> header.
     */
 
 
@@ -4018,6 +4192,8 @@ function renderPpiTable(
 
     if(!rows || rows.length === 0){
 
+        tableArea.style.overflow = "auto";
+
         tableArea.innerHTML = `
             <div class="empty">
                 No PPI data found.
@@ -4031,6 +4207,14 @@ function renderPpiTable(
     }
 
 
+    /*
+       PPI uses its own internal layout.
+    */
+
+    tableArea.style.overflow =
+        "hidden";
+
+
     const allColumns =
         getColumns(
             tab,
@@ -4039,8 +4223,8 @@ function renderPpiTable(
 
 
     /*
-       Identify specialty values ONCE
-       from the complete PPI JSON.
+       Filter popup values are unique,
+       but the displayed H table is NOT unique.
     */
 
     ppiSpecialtyAllValues =
@@ -4049,12 +4233,6 @@ function renderPpiTable(
         );
 
 
-    /*
-       If the specialty column cannot
-       be identified, still render A-F
-       normally.
-    */
-
     const layout =
         document.createElement("div");
 
@@ -4062,20 +4240,21 @@ function renderPpiTable(
         "ppi-layout";
 
 
-    const mainArea =
+    /*
+       A-F
+    */
+
+    layout.appendChild(
         renderPpiMainTable(
             rows,
             allColumns
-        );
-
-
-    layout.appendChild(
-        mainArea
+        )
     );
 
 
     /*
-       G = Specialist label only.
+       G
+       Specialist >>>
     */
 
     layout.appendChild(
@@ -4084,7 +4263,8 @@ function renderPpiTable(
 
 
     /*
-       H = independent table.
+       H
+       Eligible Clinician Specialty
     */
 
     layout.appendChild(
@@ -4096,12 +4276,14 @@ function renderPpiTable(
 
     tableArea.innerHTML = "";
 
-    tableArea.appendChild(layout);
+    tableArea.appendChild(
+        layout
+    );
 
 
     /*
-       Record number remains the
-       number of A-F visible rows.
+       Record number represents the
+       A-F filtered PPI rows.
     */
 
     const visibleRows =
@@ -4186,6 +4368,10 @@ function renderEligibilityTable(
     ){
         return;
     }
+
+
+    tableArea.style.overflow =
+        "auto";
 
 
     if(!rows || rows.length < 2){
@@ -4551,7 +4737,6 @@ function renderEligibilityTable(
 
     portalGroups.forEach(group => {
 
-
         const usernameRow =
             document.createElement("tr");
 
@@ -4773,9 +4958,7 @@ function renderTable(
     }
 
 
-    /*
-       SPECIAL PPI
-    */
+    /* SPECIAL PPI */
 
     if(tab.id === "ppi"){
 
@@ -4787,6 +4970,10 @@ function renderTable(
 
         return;
     }
+
+
+    tableArea.style.overflow =
+        "auto";
 
 
     if(rows.length === 0){
@@ -4949,6 +5136,10 @@ async function openTab(id){
         console.error(error);
 
 
+        tableArea.style.overflow =
+            "auto";
+
+
         tableArea.innerHTML = `
 
             <div class="error">
@@ -5085,14 +5276,6 @@ function openFilter(
     }
 
 
-    /*
-       This is always a normal A-F /
-       regular-table filter.
-
-       It is deliberately separate from
-       the PPI specialty filter.
-    */
-
     filterMode =
         "normal";
 
@@ -5225,16 +5408,6 @@ function openFilter(
 ========================================================= */
 
 function openPpiSpecialtyFilter(button){
-
-    /*
-       IMPORTANT:
-
-       This does NOT use:
-       filters.get("ppi")
-
-       It uses its own independent
-       ppiSpecialtyFilters Set.
-    */
 
     filterMode =
         "ppi-specialty";
@@ -5610,14 +5783,6 @@ document
                 closeFilter();
 
 
-                /*
-                   Re-render PPI.
-
-                   A-F filters remain completely
-                   untouched because the specialty
-                   filter has its own state.
-                */
-
                 if(
                     currentTab &&
                     currentTab.id === "ppi"
@@ -5740,11 +5905,6 @@ document
                 new Map()
             );
 
-
-            /*
-               PPI specialty filter is independent,
-               but Clear Filters clears it too.
-            */
 
             if(
                 currentTab.id === "ppi"
