@@ -595,11 +595,6 @@ thead .freeze-right-2{
     overflow:hidden;
 }
 
-
-/* =========================================================
-   PPI MAIN A-F AREA
-========================================================= */
-
 .ppi-main-area{
 
     min-width:0;
@@ -626,11 +621,6 @@ thead .freeze-right-2{
     table-layout:fixed;
 }
 
-
-/* =========================================================
-   PPI GAP
-========================================================= */
-
 .ppi-gap{
 
     width:8px;
@@ -641,11 +631,6 @@ thead .freeze-right-2{
 
     background:#ffffff;
 }
-
-
-/* =========================================================
-   PPI SPECIALTY AREA
-========================================================= */
 
 .ppi-specialty-area{
 
@@ -663,11 +648,6 @@ thead .freeze-right-2{
 
     border-left:0;
 }
-
-
-/* =========================================================
-   PPI SPECIALTY TABLE
-========================================================= */
 
 .ppi-specialty-table{
 
@@ -717,11 +697,6 @@ thead .freeze-right-2{
 
     vertical-align:middle;
 }
-
-
-/* =========================================================
-   SPECIALIST HEADER
-========================================================= */
 
 .ppi-specialty-header{
 
@@ -783,11 +758,6 @@ thead .freeze-right-2{
     word-break:break-word;
 }
 
-
-/* =========================================================
-   PPI SPECIALTY BODY
-========================================================= */
-
 .ppi-specialty-table td{
 
     min-height:34px;
@@ -826,11 +796,6 @@ thead .freeze-right-2{
 .ppi-specialty-table tbody tr:hover td{
     background:#eef7f8;
 }
-
-
-/* =========================================================
-   PPI SPECIALTY FILTER
-========================================================= */
 
 .ppi-specialty-filter{
 
@@ -879,27 +844,11 @@ thead .freeze-right-2{
     border-color:#12697a;
 }
 
-
-/* =========================================================
-   PPI SPECIAL WIDTHS
-========================================================= */
-
-/*
-   PPI main table is designed to fit the
-   available desktop width.
-
-   Diagnosis increased.
-   Duration reduced.
-   Clinician Eligibility reduced.
-*/
-
-
 .ppi-main-area .ppi-diagnosis-column{
     width:220px !important;
     min-width:220px !important;
     max-width:220px !important;
 }
-
 
 .ppi-main-area .ppi-icd10-column{
     width:75px !important;
@@ -907,13 +856,11 @@ thead .freeze-right-2{
     max-width:75px !important;
 }
 
-
 .ppi-main-area .ppi-dose-column{
     width:210px !important;
     min-width:210px !important;
     max-width:210px !important;
 }
-
 
 .ppi-main-area .ppi-duration-column{
     width:65px !important;
@@ -921,13 +868,11 @@ thead .freeze-right-2{
     max-width:65px !important;
 }
 
-
 .ppi-main-area .ppi-clinician-eligibility-column{
     width:90px !important;
     min-width:90px !important;
     max-width:90px !important;
 }
-
 
 .ppi-main-area .ppi-notes-column{
     width:100px !important;
@@ -1076,6 +1021,413 @@ thead .freeze-right-2{
     font-weight:750 !important;
 
     color:#53656e !important;
+}
+
+
+/* =========================================================
+   REFILL CALCULATOR
+========================================================= */
+
+.refill-container{
+
+    width:100%;
+    height:100%;
+
+    overflow:auto;
+
+    background:#ffffff;
+
+    padding:24px 28px 40px;
+}
+
+
+/* Instruction area */
+
+.refill-instructions{
+
+    width:100%;
+
+    margin-bottom:24px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:7px;
+}
+
+.refill-instruction-title{
+
+    color:#111111;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    line-height:22px;
+}
+
+.refill-instruction-green{
+
+    color:#168447;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    line-height:19px;
+}
+
+.refill-instruction-blue{
+
+    color:#2874b5;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    line-height:19px;
+}
+
+.refill-instruction-orange{
+
+    color:#d28b3f;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    line-height:19px;
+}
+
+
+/*
+   The actual calculator table.
+   Column A is intentionally only empty space.
+*/
+
+.refill-table-wrap{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    background:#ffffff;
+}
+
+.refill-table{
+
+    border-collapse:collapse;
+
+    border-spacing:0;
+
+    table-layout:fixed;
+
+    width:900px;
+
+    min-width:900px;
+
+    background:#ffffff;
+}
+
+
+/*
+   Column A:
+   completely empty visual space.
+*/
+
+.refill-table .refill-col-a{
+    width:70px;
+}
+
+.refill-table .refill-col-b{
+    width:230px;
+}
+
+.refill-table .refill-col-c{
+    width:180px;
+}
+
+.refill-table .refill-col-d{
+    width:210px;
+}
+
+.refill-table .refill-col-e{
+    width:210px;
+}
+
+
+/*
+   Instruction rows B1:E5.
+   No borders.
+*/
+
+.refill-no-border{
+
+    border:none !important;
+
+    background:#ffffff !important;
+
+    text-align:center;
+
+    vertical-align:middle;
+}
+
+.refill-space-row{
+
+    height:22px;
+}
+
+.refill-instruction-cell{
+
+    height:34px;
+
+    padding:4px 10px;
+
+    border:none !important;
+
+    background:#ffffff !important;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    line-height:18px;
+}
+
+
+/*
+   Row 1 is blank.
+*/
+
+.refill-table .blank-row{
+
+    height:18px;
+}
+
+
+/*
+   Main table headers.
+*/
+
+.refill-header{
+
+    background:#dcebed;
+
+    color:#243943;
+
+    border:1px solid #c4d4d9;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:13px;
+
+    font-weight:900;
+
+    line-height:17px;
+
+    padding:6px 8px;
+}
+
+.refill-header-main{
+
+    height:42px;
+
+    background:#dcebed;
+
+    color:#243943;
+
+    border:1px solid #c4d4d9;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:14px;
+
+    font-weight:900;
+}
+
+.refill-header-sub{
+
+    height:34px;
+
+    background:#edf4f5;
+
+    color:#344952;
+
+    border:1px solid #cbd9dd;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:12px;
+
+    font-weight:850;
+}
+
+
+/*
+   B7:B8 and C7:C8 are vertically merged.
+*/
+
+.refill-header-merged{
+
+    height:76px;
+
+    background:#dcebed;
+
+    color:#243943;
+
+    border:1px solid #c4d4d9;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:14px;
+
+    font-weight:900;
+}
+
+
+/*
+   Entry/calculation fields.
+*/
+
+.refill-input{
+
+    width:100%;
+
+    height:44px;
+
+    border:1px solid #c7d5da;
+
+    border-radius:4px;
+
+    outline:none;
+
+    text-align:center;
+
+    vertical-align:middle;
+
+    font-size:13px;
+
+    font-weight:750;
+
+    color:#253a43;
+
+    padding:4px 8px;
+}
+
+.refill-input:focus{
+
+    outline:none;
+
+    box-shadow:
+        0 0 0 3px rgba(20,119,138,.10);
+
+    border-color:#77aeb9;
+}
+
+
+/*
+   B9 = light green
+*/
+
+.refill-date-input{
+
+    background:#dff3e5 !important;
+
+    border-color:#a9cfb5 !important;
+
+    color:#17683b !important;
+
+}
+
+
+/*
+   C9 = light blue
+*/
+
+.refill-duration-input{
+
+    background:#dcecf9 !important;
+
+    border-color:#a8c8e3 !important;
+
+    color:#27699d !important;
+}
+
+
+/*
+   D9/E9 = light orange.
+   These are calculated, not editable.
+*/
+
+.refill-result{
+
+    width:100%;
+
+    height:44px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:4px 8px;
+
+    border:1px solid #e4c69f;
+
+    border-radius:4px;
+
+    background:#fff0dc;
+
+    color:#c17b2e;
+
+    font-size:13px;
+
+    font-weight:850;
+
+    text-align:center;
+}
+
+
+/*
+   Date inputs.
+*/
+
+.refill-date-input::-webkit-calendar-picker-indicator{
+    cursor:pointer;
+}
+
+
+/*
+   Responsive refill layout.
+*/
+
+@media(max-width:900px){
+
+    .refill-container{
+        padding:20px 16px 35px;
+    }
+
+    .refill-table{
+        width:850px;
+        min-width:850px;
+    }
+
 }
 
 
@@ -2230,16 +2582,6 @@ function findPpiSpecialtyColumn(rows){
     }
 
 
-    /*
-       First find the actual column containing
-       the header value:
-
-       Eligible Clinician Specialty
-
-       This is the safest way to identify
-       Unnamed: 7.
-    */
-
     const headerColumn =
         columns.find(
             column =>
@@ -2259,10 +2601,6 @@ function findPpiSpecialtyColumn(rows){
 
     }
 
-
-    /*
-       Explicit named-column detection.
-    */
 
     const exactNames = [
 
@@ -2312,10 +2650,6 @@ function findPpiSpecialtyColumn(rows){
     }
 
 
-    /*
-       Broader detection.
-    */
-
     const broad =
         columns.find(
             column => {
@@ -2342,23 +2676,6 @@ function findPpiSpecialtyColumn(rows){
 
     }
 
-
-    /*
-       CRITICAL FALLBACK.
-
-       PPI.json has:
-
-       index 0 = Diagnosis
-       index 1 = ICD-10
-       index 2 = PPI Dose
-       index 3 = Duration
-       index 4 = Clinician Eligibility
-       index 5 = Notes
-       index 6 = Unnamed: 6 = Specialist
-       index 7 = Unnamed: 7 = Eligible Clinician Specialty
-
-       Therefore specialty = index 7.
-    */
 
     if(columns.length >= 8){
 
@@ -2989,15 +3306,6 @@ function getPpiSpecialtyValues(rows){
                 column
             );
 
-
-        /*
-           Only actual specialty values.
-
-           Do NOT include:
-           - blank
-           - Eligible Clinician Specialty
-           - Specialist
-        */
 
         if(
             !value ||
@@ -4133,7 +4441,6 @@ function calculatePpiWidths(columns){
 
 /* =========================================================
    PPI MAIN TABLE
-   A-F ONLY
 ========================================================= */
 
 function renderPpiMainTable(
@@ -4151,18 +4458,6 @@ function renderPpiMainTable(
                 column !== specialtyColumn
         );
 
-
-    /*
-       Explicitly use the first six
-       columns of the PPI data.
-
-       Diagnosis
-       ICD-10
-       PPI Dose
-       Duration
-       Clinician Eligibility
-       Notes
-    */
 
     const desiredOrder = [
 
@@ -4200,10 +4495,6 @@ function renderPpiMainTable(
 
     }
 
-
-    /*
-       Fallback for any unexpected header naming.
-    */
 
     for(const column of mainColumns){
 
@@ -4345,10 +4636,6 @@ function renderPpiMainTable(
     table.appendChild(colgroup);
 
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
     const thead =
         document.createElement("thead");
 
@@ -4455,10 +4742,6 @@ function renderPpiMainTable(
 
     table.appendChild(thead);
 
-
-    /* =====================================================
-       BODY
-    ===================================================== */
 
     const tbody =
         document.createElement("tbody");
@@ -4569,10 +4852,6 @@ function renderPpiSpecialtyTable(
     table.appendChild(colgroup);
 
 
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
     const thead =
         document.createElement("thead");
 
@@ -4591,11 +4870,6 @@ function renderPpiSpecialtyTable(
     header.className =
         "ppi-specialty-header";
 
-
-    /*
-       Use the actual JSON marker:
-       Specialist
-    */
 
     const specialistTitle =
         document.createElement("div");
@@ -4637,10 +4911,6 @@ function renderPpiSpecialtyTable(
     specialistTitle.textContent =
         specialistText;
 
-
-    /*
-       Eligible Clinician Specialty + filter.
-    */
 
     const titleRow =
         document.createElement("div");
@@ -4723,20 +4993,6 @@ function renderPpiSpecialtyTable(
     table.appendChild(thead);
 
 
-    /* =====================================================
-       BODY
-
-       IMPORTANT:
-       Start from row index 1.
-
-       Row 0 contains:
-       Specialist
-       Eligible Clinician Specialty
-
-       Those are header metadata,
-       NOT specialty data.
-    ===================================================== */
-
     const tbody =
         document.createElement("tbody");
 
@@ -4761,14 +5017,6 @@ function renderPpiSpecialtyTable(
                     specialtyColumn
                 );
 
-
-            /*
-               Skip blanks.
-
-               The specialty table is an
-               independent list, so blank cells
-               are not displayed.
-            */
 
             if(!value){
                 continue;
@@ -4854,11 +5102,6 @@ function renderPpiSpecialtyTable(
             specialtyRow
         );
 
-        console.warn(
-            "PPI: Specialty column was not found.",
-            Object.keys(rows[0] || {})
-        );
-
     }
 
 
@@ -4921,10 +5164,6 @@ function renderPpiTable(
         );
 
 
-    /*
-       Get actual specialty values.
-    */
-
     ppiSpecialtyAllValues =
         getPpiSpecialtyValues(
             rows
@@ -4938,10 +5177,6 @@ function renderPpiTable(
         "ppi-layout";
 
 
-    /*
-       A-F MAIN TABLE
-    */
-
     layout.appendChild(
         renderPpiMainTable(
             rows,
@@ -4949,10 +5184,6 @@ function renderPpiTable(
         )
     );
 
-
-    /*
-       SMALL GAP
-    */
 
     const gap =
         document.createElement("div");
@@ -4962,10 +5193,6 @@ function renderPpiTable(
 
     layout.appendChild(gap);
 
-
-    /*
-       SPECIALTY TABLE
-    */
 
     layout.appendChild(
         renderPpiSpecialtyTable(
@@ -5231,8 +5458,6 @@ function renderEligibilityTable(
         document.createElement("thead");
 
 
-    /* ROW 1 */
-
     const row1 =
         document.createElement("tr");
 
@@ -5283,8 +5508,6 @@ function renderEligibilityTable(
 
     thead.appendChild(row1);
 
-
-    /* ROW 2 */
 
     const row2 =
         document.createElement("tr");
@@ -5358,8 +5581,6 @@ function renderEligibilityTable(
 
     thead.appendChild(row2);
 
-
-    /* ROW 3 */
 
     const row3 =
         document.createElement("tr");
@@ -5623,6 +5844,1000 @@ function createEligibilityCell(value){
 
 
 /* =========================================================
+   REFILL DATE PARSING
+========================================================= */
+
+/*
+   Accepts:
+   dd/mm/yyyy
+   d/m/yyyy
+   d-m-yyyy
+   d/m/yy
+   d-m-yy
+   and similar manual formats.
+
+   The displayed result is always:
+   dd/mm/yyyy
+*/
+
+function parseManualDate(value){
+
+    if(
+        value === null ||
+        value === undefined
+    ){
+        return null;
+    }
+
+
+    const text =
+        String(value)
+            .trim();
+
+
+    if(!text){
+        return null;
+    }
+
+
+    const match =
+        text.match(
+            /^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2}|\d{4})$/
+        );
+
+
+    if(!match){
+        return null;
+    }
+
+
+    let day =
+        Number(match[1]);
+
+    let month =
+        Number(match[2]);
+
+    let year =
+        Number(match[3]);
+
+
+    if(year < 100){
+
+        year +=
+            year >= 50
+                ? 1900
+                : 2000;
+
+    }
+
+
+    const date =
+        new Date(
+            year,
+            month - 1,
+            day
+        );
+
+
+    if(
+        date.getFullYear() !== year ||
+        date.getMonth() !== month - 1 ||
+        date.getDate() !== day
+    ){
+
+        return null;
+
+    }
+
+
+    return date;
+
+}
+
+
+/*
+   Format a Date object as dd/mm/yyyy.
+*/
+
+function formatDateDDMMYYYY(date){
+
+    if(
+        !(date instanceof Date) ||
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+        return "";
+    }
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+
+    const year =
+        String(
+            date.getFullYear()
+        );
+
+
+    return (
+        day +
+        "/" +
+        month +
+        "/" +
+        year
+    );
+
+}
+
+
+/*
+   Convert manual date into the equivalent
+   spreadsheet-style date calculation.
+*/
+
+function calculateRefillFromDate(
+    dispenseDate,
+    duration
+){
+
+    const result =
+        new Date(
+            dispenseDate.getFullYear(),
+            dispenseDate.getMonth(),
+            dispenseDate.getDate() +
+            duration -
+            11
+        );
+
+
+    return result;
+
+}
+
+
+/*
+   E9:
+   =DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)
+*/
+
+function calculateRefillToDate(
+    fromDate
+){
+
+    const result =
+        new Date(
+            fromDate.getFullYear(),
+            fromDate.getMonth(),
+            fromDate.getDate() + 40
+        );
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   REFILL CALCULATOR
+========================================================= */
+
+function renderRefillTable(){
+
+    tableArea.style.overflow =
+        "auto";
+
+
+    tableArea.innerHTML = "";
+
+
+    /*
+       Main outer container.
+    */
+
+    const container =
+        document.createElement("div");
+
+    container.className =
+        "refill-container";
+
+
+    /*
+       Instructions.
+    */
+
+    const instructions =
+        document.createElement("div");
+
+    instructions.className =
+        "refill-instructions";
+
+
+    const title =
+        document.createElement("div");
+
+    title.className =
+        "refill-instruction-title";
+
+    title.textContent =
+        "Determining the refill date";
+
+
+    const green =
+        document.createElement("div");
+
+    green.className =
+        "refill-instruction-green";
+
+    green.textContent =
+        "Enter the Dispense date in the green field";
+
+
+    const blue =
+        document.createElement("div");
+
+    blue.className =
+        "refill-instruction-blue";
+
+    blue.textContent =
+        "Enter the duration in the blue field";
+
+
+    const orange =
+        document.createElement("div");
+
+    orange.className =
+        "refill-instruction-orange";
+
+    orange.textContent =
+        "The next refill date will be calculated automatically";
+
+
+    instructions.appendChild(title);
+    instructions.appendChild(green);
+    instructions.appendChild(blue);
+    instructions.appendChild(orange);
+
+
+    container.appendChild(
+        instructions
+    );
+
+
+    /*
+       Table wrapper.
+    */
+
+    const wrap =
+        document.createElement("div");
+
+    wrap.className =
+        "refill-table-wrap";
+
+
+    const table =
+        document.createElement("table");
+
+    table.className =
+        "refill-table";
+
+
+    /*
+       Column definitions.
+    */
+
+    const colgroup =
+        document.createElement("colgroup");
+
+
+    [
+        "refill-col-a",
+        "refill-col-b",
+        "refill-col-c",
+        "refill-col-d",
+        "refill-col-e"
+    ].forEach(className => {
+
+        const col =
+            document.createElement("col");
+
+        col.className =
+            className;
+
+        colgroup.appendChild(col);
+
+    });
+
+
+    table.appendChild(colgroup);
+
+
+    /*
+       =====================================================
+       ROW 1
+       A1:E1 completely empty.
+       =====================================================
+    */
+
+    const row1 =
+        document.createElement("tr");
+
+    row1.className =
+        "blank-row";
+
+
+    for(let i=0;i<5;i++){
+
+        const td =
+            document.createElement("td");
+
+        td.className =
+            "refill-no-border";
+
+        row1.appendChild(td);
+
+    }
+
+
+    table.appendChild(row1);
+
+
+    /*
+       =====================================================
+       ROW 2
+       B2:E2 merged.
+       =====================================================
+    */
+
+    const row2 =
+        document.createElement("tr");
+
+
+    const a2 =
+        document.createElement("td");
+
+    a2.className =
+        "refill-no-border";
+
+    row2.appendChild(a2);
+
+
+    const b2 =
+        document.createElement("td");
+
+    b2.colSpan = 4;
+
+    b2.className =
+        "refill-instruction-cell refill-no-border";
+
+    b2.style.color =
+        "#168447";
+
+    b2.textContent =
+        "Enter the Dispense date in the green field";
+
+    row2.appendChild(b2);
+
+    table.appendChild(row2);
+
+
+    /*
+       =====================================================
+       ROW 3
+       B3:E3 merged.
+       This is intentionally kept as blank visual
+       spacing between the instruction lines.
+       =====================================================
+    */
+
+    const row3 =
+        document.createElement("tr");
+
+
+    const a3 =
+        document.createElement("td");
+
+    a3.className =
+        "refill-no-border";
+
+    row3.appendChild(a3);
+
+
+    const b3 =
+        document.createElement("td");
+
+    b3.colSpan = 4;
+
+    b3.className =
+        "refill-instruction-cell refill-no-border";
+
+    b3.style.color =
+        "#2874b5";
+
+    b3.textContent =
+        "Enter the duration in the blue field";
+
+    row3.appendChild(b3);
+
+    table.appendChild(row3);
+
+
+    /*
+       =====================================================
+       ROW 4
+       B4:E4 merged.
+       =====================================================
+    */
+
+    const row4 =
+        document.createElement("tr");
+
+
+    const a4 =
+        document.createElement("td");
+
+    a4.className =
+        "refill-no-border";
+
+    row4.appendChild(a4);
+
+
+    const b4 =
+        document.createElement("td");
+
+    b4.colSpan = 4;
+
+    b4.className =
+        "refill-instruction-cell refill-no-border";
+
+    b4.style.color =
+        "#d28b3f";
+
+    b4.textContent =
+        "The next refill date will be calculated automatically";
+
+    row4.appendChild(b4);
+
+    table.appendChild(row4);
+
+
+    /*
+       =====================================================
+       ROW 5
+       B5:E5 merged.
+       Empty.
+       =====================================================
+    */
+
+    const row5 =
+        document.createElement("tr");
+
+
+    const a5 =
+        document.createElement("td");
+
+    a5.className =
+        "refill-no-border";
+
+    row5.appendChild(a5);
+
+
+    const b5 =
+        document.createElement("td");
+
+    b5.colSpan = 4;
+
+    b5.className =
+        "refill-no-border";
+
+    b5.style.height =
+        "16px";
+
+    row5.appendChild(b5);
+
+    table.appendChild(row5);
+
+
+    /*
+       =====================================================
+       ROW 6
+       Empty spacing.
+       =====================================================
+    */
+
+    const row6 =
+        document.createElement("tr");
+
+
+    for(let i=0;i<5;i++){
+
+        const td =
+            document.createElement("td");
+
+        td.className =
+            "refill-no-border";
+
+        td.style.height =
+            "18px";
+
+        row6.appendChild(td);
+
+    }
+
+
+    table.appendChild(row6);
+
+
+    /*
+       =====================================================
+       ROW 7
+       
+       B7:B8 merged = Dispense date
+       C7:C8 merged = Duration
+       D7:E7 merged = Next refill
+       =====================================================
+    */
+
+    const row7 =
+        document.createElement("tr");
+
+
+    const a7 =
+        document.createElement("td");
+
+    a7.className =
+        "refill-no-border";
+
+    row7.appendChild(a7);
+
+
+    const b7 =
+        document.createElement("th");
+
+    b7.rowSpan = 2;
+
+    b7.className =
+        "refill-header-merged";
+
+    b7.textContent =
+        "Dispense date";
+
+    row7.appendChild(b7);
+
+
+    const c7 =
+        document.createElement("th");
+
+    c7.rowSpan = 2;
+
+    c7.className =
+        "refill-header-merged";
+
+    c7.textContent =
+        "Duration";
+
+    row7.appendChild(c7);
+
+
+    const d7 =
+        document.createElement("th");
+
+    d7.colSpan = 2;
+
+    d7.className =
+        "refill-header-main";
+
+    d7.textContent =
+        "Next refill";
+
+    row7.appendChild(d7);
+
+
+    table.appendChild(row7);
+
+
+    /*
+       =====================================================
+       ROW 8
+       
+       D8 = From
+       E8 = To
+       =====================================================
+    */
+
+    const row8 =
+        document.createElement("tr");
+
+
+    const a8 =
+        document.createElement("td");
+
+    a8.className =
+        "refill-no-border";
+
+    row8.appendChild(a8);
+
+
+    const d8 =
+        document.createElement("th");
+
+    d8.className =
+        "refill-header-sub";
+
+    d8.textContent =
+        "From";
+
+    row8.appendChild(d8);
+
+
+    const e8 =
+        document.createElement("th");
+
+    e8.className =
+        "refill-header-sub";
+
+    e8.textContent =
+        "To";
+
+    row8.appendChild(e8);
+
+
+    table.appendChild(row8);
+
+
+    /*
+       =====================================================
+       ROW 9
+       
+       B9 = manual dispense date
+       C9 = duration
+       D9 = automatic From
+       E9 = automatic To
+       =====================================================
+    */
+
+    const row9 =
+        document.createElement("tr");
+
+
+    /*
+       A9 empty.
+    */
+
+    const a9 =
+        document.createElement("td");
+
+    a9.className =
+        "refill-no-border";
+
+    row9.appendChild(a9);
+
+
+    /*
+       B9
+    */
+
+    const b9 =
+        document.createElement("td");
+
+    const dateInput =
+        document.createElement("input");
+
+    dateInput.type =
+        "text";
+
+    dateInput.className =
+        "refill-input refill-date-input";
+
+    dateInput.placeholder =
+        "dd/mm/yyyy";
+
+    dateInput.inputMode =
+        "numeric";
+
+    dateInput.autocomplete =
+        "off";
+
+    dateInput.setAttribute(
+        "aria-label",
+        "Dispense date"
+    );
+
+
+    /*
+       Normalize the user's typed date.
+    */
+
+    dateInput.addEventListener(
+        "blur",
+        () => {
+
+            const parsed =
+                parseManualDate(
+                    dateInput.value
+                );
+
+
+            if(parsed){
+
+                dateInput.value =
+                    formatDateDDMMYYYY(
+                        parsed
+                    );
+
+            }
+
+            calculateRefill();
+
+        }
+    );
+
+
+    dateInput.addEventListener(
+        "change",
+        calculateRefill
+    );
+
+
+    b9.appendChild(
+        dateInput
+    );
+
+    row9.appendChild(b9);
+
+
+    /*
+       C9
+    */
+
+    const c9 =
+        document.createElement("td");
+
+
+    const durationInput =
+        document.createElement("input");
+
+    durationInput.type =
+        "number";
+
+    durationInput.className =
+        "refill-input refill-duration-input";
+
+    durationInput.placeholder =
+        "Duration";
+
+    durationInput.min =
+        "0";
+
+    durationInput.step =
+        "1";
+
+    durationInput.inputMode =
+        "numeric";
+
+    durationInput.autocomplete =
+        "off";
+
+    durationInput.setAttribute(
+        "aria-label",
+        "Duration"
+    );
+
+
+    durationInput.addEventListener(
+        "input",
+        calculateRefill
+    );
+
+
+    c9.appendChild(
+        durationInput
+    );
+
+    row9.appendChild(c9);
+
+
+    /*
+       D9
+    */
+
+    const d9 =
+        document.createElement("td");
+
+
+    const fromResult =
+        document.createElement("div");
+
+    fromResult.className =
+        "refill-result";
+
+    fromResult.textContent =
+        "";
+
+
+    d9.appendChild(
+        fromResult
+    );
+
+    row9.appendChild(d9);
+
+
+    /*
+       E9
+    */
+
+    const e9 =
+        document.createElement("td");
+
+
+    const toResult =
+        document.createElement("div");
+
+    toResult.className =
+        "refill-result";
+
+    toResult.textContent =
+        "";
+
+
+    e9.appendChild(
+        toResult
+    );
+
+    row9.appendChild(e9);
+
+
+    table.appendChild(row9);
+
+
+    /*
+       Calculation function.
+
+       D9:
+       =DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11
+
+       E9:
+       =DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)
+    */
+
+    function calculateRefill(){
+
+        const dispenseDate =
+            parseManualDate(
+                dateInput.value
+            );
+
+
+        const durationText =
+            durationInput.value.trim();
+
+
+        fromResult.textContent =
+            "";
+
+        toResult.textContent =
+            "";
+
+
+        if(
+            !dispenseDate ||
+            durationText === ""
+        ){
+
+            return;
+
+        }
+
+
+        const duration =
+            Number(
+                durationText
+            );
+
+
+        if(
+            !Number.isFinite(duration)
+        ){
+
+            return;
+
+        }
+
+
+        /*
+           DATE(YEAR(B9),MONTH(B9),DAY(B9)+C9)-11
+        */
+
+        const fromDate =
+            calculateRefillFromDate(
+                dispenseDate,
+                duration
+            );
+
+
+        /*
+           DATE(YEAR(D9),MONTH(D9),DAY(D9)+40)
+        */
+
+        const toDate =
+            calculateRefillToDate(
+                fromDate
+            );
+
+
+        fromResult.textContent =
+            formatDateDDMMYYYY(
+                fromDate
+            );
+
+
+        toResult.textContent =
+            formatDateDDMMYYYY(
+                toDate
+            );
+
+    }
+
+
+    /*
+       Expose the calculator references only on
+       this rendered instance.
+    */
+
+    container._refillDateInput =
+        dateInput;
+
+    container._refillDurationInput =
+        durationInput;
+
+    container._refillFromResult =
+        fromResult;
+
+    container._refillToResult =
+        toResult;
+
+
+    wrap.appendChild(table);
+
+    container.appendChild(wrap);
+
+    tableArea.appendChild(container);
+
+
+    /*
+       Refill does not use the JSON as a visible table,
+       so the record pill is replaced with a simple
+       calculator indicator.
+    */
+
+    recordNumber.textContent =
+        "Calculator";
+
+
+    /*
+       Put cursor in the dispense date field.
+    */
+
+    setTimeout(
+        () => {
+            dateInput.focus();
+        },
+        50
+    );
+
+}
+
+
+/* =========================================================
    RENDER TABLE
 ========================================================= */
 
@@ -5638,11 +6853,25 @@ function renderTable(
     }
 
 
+    /*
+       SPECIAL REFILL CALCULATOR
+    */
+
+    if(tab.id === "refill"){
+
+        renderRefillTable();
+
+        return;
+    }
+
+
     const rows =
         tab.rows || [];
 
 
-    /* SPECIAL ELIGIBILITY */
+    /*
+       SPECIAL ELIGIBILITY
+    */
 
     if(tab.id === "eligibility"){
 
@@ -5656,7 +6885,9 @@ function renderTable(
     }
 
 
-    /* SPECIAL PPI */
+    /*
+       SPECIAL PPI
+    */
 
     if(tab.id === "ppi"){
 
@@ -5763,6 +6994,27 @@ async function openTab(id){
 
     const version =
         ++renderVersion;
+
+
+    /*
+       REFILL IS A CUSTOM CALCULATOR.
+
+       We do not need to load the JSON in order
+       to display the calculator.
+    */
+
+    if(id === "refill"){
+
+        renderTable(
+            tab,
+            version
+        );
+
+        scheduleBackgroundPreload();
+
+        return;
+
+    }
 
 
     if(
@@ -5897,8 +7149,7 @@ async function scheduleBackgroundPreload(){
         tabsConfig.filter(
             tab =>
                 !dataCache.has(
-                    "__TAB__" +
-                    tab.id
+                    "__TAB__" + tab.id
                 )
         );
 
@@ -6461,10 +7712,6 @@ document
         "click",
         () => {
 
-            /*
-               PPI SPECIALTY FILTER
-            */
-
             if(
                 filterMode === "ppi-specialty"
             ){
@@ -6514,10 +7761,6 @@ document
 
             }
 
-
-            /*
-               NORMAL FILTER
-            */
 
             if(
                 !currentTab ||
@@ -6629,6 +7872,11 @@ document
 
             }
 
+
+            /*
+               For Refill, Clear Filters simply
+               rebuilds the calculator fields.
+            */
 
             closeFilter();
 
