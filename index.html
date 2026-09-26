@@ -3335,7 +3335,7 @@ function renderTabSearchResults(){
 
     const matches =
         tabsConfig.filter(tab =>
-            tab.name.toLowerCase().startsWith(query)
+            tab.name.toLowerCase().includes(query)
         );
 
     if(matches.length === 0){
