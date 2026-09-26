@@ -284,6 +284,110 @@ input{
     font-size:11px;
 }
 
+.search-tab-stack{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    min-width:0;
+    padding:18px;
+}
+
+.search-table-wrap{
+    width:100%;
+    overflow:auto;
+    border:1px solid #d7e1e5;
+    border-radius:10px;
+    background:#ffffff;
+    box-shadow:0 3px 12px rgba(32,58,68,.06);
+}
+
+.search-entry-table{
+    width:100%;
+    min-width:1200px;
+    table-layout:fixed;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:12px;
+}
+
+.search-entry-table th,
+.search-entry-table td{
+    padding:10px 9px;
+    border-right:1px solid #e1e8eb;
+    border-bottom:1px solid #e1e8eb;
+    text-align:center;
+    vertical-align:middle;
+    overflow-wrap:anywhere;
+}
+
+.search-entry-table th:last-child,
+.search-entry-table td:last-child{
+    border-right:0;
+}
+
+.search-entry-table tbody tr:last-child td{
+    border-bottom:0;
+}
+
+.search-entry-title{
+    height:42px;
+    background:#12697a;
+    color:#ffffff;
+    font-size:14px;
+    font-weight:750;
+    letter-spacing:.1px;
+}
+
+.search-entry-headings th{
+    height:74px;
+    background:#eaf1f3;
+    color:#263a44;
+    font-weight:750;
+}
+
+.search-entry-guidance{
+    display:block;
+    margin-top:7px;
+    color:#687982;
+    font-size:9.5px;
+    font-weight:500;
+    line-height:1.35;
+}
+
+.search-entry-row td{
+    height:46px;
+    background:#ffffff;
+    color:#34434c;
+}
+
+.search-item-id-input{
+    width:100%;
+    min-width:0;
+    height:32px;
+    padding:0 9px;
+    border:1px solid #c8d6db;
+    border-radius:6px;
+    outline:none;
+    background:#ffffff;
+    color:#20313b;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:600;
+    line-height:1.2;
+    text-align:center;
+}
+
+.search-item-id-input:focus{
+    border-color:#168195;
+    box-shadow:0 0 0 3px rgba(22,129,149,.13);
+}
+
+.search-entry-value{
+    display:block;
+    min-height:18px;
+    overflow-wrap:anywhere;
+}
+
 .tabs-grid{
     width:100%;
 
@@ -2529,7 +2633,7 @@ const remainingTabs = [
     {
         id:"search",
         name:"Search 🔍",
-        files:["Search 🔍.json"]
+        files:[]
     },
 
     {
@@ -7079,6 +7183,221 @@ function renderRefillTable(){
 
 
 /* =========================================================
+   SEARCH TAB
+========================================================= */
+
+function getSearchSourceValue(
+    row,
+    columns,
+    candidates
+){
+
+    const sourceColumn =
+        columns.find(column =>
+            candidates.includes(
+                normalizeColumnName(column)
+            )
+        );
+
+    if(!sourceColumn){
+        return "";
+    }
+
+    const value =
+        Array.isArray(row)
+            ? row[columns.indexOf(sourceColumn)]
+            : row[sourceColumn];
+
+    return valueString(value);
+
+}
+
+
+function renderSearchTab(apgRows,version){
+
+    if(version !== renderVersion){
+        return;
+    }
+
+    tableArea.style.overflow = "auto";
+    tableArea.innerHTML = "";
+
+    const apgTab =
+        tabsConfig.find(tab => tab.id === "apg");
+
+    const apgColumns =
+        getColumns(apgTab,apgRows);
+
+    const idColumn =
+        apgColumns.find(column => {
+        const normalized = normalizeColumnName(column);
+        return normalized === "proactiveid" ||
+                normalized.includes("proactive") &&
+                normalized.includes("id");
+        });
+
+    const titles = [
+        "Item ID",
+        "Item Name",
+        "Generic",
+        "Strength",
+        "Is UPP Scope",
+        "THIQA",
+        "BASIC",
+        "Markup",
+        "Daman Coverage"
+    ];
+
+    const lookupColumns = [
+        null,
+        ["itemname","productname","medicinename","proactivename"],
+        ["generic","genericname"],
+        ["strength"],
+        ["isuppscope","uppscope"],
+        ["thiqa"],
+        ["basic"],
+        ["markup"],
+        ["damancoverage"]
+    ];
+
+    const widths = [150,210,190,110,125,90,90,100,145];
+
+    const stack =
+        document.createElement("div");
+
+    stack.className = "search-tab-stack";
+
+    const tableWrap =
+        document.createElement("div");
+
+    tableWrap.className = "search-table-wrap";
+
+    const table =
+        document.createElement("table");
+
+    table.className = "search-entry-table";
+
+    const colgroup =
+        document.createElement("colgroup");
+
+    widths.forEach(width => {
+        const col = document.createElement("col");
+        col.style.width = width + "px";
+        colgroup.appendChild(col);
+    });
+
+    table.appendChild(colgroup);
+
+    const thead =
+        document.createElement("thead");
+
+    const titleRow =
+        document.createElement("tr");
+
+    const titleCell =
+        document.createElement("th");
+
+    titleCell.colSpan = titles.length;
+    titleCell.className = "search-entry-title";
+    titleCell.textContent = "Search in APG Formulary";
+    titleRow.appendChild(titleCell);
+    thead.appendChild(titleRow);
+
+    const headingRow =
+        document.createElement("tr");
+
+    headingRow.className = "search-entry-headings";
+
+    titles.forEach((title,index) => {
+        const th = document.createElement("th");
+        th.textContent = title;
+
+        if(index === 0){
+            const guidance = document.createElement("span");
+            guidance.className = "search-entry-guidance";
+            guidance.textContent =
+                "Enter the Proactive ID from the APG Formulary tab. Other fields fill automatically.";
+            th.appendChild(guidance);
+        }
+
+        headingRow.appendChild(th);
+    });
+
+    thead.appendChild(headingRow);
+    table.appendChild(thead);
+
+    const tbody =
+        document.createElement("tbody");
+
+    const entryRow =
+        document.createElement("tr");
+
+    entryRow.className = "search-entry-row";
+
+    const itemIdCell =
+        document.createElement("td");
+
+    const itemIdInput =
+        document.createElement("input");
+
+    itemIdInput.className = "search-item-id-input";
+    itemIdInput.type = "text";
+    itemIdInput.autocomplete = "off";
+    itemIdInput.placeholder = "Enter Item ID";
+    itemIdInput.setAttribute("aria-label","Item ID");
+    itemIdCell.appendChild(itemIdInput);
+    entryRow.appendChild(itemIdCell);
+
+    const outputCells = [];
+
+    for(let index=1; index<titles.length; index++){
+        const td = document.createElement("td");
+        const output = document.createElement("span");
+        output.className = "search-entry-value";
+        td.appendChild(output);
+        entryRow.appendChild(td);
+        outputCells.push(output);
+    }
+
+    tbody.appendChild(entryRow);
+    table.appendChild(tbody);
+    tableWrap.appendChild(table);
+    stack.appendChild(tableWrap);
+    tableArea.appendChild(stack);
+
+    recordNumber.textContent = "APG lookup";
+
+    itemIdInput.addEventListener("input",() => {
+
+        const searchId =
+            itemIdInput.value.trim().toLowerCase();
+
+        const match = searchId && idColumn
+            ? apgRows.find(row =>
+                getSearchSourceValue(
+                    row,
+                    apgColumns,
+                    [normalizeColumnName(idColumn)]
+                ).trim().toLowerCase() === searchId
+            )
+            : null;
+
+        outputCells.forEach((output,index) => {
+            output.textContent = match
+                ? getSearchSourceValue(
+                    match,
+                    apgColumns,
+                    lookupColumns[index + 1]
+                )
+                : "";
+        });
+
+    });
+
+}
+
+
+/* =========================================================
    RENDER TABLE
 ========================================================= */
 
@@ -7237,6 +7556,50 @@ async function openTab(id){
         ++renderVersion;
 
 
+    if(id === "search"){
+
+        const apgTab =
+            tabsConfig.find(item => item.id === "apg");
+
+        showLoading("APG Formulary lookup");
+        recordNumber.textContent = "Loading";
+
+        try{
+
+            const apgRows = dataCache.has("__TAB__apg")
+                ? dataCache.get("__TAB__apg")
+                : await loadTab(apgTab);
+
+            if(version !== renderVersion){
+                return;
+            }
+
+            apgTab.rows = apgRows;
+            renderSearchTab(apgRows,version);
+            return;
+
+        }
+        catch(error){
+
+            if(version !== renderVersion){
+                return;
+            }
+
+            tableArea.innerHTML = `
+                <div class="error">
+                    <strong>Could not load APG Formulary data</strong>
+                    <br><br>
+                    ${error.message}
+                </div>
+            `;
+            recordNumber.textContent = "Error";
+            return;
+
+        }
+
+    }
+
+
     /*
        REFILL IS A CUSTOM CALCULATOR.
 
@@ -7389,6 +7752,7 @@ async function scheduleBackgroundPreload(){
     const pending =
         tabsConfig.filter(
             tab =>
+                tab.id !== "search" &&
                 !dataCache.has(
                     "__TAB__" + tab.id
                 )
