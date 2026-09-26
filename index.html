@@ -602,11 +602,15 @@ input{
     hyphens:auto;
 }
 
-.data-table td.apg-haad-code{
+.data-table td.nowrap-code-column{
     white-space:nowrap;
     overflow-wrap:normal;
     word-break:normal;
     hyphens:none;
+}
+
+.data-table th.nowrap-code-column .header-label{
+    white-space:nowrap;
 }
 
 .data-table tbody tr:nth-child(even) td{
@@ -639,9 +643,9 @@ input{
 }
 
 .data-table.haad-table col.generic-name-column{
-    width:125px !important;
-    min-width:125px !important;
-    max-width:125px !important;
+    width:230px !important;
+    min-width:230px !important;
+    max-width:230px !important;
 }
 
 
@@ -3633,6 +3637,84 @@ function ppiSpecialtyMatches(value){
    INTELLIGENT COLUMN WIDTHS
 ========================================================= */
 
+function isNoWrapCodeColumn(tab,column){
+
+    const lower =
+        normalizeColumnName(column);
+
+    return (
+        tab.id === "apg" &&
+        lower.includes("haad") &&
+        lower.includes("code")
+    ) || (
+        tab.id === "haad" &&
+        lower.includes("drug") &&
+        lower.includes("code")
+    ) || (
+        tab.id === "fmc" &&
+        lower.includes("drug") &&
+        lower.includes("code")
+    );
+
+}
+
+
+function calculateNoWrapColumnWidth(
+    column,
+    rows,
+    columnIndex
+){
+
+    const canvas =
+        document.createElement("canvas");
+
+    const context =
+        canvas.getContext("2d");
+
+    if(context){
+        context.font =
+            '11px Inter, "Segoe UI", Roboto, Arial, sans-serif';
+    }
+
+    let maxContentWidth = 0;
+
+    for(const row of rows){
+
+        const value =
+            valueString(
+                Array.isArray(row)
+                    ? row[columnIndex]
+                    : row[column]
+            ).replace(/\s+/g," ").trim();
+
+        const measuredWidth =
+            context
+                ? context.measureText(value).width
+                : value.length * 7;
+
+        maxContentWidth =
+            Math.max(
+                maxContentWidth,
+                measuredWidth
+            );
+
+    }
+
+    const headerWidth =
+        context
+            ? context.measureText(String(column)).width + 36
+            : String(column).length * 7 + 36;
+
+    return Math.ceil(
+        Math.max(
+            110,
+            maxContentWidth + 18,
+            headerWidth
+        )
+    );
+
+}
+
 function calculateWidths(
     tab,
     rows,
@@ -3655,61 +3737,29 @@ function calculateWidths(
 
 
         if(
-            tab.id === "apg" &&
-            lower.includes("haad") &&
-            lower.includes("code")
+            isNoWrapCodeColumn(tab,column)
         ){
 
-            const canvas =
-                document.createElement("canvas");
-
-            const context =
-                canvas.getContext("2d");
-
-            if(context){
-                context.font =
-                    '11px Inter, "Segoe UI", Roboto, Arial, sans-serif';
-            }
-
-            let maxContentWidth = 0;
             const columnIndex = columns.indexOf(column);
-
-            for(const row of rows){
-
-                const value =
-                    valueString(
-                        Array.isArray(row)
-                            ? row[columnIndex]
-                            : row[column]
-                    ).replace(/\s+/g," ").trim();
-
-                const measuredWidth =
-                    context
-                        ? context.measureText(value).width
-                        : value.length * 7;
-
-                maxContentWidth =
-                    Math.max(
-                        maxContentWidth,
-                        measuredWidth
-                    );
-
-            }
-
-            const headerWidth =
-                context
-                    ? context.measureText(String(column)).width + 36
-                    : String(column).length * 7 + 36;
-
             widths.push(
-                Math.ceil(
-                    Math.max(
-                        110,
-                        maxContentWidth + 18,
-                        headerWidth
-                    )
+                calculateNoWrapColumnWidth(
+                    column,
+                    rows,
+                    columnIndex
                 )
             );
+
+            continue;
+
+        }
+
+
+        if(
+            tab.id === "apg" &&
+            isGenericNameColumn(column)
+        ){
+
+            widths.push(230);
 
             continue;
 
@@ -3748,7 +3798,20 @@ function calculateWidths(
             isGenericNameColumn(column)
         ){
 
-            widths.push(125);
+            widths.push(230);
+
+            continue;
+
+        }
+
+
+        if(
+            tab.id === "haad" &&
+            lower.includes("package") &&
+            lower.includes("name")
+        ){
+
+            widths.push(230);
 
             continue;
         }
@@ -3940,12 +4003,8 @@ function createHeader(
         const th =
             document.createElement("th");
 
-        if(
-            tab.id === "apg" &&
-            normalizeColumnName(column).includes("haad") &&
-            normalizeColumnName(column).includes("code")
-        ){
-            th.classList.add("apg-haad-code");
+        if(isNoWrapCodeColumn(tab,column)){
+            th.classList.add("nowrap-code-column");
         }
 
 
@@ -4121,12 +4180,8 @@ function renderVirtualTable(
 
             }
 
-            if(
-                tab.id === "apg" &&
-                normalizeColumnName(column).includes("haad") &&
-                normalizeColumnName(column).includes("code")
-            ){
-                col.classList.add("apg-haad-code");
+            if(isNoWrapCodeColumn(tab,column)){
+                col.classList.add("nowrap-code-column");
             }
 
 
@@ -4536,12 +4591,8 @@ function renderVirtualTable(
                 const td =
                     document.createElement("td");
 
-                if(
-                    tab.id === "apg" &&
-                    normalizeColumnName(column).includes("haad") &&
-                    normalizeColumnName(column).includes("code")
-                ){
-                    td.classList.add("apg-haad-code");
+                if(isNoWrapCodeColumn(tab,column)){
+                    td.classList.add("nowrap-code-column");
                 }
 
 
