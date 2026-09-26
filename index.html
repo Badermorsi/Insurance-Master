@@ -7446,9 +7446,9 @@ function renderSearchTab(apgRows,haadRows,version){
         title:"Search in HAAD List",
         titles:[
             "HAAD Code","Item Name","Generic","Strength",
-            "Is UPP Scope","THIQA","BASIC","Markup","Daman Coverage"
+            "Is UPP Scope","THIQA","BASIC","Markup"
         ],
-        widths,
+        widths:widths.slice(0,8),
         guidance:"Enter the HAAD Code manually. Other fields fill from the HAAD List. Is UPP Scope, THIQA, and BASIC show green for Yes and red for No.",
         rows:haadRows,
         columns:haadColumns,
@@ -7458,11 +7458,16 @@ function renderSearchTab(apgRows,haadRows,version){
             ["itemname","productname","medicinename","brandname","drugname","tradename","description"],
             ["generic","genericname"],
             ["strength"],
-            ["isuppscope","uppscope"],
-            ["thiqa"],
-            ["basic"],
-            ["markup"],
-            ["damancoverage"]
+            ["uppscope","isuppscope"],
+            [
+                "includedinthiqaabmotherthan17drugformulary",
+                "thiqa"
+            ],
+            [
+                "includedinbasicdrugformulary",
+                "basic"
+            ],
+            ["packagemarkup","markup"]
         ],
         yesNoOutputIndexes:[3,4,5]
     });
