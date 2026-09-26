@@ -7192,12 +7192,17 @@ function getSearchSourceValue(
     candidates
 ){
 
-    const sourceColumn =
-        columns.find(column =>
-            candidates.includes(
-                normalizeColumnName(column)
-            )
+    let sourceColumn = null;
+
+    for(const candidate of candidates){
+        sourceColumn = columns.find(column =>
+            normalizeColumnName(column) === candidate
         );
+
+        if(sourceColumn){
+            break;
+        }
+    }
 
     if(!sourceColumn){
         return "";
@@ -7455,7 +7460,7 @@ function renderSearchTab(apgRows,haadRows,version){
         idColumn:haadCodeColumn,
         inputPlaceholder:"Enter HAAD Code",
         lookupColumns:[
-            ["itemname","productname","medicinename","brandname","drugname","tradename","description"],
+            ["packagename"],
             ["generic","genericname"],
             ["strength"],
             ["uppscope","isuppscope"],
@@ -7467,7 +7472,7 @@ function renderSearchTab(apgRows,haadRows,version){
                 "includedinbasicdrugformulary",
                 "basic"
             ],
-            ["packagemarkup","markup"]
+            ["packagemarkup"]
         ],
         yesNoOutputIndexes:[3,4,5]
     });
