@@ -132,7 +132,7 @@ input{
     height:34px;
     width:36px;
     flex:0 0 auto;
-    margin-left:12px;
+    margin-right:11px;
 
     display:flex;
     align-items:center;
@@ -140,10 +140,12 @@ input{
     position:relative;
     z-index:220;
 
-    border:1px solid transparent;
+    border:1px solid #d8e0e5;
     border-radius:9px;
 
-    background:transparent;
+    background:#ffffff;
+
+    box-shadow:0 2px 5px rgba(28,57,67,.06);
 
     transition:
         width .2s ease,
@@ -2150,10 +2152,6 @@ thead .freeze-right-2{
 
 <div class="brand-bar">
 
-    <div class="brand-name">
-        Insurance All List
-    </div>
-
     <div id="tabSearch" class="tab-search">
         <input
             id="tabSearchInput"
@@ -2178,6 +2176,10 @@ thead .freeze-right-2{
             </svg>
         </button>
         <div id="tabSearchResults" class="tab-search-results" role="listbox" hidden></div>
+    </div>
+
+    <div class="brand-name">
+        Insurance All List
     </div>
 
 </div>
