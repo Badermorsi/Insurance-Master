@@ -602,6 +602,13 @@ input{
     hyphens:auto;
 }
 
+.data-table td.apg-haad-code{
+    white-space:nowrap;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+}
+
 .data-table tbody tr:nth-child(even) td{
     background:#fbfcfd;
 }
@@ -3649,6 +3656,81 @@ function calculateWidths(
 
         if(
             tab.id === "apg" &&
+            lower.includes("haad") &&
+            lower.includes("code")
+        ){
+
+            const canvas =
+                document.createElement("canvas");
+
+            const context =
+                canvas.getContext("2d");
+
+            if(context){
+                context.font =
+                    '11px Inter, "Segoe UI", Roboto, Arial, sans-serif';
+            }
+
+            let maxContentWidth = 0;
+            const columnIndex = columns.indexOf(column);
+
+            for(const row of rows){
+
+                const value =
+                    valueString(
+                        Array.isArray(row)
+                            ? row[columnIndex]
+                            : row[column]
+                    ).replace(/\s+/g," ").trim();
+
+                const measuredWidth =
+                    context
+                        ? context.measureText(value).width
+                        : value.length * 7;
+
+                maxContentWidth =
+                    Math.max(
+                        maxContentWidth,
+                        measuredWidth
+                    );
+
+            }
+
+            const headerWidth =
+                context
+                    ? context.measureText(String(column)).width + 36
+                    : String(column).length * 7 + 36;
+
+            widths.push(
+                Math.ceil(
+                    Math.max(
+                        110,
+                        maxContentWidth + 18,
+                        headerWidth
+                    )
+                )
+            );
+
+            continue;
+
+        }
+
+
+        if(
+            tab.id === "apg" &&
+            lower.includes("proactive") &&
+            lower.includes("name")
+        ){
+
+            widths.push(230);
+
+            continue;
+
+        }
+
+
+        if(
+            tab.id === "apg" &&
             (
                 lower === "thiqa" ||
                 lower === "basic"
@@ -3855,8 +3937,16 @@ function createHeader(
     columns.forEach(
         (column,index) => {
 
-            const th =
-                document.createElement("th");
+        const th =
+            document.createElement("th");
+
+        if(
+            tab.id === "apg" &&
+            normalizeColumnName(column).includes("haad") &&
+            normalizeColumnName(column).includes("code")
+        ){
+            th.classList.add("apg-haad-code");
+        }
 
 
             th.style.width =
@@ -4029,6 +4119,14 @@ function renderVirtualTable(
                 col.className =
                     "generic-name-column";
 
+            }
+
+            if(
+                tab.id === "apg" &&
+                normalizeColumnName(column).includes("haad") &&
+                normalizeColumnName(column).includes("code")
+            ){
+                col.classList.add("apg-haad-code");
             }
 
 
@@ -4437,6 +4535,14 @@ function renderVirtualTable(
 
                 const td =
                     document.createElement("td");
+
+                if(
+                    tab.id === "apg" &&
+                    normalizeColumnName(column).includes("haad") &&
+                    normalizeColumnName(column).includes("code")
+                ){
+                    td.classList.add("apg-haad-code");
+                }
 
 
                 const value =
