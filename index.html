@@ -388,6 +388,104 @@ input{
     overflow-wrap:anywhere;
 }
 
+.hcpcs-cap-layout{
+    display:grid;
+    grid-template-columns:minmax(590px,1.35fr) minmax(360px,1fr);
+    gap:14px;
+    min-width:980px;
+    padding:16px;
+    align-items:start;
+}
+
+.hcpcs-cap-pane{
+    min-width:0;
+    overflow:hidden;
+    border:1px solid #d7e1e5;
+    border-radius:10px;
+    background:#ffffff;
+    box-shadow:0 3px 12px rgba(32,58,68,.06);
+}
+
+.hcpcs-cap-table{
+    width:100%;
+    table-layout:fixed;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:11px;
+}
+
+.hcpcs-cap-table th,
+.hcpcs-cap-table td{
+    padding:7px 6px;
+    border-right:1px solid #e1e8eb;
+    border-bottom:1px solid #e1e8eb;
+    text-align:center;
+    vertical-align:middle;
+    line-height:15px;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+}
+
+.hcpcs-cap-table th:last-child,
+.hcpcs-cap-table td:last-child{
+    border-right:0;
+}
+
+.hcpcs-cap-table tbody tr:last-child td{
+    border-bottom:0;
+}
+
+.hcpcs-cap-title{
+    height:40px;
+    padding:8px !important;
+    background:#12697a;
+    color:#ffffff;
+    font-size:13px;
+    font-weight:750;
+}
+
+.hcpcs-cap-heading{
+    height:42px;
+    background:#eaf1f3;
+    color:#263a44;
+    font-weight:750;
+}
+
+.hcpcs-cap-heading-content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+}
+
+.hcpcs-cap-filter{
+    flex:0 0 19px;
+    width:19px;
+    height:19px;
+    padding:0;
+    border:1px solid #c6d1d6;
+    border-radius:4px;
+    background:#ffffff;
+    color:#65757e;
+    font-size:8px;
+    cursor:pointer;
+}
+
+.hcpcs-cap-filter:hover,
+.hcpcs-cap-filter.active{
+    background:#12697a;
+    color:#ffffff;
+    border-color:#12697a;
+}
+
+.hcpcs-cap-table tbody tr:nth-child(even) td{
+    background:#fbfcfd;
+}
+
+.hcpcs-cap-table tbody tr:hover td{
+    background:#eef7f8;
+}
+
 .tabs-grid{
     width:100%;
 
@@ -2680,6 +2778,8 @@ let filterColumn = null;
 
 let filterMode = "normal";
 
+let filterContext = null;
+
 let temporarySelection = new Set();
 
 let filterAllValues = [];
@@ -2687,6 +2787,8 @@ let filterAllValues = [];
 const dataCache = new Map();
 
 const filters = new Map();
+
+const customTableFilters = new Map();
 
 const columnsCache = new Map();
 
@@ -7571,6 +7673,236 @@ function renderSearchTab(apgRows,haadRows,version){
 
 
 /* =========================================================
+   APG HCPCS CAP SPLIT TABLES
+========================================================= */
+
+function getApgCapCellValue(row,column,columns){
+
+    if(!column){
+        return "";
+    }
+
+    if(Array.isArray(row)){
+        return valueString(
+            row[columns.indexOf(column)]
+        );
+    }
+
+    return valueString(row && row[column]);
+
+}
+
+
+function getApgCapVisibleRows(rows,columns,filterKey){
+
+    const state =
+        customTableFilters.get(filterKey);
+
+    if(!state || state.size === 0){
+        return rows;
+    }
+
+    return rows.filter(row => {
+        for(const [column,selected] of state){
+            const value =
+                getApgCapCellValue(row,column,columns);
+
+            if(!selected.has(value)){
+                return false;
+            }
+        }
+
+        return true;
+    });
+
+}
+
+
+function appendApgCapPane(
+    layout,
+    tab,
+    rows,
+    columns,
+    config
+){
+
+    const pane =
+        document.createElement("div");
+
+    pane.className = "hcpcs-cap-pane";
+
+    const table =
+        document.createElement("table");
+
+    table.className = "hcpcs-cap-table";
+
+    const tableColumns =
+        config.indices.map(index => columns[index] || null);
+
+    const colgroup =
+        document.createElement("colgroup");
+
+    config.widths.forEach(width => {
+        const col = document.createElement("col");
+        col.style.width = width;
+        colgroup.appendChild(col);
+    });
+
+    table.appendChild(colgroup);
+
+    const thead =
+        document.createElement("thead");
+
+    const titleRow =
+        document.createElement("tr");
+
+    const title =
+        document.createElement("th");
+
+    title.colSpan = config.labels.length;
+    title.className = "hcpcs-cap-title";
+    title.textContent = config.title;
+    titleRow.appendChild(title);
+    thead.appendChild(titleRow);
+
+    const headerRow =
+        document.createElement("tr");
+
+    config.labels.forEach((label,index) => {
+        const th = document.createElement("th");
+        th.className = "hcpcs-cap-heading";
+
+        const content = document.createElement("div");
+        content.className = "hcpcs-cap-heading-content";
+
+        const labelText = document.createElement("span");
+        labelText.textContent = label;
+        content.appendChild(labelText);
+
+        const sourceColumn = tableColumns[index];
+        const filterButton = document.createElement("button");
+        filterButton.type = "button";
+        filterButton.className = "hcpcs-cap-filter";
+        filterButton.textContent = "▼";
+        filterButton.title = label
+            ? "Filter " + label
+            : "Filter blank heading column";
+
+        const state =
+            customTableFilters.get(config.key);
+
+        if(state && state.has(sourceColumn)){
+            filterButton.classList.add("active");
+        }
+
+        filterButton.addEventListener("click",event => {
+            event.stopPropagation();
+
+            openFilter(
+                sourceColumn,
+                filterButton,
+                {
+                    key:config.key,
+                    rows,
+                    columns,
+                    onApply:() =>
+                        renderApgHcpcsCap(tab,rows)
+                }
+            );
+        });
+
+        content.appendChild(filterButton);
+        th.appendChild(content);
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    const tbody =
+        document.createElement("tbody");
+
+    const visibleRows =
+        getApgCapVisibleRows(
+            rows,
+            columns,
+            config.key
+        );
+
+    visibleRows.forEach(row => {
+        const tr = document.createElement("tr");
+
+        tableColumns.forEach(column => {
+            const td = document.createElement("td");
+            td.textContent = getApgCapCellValue(row,column,columns);
+            tr.appendChild(td);
+        });
+
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(tbody);
+    pane.appendChild(table);
+    layout.appendChild(pane);
+
+}
+
+
+function renderApgHcpcsCap(tab,rows){
+
+    tableArea.style.overflow = "auto";
+    tableArea.innerHTML = "";
+
+    if(!customTableFilters.has("apg-hcpcs-left")){
+        customTableFilters.set("apg-hcpcs-left",new Map());
+    }
+
+    if(!customTableFilters.has("apg-hcpcs-right")){
+        customTableFilters.set("apg-hcpcs-right",new Map());
+    }
+
+    const columns = getColumns(tab,rows);
+
+    const layout =
+        document.createElement("div");
+
+    layout.className = "hcpcs-cap-layout";
+
+    appendApgCapPane(
+        layout,
+        tab,
+        rows,
+        columns,
+        {
+            key:"apg-hcpcs-left",
+            title:"APG HCPC items with Cap price",
+            indices:[0,1,2,3,4],
+            labels:["Item Code","Item Name","Unit Price","HCPC Code","Cap Price"],
+            widths:["18%","28%","15%","19%","20%"]
+        }
+    );
+
+    appendApgCapPane(
+        layout,
+        tab,
+        rows,
+        columns,
+        {
+            key:"apg-hcpcs-right",
+            title:"HCPC codes with Cap price",
+            indices:[6,7,8],
+            labels:["Code","","Price (AED)"],
+            widths:["36%","24%","40%"]
+        }
+    );
+
+    tableArea.appendChild(layout);
+    recordNumber.textContent = rows.length.toLocaleString();
+
+}
+
+
+/* =========================================================
    RENDER TABLE
 ========================================================= */
 
@@ -7583,6 +7915,18 @@ function renderTable(
         version !== renderVersion
     ){
         return;
+    }
+
+
+    if(tab.id === "apg-hcpcs"){
+
+        renderApgHcpcsCap(
+            tab,
+            tab.rows || []
+        );
+
+        return;
+
     }
 
 
@@ -8004,7 +8348,8 @@ async function scheduleBackgroundPreload(){
 
 function openFilter(
     column,
-    button
+    button,
+    context = null
 ){
 
     if(!currentTab){
@@ -8013,7 +8358,11 @@ function openFilter(
 
 
     filterMode =
-        "normal";
+        context
+            ? "custom-table"
+            : "normal";
+
+    filterContext = context;
 
 
     filterColumn =
@@ -8024,7 +8373,20 @@ function openFilter(
         new Set();
 
 
-    if(
+    if(context){
+
+        for(const row of context.rows){
+            values.add(
+                getApgCapCellValue(
+                    row,
+                    column,
+                    context.columns
+                )
+            );
+        }
+
+    }
+    else if(
         currentTab.id === "eligibility" &&
         column === "Eligibility Portal"
     ){
@@ -8109,10 +8471,9 @@ function openFilter(
     );
 
 
-    const state =
-        filters.get(
-            currentTab.id
-        );
+    const state = context
+        ? customTableFilters.get(context.key)
+        : filters.get(currentTab.id);
 
 
     const existing =
@@ -8549,6 +8910,36 @@ document
             }
 
 
+            if(filterMode === "custom-table"){
+
+                if(!filterContext || filterColumn === null){
+                    return;
+                }
+
+                const state =
+                    customTableFilters.get(filterContext.key);
+
+                if(
+                    temporarySelection.size ===
+                    filterAllValues.length
+                ){
+                    state.delete(filterColumn);
+                }
+                else{
+                    state.set(
+                        filterColumn,
+                        new Set(temporarySelection)
+                    );
+                }
+
+                const context = filterContext;
+                closeFilter();
+                context.onApply();
+                return;
+
+            }
+
+
             if(
                 !currentTab ||
                 filterColumn === null
@@ -8624,6 +9015,9 @@ function closeFilter(){
     filterMode =
         "normal";
 
+    filterContext =
+        null;
+
     ppiSpecialtyFilterOpen =
         false;
 
@@ -8649,6 +9043,10 @@ document
                 currentTab.id,
                 new Map()
             );
+
+            if(currentTab.id === "apg-hcpcs"){
+                customTableFilters.clear();
+            }
 
 
             if(
