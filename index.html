@@ -513,6 +513,14 @@
     letter-spacing:.15px;
 }
 
+.rx-instruction-green{
+    color:#247342;
+}
+
+.rx-instruction-purple{
+    color:#684a9a;
+}
+
 .rx-validity-table{
     width:100%;
     table-layout:fixed;
@@ -7804,25 +7812,42 @@ function renderRxValidity(){
 
     instructions.className = "rx-validity-instructions";
     instructions.innerHTML =
-        "ENTER THE PRESCRIPTION DATE IN THE GREEN FIELD<br>" +
-        "THE PURPLE FIELD WILL SHOW THE LAST DATE TO FILL THE PRESCRIPTION";
+        '<span class="rx-instruction-green">ENTER THE PRESCRIPTION DATE IN THE GREEN FIELD</span><br>' +
+        '<span class="rx-instruction-purple">THE PURPLE FIELD WILL SHOW THE LAST DATE TO FILL THE PRESCRIPTION</span>';
 
     const table =
         document.createElement("table");
 
     table.className = "rx-validity-table";
 
-    const tbody =
-        document.createElement("tbody");
+    const thead =
+        document.createElement("thead");
 
-    const prescriptionRow =
+    const headingRow =
         document.createElement("tr");
 
     const prescriptionHeading =
         document.createElement("th");
 
-    prescriptionHeading.scope = "row";
-    prescriptionHeading.textContent = "Prescription Date";
+    prescriptionHeading.scope = "col";
+    prescriptionHeading.textContent = "Prescription date";
+
+    const lastDateHeading =
+        document.createElement("th");
+
+    lastDateHeading.scope = "col";
+    lastDateHeading.textContent = "Last date to fill Rx";
+
+    headingRow.appendChild(prescriptionHeading);
+    headingRow.appendChild(lastDateHeading);
+    thead.appendChild(headingRow);
+    table.appendChild(thead);
+
+    const tbody =
+        document.createElement("tbody");
+
+    const valuesRow =
+        document.createElement("tr");
 
     const prescriptionCell =
         document.createElement("td");
@@ -7845,18 +7870,7 @@ function renderRxValidity(){
 
     prescriptionCell.appendChild(dateInput);
     prescriptionCell.appendChild(dateError);
-    prescriptionRow.appendChild(prescriptionHeading);
-    prescriptionRow.appendChild(prescriptionCell);
-    tbody.appendChild(prescriptionRow);
-
-    const lastDateRow =
-        document.createElement("tr");
-
-    const lastDateHeading =
-        document.createElement("th");
-
-    lastDateHeading.scope = "row";
-    lastDateHeading.textContent = "Last date to fill Rx";
+    valuesRow.appendChild(prescriptionCell);
 
     const lastDateCell =
         document.createElement("td");
@@ -7867,9 +7881,8 @@ function renderRxValidity(){
     lastDateOutput.className = "rx-date-output";
     lastDateOutput.setAttribute("aria-label","Last date to fill prescription");
     lastDateCell.appendChild(lastDateOutput);
-    lastDateRow.appendChild(lastDateHeading);
-    lastDateRow.appendChild(lastDateCell);
-    tbody.appendChild(lastDateRow);
+    valuesRow.appendChild(lastDateCell);
+    tbody.appendChild(valuesRow);
 
     table.appendChild(tbody);
     card.appendChild(instructions);
@@ -7888,17 +7901,22 @@ function renderRxValidity(){
             return;
         }
 
-        const match = rawDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+        const match = rawDate.match(/^(\d{1,2})[\/-](\d{1,2})[\/-](\d{2}|\d{4})$/);
 
         if(!match){
             lastDateOutput.textContent = "";
-            dateError.textContent = "Enter a valid date as DD/MM/YYYY.";
+            dateError.textContent = "Enter a valid date as D/M/YY or DD/MM/YYYY.";
             return;
         }
 
         const day = Number(match[1]);
         const month = Number(match[2]);
-        const year = Number(match[3]);
+        let year = Number(match[3]);
+
+        if(year < 100){
+            year += year < 50 ? 2000 : 1900;
+        }
+
         const date = new Date(Date.UTC(year,month - 1,day));
 
         if(
@@ -7907,9 +7925,17 @@ function renderRxValidity(){
             date.getUTCDate() !== day
         ){
             lastDateOutput.textContent = "";
-            dateError.textContent = "Enter a valid date as DD/MM/YYYY.";
+            dateError.textContent = "Enter a valid date as D/M/YY or DD/MM/YYYY.";
             return;
         }
+
+        const normalizedPrescriptionDate = [
+            String(day).padStart(2,"0"),
+            String(month).padStart(2,"0"),
+            String(year).padStart(4,"0")
+        ].join("/");
+
+        dateInput.value = normalizedPrescriptionDate;
 
         date.setUTCDate(date.getUTCDate() + 59);
 
