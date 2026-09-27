@@ -390,16 +390,16 @@ input{
 
 .hcpcs-cap-layout{
     display:grid;
-    grid-template-columns:minmax(590px,1.35fr) minmax(360px,1fr);
+    grid-template-columns:minmax(450px,.85fr) minmax(500px,1.35fr);
     gap:14px;
-    min-width:980px;
+    min-width:1000px;
     padding:16px;
     align-items:start;
 }
 
 .hcpcs-cap-pane{
     min-width:0;
-    overflow:hidden;
+    overflow:auto;
     border:1px solid #d7e1e5;
     border-radius:10px;
     background:#ffffff;
@@ -476,6 +476,14 @@ input{
     background:#12697a;
     color:#ffffff;
     border-color:#12697a;
+}
+
+.hcpcs-cap-table th.hcpcs-cap-no-wrap .hcpcs-cap-heading-content,
+.hcpcs-cap-table th.hcpcs-cap-no-wrap .hcpcs-cap-heading-content span,
+.hcpcs-cap-table td.hcpcs-cap-no-wrap{
+    white-space:nowrap;
+    overflow-wrap:normal;
+    word-break:normal;
 }
 
 .hcpcs-cap-table tbody tr:nth-child(even) td{
@@ -3883,7 +3891,9 @@ function isNoWrapCodeColumn(tab,column){
 function calculateNoWrapColumnWidth(
     column,
     rows,
-    columnIndex
+    columnIndex,
+    displayLabel = String(column),
+    minimumWidth = 110
 ){
 
     const canvas =
@@ -3923,12 +3933,12 @@ function calculateNoWrapColumnWidth(
 
     const headerWidth =
         context
-            ? context.measureText(String(column)).width + 36
-            : String(column).length * 7 + 36;
+            ? context.measureText(displayLabel).width + 36
+            : displayLabel.length * 7 + 36;
 
     return Math.ceil(
         Math.max(
-            110,
+            minimumWidth,
             maxContentWidth + 18,
             headerWidth
         )
@@ -7744,7 +7754,10 @@ function appendApgCapPane(
 
     config.widths.forEach(width => {
         const col = document.createElement("col");
-        col.style.width = width;
+        col.style.width =
+            typeof width === "number"
+                ? width + "px"
+                : width;
         colgroup.appendChild(col);
     });
 
@@ -7771,6 +7784,10 @@ function appendApgCapPane(
     config.labels.forEach((label,index) => {
         const th = document.createElement("th");
         th.className = "hcpcs-cap-heading";
+
+        if(config.nowrapIndices.includes(index)){
+            th.classList.add("hcpcs-cap-no-wrap");
+        }
 
         const content = document.createElement("div");
         content.className = "hcpcs-cap-heading-content";
@@ -7806,7 +7823,10 @@ function appendApgCapPane(
                     rows,
                     columns,
                     onApply:() =>
-                        renderApgHcpcsCap(tab,rows)
+                        renderApgHcpcsCap(
+                            tab,
+                            config.sourceRows
+                        )
                 }
             );
         });
@@ -7832,9 +7852,14 @@ function appendApgCapPane(
     visibleRows.forEach(row => {
         const tr = document.createElement("tr");
 
-        tableColumns.forEach(column => {
+        tableColumns.forEach((column,cellIndex) => {
             const td = document.createElement("td");
             td.textContent = getApgCapCellValue(row,column,columns);
+
+            if(config.nowrapIndices.includes(cellIndex)){
+                td.classList.add("hcpcs-cap-no-wrap");
+            }
+
             tr.appendChild(td);
         });
 
@@ -7863,6 +7888,52 @@ function renderApgHcpcsCap(tab,rows){
 
     const columns = getColumns(tab,rows);
 
+    const displayRows =
+        rows.filter((row,index) => index !== 2);
+
+    const hcpcCodeColumn =
+        columns[6] || null;
+
+    const l3702Index =
+        displayRows.findIndex(row =>
+            getApgCapCellValue(
+                row,
+                hcpcCodeColumn,
+                columns
+            ).trim().toUpperCase() === "L3702"
+        );
+
+    const rightTableRows =
+        l3702Index >= 0
+            ? displayRows.slice(0,l3702Index + 1)
+            : displayRows.slice(0,215);
+
+    const firstTableWidths = [
+        calculateNoWrapColumnWidth(
+            columns[0],displayRows,0,"Item Code",52
+        ),
+        220,
+        calculateNoWrapColumnWidth(
+            columns[2],displayRows,2,"Unit Price",52
+        ),
+        calculateNoWrapColumnWidth(
+            columns[3],displayRows,3,"HCPC Code",52
+        ),
+        calculateNoWrapColumnWidth(
+            columns[4],displayRows,4,"Cap Price",52
+        )
+    ];
+
+    const secondTableWidths = [
+        calculateNoWrapColumnWidth(
+            columns[6],displayRows,6,"Code",52
+        ),
+        110,
+        calculateNoWrapColumnWidth(
+            columns[8],displayRows,8,"Price (AED)",58
+        )
+    ];
+
     const layout =
         document.createElement("div");
 
@@ -7871,33 +7942,37 @@ function renderApgHcpcsCap(tab,rows){
     appendApgCapPane(
         layout,
         tab,
-        rows,
-        columns,
+            displayRows,
+            columns,
         {
             key:"apg-hcpcs-left",
+            sourceRows:rows,
             title:"APG HCPC items with Cap price",
             indices:[0,1,2,3,4],
             labels:["Item Code","Item Name","Unit Price","HCPC Code","Cap Price"],
-            widths:["18%","28%","15%","19%","20%"]
+            widths:firstTableWidths,
+            nowrapIndices:[0,2,3,4]
         }
     );
 
     appendApgCapPane(
         layout,
         tab,
-        rows,
-        columns,
+            rightTableRows,
+            columns,
         {
             key:"apg-hcpcs-right",
+            sourceRows:rows,
             title:"HCPC codes with Cap price",
             indices:[6,7,8],
             labels:["Code","","Price (AED)"],
-            widths:["36%","24%","40%"]
+            widths:secondTableWidths,
+            nowrapIndices:[0,2]
         }
     );
 
     tableArea.appendChild(layout);
-    recordNumber.textContent = rows.length.toLocaleString();
+    recordNumber.textContent = displayRows.length.toLocaleString();
 
 }
 
