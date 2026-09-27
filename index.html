@@ -7199,6 +7199,17 @@ function getSearchSourceValue(
             normalizeColumnName(column) === candidate
         );
 
+        if(
+            !sourceColumn &&
+            row &&
+            typeof row === "object" &&
+            !Array.isArray(row)
+        ){
+            sourceColumn = Object.keys(row).find(key =>
+                normalizeColumnName(key) === candidate
+            );
+        }
+
         if(sourceColumn){
             break;
         }
