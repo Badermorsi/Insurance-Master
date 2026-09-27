@@ -7924,15 +7924,15 @@
           )
       ];
 
-      const secondTableWidths = [
-          calculateNoWrapColumnWidth(
-              columns[6],displayRows,6,"Code",52
-          ),
-          110,
-          calculateNoWrapColumnWidth(
-              columns[8],displayRows,8,"Price (AED)",58
-          )
-      ];
+    const secondTableWidths = [
+        calculateNoWrapColumnWidth(
+            columns[6],rightTableRows,6,"Code",52
+        ),
+        "auto",
+        calculateNoWrapColumnWidth(
+            columns[8],rightTableRows,8,"Price (AED)",58
+        )
+    ];
 
       const layout =
           document.createElement("div");
