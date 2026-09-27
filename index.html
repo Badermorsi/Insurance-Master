@@ -490,9 +490,112 @@
       background:#fbfcfd;
   }
 
-  .hcpcs-cap-table tbody tr:hover td{
-      background:#eef7f8;
-  }
+.hcpcs-cap-table tbody tr:hover td{
+    background:#eef7f8;
+}
+
+.rx-validity-card{
+    width:min(760px,calc(100% - 36px));
+    margin:28px auto;
+    padding:22px;
+    border:1px solid #d7e1e5;
+    border-radius:12px;
+    background:#ffffff;
+    box-shadow:0 5px 18px rgba(32,58,68,.08);
+}
+
+.rx-validity-instructions{
+    margin:0 0 18px;
+    color:#334952;
+    font-size:13px;
+    font-weight:750;
+    line-height:1.8;
+    letter-spacing:.15px;
+}
+
+.rx-validity-table{
+    width:100%;
+    table-layout:fixed;
+    border-collapse:separate;
+    border-spacing:0;
+    border:1px solid #d7e1e5;
+    border-radius:9px;
+    overflow:hidden;
+}
+
+.rx-validity-table th,
+.rx-validity-table td{
+    width:50%;
+    padding:14px;
+    border-right:1px solid #dfe7ea;
+    border-bottom:1px solid #dfe7ea;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.rx-validity-table tr:last-child th,
+.rx-validity-table tr:last-child td{
+    border-bottom:0;
+}
+
+.rx-validity-table th:last-child,
+.rx-validity-table td:last-child{
+    border-right:0;
+}
+
+.rx-validity-table th{
+    background:#f1f5f6;
+    color:#31434c;
+    font-size:12px;
+    font-weight:750;
+}
+
+.rx-date-input{
+    width:min(100%,280px);
+    height:42px;
+    padding:0 12px;
+    border:1px solid #8fc6a2;
+    border-radius:8px;
+    outline:none;
+    background:#e2f4e8;
+    color:#245a37;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:750;
+    text-align:center;
+}
+
+.rx-date-input:focus{
+    border-color:#439b61;
+    box-shadow:0 0 0 3px rgba(67,155,97,.15);
+}
+
+.rx-date-input::placeholder{
+    color:#6d9a7a;
+    font-weight:600;
+}
+
+.rx-date-output{
+    width:min(100%,280px);
+    min-height:42px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 12px;
+    border:1px solid #bea9e2;
+    border-radius:8px;
+    background:#eee6fb;
+    color:#563d84;
+    font-size:15px;
+    font-weight:800;
+}
+
+.rx-date-error{
+    margin-top:7px;
+    color:#a43d3d;
+    font-size:10px;
+    font-weight:650;
+}
 
   .tabs-grid{
       width:100%;
@@ -2730,10 +2833,10 @@
           files:["Eligibility Portals.json"]
       },
 
-      {
-          id:"rx",
-          name:"Rx Validity",
-          files:["Rx Validity.json"]
+    {
+        id:"rx",
+        name:"Rx Validity",
+        files:[]
       },
 
       {
@@ -7682,9 +7785,151 @@
   }
 
 
-  /* =========================================================
-     APG HCPCS CAP SPLIT TABLES
-  ========================================================= */
+/* =========================================================
+   RX VALIDITY CALCULATOR
+========================================================= */
+
+function renderRxValidity(){
+
+    tableArea.style.overflow = "auto";
+    tableArea.innerHTML = "";
+
+    const card =
+        document.createElement("section");
+
+    card.className = "rx-validity-card";
+
+    const instructions =
+        document.createElement("p");
+
+    instructions.className = "rx-validity-instructions";
+    instructions.innerHTML =
+        "ENTER THE PRESCRIPTION DATE IN THE GREEN FIELD<br>" +
+        "THE PURPLE FIELD WILL SHOW THE LAST DATE TO FILL THE PRESCRIPTION";
+
+    const table =
+        document.createElement("table");
+
+    table.className = "rx-validity-table";
+
+    const tbody =
+        document.createElement("tbody");
+
+    const prescriptionRow =
+        document.createElement("tr");
+
+    const prescriptionHeading =
+        document.createElement("th");
+
+    prescriptionHeading.scope = "row";
+    prescriptionHeading.textContent = "Prescription Date";
+
+    const prescriptionCell =
+        document.createElement("td");
+
+    const dateInput =
+        document.createElement("input");
+
+    dateInput.className = "rx-date-input";
+    dateInput.type = "text";
+    dateInput.inputMode = "numeric";
+    dateInput.autocomplete = "off";
+    dateInput.placeholder = "DD/MM/YYYY";
+    dateInput.setAttribute("aria-label","Prescription Date, DD/MM/YYYY");
+
+    const dateError =
+        document.createElement("div");
+
+    dateError.className = "rx-date-error";
+    dateError.setAttribute("aria-live","polite");
+
+    prescriptionCell.appendChild(dateInput);
+    prescriptionCell.appendChild(dateError);
+    prescriptionRow.appendChild(prescriptionHeading);
+    prescriptionRow.appendChild(prescriptionCell);
+    tbody.appendChild(prescriptionRow);
+
+    const lastDateRow =
+        document.createElement("tr");
+
+    const lastDateHeading =
+        document.createElement("th");
+
+    lastDateHeading.scope = "row";
+    lastDateHeading.textContent = "Last date to fill Rx";
+
+    const lastDateCell =
+        document.createElement("td");
+
+    const lastDateOutput =
+        document.createElement("output");
+
+    lastDateOutput.className = "rx-date-output";
+    lastDateOutput.setAttribute("aria-label","Last date to fill prescription");
+    lastDateCell.appendChild(lastDateOutput);
+    lastDateRow.appendChild(lastDateHeading);
+    lastDateRow.appendChild(lastDateCell);
+    tbody.appendChild(lastDateRow);
+
+    table.appendChild(tbody);
+    card.appendChild(instructions);
+    card.appendChild(table);
+    tableArea.appendChild(card);
+
+    recordNumber.textContent = "Calculator";
+
+    dateInput.addEventListener("input",() => {
+
+        const rawDate = dateInput.value.trim();
+
+        if(!rawDate){
+            lastDateOutput.textContent = "";
+            dateError.textContent = "";
+            return;
+        }
+
+        const match = rawDate.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+        if(!match){
+            lastDateOutput.textContent = "";
+            dateError.textContent = "Enter a valid date as DD/MM/YYYY.";
+            return;
+        }
+
+        const day = Number(match[1]);
+        const month = Number(match[2]);
+        const year = Number(match[3]);
+        const date = new Date(Date.UTC(year,month - 1,day));
+
+        if(
+            date.getUTCFullYear() !== year ||
+            date.getUTCMonth() !== month - 1 ||
+            date.getUTCDate() !== day
+        ){
+            lastDateOutput.textContent = "";
+            dateError.textContent = "Enter a valid date as DD/MM/YYYY.";
+            return;
+        }
+
+        date.setUTCDate(date.getUTCDate() + 59);
+
+        const formatted = [
+            String(date.getUTCDate()).padStart(2,"0"),
+            String(date.getUTCMonth() + 1).padStart(2,"0"),
+            String(date.getUTCFullYear()).padStart(4,"0")
+        ].join("/");
+
+        lastDateOutput.textContent = formatted;
+        dateError.textContent = "";
+
+    });
+
+}
+
+
+/* =========================================================
+   APG HCPCS CAP SPLIT TABLES
+========================================================= */
 
   function getApgCapCellValue(row,column,columns){
 
@@ -7993,16 +8238,25 @@
       }
 
 
-      if(tab.id === "apg-hcpcs"){
+    if(tab.id === "apg-hcpcs"){
 
           renderApgHcpcsCap(
               tab,
               tab.rows || []
           );
 
-          return;
+        return;
 
-      }
+    }
+
+
+    if(tab.id === "rx"){
+
+        renderRxValidity();
+
+        return;
+
+    }
 
 
       /*
@@ -8144,8 +8398,20 @@
       }
 
 
-      const version =
-          ++renderVersion;
+    const version =
+        ++renderVersion;
+
+
+    if(id === "rx"){
+
+        renderTable(
+            tab,
+            version
+        );
+
+        return;
+
+    }
 
 
       if(id === "search"){
@@ -8352,9 +8618,10 @@
 
       const pending =
           tabsConfig.filter(
-              tab =>
-                  tab.id !== "search" &&
-                  !dataCache.has(
+            tab =>
+                tab.id !== "search" &&
+                tab.id !== "rx" &&
+                !dataCache.has(
                       "__TAB__" + tab.id
                   )
           );
