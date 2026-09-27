@@ -763,9 +763,9 @@ input{
 }
 
 .data-table.adnic-table col.generic-name-column{
-    width:280px !important;
-    min-width:280px !important;
-    max-width:280px !important;
+    width:320px !important;
+    min-width:320px !important;
+    max-width:320px !important;
 }
 
 
@@ -3771,11 +3771,7 @@ function isNoWrapCodeColumn(tab,column){
         (
             lower.includes("drug") &&
             lower.includes("code") ||
-            lower === "ddc" ||
-            lower.includes("dosage") &&
-            lower.includes("form") ||
-            lower.includes("package") &&
-            lower.includes("size")
+            lower.includes("ddc")
         )
     );
 
@@ -3962,7 +3958,7 @@ function calculateWidths(
             isGenericNameColumn(column)
         ){
 
-            widths.push(280);
+            widths.push(320);
 
             continue;
         }
@@ -3974,7 +3970,7 @@ function calculateWidths(
             lower.includes("name")
         ){
 
-            widths.push(230);
+            widths.push(270);
 
             continue;
         }
