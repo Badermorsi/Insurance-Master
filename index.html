@@ -4208,11 +4208,17 @@ function createHeader(
             label.className =
                 "header-label";
 
+            const displayColumn =
+                tab.id === "vitamins" &&
+                normalizeColumnName(column) === "itemname"
+                    ? "Item Name"
+                    : column;
+
             label.textContent =
-                column;
+                displayColumn;
 
             label.title =
-                column;
+                displayColumn;
 
 
             const filter =
