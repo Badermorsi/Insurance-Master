@@ -4051,12 +4051,38 @@ function yesNoClass(
     value
 ){
 
+    const lower =
+        normalizeColumnName(column);
+
+    if(
+        tab.id === "vitamins" &&
+        (
+            lower.includes("enhanced") ||
+            lower.includes("thiqa")
+        )
+    ){
+
+        const normalizedValue =
+            value.trim().toLowerCase();
+
+        if(!normalizedValue){
+            return "";
+        }
+
+        if(
+            normalizedValue.includes("nci") ||
+            normalizedValue.includes("not covered")
+        ){
+            return "apg-no";
+        }
+
+        return "apg-yes";
+
+    }
+
     if(tab.id !== "apg"){
         return "";
     }
-
-    const lower =
-        normalizeColumnName(column);
 
     if(
         lower !== "thiqa" &&
