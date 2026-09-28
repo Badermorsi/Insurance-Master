@@ -4004,6 +4004,8 @@
               lower.includes("item") &&
               lower.includes("code") ||
               lower === "retail" ||
+              lower.includes("item") &&
+              lower.includes("name") ||
               lower.includes("maximum") &&
               lower.includes("daily") &&
               lower.includes("dose")
@@ -4101,7 +4103,9 @@
                     calculateNoWrapColumnWidth(
                         column,
                         rows,
-                        columnIndex
+                        columnIndex,
+                        String(column),
+                        tab.id === "cdc" && lower === "retail" ? 78 : 110
                     )
                 );
 
@@ -4171,7 +4175,7 @@
                 isGenericNameColumn(column)
             ){
 
-                widths.push(230);
+                widths.push(250);
 
                 continue;
 
