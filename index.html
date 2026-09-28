@@ -3994,6 +3994,10 @@
               lower.includes("code") ||
               lower.includes("ddc")
           )
+      ) || (
+          tab.id === "aafiya" &&
+          lower.includes("doh") &&
+          lower.includes("code")
       );
 
   }
@@ -4184,6 +4188,23 @@
               widths.push(320);
 
               continue;
+          }
+
+
+          if(
+              tab.id === "aafiya" &&
+              (
+                  lower === "ihavesource" ||
+                  lower === "source1" ||
+                  lower === "source" ||
+                  lower === "gtccode"
+              )
+          ){
+
+              widths.push(100);
+
+              continue;
+
           }
 
 
