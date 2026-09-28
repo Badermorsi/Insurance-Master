@@ -3546,9 +3546,35 @@
       ========================================================= */
 
       function getDisplayRows(tab,rows = tab.rows || []){
-          return tab.id === "ddf"
-              ? rows.slice(1)
-              : rows;
+          if(tab.id !== "ddf" || rows.length === 0){
+              return rows;
+          }
+
+          const firstRow = rows[0];
+
+          if(
+              !firstRow ||
+              typeof firstRow !== "object" ||
+              Array.isArray(firstRow)
+          ){
+              return rows.slice(1);
+          }
+
+          const sourceColumns = Object.keys(firstRow);
+          const displayColumns = sourceColumns.map(sourceColumn => {
+              const heading = valueString(firstRow[sourceColumn]).trim();
+              return heading || sourceColumn;
+          });
+
+          return rows.slice(1).map(row => {
+              const displayRow = {};
+
+              sourceColumns.forEach((sourceColumn,index) => {
+                  displayRow[displayColumns[index]] = row?.[sourceColumn];
+              });
+
+              return displayRow;
+          });
       }
 
       function getColumns(tab,rows){
