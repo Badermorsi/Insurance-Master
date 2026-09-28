@@ -3994,11 +3994,21 @@
                 lower.includes("code") ||
                 lower.includes("ddc")
             )
-        ) || (
-            tab.id === "aafiya" &&
-            lower.includes("doh") &&
-            lower.includes("code")
-        );
+      ) || (
+          tab.id === "aafiya" &&
+          lower.includes("doh") &&
+          lower.includes("code")
+      ) || (
+          tab.id === "cdc" &&
+          (
+              lower.includes("item") &&
+              lower.includes("code") ||
+              lower === "retail" ||
+              lower.includes("maximum") &&
+              lower.includes("daily") &&
+              lower.includes("dose")
+          )
+      );
 
     }
 
@@ -4191,8 +4201,8 @@
             }
 
 
-            if(
-                tab.id === "aafiya" &&
+          if(
+              tab.id === "aafiya" &&
                 (
                     lower === "ihavesource" ||
                     lower === "source1" ||
@@ -4203,9 +4213,21 @@
 
                 widths.push(100);
 
-                continue;
+              continue;
 
-            }
+          }
+
+
+          if(
+              tab.id === "cdc" &&
+              lower.includes("remarks")
+          ){
+
+              widths.push(240);
+
+              continue;
+
+          }
 
 
             if(
