@@ -4108,6 +4108,10 @@
                 lower.includes("dose")
             )
         ) || (
+            tab.id === "ddf" &&
+            lower.includes("drug") &&
+            lower.includes("code")
+        ) || (
             tab.id === "denial" &&
             lower !== "description" &&
             !isDenialDescriptionColumn(column)
@@ -4223,6 +4227,8 @@
                           String(column),
                         tab.id === "denial"
                             ? 60
+                            : tab.id === "ddf"
+                                ? 60
                             : tab.id === "cdc" && lower === "retail"
                                 ? 80
                                 : 110,
