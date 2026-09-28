@@ -996,9 +996,9 @@
       }
 
       .data-table.denial-table col.denial-description-column{
-          width:165px !important;
-          min-width:165px !important;
-          max-width:165px !important;
+          width:350px !important;
+          min-width:350px !important;
+          max-width:350px !important;
       }
 
 
@@ -4075,6 +4075,15 @@
                 lower.includes("daily") &&
                 lower.includes("dose")
             )
+        ) || (
+            tab.id === "denial" &&
+            (
+                lower === "code" ||
+                lower === "status" ||
+                lower === "type" ||
+                lower.startsWith("effective") ||
+                lower.startsWith("expired")
+            )
         );
 
       }
@@ -4329,10 +4338,22 @@
 
               if(
                   tab.id === "denial" &&
+                  lower === "description"
+              ){
+
+                  widths.push(220);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "denial" &&
                   isDenialDescriptionColumn(column)
               ){
 
-                  widths.push(165);
+                  widths.push(350);
 
                   continue;
               }
