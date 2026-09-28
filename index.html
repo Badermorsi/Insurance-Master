@@ -3545,6 +3545,12 @@
          GET COLUMNS
       ========================================================= */
 
+      function getDisplayRows(tab,rows = tab.rows || []){
+          return tab.id === "ddf"
+              ? rows.slice(1)
+              : rows;
+      }
+
       function getColumns(tab,rows){
 
           if(
@@ -8710,7 +8716,7 @@
 
 
           const rows =
-              tab.rows || [];
+              getDisplayRows(tab);
 
 
           /*
@@ -9214,7 +9220,7 @@
 
 
               for(
-                  const row of currentTab.rows
+                  const row of getDisplayRows(currentTab)
               ){
 
                   values.add(
