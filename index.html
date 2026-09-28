@@ -5185,6 +5185,72 @@
                       td.textContent =
                           value;
 
+                      if(
+                          tab.id === "contacts" &&
+                          /pre-approval follow up and concerns/i.test(value) &&
+                          /mohamed\.badr@nextcarehealth\.com/i.test(value)
+                      ){
+                          td.textContent =
+                              "Pre-Approval follow up and concerns :\n" +
+                              "Dr. Mohamed Badr, email:\n" +
+                              "Mohamed.Badr@nextcarehealth.com\n" +
+                              "+971 4 2708860, +971 55 194 9411";
+
+                          td.style.whiteSpace = "pre-line";
+                      }
+
+                      if(
+                          tab.id === "contacts" &&
+                          /pbmrefill@damanhealth\.ae/i.test(value) &&
+                          /pbmtechnicalqueries@damanhealth\.ae/i.test(value)
+                      ){
+                          td.textContent =
+                              "PBMRefill@damanhealth.ae\n" +
+                              "( in case too frequent only)\n" +
+                              "PBMtechnicalqueries@damanhealth.ae\n" +
+                              "(in case partial Qty approved)";
+
+                          td.style.whiteSpace = "pre-line";
+                      }
+
+                      if(
+                          tab.id === "contacts" &&
+                          /escalation\s*1/i.test(value) &&
+                          /islam\.zakaria@nextcarehealth\.com/i.test(value)
+                      ){
+                          td.textContent =
+                              "Escalation 1: Dr. Islam M. Zakaria, email:\n" +
+                              "mailto: Islam.Zakaria@nextcarehealth.com\n" +
+                              "+971 4 270 8880 , +971-55-9808098";
+
+                          td.style.whiteSpace = "pre-line";
+                      }
+
+                      if(
+                          tab.id === "contacts" &&
+                          /escalation\s*1/i.test(value) &&
+                          /majeed\.abusafiah@nextcarehealth\.com/i.test(value)
+                      ){
+                          td.textContent =
+                              "Escalation 1: Dr. Abdel Majeed Abu Safieh, " +
+                              "Majeed.Abusafiah@nextcarehealth.com,\n" +
+                              "+971 4 2708150, +971-55-1383811";
+
+                          td.style.whiteSpace = "pre-line";
+                      }
+
+                      if(
+                          tab.id === "contacts" &&
+                          /for cancellation\s*:/i.test(value) &&
+                          /send fax to 026149777 or 024184222/i.test(value)
+                      ){
+                          td.textContent =
+                              "For cancellation :\n" +
+                              "Send Fax to 026149777 or 024184222";
+
+                          td.style.whiteSpace = "pre-line";
+                      }
+
                       if(merge){
                           td.rowSpan = merge.end - merge.start;
                       }
