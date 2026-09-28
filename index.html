@@ -996,9 +996,9 @@
       }
 
       .data-table.denial-table col.denial-description-column{
-          width:350px !important;
-          min-width:350px !important;
-          max-width:350px !important;
+          width:480px !important;
+          min-width:480px !important;
+          max-width:480px !important;
       }
 
 
@@ -4077,13 +4077,8 @@
             )
         ) || (
             tab.id === "denial" &&
-            (
-                lower === "code" ||
-                lower === "status" ||
-                lower === "type" ||
-                lower.startsWith("effective") ||
-                lower.startsWith("expired")
-            )
+            lower !== "description" &&
+            !isDenialDescriptionColumn(column)
         );
 
       }
@@ -4194,7 +4189,11 @@
                           rows,
                           columnIndex,
                           String(column),
-                          tab.id === "cdc" && lower === "retail" ? 80 : 110,
+                        tab.id === "denial"
+                            ? 60
+                            : tab.id === "cdc" && lower === "retail"
+                                ? 80
+                                : 110,
                           18
                       )
                   );
@@ -4341,7 +4340,7 @@
                   lower === "description"
               ){
 
-                  widths.push(220);
+                  widths.push(280);
 
                   continue;
 
@@ -4353,7 +4352,7 @@
                   isDenialDescriptionColumn(column)
               ){
 
-                  widths.push(350);
+                  widths.push(480);
 
                   continue;
               }
