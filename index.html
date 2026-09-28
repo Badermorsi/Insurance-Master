@@ -2913,6 +2913,28 @@
 
       const widthCache = new Map();
 
+      const contactsOriginalRowIndexes = new WeakMap();
+
+      const contactsColumnBMerges = [
+          {start:0,end:3},
+          {start:3,end:5},
+          {start:5,end:8},
+          {start:8,end:10},
+          {start:12,end:15},
+          {start:18,end:21},
+          {start:21,end:24},
+          {start:25,end:27},
+          {start:27,end:32},
+          {start:32,end:37},
+          {start:37,end:42},
+          {start:42,end:44},
+          {start:46,end:48},
+          {start:50,end:52},
+          {start:54,end:56},
+          {start:56,end:58},
+          {start:62,end:64}
+      ];
+
 
       /*
          PPI SPECIALTY FILTER STATE
@@ -3865,6 +3887,51 @@
           }
 
           const result = [];
+
+          if(currentTab.id === "contacts"){
+              const columns = getColumns(currentTab,rows);
+              const bColumn = columns[1];
+              const selectedB = state.get(bColumn);
+
+              if(selectedB){
+                  const included = new Set();
+
+                  for(let i=0;i<rows.length;i++){
+                      if(!matchesFilters(rows[i])){
+                          continue;
+                      }
+
+                      included.add(i);
+
+                      const mergeGroup = contactsColumnBMerges.find(group =>
+                          i >= group.start && i < group.end
+                      );
+
+                      if(mergeGroup){
+                          for(
+                              let member=mergeGroup.start;
+                              member<Math.min(mergeGroup.end,rows.length);
+                              member++
+                          ){
+                              included.add(member);
+                          }
+                      }
+                  }
+
+                  for(let i=0;i<rows.length;i++){
+                      if(included.has(i)){
+                          const row = rows[i];
+                          result.push(row);
+
+                          if(row && typeof row === "object"){
+                              contactsOriginalRowIndexes.set(row,i);
+                          }
+                      }
+                  }
+
+                  return result;
+              }
+          }
 
           for(
               let i=0;
@@ -5089,9 +5156,32 @@
 
               if(contactMerges.length){
                   for(const merge of contactMerges){
-                      if(start < merge.end && end > merge.start){
-                          start = Math.min(start,merge.start);
-                          end = Math.max(end,merge.end);
+                      let visibleMergeStart = -1;
+                      let visibleMergeEnd = -1;
+
+                      for(let index=0;index<rows.length;index++){
+                          const originalIndex =
+                              contactsOriginalRowIndexes.get(rows[index]) ?? index;
+
+                          if(
+                              originalIndex >= merge.start &&
+                              originalIndex < merge.end
+                          ){
+                              if(visibleMergeStart < 0){
+                                  visibleMergeStart = index;
+                              }
+
+                              visibleMergeEnd = index + 1;
+                          }
+                      }
+
+                      if(
+                          visibleMergeStart >= 0 &&
+                          start < visibleMergeEnd &&
+                          end > visibleMergeStart
+                      ){
+                          start = Math.min(start,visibleMergeStart);
+                          end = Math.max(end,visibleMergeEnd);
                       }
                   }
 
@@ -5137,6 +5227,9 @@
                   const row =
                       rows[i];
 
+                  const originalRowIndex =
+                      contactsOriginalRowIndexes.get(row) ?? i;
+
 
                   const tr =
                       document.createElement("tr");
@@ -5154,12 +5247,36 @@
 
                       const merge = contactMerges.find(item =>
                           item.column === c &&
-                          i >= item.start &&
-                          i < item.end
+                          originalRowIndex >= item.start &&
+                          originalRowIndex < item.end
                       );
 
-                      if(merge && i > merge.start){
-                          continue;
+                      let visibleMergeStart = i;
+                      let visibleMergeCount = 1;
+
+                      if(merge){
+                          visibleMergeStart = -1;
+                          visibleMergeCount = 0;
+
+                          for(let index=0;index<rows.length;index++){
+                              const sourceIndex =
+                                  contactsOriginalRowIndexes.get(rows[index]) ?? index;
+
+                              if(
+                                  sourceIndex >= merge.start &&
+                                  sourceIndex < merge.end
+                              ){
+                                  if(visibleMergeStart < 0){
+                                      visibleMergeStart = index;
+                                  }
+
+                                  visibleMergeCount++;
+                              }
+                          }
+
+                          if(i !== visibleMergeStart){
+                              continue;
+                          }
                       }
 
                       const column =
@@ -5176,9 +5293,17 @@
 
                       const value =
                           valueString(
-                              Array.isArray(row)
-                                  ? row[c]
-                                  : row[column]
+                              merge && tab.id === "contacts"
+                                  ? (
+                                      Array.isArray(currentTab.rows?.[merge.start])
+                                          ? currentTab.rows[merge.start][c]
+                                          : currentTab.rows?.[merge.start]?.[column]
+                                  )
+                                  : (
+                                      Array.isArray(row)
+                                          ? row[c]
+                                          : row[column]
+                                  )
                           );
 
 
@@ -5251,15 +5376,29 @@
                           td.style.whiteSpace = "pre-line";
                       }
 
+                      if(
+                          tab.id === "contacts" &&
+                          /payment follow up and reconciliation/i.test(value) &&
+                          /archie\.camiling@nextcarehealth\.com/i.test(value)
+                      ){
+                          td.textContent =
+                              "Payment follow up and Reconciliation :\n" +
+                              "Archie Camiling, email:\n" +
+                              "Archie.Camiling@nextcarehealth.com,\n" +
+                              "+971 4 2708143";
+
+                          td.style.whiteSpace = "pre-line";
+                      }
+
                       if(merge){
-                          td.rowSpan = merge.end - merge.start;
+                          td.rowSpan = visibleMergeCount;
                       }
 
                       if(tab.id === "contacts" && c === 1){
                           td.style.fontWeight = "700";
                       }
 
-                      if(tab.id === "contacts" && i === 1 && c === 2){
+                      if(tab.id === "contacts" && originalRowIndex === 1 && c === 2){
                           td.style.fontWeight = "700";
                       }
 
