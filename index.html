@@ -964,9 +964,9 @@
     }
 
     .data-table.haad-table col.generic-name-column{
-        width:310px !important;
-        min-width:310px !important;
-        max-width:310px !important;
+        width:330px !important;
+        min-width:330px !important;
+        max-width:330px !important;
     }
 
 
@@ -4004,8 +4004,6 @@
               lower.includes("item") &&
               lower.includes("code") ||
               lower === "retail" ||
-              lower.includes("item") &&
-              lower.includes("name") ||
               lower.includes("maximum") &&
               lower.includes("daily") &&
               lower.includes("dose")
@@ -4106,8 +4104,8 @@
                         rows,
                         columnIndex,
                         String(column),
-                        tab.id === "cdc" && (lower === "retail" || (lower.includes("item") && lower.includes("name"))) ? 80 : 110,
-                        tab.id === "cdc" && lower.includes("item") && lower.includes("name") ? 14 : 18
+                        tab.id === "cdc" && lower === "retail" ? 80 : 110,
+                        18
                     )
                 );
 
@@ -4177,7 +4175,7 @@
                 isGenericNameColumn(column)
             ){
 
-                widths.push(310);
+                widths.push(330);
 
                 continue;
 
