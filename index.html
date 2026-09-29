@@ -4112,6 +4112,9 @@
             lower.includes("drug") &&
             lower.includes("code")
         ) || (
+            tab.id === "dha-shifa" &&
+            lower.includes("code")
+        ) || (
             tab.id === "denial" &&
             lower !== "description" &&
             !isDenialDescriptionColumn(column)
@@ -4229,12 +4232,26 @@
                             ? 60
                             : tab.id === "ddf"
                                 ? 60
+                            : tab.id === "dha-shifa"
+                                ? 60
                             : tab.id === "cdc" && lower === "retail"
                                 ? 80
                                 : 110,
                           18
                       )
                   );
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "dha-shifa" &&
+                  isGenericNameColumn(column)
+              ){
+
+                  widths.push(220);
 
                   continue;
 
@@ -4332,9 +4349,9 @@
               }
 
 
-            if(
-                tab.id === "aafiya" &&
-                  (
+          if(
+              tab.id === "aafiya" &&
+                (
                       lower === "ihavesource" ||
                       lower === "source1" ||
                       lower === "source" ||
@@ -4344,9 +4361,21 @@
 
                   widths.push(100);
 
-                continue;
+              continue;
 
-            }
+          }
+
+
+          if(
+              tab.id === "dha-shifa" &&
+              (lower === "source" || lower === "source1")
+          ){
+
+              widths.push(80);
+
+              continue;
+
+          }
 
 
             if(
