@@ -4760,6 +4760,120 @@
       }
 
 
+      function renderDubaiPolicyTable(tab,rows,version){
+
+          if(version !== renderVersion){
+              return;
+          }
+
+          const sourceColumns = getColumns(tab,rows);
+          const columns = sourceColumns.slice(2,5);
+          const labels = [
+              "Insurance Company",
+              "Dubai",
+              "Northern Emirates"
+          ];
+          const visibleRows = getVisibleRows(rows);
+          const widths = calculateWidths(tab,rows,columns);
+
+          tableArea.style.overflow = "auto";
+          tableArea.innerHTML = "";
+
+          const table = document.createElement("table");
+          table.className = "data-table";
+
+          const colgroup = document.createElement("colgroup");
+          widths.forEach(width => {
+              const col = document.createElement("col");
+              col.style.width = width + "px";
+              col.style.minWidth = width + "px";
+              col.style.maxWidth = width + "px";
+              colgroup.appendChild(col);
+          });
+          table.appendChild(colgroup);
+
+          const thead = document.createElement("thead");
+          const groupHeader = document.createElement("tr");
+          const emptyHeader = document.createElement("th");
+          emptyHeader.textContent = "";
+          groupHeader.appendChild(emptyHeader);
+
+          const groupTitle = document.createElement("th");
+          groupTitle.colSpan = 2;
+          groupTitle.textContent = "Policy Regulatory";
+          groupTitle.style.textAlign = "center";
+          groupHeader.appendChild(groupTitle);
+          thead.appendChild(groupHeader);
+
+          const headings = document.createElement("tr");
+          columns.forEach((column,index) => {
+              const th = document.createElement("th");
+              th.style.width = widths[index] + "px";
+              th.style.minWidth = widths[index] + "px";
+              th.style.maxWidth = widths[index] + "px";
+
+              const content = document.createElement("div");
+              content.className = "header-content";
+
+              const label = document.createElement("span");
+              label.className = "header-label";
+              label.textContent = labels[index];
+              content.appendChild(label);
+
+              const filter = document.createElement("button");
+              filter.className = "filter-button";
+              filter.type = "button";
+              filter.textContent = "▼";
+              filter.title = "Filter " + labels[index];
+
+              const state = filters.get(tab.id);
+              if(state && state.has(column)){
+                  filter.classList.add("active");
+              }
+
+              filter.addEventListener("click",event => {
+                  event.stopPropagation();
+                  openFilter(column,filter);
+              });
+
+              content.appendChild(filter);
+              th.appendChild(content);
+              headings.appendChild(th);
+          });
+          thead.appendChild(headings);
+          table.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+          visibleRows.forEach(row => {
+              const tr = document.createElement("tr");
+
+              columns.forEach(column => {
+                  const td = document.createElement("td");
+                  const sourceIndex = sourceColumns.indexOf(column);
+                  const value = valueString(
+                      Array.isArray(row)
+                          ? row[sourceIndex]
+                          : row?.[column]
+                  );
+                  td.textContent = value;
+
+                  const colorClass = yesNoClass(tab,column,value);
+                  if(colorClass){
+                      td.classList.add(colorClass);
+                  }
+
+                  tr.appendChild(td);
+              });
+
+              tbody.appendChild(tr);
+          });
+
+          table.appendChild(tbody);
+          tableArea.appendChild(table);
+          recordNumber.textContent = visibleRows.length.toLocaleString();
+      }
+
+
       /* =========================================================
          NORMAL VIRTUAL TABLE
       ========================================================= */
@@ -8736,11 +8850,22 @@
           version
       ){
 
-          if(
+        if(
               version !== renderVersion
           ){
               return;
           }
+
+
+        if(tab.id === "dubai"){
+            renderDubaiPolicyTable(
+                tab,
+                tab.rows || [],
+                version
+            );
+
+            return;
+        }
 
 
         if(tab.id === "apg-hcpcs"){
