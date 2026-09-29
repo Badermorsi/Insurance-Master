@@ -3546,17 +3546,6 @@
         ========================================================= */
 
       function getDisplayRows(tab,rows = tab.rows || []){
-          if(tab.id === "coverage"){
-              renderInsuranceCoverageTable(
-                  tab,
-                  tab.rows || [],
-                  version
-              );
-
-              return;
-          }
-
-
           if(tab.id === "dubai"){
               return rows.slice(2);
           }
@@ -9163,6 +9152,17 @@
             ){
                 return;
             }
+
+
+          if(tab.id === "coverage"){
+              renderInsuranceCoverageTable(
+                  tab,
+                  tab.rows || [],
+                  version
+              );
+
+              return;
+          }
 
 
           if(tab.id === "dubai"){
