@@ -4135,8 +4135,13 @@
             lower.includes("code")
         ) || (
             tab.id === "inayah" &&
-            lower.includes("generic") &&
-            lower.includes("code")
+            (
+                lower.includes("generic") &&
+                lower.includes("code") ||
+                lower.includes("new") &&
+                lower.includes("drug") &&
+                lower.includes("code")
+            )
         ) || (
             tab.id === "denial" &&
             lower !== "description" &&
@@ -4293,7 +4298,7 @@
                   lower.includes("availability")
               ){
 
-                  widths.push(100);
+                  widths.push(125);
 
                   continue;
 
@@ -4746,6 +4751,14 @@
                   document.createElement("th");
 
               if(isNoWrapCodeColumn(tab,column)){
+                  th.classList.add("nowrap-code-column");
+              }
+
+              if(
+                  tab.id === "inayah" &&
+                  normalizeColumnName(column).includes("apg") &&
+                  normalizeColumnName(column).includes("availability")
+              ){
                   th.classList.add("nowrap-code-column");
               }
 
