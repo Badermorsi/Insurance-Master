@@ -4134,6 +4134,10 @@
             tab.id === "dha-shifa" &&
             lower.includes("code")
         ) || (
+            tab.id === "inayah" &&
+            lower.includes("generic") &&
+            lower.includes("code")
+        ) || (
             tab.id === "denial" &&
             lower !== "description" &&
             !isDenialDescriptionColumn(column)
@@ -4257,12 +4261,64 @@
                                 ? 60
                             : tab.id === "dha-shifa"
                                 ? 60
+                            : tab.id === "inayah"
+                                ? 60
                             : tab.id === "cdc" && lower === "retail"
                                 ? 80
                                 : 110,
                           18
                       )
                   );
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "inayah" &&
+                  lower === "status"
+              ){
+
+                  widths.push(80);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "inayah" &&
+                  lower.includes("apg") &&
+                  lower.includes("availability")
+              ){
+
+                  widths.push(100);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "inayah" &&
+                  lower.includes("trade") &&
+                  lower.includes("name")
+              ){
+
+                  widths.push(250);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "inayah" &&
+                  isGenericNameColumn(column)
+              ){
+
+                  widths.push(250);
 
                   continue;
 
