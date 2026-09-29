@@ -3551,7 +3551,7 @@
           }
 
           if(tab.id === "coverage"){
-              return rows.slice(2);
+              return rows.slice(1);
           }
 
           if(tab.id !== "ddf" || rows.length === 0){
@@ -4918,7 +4918,7 @@
           }
 
           const sourceColumns = getColumns(tab,rows).slice(0,2);
-          const headingRow = rows[1] || {};
+          const headingRow = rows[0] || {};
           const labels = sourceColumns.map((column,index) =>
               valueString(
                   Array.isArray(headingRow)
