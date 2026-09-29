@@ -4082,15 +4082,23 @@
               tab.id === "fmc" &&
               lower.includes("drug") &&
               lower.includes("code")
-          ) || (
-              tab.id === "vitamins" &&
-              (
+        ) || (
+            tab.id === "vitamins" &&
+            (
                   lower.includes("proactive") &&
                   lower.includes("id") ||
                   lower.includes("haad") &&
                   lower.includes("code")
               )
-          ) || (
+        ) || (
+            tab.id === "eye" &&
+            (
+                lower.includes("haad") &&
+                lower.includes("code") ||
+                lower.includes("extra") &&
+                lower.includes("note")
+            )
+        ) || (
               tab.id === "adnic" &&
               (
                   lower.includes("drug") &&
@@ -4236,6 +4244,8 @@
                             ? 60
                             : tab.id === "ddf"
                                 ? 60
+                            : tab.id === "eye"
+                                ? 60
                             : tab.id === "dha-shifa"
                                 ? 60
                             : tab.id === "cdc" && lower === "retail"
@@ -4256,6 +4266,32 @@
               ){
 
                   widths.push(220);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "eye" &&
+                  lower.includes("proactive") &&
+                  lower.includes("name")
+              ){
+
+                  widths.push(300);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "eye" &&
+                  lower.includes("generic") &&
+                  lower.includes("name")
+              ){
+
+                  widths.push(280);
 
                   continue;
 
