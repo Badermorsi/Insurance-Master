@@ -4087,7 +4087,9 @@
                 lower.includes("code") ||
                 lower.includes("generic") &&
                 lower.includes("code") ||
-                lower.includes("match")
+                lower.includes("match") ||
+                lower.includes("insurance") &&
+                lower.includes("plan")
             )
         ) || (
             tab.id === "vitamins" &&
@@ -4261,7 +4263,9 @@
                             : tab.id === "ddf"
                                 ? 60
                             : tab.id === "fmc"
-                                ? 60
+                                ? lower.includes("green") && lower.includes("code")
+                                    ? 140
+                                    : 60
                             : tab.id === "eye"
                                 ? 60
                             : tab.id === "dha-shifa"
@@ -4335,7 +4339,7 @@
                   isGenericNameColumn(column)
               ){
 
-                  widths.push(280);
+                  widths.push(230);
 
                   continue;
 
@@ -4348,7 +4352,7 @@
                   lower.includes("name")
               ){
 
-                  widths.push(250);
+                  widths.push(200);
 
                   continue;
 
