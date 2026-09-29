@@ -3550,10 +3550,6 @@
               return rows.slice(2);
           }
 
-          if(tab.id === "coverage"){
-              return rows.slice(1);
-          }
-
           if(tab.id !== "ddf" || rows.length === 0){
                 return rows;
             }
@@ -4909,138 +4905,6 @@
 
             table.appendChild(thead);
         }
-
-
-      function renderInsuranceCoverageTable(tab,rows,version){
-
-          if(version !== renderVersion){
-              return;
-          }
-
-          const sourceColumns = getColumns(tab,rows).slice(0,2);
-          const headingRow = rows[0] || {};
-          const labels = sourceColumns.map((column,index) =>
-              valueString(
-                  Array.isArray(headingRow)
-                      ? headingRow[index]
-                      : headingRow?.[column]
-              ).trim()
-          );
-          const displayRows = getDisplayRows(tab,rows);
-          const visibleRows = getVisibleRows(displayRows);
-          const widths = calculateWidths(tab,displayRows,sourceColumns);
-
-          tableArea.style.overflow = "auto";
-          tableArea.innerHTML = "";
-
-          const table = document.createElement("table");
-          table.className = "data-table";
-
-          const colgroup = document.createElement("colgroup");
-          widths.forEach(width => {
-              const col = document.createElement("col");
-              col.style.width = width + "px";
-              col.style.minWidth = width + "px";
-              col.style.maxWidth = width + "px";
-              colgroup.appendChild(col);
-          });
-          table.appendChild(colgroup);
-
-          const thead = document.createElement("thead");
-          const titleRow = document.createElement("tr");
-
-          const insuranceTitle = document.createElement("th");
-          const titleContent = document.createElement("div");
-          titleContent.style.display = "flex";
-          titleContent.style.flexDirection = "column";
-          titleContent.style.alignItems = "center";
-          titleContent.style.gap = "3px";
-
-          const companyText = document.createElement("span");
-          companyText.textContent = "INS COMPANY";
-          titleContent.appendChild(companyText);
-
-          const divider = document.createElement("div");
-          divider.style.width = "100%";
-          divider.style.borderTop = "1px solid currentColor";
-          titleContent.appendChild(divider);
-
-          const branchText = document.createElement("span");
-          branchText.textContent = "BRANCH NAME";
-          titleContent.appendChild(branchText);
-          insuranceTitle.appendChild(titleContent);
-          titleRow.appendChild(insuranceTitle);
-
-          const blankTitle = document.createElement("th");
-          blankTitle.textContent = "";
-          titleRow.appendChild(blankTitle);
-          thead.appendChild(titleRow);
-
-          const columnHeadingRow = document.createElement("tr");
-          sourceColumns.forEach((column,index) => {
-              const th = document.createElement("th");
-              th.style.width = widths[index] + "px";
-              th.style.minWidth = widths[index] + "px";
-              th.style.maxWidth = widths[index] + "px";
-
-              const content = document.createElement("div");
-              content.className = "header-content";
-
-              const label = document.createElement("span");
-              label.className = "header-label";
-              label.textContent = labels[index];
-              content.appendChild(label);
-
-              const filter = document.createElement("button");
-              filter.className = "filter-button";
-              filter.type = "button";
-              filter.textContent = "▼";
-              filter.title = "Filter " + labels[index];
-
-              const state = filters.get(tab.id);
-              if(state && state.has(column)){
-                  filter.classList.add("active");
-              }
-
-              filter.addEventListener("click",event => {
-                  event.stopPropagation();
-                  openFilter(column,filter);
-              });
-
-              content.appendChild(filter);
-              th.appendChild(content);
-              columnHeadingRow.appendChild(th);
-          });
-          thead.appendChild(columnHeadingRow);
-          table.appendChild(thead);
-
-          const tbody = document.createElement("tbody");
-          visibleRows.forEach(row => {
-              const tr = document.createElement("tr");
-
-              sourceColumns.forEach(column => {
-                  const td = document.createElement("td");
-                  const value = valueString(
-                      Array.isArray(row)
-                          ? row[sourceColumns.indexOf(column)]
-                          : row?.[column]
-                  );
-                  td.textContent = value;
-
-                  if(sourceColumns.indexOf(column) === 0){
-                      td.style.fontWeight = "700";
-                  }
-
-                  tr.appendChild(td);
-              });
-
-              tbody.appendChild(tr);
-          });
-
-          table.appendChild(tbody);
-          tableArea.appendChild(table);
-          recordNumber.textContent = visibleRows.length.toLocaleString();
-      }
 
 
       function renderDubaiPolicyTable(tab,rows,version){
@@ -9153,16 +9017,6 @@
                 return;
             }
 
-
-          if(tab.id === "coverage"){
-              renderInsuranceCoverageTable(
-                  tab,
-                  tab.rows || [],
-                  version
-              );
-
-              return;
-          }
 
 
           if(tab.id === "dubai"){
