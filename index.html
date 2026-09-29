@@ -3546,6 +3546,10 @@
       ========================================================= */
 
       function getDisplayRows(tab,rows = tab.rows || []){
+          if(tab.id === "dubai"){
+              return rows.slice(2);
+          }
+
           if(tab.id !== "ddf" || rows.length === 0){
               return rows;
           }
@@ -4773,8 +4777,9 @@
               "Dubai",
               "Northern Emirates"
           ];
-          const visibleRows = getVisibleRows(rows);
-          const widths = calculateWidths(tab,rows,columns);
+          const displayRows = getDisplayRows(tab,rows);
+          const visibleRows = getVisibleRows(displayRows);
+          const widths = calculateWidths(tab,displayRows,columns);
 
           tableArea.style.overflow = "auto";
           tableArea.innerHTML = "";
@@ -4794,20 +4799,8 @@
 
           const thead = document.createElement("thead");
           const groupHeader = document.createElement("tr");
-          const emptyHeader = document.createElement("th");
-          emptyHeader.textContent = "";
-          groupHeader.appendChild(emptyHeader);
 
-          const groupTitle = document.createElement("th");
-          groupTitle.colSpan = 2;
-          groupTitle.textContent = "Policy Regulatory";
-          groupTitle.style.textAlign = "center";
-          groupHeader.appendChild(groupTitle);
-          thead.appendChild(groupHeader);
-
-          const headings = document.createElement("tr");
-          columns.forEach((column,index) => {
-              const th = document.createElement("th");
+          const appendFilterableHeading = (th,column,label,index) => {
               th.style.width = widths[index] + "px";
               th.style.minWidth = widths[index] + "px";
               th.style.maxWidth = widths[index] + "px";
@@ -4815,16 +4808,16 @@
               const content = document.createElement("div");
               content.className = "header-content";
 
-              const label = document.createElement("span");
-              label.className = "header-label";
-              label.textContent = labels[index];
-              content.appendChild(label);
+              const labelElement = document.createElement("span");
+              labelElement.className = "header-label";
+              labelElement.textContent = label;
+              content.appendChild(labelElement);
 
               const filter = document.createElement("button");
               filter.className = "filter-button";
               filter.type = "button";
               filter.textContent = "▼";
-              filter.title = "Filter " + labels[index];
+              filter.title = "Filter " + label;
 
               const state = filters.get(tab.id);
               if(state && state.has(column)){
@@ -4838,6 +4831,31 @@
 
               content.appendChild(filter);
               th.appendChild(content);
+          };
+
+          const insuranceHeader = document.createElement("th");
+          insuranceHeader.rowSpan = 2;
+          insuranceHeader.style.verticalAlign = "middle";
+          appendFilterableHeading(
+              insuranceHeader,
+              columns[0],
+              labels[0],
+              0
+          );
+          groupHeader.appendChild(insuranceHeader);
+
+          const groupTitle = document.createElement("th");
+          groupTitle.colSpan = 2;
+          groupTitle.textContent = "Policy Regulatory";
+          groupTitle.style.textAlign = "center";
+          groupHeader.appendChild(groupTitle);
+          thead.appendChild(groupHeader);
+
+          const headings = document.createElement("tr");
+          columns.slice(1).forEach((column,offset) => {
+              const index = offset + 1;
+              const th = document.createElement("th");
+              appendFilterableHeading(th,column,labels[index],index);
               headings.appendChild(th);
           });
           thead.appendChild(headings);
