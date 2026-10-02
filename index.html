@@ -4930,12 +4930,12 @@
                     label.title = displayColumn;
                     content.appendChild(label);
 
-                    if(column){
+                    if(column || (tab.id === "plans" && index === 0)){
                         const filter = document.createElement("button");
                         filter.className = "filter-button";
                         filter.type = "button";
                         filter.textContent = "▼";
-                        filter.title = "Filter " + column;
+                        filter.title = "Filter " + displayColumn;
 
                         const state = filters.get(tab.id);
                         if(state && state.has(column)){
