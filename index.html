@@ -3550,6 +3550,39 @@
               return rows.slice(2);
           }
 
+          if(tab.id === "plans" && rows.length > 0){
+              const firstRow = rows[0];
+
+              if(
+                  firstRow &&
+                  typeof firstRow === "object" &&
+                  !Array.isArray(firstRow)
+              ){
+                  const sourceColumns = Object.keys(firstRow);
+                  const displayColumns = sourceColumns.map((sourceColumn,index) => {
+                      if(
+                          index === 0 &&
+                          /^unnamed\s*:?\s*0$/i.test(sourceColumn.trim())
+                      ){
+                          return "";
+                      }
+
+                      const heading = valueString(firstRow[sourceColumn]).trim();
+                      return heading || sourceColumn;
+                  });
+
+                  return rows.slice(1).map(row => {
+                      const displayRow = {};
+
+                      sourceColumns.forEach((sourceColumn,index) => {
+                          displayRow[displayColumns[index]] = row?.[sourceColumn];
+                      });
+
+                      return displayRow;
+                  });
+              }
+          }
+
           if(tab.id !== "ddf" || rows.length === 0){
                 return rows;
             }
@@ -4844,6 +4877,85 @@
 
             const thead =
                 document.createElement("thead");
+
+            if(tab.id === "plans" && columns.length >= 5){
+                const groupRow = document.createElement("tr");
+                const columnRow = document.createElement("tr");
+
+                const blankGroup = document.createElement("th");
+                blankGroup.style.width = widths[0] + "px";
+                blankGroup.style.minWidth = widths[0] + "px";
+                blankGroup.style.maxWidth = widths[0] + "px";
+                groupRow.appendChild(blankGroup);
+
+                const receiverGroup = document.createElement("th");
+                receiverGroup.colSpan = 2;
+                receiverGroup.textContent = "RECEIVER";
+                receiverGroup.style.textAlign = "center";
+                receiverGroup.style.width = (widths[1] + widths[2]) + "px";
+                receiverGroup.style.minWidth = (widths[1] + widths[2]) + "px";
+                groupRow.appendChild(receiverGroup);
+
+                const payerGroup = document.createElement("th");
+                payerGroup.colSpan = 2;
+                payerGroup.textContent = "PAYER";
+                payerGroup.style.textAlign = "center";
+                payerGroup.style.width = (widths[3] + widths[4]) + "px";
+                payerGroup.style.minWidth = (widths[3] + widths[4]) + "px";
+                groupRow.appendChild(payerGroup);
+
+                for(let index=5;index<columns.length;index++){
+                    const extraGroup = document.createElement("th");
+                    extraGroup.style.width = widths[index] + "px";
+                    extraGroup.style.minWidth = widths[index] + "px";
+                    extraGroup.style.maxWidth = widths[index] + "px";
+                    groupRow.appendChild(extraGroup);
+                }
+
+                columns.forEach((column,index) => {
+                    const th = document.createElement("th");
+                    th.style.width = widths[index] + "px";
+                    th.style.minWidth = widths[index] + "px";
+                    th.style.maxWidth = widths[index] + "px";
+
+                    const content = document.createElement("div");
+                    content.className = "header-content";
+
+                    const label = document.createElement("span");
+                    label.className = "header-label";
+                    label.textContent = column;
+                    label.title = column;
+                    content.appendChild(label);
+
+                    if(column){
+                        const filter = document.createElement("button");
+                        filter.className = "filter-button";
+                        filter.type = "button";
+                        filter.textContent = "▼";
+                        filter.title = "Filter " + column;
+
+                        const state = filters.get(tab.id);
+                        if(state && state.has(column)){
+                            filter.classList.add("active");
+                        }
+
+                        filter.addEventListener("click",event => {
+                            event.stopPropagation();
+                            openFilter(column,filter);
+                        });
+
+                        content.appendChild(filter);
+                    }
+
+                    th.appendChild(content);
+                    columnRow.appendChild(th);
+                });
+
+                thead.appendChild(groupRow);
+                thead.appendChild(columnRow);
+                table.appendChild(thead);
+                return;
+            }
 
             const tr =
                 document.createElement("tr");
