@@ -4156,10 +4156,14 @@
                   lower.includes("daily") &&
                   lower.includes("dose")
               )
-          ) || (
-              tab.id === "ddf" &&
-              lower.includes("drug") &&
-              lower.includes("code")
+        ) || (
+            tab.id === "ddf" &&
+            (
+                lower.includes("drug") &&
+                lower.includes("code") ||
+                lower === "insuranceplan" ||
+                lower === "drugtier"
+            )
           ) || (
               tab.id === "dha-shifa" &&
               lower.includes("code")
@@ -4364,9 +4368,9 @@
                 }
 
 
-                if(
-                    tab.id === "fmc" &&
-                    isGenericNameColumn(column)
+              if(
+                  tab.id === "fmc" &&
+                  isGenericNameColumn(column)
                 ){
 
                     widths.push(230);
@@ -4386,11 +4390,50 @@
 
                     continue;
 
-                }
+              }
 
 
-                if(
-                    tab.id === "dha-shifa" &&
+              if(
+                  tab.id === "ddf" &&
+                  lower.includes("generic") &&
+                  lower.includes("name")
+              ){
+
+                  widths.push(300);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "ddf" &&
+                  lower.includes("package") &&
+                  lower.includes("name")
+              ){
+
+                  widths.push(250);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "ddf" &&
+                  lower.includes("greenrain") &&
+                  lower.includes("code")
+              ){
+
+                  widths.push(85);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "dha-shifa" &&
                     isGenericNameColumn(column)
                 ){
 
