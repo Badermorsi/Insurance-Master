@@ -338,6 +338,17 @@
             letter-spacing:.1px;
         }
 
+        .data-table th.search-entry-title{
+            height:42px;
+            padding:10px 9px;
+            background:#12697a;
+            color:#ffffff;
+            font-size:14px;
+            font-weight:750;
+            letter-spacing:.1px;
+            text-align:center;
+        }
+
         .search-entry-headings th{
             height:74px;
             background:#eaf1f3;
@@ -4890,6 +4901,7 @@
 
                 const receiverGroup = document.createElement("th");
                 receiverGroup.colSpan = 2;
+                receiverGroup.className = "search-entry-title";
                 receiverGroup.textContent = "RECEIVER";
                 receiverGroup.style.textAlign = "center";
                 receiverGroup.style.width = (widths[1] + widths[2]) + "px";
@@ -4898,6 +4910,7 @@
 
                 const payerGroup = document.createElement("th");
                 payerGroup.colSpan = 2;
+                payerGroup.className = "search-entry-title";
                 payerGroup.textContent = "PAYER";
                 payerGroup.style.textAlign = "center";
                 payerGroup.style.width = (widths[3] + widths[4]) + "px";
