@@ -5275,8 +5275,6 @@
 
             const BUFFER = 12;
 
-            const renderAllRows = tab.id === "invalid-dx";
-
             const contactMerges = tab.id === "contacts" ? [
                 {column:0,start:0,end:3},
                 {column:1,start:0,end:3},
@@ -5642,11 +5640,6 @@
                         end + BUFFER
                     );
 
-                if(renderAllRows){
-                    start = 0;
-                    end = rows.length;
-                }
-
                 if(contactMerges.length){
                     for(const merge of contactMerges){
                         let visibleMergeStart = -1;
@@ -6010,21 +6003,16 @@
             }
 
 
-            if(renderAllRows){
-                container._virtualScrollHandler = null;
-            }
-            else{
-                container._virtualScrollHandler =
-                    scheduleDraw;
+            container._virtualScrollHandler =
+                scheduleDraw;
 
-                container.addEventListener(
-                    "scroll",
-                    scheduleDraw,
-                    {
-                        passive:true
-                    }
-                );
-            }
+            container.addEventListener(
+                "scroll",
+                scheduleDraw,
+                {
+                    passive:true
+                }
+            );
 
 
             draw();
