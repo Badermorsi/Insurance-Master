@@ -4923,8 +4923,11 @@
 
                     const label = document.createElement("span");
                     label.className = "header-label";
-                    label.textContent = column;
-                    label.title = column;
+                    const displayColumn = index === 0
+                        ? "Insurance Plan [Proactive Profile]"
+                        : column;
+                    label.textContent = displayColumn;
+                    label.title = displayColumn;
                     content.appendChild(label);
 
                     if(column){
