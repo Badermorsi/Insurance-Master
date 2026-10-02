@@ -5432,7 +5432,30 @@
             }
 
 
-            if(tab.id !== "invalid-dx"){
+            if(tab.id === "invalid-dx" && rows.length){
+
+                const sampleCount = Math.min(120,rows.length);
+                let sampledHeight = 0;
+
+                for(let sample=0;sample<sampleCount;sample++){
+                    const rowIndex = sampleCount === 1
+                        ? 0
+                        : Math.round(
+                            sample * (rows.length - 1) /
+                            (sampleCount - 1)
+                        );
+
+                    sampledHeight += estimateHeight(rows[rowIndex]);
+                }
+
+                const averageHeight = Math.max(
+                    DEFAULT_HEIGHT,
+                    Math.round(sampledHeight / sampleCount)
+                );
+
+                heights.fill(averageHeight);
+
+            }else{
                 for(
                     let i=0;
                     i<rows.length;
@@ -5641,6 +5664,22 @@
                         rows.length,
                         end + BUFFER
                     );
+
+                if(tab.id === "invalid-dx"){
+                    const minimumViewportRows =
+                        Math.ceil(
+                            Math.max(0,viewportHeight - 46) /
+                            DEFAULT_HEIGHT
+                        );
+
+                    end = Math.min(
+                        rows.length,
+                        Math.max(
+                            end,
+                            start + minimumViewportRows + BUFFER
+                        )
+                    );
+                }
 
                 if(contactMerges.length){
                     for(const merge of contactMerges){
@@ -6002,75 +6041,6 @@
                         draw
                     );
 
-            }
-
-
-            if(tab.id === "invalid-dx"){
-
-                let nextRow = 0;
-                const chunkSize = 200;
-
-                function appendNextChunk(){
-
-                    if(version !== renderVersion){
-                        return;
-                    }
-
-                    const fragment =
-                        document.createDocumentFragment();
-
-                    const chunkEnd =
-                        Math.min(
-                            rows.length,
-                            nextRow + chunkSize
-                        );
-
-                    for(let i=nextRow;i<chunkEnd;i++){
-
-                        const row = rows[i];
-                        const tr = document.createElement("tr");
-
-                        for(let c=0;c<columns.length;c++){
-
-                            const column = columns[c];
-                            const value = valueString(
-                                Array.isArray(row)
-                                    ? row[c]
-                                    : row?.[column]
-                            );
-                            const td = document.createElement("td");
-
-                            if(isNoWrapCodeColumn(tab,column)){
-                                td.classList.add("nowrap-code-column");
-                            }
-
-                            td.textContent = value;
-
-                            if(value.length > 60){
-                                td.title = value;
-                            }
-
-                            const colorClass = yesNoClass(tab,column,value);
-                            if(colorClass){
-                                td.classList.add(colorClass);
-                            }
-
-                            tr.appendChild(td);
-                        }
-
-                        fragment.appendChild(tr);
-                    }
-
-                    tbody.appendChild(fragment);
-                    nextRow = chunkEnd;
-
-                    if(nextRow < rows.length){
-                        requestAnimationFrame(appendNextChunk);
-                    }
-                }
-
-                appendNextChunk();
-                return;
             }
 
 
