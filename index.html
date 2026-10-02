@@ -4161,7 +4161,6 @@
             (
                 lower.includes("drug") &&
                 lower.includes("code") ||
-                lower === "insuranceplan" ||
                 lower === "drugtier"
             )
           ) || (
@@ -4399,7 +4398,7 @@
                   lower.includes("name")
               ){
 
-                  widths.push(300);
+                  widths.push(320);
 
                   continue;
 
@@ -4412,7 +4411,7 @@
                   lower.includes("name")
               ){
 
-                  widths.push(250);
+                  widths.push(280);
 
                   continue;
 
@@ -4425,7 +4424,19 @@
                   lower.includes("code")
               ){
 
-                  widths.push(85);
+                  widths.push(100);
+
+                  continue;
+
+              }
+
+
+              if(
+                  tab.id === "ddf" &&
+                  lower === "insuranceplan"
+              ){
+
+                  widths.push(95);
 
                   continue;
 
@@ -4933,6 +4944,22 @@
                     normalizedColumn === "packagetype1"
                 ){
                     displayColumn = "PACKAGE TYPE";
+                }
+
+                if(
+                    tab.id === "ddf" &&
+                    normalizedColumn === "greenraincode"
+                ){
+                    displayColumn = "Greenrain\nCode";
+                    label.style.whiteSpace = "pre-line";
+                }
+
+                if(
+                    tab.id === "ddf" &&
+                    normalizedColumn === "insuranceplan"
+                ){
+                    displayColumn = "Insurance\nPlan";
+                    label.style.whiteSpace = "pre-line";
                 }
 
                     label.textContent =
