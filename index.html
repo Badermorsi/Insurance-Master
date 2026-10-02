@@ -3657,6 +3657,30 @@
             }
 
 
+            if(tab.id === "haad"){
+                const thiqa = columns.find(column => {
+                    const normalized = normalizeColumnName(column);
+                    return normalized.includes("includedinthiqa") &&
+                        normalized.includes("drugformulary");
+                });
+
+                const basic = columns.find(column => {
+                    const normalized = normalizeColumnName(column);
+                    return normalized.includes("includedinbasic") &&
+                        normalized.includes("drugformulary");
+                });
+
+                if(thiqa && basic){
+                    const normal = columns.filter(column =>
+                        column !== thiqa && column !== basic
+                    );
+
+                    columns.length = 0;
+                    columns.push(...normal,thiqa,basic);
+                }
+            }
+
+
             columnsCache.set(
                 tab.id,
                 columns
@@ -4078,6 +4102,10 @@
                 tab.id === "haad" &&
                 lower.includes("drug") &&
                 lower.includes("code")
+            ) || (
+                tab.id === "haad" &&
+                lower.includes("insurance") &&
+                lower.includes("plan")
           ) || (
               tab.id === "fmc" &&
               (
@@ -4261,6 +4289,8 @@
                           tab.id === "denial"
                               ? 60
                               : tab.id === "ddf"
+                                  ? 60
+                              : tab.id === "haad" && lower.includes("insurance") && lower.includes("plan")
                                   ? 60
                               : tab.id === "fmc"
                                   ? lower.includes("green") && lower.includes("code")
@@ -4651,6 +4681,26 @@
                 normalizeColumnName(column);
 
             if(
+                tab.id === "haad" &&
+                (
+                    lower.includes("includedinthiqa") && lower.includes("drugformulary") ||
+                    lower.includes("includedinbasic") && lower.includes("drugformulary")
+                )
+            ){
+                const normalizedValue = value.trim().toLowerCase();
+
+                if(normalizedValue.includes("yes")){
+                    return "apg-yes";
+                }
+
+                if(normalizedValue.includes("no")){
+                    return "apg-no";
+                }
+
+                return "";
+            }
+
+            if(
                 tab.id === "vitamins" &&
                 (
                     lower.includes("enhanced") ||
@@ -4778,18 +4828,22 @@
 
 
                     if(
-                        tab.id === "apg" &&
+                        (tab.id === "apg" || tab.id === "haad") &&
                         total >= 2 &&
                         index === total-2
                     ){
                         th.classList.add(
                             "freeze-right-2"
                         );
+
+                        if(tab.id === "haad"){
+                            th.style.right = widths[total-1] + "px";
+                        }
                     }
 
 
                     if(
-                        tab.id === "apg" &&
+                        (tab.id === "apg" || tab.id === "haad") &&
                         total >= 1 &&
                         index === total-1
                     ){
@@ -5774,7 +5828,7 @@
 
 
                         if(
-                            tab.id === "apg" &&
+                            (tab.id === "apg" || tab.id === "haad") &&
                             c === columns.length-2
                         ){
 
@@ -5782,11 +5836,15 @@
                                 "freeze-right-2"
                             );
 
+                            if(tab.id === "haad"){
+                                td.style.right = widths[columns.length-1] + "px";
+                            }
+
                         }
 
 
                         if(
-                            tab.id === "apg" &&
+                            (tab.id === "apg" || tab.id === "haad") &&
                             c === columns.length-1
                         ){
 
