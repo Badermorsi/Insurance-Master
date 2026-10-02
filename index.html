@@ -5432,17 +5432,19 @@
             }
 
 
-            for(
-                let i=0;
-                i<rows.length;
-                i++
-            ){
+            if(tab.id !== "invalid-dx"){
+                for(
+                    let i=0;
+                    i<rows.length;
+                    i++
+                ){
 
-                heights[i] =
-                    estimateHeight(
-                        rows[i]
-                    );
+                    heights[i] =
+                        estimateHeight(
+                            rows[i]
+                        );
 
+                }
             }
 
 
@@ -6000,6 +6002,75 @@
                         draw
                     );
 
+            }
+
+
+            if(tab.id === "invalid-dx"){
+
+                let nextRow = 0;
+                const chunkSize = 200;
+
+                function appendNextChunk(){
+
+                    if(version !== renderVersion){
+                        return;
+                    }
+
+                    const fragment =
+                        document.createDocumentFragment();
+
+                    const chunkEnd =
+                        Math.min(
+                            rows.length,
+                            nextRow + chunkSize
+                        );
+
+                    for(let i=nextRow;i<chunkEnd;i++){
+
+                        const row = rows[i];
+                        const tr = document.createElement("tr");
+
+                        for(let c=0;c<columns.length;c++){
+
+                            const column = columns[c];
+                            const value = valueString(
+                                Array.isArray(row)
+                                    ? row[c]
+                                    : row?.[column]
+                            );
+                            const td = document.createElement("td");
+
+                            if(isNoWrapCodeColumn(tab,column)){
+                                td.classList.add("nowrap-code-column");
+                            }
+
+                            td.textContent = value;
+
+                            if(value.length > 60){
+                                td.title = value;
+                            }
+
+                            const colorClass = yesNoClass(tab,column,value);
+                            if(colorClass){
+                                td.classList.add(colorClass);
+                            }
+
+                            tr.appendChild(td);
+                        }
+
+                        fragment.appendChild(tr);
+                    }
+
+                    tbody.appendChild(fragment);
+                    nextRow = chunkEnd;
+
+                    if(nextRow < rows.length){
+                        requestAnimationFrame(appendNextChunk);
+                    }
+                }
+
+                appendNextChunk();
+                return;
             }
 
 
