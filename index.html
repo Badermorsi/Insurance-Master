@@ -338,6 +338,126 @@
             letter-spacing:.1px;
         }
 
+        .proactive-table-layout{
+            display:grid;
+            grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+            grid-auto-rows:max-content;
+            align-items:start;
+            gap:14px;
+            padding:12px 12px 20px;
+            min-width:980px;
+        }
+
+        .proactive-table-pane{
+            min-width:0;
+            overflow:auto;
+            border:1px solid #d7e1e5;
+            border-radius:10px;
+            background:#ffffff;
+            box-shadow:0 3px 12px rgba(32,58,68,.06);
+        }
+
+        .proactive-table-pane.table-one{
+            grid-column:1;
+            grid-row:1;
+        }
+
+        .proactive-table-pane.table-two{
+            grid-column:2;
+            grid-row:1;
+        }
+
+        .proactive-table-pane.table-three{
+            grid-column:1;
+            grid-row:2;
+        }
+
+        .proactive-instruction-table{
+            width:100%;
+            min-width:680px;
+            table-layout:fixed;
+            border-collapse:separate;
+            border-spacing:0;
+        }
+
+        .proactive-instruction-table th,
+        .proactive-instruction-table td{
+            padding:8px;
+            border-right:1px solid #e1e8eb;
+            border-bottom:1px solid #e1e8eb;
+            overflow-wrap:anywhere;
+            vertical-align:top;
+        }
+
+        .proactive-instruction-table th:last-child,
+        .proactive-instruction-table td:last-child{
+            border-right:0;
+        }
+
+        .proactive-instruction-table tbody tr:last-child td{
+            border-bottom:0;
+        }
+
+        .proactive-instruction-table .proactive-type-column{
+            white-space:nowrap;
+        }
+
+        .proactive-frequency-table{
+            min-width:774px;
+        }
+
+        .proactive-frequency-table .proactive-frequency-gap{
+            padding:0 !important;
+            border:0 !important;
+            background:transparent !important;
+        }
+
+        .proactive-frequency-notes{
+            min-width:220px;
+            height:100%;
+        }
+
+        .proactive-frequency-notes ul{
+            margin:0;
+            padding-left:20px;
+        }
+
+        .proactive-frequency-notes li{
+            margin:0 0 10px;
+        }
+
+        .proactive-instruction-table .proactive-column-heading{
+            background:#eaf1f3;
+            color:#263a44;
+            font-weight:800;
+            text-align:center;
+            vertical-align:middle;
+        }
+
+        .proactive-instruction-table tbody tr:nth-child(even) td{
+            background:#fbfcfd;
+        }
+
+        @media(max-width:1000px){
+            .proactive-table-layout{
+                grid-template-columns:minmax(0,1fr);
+                min-width:0;
+            }
+
+            .proactive-table-pane.table-two,
+            .proactive-table-pane.table-three{
+                grid-column:1;
+            }
+
+            .proactive-table-pane.table-two{
+                grid-row:2;
+            }
+
+            .proactive-table-pane.table-three{
+                grid-row:3;
+            }
+        }
+
         .data-table th.search-entry-title{
             height:42px;
             padding:10px 9px;
@@ -9019,6 +9139,258 @@
          RX VALIDITY CALCULATOR
       ========================================================= */
 
+      function renderProactiveInstructions(version){
+
+          if(version !== renderVersion){
+              return;
+          }
+
+          const rows = [
+              [
+                  "unit",
+                  "unit dose",
+                  "Capsules, Tablets, Gummies, Lozenges, Effervescent Granules, Enema, Ovules, Dressings, Patches/Plasters/Blisters, Liquids for irrigation, All other dosage forms not mentioned here, Nebulization Solution, Injections, Infusions …"
+              ],
+              [
+                  "ml",
+                  "unit milliliter",
+                  "Nebulization Solution, Syrups/Elixirs, Oral Solutions (including disolvable powders & granules), Injections, Infusions …"
+              ],
+              [
+                  "drop",
+                  "Drops per administration, if bilateral use is prescribed, count of drops should be summed up (eg. 2 drops in each eye = 4 drops)",
+                  "ophthalmic Drops, nasal, otic, oral drops, minims.."
+              ],
+              [
+                  "app",
+                  "unit of application",
+                  "Soap, Shampoos, Mouthwashes, Lotions, Gels, Ointments, creams, Topical Sprays, Balms.., ophthalmic Oint."
+              ],
+              ["puff","inhalation puff","Inhalers"],
+              ["IU","internationl Units (mainly insulin)","Insulin Injections/Pre filled Syringes/Pens…"],
+              ["spray","one unit of spray/dose","All Nasal/buccal/sublingual Sprays…"]
+          ];
+
+          tableArea.style.overflow = "auto";
+          tableArea.innerHTML = "";
+
+          const layout = document.createElement("div");
+          layout.className = "proactive-table-layout";
+
+          const pane = document.createElement("div");
+          pane.className = "proactive-table-pane table-one";
+
+          const table = document.createElement("table");
+          table.className = "proactive-instruction-table";
+
+          const colgroup = document.createElement("colgroup");
+          ["16%","31%","53%"].forEach(width => {
+              const col = document.createElement("col");
+              col.style.width = width;
+              colgroup.appendChild(col);
+          });
+          table.appendChild(colgroup);
+
+          const thead = document.createElement("thead");
+          const titleRow = document.createElement("tr");
+          const titleCell = document.createElement("th");
+          titleCell.colSpan = 3;
+          titleCell.className = "search-entry-title";
+          titleCell.textContent = "Dose value types FROM 11-07-2024";
+          titleRow.appendChild(titleCell);
+          thead.appendChild(titleRow);
+
+          const headingRow = document.createElement("tr");
+          ["Dose Value Type","Description","Dosage forms examples (new)"].forEach((heading,index) => {
+              const th = document.createElement("th");
+              th.className = "proactive-column-heading";
+              th.textContent = heading;
+              if(index === 0){
+                  th.classList.add("proactive-type-column");
+              }
+              headingRow.appendChild(th);
+          });
+          thead.appendChild(headingRow);
+          table.appendChild(thead);
+
+          const tbody = document.createElement("tbody");
+          rows.forEach(row => {
+              const tr = document.createElement("tr");
+              row.forEach((value,index) => {
+                  const td = document.createElement("td");
+                  td.textContent = value;
+                  if(index === 0){
+                      td.classList.add("proactive-type-column");
+                  }
+                  tr.appendChild(td);
+              });
+              tbody.appendChild(tr);
+          });
+
+          table.appendChild(tbody);
+          pane.appendChild(table);
+          layout.appendChild(pane);
+
+          const secondPane = document.createElement("div");
+          secondPane.className = "proactive-table-pane table-two";
+
+          const secondTable = document.createElement("table");
+          secondTable.className = "proactive-instruction-table";
+
+          const secondColgroup = document.createElement("colgroup");
+          ["34%","30%","36%"].forEach(width => {
+              const col = document.createElement("col");
+              col.style.width = width;
+              secondColgroup.appendChild(col);
+          });
+          secondTable.appendChild(secondColgroup);
+
+          const secondThead = document.createElement("thead");
+          const secondHeadingRow = document.createElement("tr");
+          ["Product ( 23-08-2024 )","Dose Type","Note"].forEach(heading => {
+              const th = document.createElement("th");
+              th.className = "proactive-column-heading";
+              th.textContent = heading;
+              secondHeadingRow.appendChild(th);
+          });
+          secondThead.appendChild(secondHeadingRow);
+          secondTable.appendChild(secondThead);
+
+          const secondTbody = document.createElement("tbody");
+          const secondRows = [
+              ["Vaginal Pessaries, Ovules and Suppositories","Unit",""],
+              ["All other Vaginal Products including measurable like Crinon gel,Fluginil, Gynofit,Epibiot…etc.","App", ""],
+              ["GELCLAIR 21's (15ml Sachet x 21) Gel For Oral Rinse","Unit",""],
+              ["For ophthalmic, nasal and otic ointments and gels","App",""],
+              ["For the minims eye preparation","Drop",""],
+              ["Oral medications in the form of granules that are packed in bottles or jars and the dose is measured by mg and is dissolved in a small amount of water, like Uralyte U and Agiolax","ml","For Agiolax and Uralyt-U the dose will be in ml; i.e.1 scoop =5ml"]
+          ];
+
+          secondRows.forEach(row => {
+              const tr = document.createElement("tr");
+              row.forEach(value => {
+                  const td = document.createElement("td");
+                  td.textContent = value;
+                  tr.appendChild(td);
+              });
+              secondTbody.appendChild(tr);
+          });
+
+          secondTable.appendChild(secondTbody);
+
+          secondPane.appendChild(secondTable);
+          layout.appendChild(secondPane);
+
+          const thirdPane = document.createElement("div");
+          thirdPane.className = "proactive-table-pane table-three";
+
+          const thirdTable = document.createElement("table");
+          thirdTable.className = "proactive-instruction-table proactive-frequency-table";
+
+          const thirdColgroup = document.createElement("colgroup");
+          ["76px","178px","76px","178px","14px","252px"].forEach(width => {
+              const col = document.createElement("col");
+              col.style.width = width;
+              thirdColgroup.appendChild(col);
+          });
+          thirdTable.appendChild(thirdColgroup);
+
+          const thirdThead = document.createElement("thead");
+          const thirdTitleRow = document.createElement("tr");
+          const thirdTitle = document.createElement("th");
+          thirdTitle.colSpan = 6;
+          thirdTitle.className = "search-entry-title";
+          thirdTitle.textContent = "New Frequency type list FROM 22-01-2024";
+          thirdTitleRow.appendChild(thirdTitle);
+          thirdThead.appendChild(thirdTitleRow);
+
+          const thirdHeadingRow = document.createElement("tr");
+          ["Frequency Type","Description","Frequency Type","Description"].forEach(heading => {
+              const th = document.createElement("th");
+              th.className = "proactive-column-heading";
+              th.textContent = heading;
+              thirdHeadingRow.appendChild(th);
+          });
+          const gapHeading = document.createElement("th");
+          gapHeading.className = "proactive-frequency-gap";
+          thirdHeadingRow.appendChild(gapHeading);
+
+          const notesHeading = document.createElement("th");
+          notesHeading.className = "proactive-column-heading";
+          notesHeading.textContent = "Notes";
+          thirdHeadingRow.appendChild(notesHeading);
+          thirdThead.appendChild(thirdHeadingRow);
+          thirdTable.appendChild(thirdThead);
+
+          const frequencyRows = [
+              ["D","per day/daily","2M","every 2 months"],
+              ["W","per week/weekly","3M","every 3 months"],
+              ["2W","every 2 weeks","4M","every 4 months"],
+              ["M","per month/monthly","5M","every 5 months"],
+              ["2D","every 2 days","6M","every 6 months"],
+              ["3D","every 3 days","7M","every 7 months"],
+              ["4D","every 4 days","8M","every 8 months"],
+              ["5D","every 5 days","9M","every 9 months"],
+              ["6D","every 6 days","10M","every 10 months"],
+              ["3W","every 3 weeks","11M","every 11 months"],
+              ["4W","every 4 weeks","18H","every 18 hrs"],
+              ["5W","every 5 weeks","36H","every 36 hrs"],
+              ["6W","every 6 weeks","Y","Yearly"],
+              ["7W","every 7 weeks","PRN","PRN"],
+              ["8W","every 8 weeks","",""]
+          ];
+
+          const noteItems = [
+              "Gargles and mouthwashes are described by app only",
+              "Topical sprays are described by app not spray",
+              "All injectables other than insulin are described by ml. (If the strength of the prefilled syringe/pen is in the IU then you can use either the I.U. or the ml)",
+              "All insulin injectables are described by I.U."
+          ];
+
+          const thirdTbody = document.createElement("tbody");
+          frequencyRows.forEach((row,index) => {
+              const tr = document.createElement("tr");
+
+              row.forEach((value,columnIndex) => {
+                  const td = document.createElement("td");
+                  td.textContent = value;
+                  if(columnIndex === 0 || columnIndex === 2){
+                      td.classList.add("proactive-type-column");
+                  }
+                  tr.appendChild(td);
+              });
+
+              const gapCell = document.createElement("td");
+              gapCell.className = "proactive-frequency-gap";
+              tr.appendChild(gapCell);
+
+              if(index === 0){
+                  const notesCell = document.createElement("td");
+                  notesCell.className = "proactive-frequency-notes";
+                  notesCell.rowSpan = frequencyRows.length;
+
+                  const list = document.createElement("ul");
+                  noteItems.forEach(note => {
+                      const item = document.createElement("li");
+                      item.textContent = note;
+                      list.appendChild(item);
+                  });
+
+                  notesCell.appendChild(list);
+                  tr.appendChild(notesCell);
+              }
+
+              thirdTbody.appendChild(tr);
+          });
+
+          thirdTable.appendChild(thirdTbody);
+          thirdPane.appendChild(thirdTable);
+          layout.appendChild(thirdPane);
+          tableArea.appendChild(layout);
+          recordNumber.textContent = rows.length.toLocaleString();
+      }
+
+
       function renderRxValidity(){
 
           tableArea.style.overflow = "auto";
@@ -9665,6 +10037,12 @@
 
           const version =
               ++renderVersion;
+
+
+          if(id === "proactive"){
+              renderProactiveInstructions(version);
+              return;
+          }
 
 
           if(id === "rx"){
