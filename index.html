@@ -4229,6 +4229,9 @@
               tab.id === "dha-shifa" &&
               lower.includes("code")
           ) || (
+              tab.id === "moh" &&
+              (lower === "source" || lower === "code")
+          ) || (
               tab.id === "inayah" &&
               (
                   lower.includes("generic") &&
@@ -4369,10 +4372,24 @@
                                   ? 60
                               : tab.id === "cdc" && lower === "retail"
                                   ? 80
+                              : tab.id === "moh"
+                                  ? 55
                                   : 110,
                             18
                         )
                     );
+
+                    continue;
+
+                }
+
+
+                if(
+                    tab.id === "moh" &&
+                    isGenericNameColumn(column)
+                ){
+
+                    widths.push(320);
 
                     continue;
 
@@ -4925,7 +4942,7 @@
                     const firstLabel = document.createElement("span");
                     firstLabel.className = "header-label";
                     const firstText = index === 0
-                        ? "INS COMPANY\n-------------------\nBRANCH NAME"
+                        ? "INS COMPANY\n----------------\nBRANCH NAME"
                         : index === 1
                             ? ""
                             : column;
