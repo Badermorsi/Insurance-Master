@@ -4919,9 +4919,9 @@
                     const secondLabel = document.createElement("span");
                     secondLabel.className = "header-label";
                     const secondText = valueString(
-                        Array.isArray(sourceHeading)
-                            ? sourceHeading[index]
-                            : sourceHeading?.[column]
+                        Array.isArray(sourceHeadingRow)
+                            ? sourceHeadingRow[index]
+                            : sourceHeadingRow?.[column]
                     ).trim();
                     secondLabel.textContent = secondText;
                     secondLabel.title = secondText;
