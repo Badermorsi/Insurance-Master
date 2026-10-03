@@ -4902,9 +4902,18 @@
 
                     const firstLabel = document.createElement("span");
                     firstLabel.className = "header-label";
-                    const firstText = index === 1 ? "" : column;
+                    const firstText = index === 0
+                        ? "INS COMPANY\n----------------\nBRANCH NAME"
+                        : index === 1
+                            ? ""
+                            : column;
                     firstLabel.textContent = firstText;
                     firstLabel.title = firstText;
+                    if(index === 0){
+                        firstLabel.style.whiteSpace = "pre-line";
+                        firstLabel.style.fontWeight = "800";
+                        firstLabel.style.lineHeight = "1.35";
+                    }
                     firstHeading.appendChild(firstLabel);
                     firstHeadingRow.appendChild(firstHeading);
 
