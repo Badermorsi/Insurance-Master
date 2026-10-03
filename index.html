@@ -346,6 +346,7 @@
             gap:14px;
             padding:12px 12px 20px;
             min-width:980px;
+            zoom:.86;
         }
 
         .proactive-table-pane{
@@ -365,10 +366,11 @@
         .proactive-table-pane.table-two{
             grid-column:2;
             grid-row:1;
+            margin-top:32px;
         }
 
         .proactive-table-pane.table-three{
-            grid-column:1;
+            grid-column:1 / -1;
             grid-row:2;
         }
 
@@ -378,15 +380,31 @@
             table-layout:fixed;
             border-collapse:separate;
             border-spacing:0;
+            font-size:10px;
+            line-height:1.2;
         }
 
         .proactive-instruction-table th,
         .proactive-instruction-table td{
-            padding:8px;
+            padding:4px 5px;
             border-right:1px solid #e1e8eb;
             border-bottom:1px solid #e1e8eb;
             overflow-wrap:anywhere;
-            vertical-align:top;
+            vertical-align:middle;
+            text-align:center;
+        }
+
+        .proactive-instruction-table .search-entry-title{
+            height:32px;
+            padding:4px 6px;
+            font-size:12px;
+        }
+
+        .proactive-instruction-table .filter-button{
+            width:16px;
+            height:16px;
+            min-width:16px;
+            font-size:8px;
         }
 
         .proactive-instruction-table th:last-child,
@@ -402,8 +420,13 @@
             white-space:nowrap;
         }
 
+        .proactive-frequency-type-heading{
+            white-space:nowrap;
+        }
+
         .proactive-frequency-table{
-            min-width:774px;
+            width:100%;
+            min-width:872px;
         }
 
         .proactive-frequency-table .proactive-frequency-gap{
@@ -413,17 +436,20 @@
         }
 
         .proactive-frequency-notes{
-            min-width:220px;
+            min-width:280px;
             height:100%;
+            text-align:center !important;
         }
 
         .proactive-frequency-notes ul{
             margin:0;
-            padding-left:20px;
+            padding:0;
+            list-style-position:inside;
         }
 
         .proactive-frequency-notes li{
-            margin:0 0 10px;
+            margin:0 0 6px;
+            text-align:center;
         }
 
         .proactive-instruction-table .proactive-column-heading{
@@ -451,6 +477,7 @@
 
             .proactive-table-pane.table-two{
                 grid-row:2;
+                margin-top:0;
             }
 
             .proactive-table-pane.table-three{
@@ -9171,6 +9198,81 @@
               ["spray","one unit of spray/dose","All Nasal/buccal/sublingual Sprays…"]
           ];
 
+          const secondRows = [
+              ["Vaginal Pessaries, Ovules and Suppositories","Unit",""],
+              ["All other Vaginal Products including measurable like Crinon gel,Fluginil, Gynofit,Epibiot…etc.","App", ""],
+              ["GELCLAIR 21's (15ml Sachet x 21) Gel For Oral Rinse","Unit",""],
+              ["For ophthalmic, nasal and otic ointments and gels","App",""],
+              ["For the minims eye preparation","Drop",""],
+              ["Oral medications in the form of granules that are packed in bottles or jars and the dose is measured by mg and is dissolved in a small amount of water, like Uralyte U and Agiolax","ml","For Agiolax and Uralyt-U the dose will be in ml; i.e.1 scoop =5ml"]
+          ];
+
+          const tableOneColumns = [
+              "Dose Value Type",
+              "Description",
+              "Dosage forms examples (new)"
+          ];
+          const tableTwoColumns = [
+              "Product ( 23-08-2024 )",
+              "Dose Type",
+              "Note"
+          ];
+          const tableOneFilterKey = "proactive-dose-values";
+          const tableTwoFilterKey = "proactive-products";
+
+          if(!customTableFilters.has(tableOneFilterKey)){
+              customTableFilters.set(tableOneFilterKey,new Map());
+          }
+          if(!customTableFilters.has(tableTwoFilterKey)){
+              customTableFilters.set(tableTwoFilterKey,new Map());
+          }
+
+          const visibleDoseRows = getApgCapVisibleRows(
+              rows,
+              tableOneColumns,
+              tableOneFilterKey
+          );
+          const visibleProductRows = getApgCapVisibleRows(
+              secondRows,
+              tableTwoColumns,
+              tableTwoFilterKey
+          );
+
+          function addProactiveFilter(th,column,sourceRows,columns,filterKey){
+              const content = document.createElement("div");
+              content.className = "header-content";
+
+              const label = document.createElement("span");
+              label.className = "header-label";
+              label.textContent = column;
+              content.appendChild(label);
+
+              const filter = document.createElement("button");
+              filter.type = "button";
+              filter.className = "filter-button";
+              filter.textContent = "▼";
+              filter.title = "Filter " + column;
+
+              const state = customTableFilters.get(filterKey);
+              if(state && state.has(column)){
+                  filter.classList.add("active");
+              }
+
+              filter.addEventListener("click",event => {
+                  event.stopPropagation();
+                  openFilter(column,filter,{
+                      key:filterKey,
+                      rows:sourceRows,
+                      columns,
+                      onApply:() =>
+                          renderProactiveInstructions(++renderVersion)
+                  });
+              });
+
+              content.appendChild(filter);
+              th.appendChild(content);
+          }
+
           tableArea.style.overflow = "auto";
           tableArea.innerHTML = "";
 
@@ -9201,20 +9303,17 @@
           thead.appendChild(titleRow);
 
           const headingRow = document.createElement("tr");
-          ["Dose Value Type","Description","Dosage forms examples (new)"].forEach((heading,index) => {
+          tableOneColumns.forEach((heading,index) => {
               const th = document.createElement("th");
               th.className = "proactive-column-heading";
-              th.textContent = heading;
-              if(index === 0){
-                  th.classList.add("proactive-type-column");
-              }
+              addProactiveFilter(th,heading,rows,tableOneColumns,tableOneFilterKey);
               headingRow.appendChild(th);
           });
           thead.appendChild(headingRow);
           table.appendChild(thead);
 
           const tbody = document.createElement("tbody");
-          rows.forEach(row => {
+          visibleDoseRows.forEach(row => {
               const tr = document.createElement("tr");
               row.forEach((value,index) => {
                   const td = document.createElement("td");
@@ -9247,26 +9346,23 @@
 
           const secondThead = document.createElement("thead");
           const secondHeadingRow = document.createElement("tr");
-          ["Product ( 23-08-2024 )","Dose Type","Note"].forEach(heading => {
+          tableTwoColumns.forEach(heading => {
               const th = document.createElement("th");
               th.className = "proactive-column-heading";
-              th.textContent = heading;
+              addProactiveFilter(
+                  th,
+                  heading,
+                  secondRows,
+                  tableTwoColumns,
+                  tableTwoFilterKey
+              );
               secondHeadingRow.appendChild(th);
           });
           secondThead.appendChild(secondHeadingRow);
           secondTable.appendChild(secondThead);
 
           const secondTbody = document.createElement("tbody");
-          const secondRows = [
-              ["Vaginal Pessaries, Ovules and Suppositories","Unit",""],
-              ["All other Vaginal Products including measurable like Crinon gel,Fluginil, Gynofit,Epibiot…etc.","App", ""],
-              ["GELCLAIR 21's (15ml Sachet x 21) Gel For Oral Rinse","Unit",""],
-              ["For ophthalmic, nasal and otic ointments and gels","App",""],
-              ["For the minims eye preparation","Drop",""],
-              ["Oral medications in the form of granules that are packed in bottles or jars and the dose is measured by mg and is dissolved in a small amount of water, like Uralyte U and Agiolax","ml","For Agiolax and Uralyt-U the dose will be in ml; i.e.1 scoop =5ml"]
-          ];
-
-          secondRows.forEach(row => {
+          visibleProductRows.forEach(row => {
               const tr = document.createElement("tr");
               row.forEach(value => {
                   const td = document.createElement("td");
@@ -9288,7 +9384,7 @@
           thirdTable.className = "proactive-instruction-table proactive-frequency-table";
 
           const thirdColgroup = document.createElement("colgroup");
-          ["76px","178px","76px","178px","14px","252px"].forEach(width => {
+          ["10%","21%","10%","21%","1%","37%"].forEach(width => {
               const col = document.createElement("col");
               col.style.width = width;
               thirdColgroup.appendChild(col);
@@ -9305,9 +9401,12 @@
           thirdThead.appendChild(thirdTitleRow);
 
           const thirdHeadingRow = document.createElement("tr");
-          ["Frequency Type","Description","Frequency Type","Description"].forEach(heading => {
+          ["Frequency Type","Description","Frequency Type","Description"].forEach((heading,index) => {
               const th = document.createElement("th");
               th.className = "proactive-column-heading";
+              if(index === 0 || index === 2){
+                  th.classList.add("proactive-frequency-type-heading");
+              }
               th.textContent = heading;
               thirdHeadingRow.appendChild(th);
           });
@@ -9387,7 +9486,11 @@
           thirdPane.appendChild(thirdTable);
           layout.appendChild(thirdPane);
           tableArea.appendChild(layout);
-          recordNumber.textContent = rows.length.toLocaleString();
+          recordNumber.textContent = (
+              visibleDoseRows.length +
+              visibleProductRows.length +
+              frequencyRows.length
+          ).toLocaleString();
       }
 
 
