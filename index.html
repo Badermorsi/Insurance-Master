@@ -4238,6 +4238,9 @@
               tab.id === "nas-haad" &&
               (lower === "source" || lower === "code")
           ) || (
+              tab.id === "oman" &&
+              (lower === "ddccode" || lower === "haaddc" || lower === "dha")
+          ) || (
               tab.id === "inayah" &&
               (
                   lower.includes("generic") &&
@@ -4384,6 +4387,8 @@
                                   ? 55
                               : tab.id === "nas-haad"
                                   ? 55
+                              : tab.id === "oman"
+                                  ? 55
                                   : 110,
                             18
                         )
@@ -4424,6 +4429,18 @@
                 ){
 
                     widths.push(320);
+
+                    continue;
+
+                }
+
+
+                if(
+                    tab.id === "oman" &&
+                    lower === "scientificname"
+                ){
+
+                    widths.push(330);
 
                     continue;
 
