@@ -4235,6 +4235,9 @@
               tab.id === "nas-dha" &&
               (lower === "source" || lower === "code")
           ) || (
+              tab.id === "nas-haad" &&
+              (lower === "source" || lower === "code")
+          ) || (
               tab.id === "inayah" &&
               (
                   lower.includes("generic") &&
@@ -4379,6 +4382,8 @@
                                   ? 55
                               : tab.id === "nas-dha"
                                   ? 55
+                              : tab.id === "nas-haad"
+                                  ? 55
                                   : 110,
                             18
                         )
@@ -4403,6 +4408,18 @@
 
                 if(
                     tab.id === "nas-dha" &&
+                    isGenericNameColumn(column)
+                ){
+
+                    widths.push(320);
+
+                    continue;
+
+                }
+
+
+                if(
+                    tab.id === "nas-haad" &&
                     isGenericNameColumn(column)
                 ){
 
