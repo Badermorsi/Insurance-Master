@@ -349,6 +349,13 @@
             text-align:center;
         }
 
+        .data-table thead tr.coverage-super-header th{
+            background:#12697a;
+            color:#ffffff;
+            border-color:#0f5c69;
+            font-weight:800;
+        }
+
         .search-entry-headings th{
             height:74px;
             background:#eaf1f3;
@@ -1053,9 +1060,20 @@
             z-index:80;
         }
 
+        .freeze-left-1{
+            position:sticky !important;
+            left:0;
+            z-index:80;
+            box-shadow:4px 0 7px rgba(30,50,60,.07);
+        }
+
         thead .freeze-right-1,
         thead .freeze-right-2{
             z-index:150;
+        }
+
+        thead .freeze-left-1{
+            z-index:160;
         }
 
         .apg-frozen{
@@ -4893,9 +4911,13 @@
                 const firstHeadingRow = document.createElement("tr");
                 const secondHeadingRow = document.createElement("tr");
                 const sourceHeadingRow = tab.rows?.[0];
+                firstHeadingRow.className = "coverage-super-header";
 
                 columns.forEach((column,index) => {
                     const firstHeading = document.createElement("th");
+                    if(index === 0){
+                        firstHeading.classList.add("freeze-left-1");
+                    }
                     firstHeading.style.width = widths[index] + "px";
                     firstHeading.style.minWidth = widths[index] + "px";
                     firstHeading.style.maxWidth = widths[index] + "px";
@@ -4918,6 +4940,9 @@
                     firstHeadingRow.appendChild(firstHeading);
 
                     const secondHeading = document.createElement("th");
+                    if(index === 0){
+                        secondHeading.classList.add("freeze-left-1");
+                    }
                     secondHeading.style.width = widths[index] + "px";
                     secondHeading.style.minWidth = widths[index] + "px";
                     secondHeading.style.maxWidth = widths[index] + "px";
@@ -6014,6 +6039,11 @@
 
                         const td =
                             document.createElement("td");
+
+                        if(tab.id === "coverage" && c === 0){
+                            td.classList.add("freeze-left-1");
+                            td.style.fontWeight = "700";
+                        }
 
                         if(isNoWrapCodeColumn(tab,column)){
                             td.classList.add("nowrap-code-column");
