@@ -3594,39 +3594,6 @@
               }
           }
 
-          if(tab.id === "coverage" && rows.length > 0){
-              const firstRow = rows[0];
-
-              if(
-                  firstRow &&
-                  typeof firstRow === "object" &&
-                  !Array.isArray(firstRow)
-              ){
-                  const sourceColumns = Object.keys(firstRow);
-                  const displayColumns = sourceColumns.map((sourceColumn,index) => {
-                      if(
-                          index === 1 &&
-                          /^unnamed\s*:?\s*1$/i.test(sourceColumn.trim())
-                      ){
-                          return "";
-                      }
-
-                      const heading = valueString(firstRow[sourceColumn]).trim();
-                      return heading || sourceColumn;
-                  });
-
-                  return rows.slice(1).map(row => {
-                      const displayRow = {};
-
-                      sourceColumns.forEach((sourceColumn,index) => {
-                          displayRow[displayColumns[index]] = row?.[sourceColumn];
-                      });
-
-                      return displayRow;
-                  });
-              }
-          }
-
           if(tab.id !== "ddf" || rows.length === 0){
                 return rows;
             }
@@ -4921,6 +4888,71 @@
 
             const thead =
                 document.createElement("thead");
+
+            if(tab.id === "coverage" && columns.length){
+                const firstHeadingRow = document.createElement("tr");
+                const secondHeadingRow = document.createElement("tr");
+                const sourceHeadingRow = tab.rows?.[0];
+
+                columns.forEach((column,index) => {
+                    const firstHeading = document.createElement("th");
+                    firstHeading.style.width = widths[index] + "px";
+                    firstHeading.style.minWidth = widths[index] + "px";
+                    firstHeading.style.maxWidth = widths[index] + "px";
+
+                    const firstLabel = document.createElement("span");
+                    firstLabel.className = "header-label";
+                    const firstText = index === 1 ? "" : column;
+                    firstLabel.textContent = firstText;
+                    firstLabel.title = firstText;
+                    firstHeading.appendChild(firstLabel);
+                    firstHeadingRow.appendChild(firstHeading);
+
+                    const secondHeading = document.createElement("th");
+                    secondHeading.style.width = widths[index] + "px";
+                    secondHeading.style.minWidth = widths[index] + "px";
+                    secondHeading.style.maxWidth = widths[index] + "px";
+
+                    const content = document.createElement("div");
+                    content.className = "header-content";
+
+                    const secondLabel = document.createElement("span");
+                    secondLabel.className = "header-label";
+                    const secondText = valueString(
+                        Array.isArray(sourceHeading)
+                            ? sourceHeading[index]
+                            : sourceHeading?.[column]
+                    ).trim();
+                    secondLabel.textContent = secondText;
+                    secondLabel.title = secondText;
+                    content.appendChild(secondLabel);
+
+                    const filter = document.createElement("button");
+                    filter.className = "filter-button";
+                    filter.type = "button";
+                    filter.textContent = "▼";
+                    filter.title = "Filter " + (secondText || column);
+
+                    const state = filters.get(tab.id);
+                    if(state && state.has(column)){
+                        filter.classList.add("active");
+                    }
+
+                    filter.addEventListener("click",event => {
+                        event.stopPropagation();
+                        openFilter(column,filter);
+                    });
+
+                    content.appendChild(filter);
+                    secondHeading.appendChild(content);
+                    secondHeadingRow.appendChild(secondHeading);
+                });
+
+                thead.appendChild(firstHeadingRow);
+                thead.appendChild(secondHeadingRow);
+                table.appendChild(thead);
+                return;
+            }
 
             if(tab.id === "plans" && columns.length >= 5){
                 const groupRow = document.createElement("tr");
@@ -9395,6 +9427,11 @@
             const rows =
                 getDisplayRows(tab);
 
+            const tableRows =
+                tab.id === "coverage"
+                    ? rows.slice(1)
+                    : rows;
+
 
             /*
                SPECIAL ELIGIBILITY
@@ -9454,7 +9491,7 @@
 
 
             const visible =
-                getVisibleRows(rows);
+                getVisibleRows(tableRows);
 
 
             recordNumber.textContent =
@@ -9464,7 +9501,7 @@
             const widths =
                 calculateWidths(
                     tab,
-                    rows,
+                    tableRows,
                     columns
                 );
 
