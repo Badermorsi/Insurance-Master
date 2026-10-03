@@ -340,18 +340,18 @@
 
         .proactive-table-layout{
             display:grid;
-            grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+            grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
             grid-auto-rows:max-content;
             align-items:start;
             gap:14px;
             padding:12px 12px 20px;
-            min-width:980px;
-            zoom:.86;
+            width:100%;
+            min-width:0;
         }
 
         .proactive-table-pane{
             min-width:0;
-            overflow:auto;
+            overflow:hidden;
             border:1px solid #d7e1e5;
             border-radius:10px;
             background:#ffffff;
@@ -366,7 +366,7 @@
         .proactive-table-pane.table-two{
             grid-column:2;
             grid-row:1;
-            margin-top:32px;
+            margin-top:42px;
         }
 
         .proactive-table-pane.table-three{
@@ -376,17 +376,17 @@
 
         .proactive-instruction-table{
             width:100%;
-            min-width:680px;
+            min-width:0;
             table-layout:fixed;
             border-collapse:separate;
             border-spacing:0;
-            font-size:10px;
-            line-height:1.2;
+            font-size:14px;
+            line-height:1.4;
         }
 
         .proactive-instruction-table th,
         .proactive-instruction-table td{
-            padding:4px 5px;
+            padding:8px 9px;
             border-right:1px solid #e1e8eb;
             border-bottom:1px solid #e1e8eb;
             overflow-wrap:anywhere;
@@ -395,16 +395,9 @@
         }
 
         .proactive-instruction-table .search-entry-title{
-            height:32px;
-            padding:4px 6px;
-            font-size:12px;
-        }
-
-        .proactive-instruction-table .filter-button{
-            width:16px;
-            height:16px;
-            min-width:16px;
-            font-size:8px;
+            height:42px;
+            padding:9px;
+            font-size:16px;
         }
 
         .proactive-instruction-table th:last-child,
@@ -426,7 +419,7 @@
 
         .proactive-frequency-table{
             width:100%;
-            min-width:872px;
+            min-width:0;
         }
 
         .proactive-frequency-table .proactive-frequency-gap{
@@ -436,7 +429,7 @@
         }
 
         .proactive-frequency-notes{
-            min-width:280px;
+            min-width:0;
             height:100%;
             text-align:center !important;
         }
@@ -482,6 +475,10 @@
 
             .proactive-table-pane.table-three{
                 grid-row:3;
+            }
+
+            .proactive-frequency-type-heading{
+                white-space:normal;
             }
         }
 
@@ -9217,63 +9214,11 @@
               "Dose Type",
               "Note"
           ];
-          const tableOneFilterKey = "proactive-dose-values";
-          const tableTwoFilterKey = "proactive-products";
+          const visibleDoseRows = rows;
+          const visibleProductRows = secondRows;
 
-          if(!customTableFilters.has(tableOneFilterKey)){
-              customTableFilters.set(tableOneFilterKey,new Map());
-          }
-          if(!customTableFilters.has(tableTwoFilterKey)){
-              customTableFilters.set(tableTwoFilterKey,new Map());
-          }
-
-          const visibleDoseRows = getApgCapVisibleRows(
-              rows,
-              tableOneColumns,
-              tableOneFilterKey
-          );
-          const visibleProductRows = getApgCapVisibleRows(
-              secondRows,
-              tableTwoColumns,
-              tableTwoFilterKey
-          );
-
-          function addProactiveFilter(th,column,sourceRows,columns,filterKey){
-              const content = document.createElement("div");
-              content.className = "header-content";
-
-              const label = document.createElement("span");
-              label.className = "header-label";
-              label.textContent = column;
-              content.appendChild(label);
-
-              const filter = document.createElement("button");
-              filter.type = "button";
-              filter.className = "filter-button";
-              filter.textContent = "▼";
-              filter.title = "Filter " + column;
-
-              const state = customTableFilters.get(filterKey);
-              if(state && state.has(column)){
-                  filter.classList.add("active");
-              }
-
-              filter.addEventListener("click",event => {
-                  event.stopPropagation();
-                  openFilter(column,filter,{
-                      key:filterKey,
-                      rows:sourceRows,
-                      columns,
-                      onApply:() =>
-                          renderProactiveInstructions(++renderVersion)
-                  });
-              });
-
-              content.appendChild(filter);
-              th.appendChild(content);
-          }
-
-          tableArea.style.overflow = "auto";
+          tableArea.style.overflowX = "hidden";
+          tableArea.style.overflowY = "auto";
           tableArea.innerHTML = "";
 
           const layout = document.createElement("div");
@@ -9306,7 +9251,7 @@
           tableOneColumns.forEach((heading,index) => {
               const th = document.createElement("th");
               th.className = "proactive-column-heading";
-              addProactiveFilter(th,heading,rows,tableOneColumns,tableOneFilterKey);
+              th.textContent = heading;
               headingRow.appendChild(th);
           });
           thead.appendChild(headingRow);
@@ -9349,13 +9294,7 @@
           tableTwoColumns.forEach(heading => {
               const th = document.createElement("th");
               th.className = "proactive-column-heading";
-              addProactiveFilter(
-                  th,
-                  heading,
-                  secondRows,
-                  tableTwoColumns,
-                  tableTwoFilterKey
-              );
+              th.textContent = heading;
               secondHeadingRow.appendChild(th);
           });
           secondThead.appendChild(secondHeadingRow);
@@ -9384,7 +9323,7 @@
           thirdTable.className = "proactive-instruction-table proactive-frequency-table";
 
           const thirdColgroup = document.createElement("colgroup");
-          ["10%","21%","10%","21%","1%","37%"].forEach(width => {
+          ["14%","17%","14%","17%","1%","37%"].forEach(width => {
               const col = document.createElement("col");
               col.style.width = width;
               thirdColgroup.appendChild(col);
@@ -9487,8 +9426,8 @@
           layout.appendChild(thirdPane);
           tableArea.appendChild(layout);
           recordNumber.textContent = (
-              visibleDoseRows.length +
-              visibleProductRows.length +
+              rows.length +
+              secondRows.length +
               frequencyRows.length
           ).toLocaleString();
       }
