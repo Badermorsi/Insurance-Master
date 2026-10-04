@@ -3084,6 +3084,8 @@
 
         let filterOpenSequence = 0;
 
+        let lastLargeFilterRenderKey = "";
+
         let temporarySelection = new Set();
 
         let filterAllValues = [];
@@ -10434,7 +10436,9 @@
                 filterSearch.value = "";
                 filterAllValues = [];
                 temporarySelection = new Set();
+                filterValues.scrollTop = 0;
                 filterValues.innerHTML = "";
+                lastLargeFilterRenderKey = "";
 
                 const loading = document.createElement("div");
                 loading.className = "filter-value-text";
@@ -10466,10 +10470,18 @@
                 };
 
                 if(cachedValues){
-                    showValues(cachedValues);
+                    setTimeout(() => showValues(cachedValues),0);
                 }
                 else{
                     setTimeout(() => {
+                        if(
+                            openSequence !== filterOpenSequence ||
+                            filterPopup.style.display === "none" ||
+                            currentTab !== tab
+                        ){
+                            return;
+                        }
+
                         const columns = getColumns(tab,tab.rows || []);
                         const columnIndex = columns.indexOf(column);
                         const values = new Set();
@@ -10786,15 +10798,14 @@
            FILTER VALUES
         ========================================================= */
 
-        function renderFilterValues(){
+        function renderFilterValues(force = false){
 
             const search =
                 filterSearch.value
                     .trim()
                     .toLowerCase();
 
-
-            filterValues.innerHTML = "";
+            const savedScrollTop = filterValues.scrollTop;
 
 
             const fragment =
@@ -10807,26 +10818,64 @@
                     : temporarySelection;
 
 
-            for(
-                const value of filterAllValues
+            const matchingValues = filterAllValues.filter(value => {
+                const display = value === "" ? "(Blank)" : value;
+                return !search || display.toLowerCase().includes(search);
+            });
+
+            const isLargeCatalog =
+                currentTab &&
+                (currentTab.id === "apg" || currentTab.id === "haad");
+            const rowHeight = 29;
+            const firstVisible = isLargeCatalog
+                ? Math.max(0,Math.floor(savedScrollTop / rowHeight) - 5)
+                : 0;
+            const visibleCount = isLargeCatalog
+                ? Math.ceil(245 / rowHeight) + 10
+                : matchingValues.length;
+            const lastVisible = Math.min(
+                matchingValues.length,
+                firstVisible + visibleCount
+            );
+
+            const renderKey = [
+                currentTab?.id || "",
+                filterColumn || "",
+                search,
+                matchingValues.length,
+                firstVisible,
+                lastVisible
+            ].join("|");
+
+            if(
+                isLargeCatalog &&
+                !force &&
+                renderKey === lastLargeFilterRenderKey
             ){
+                return;
+            }
+
+            if(isLargeCatalog){
+                lastLargeFilterRenderKey = renderKey;
+            }
+
+            filterValues.innerHTML = "";
+
+            if(firstVisible > 0){
+                const spacer = document.createElement("div");
+                spacer.style.height = (firstVisible * rowHeight) + "px";
+                spacer.setAttribute("aria-hidden","true");
+                fragment.appendChild(spacer);
+            }
+
+            for(let index=firstVisible;index<lastVisible;index++){
+
+                const value = matchingValues[index];
 
                 const display =
                     value === ""
                         ? "(Blank)"
                         : value;
-
-
-                if(
-                    search &&
-                    !display
-                        .toLowerCase()
-                        .includes(search)
-                ){
-
-                    continue;
-
-                }
 
 
                 const label =
@@ -10900,10 +10949,20 @@
 
             }
 
+            if(lastVisible < matchingValues.length){
+                const spacer = document.createElement("div");
+                spacer.style.height =
+                    ((matchingValues.length - lastVisible) * rowHeight) + "px";
+                spacer.setAttribute("aria-hidden","true");
+                fragment.appendChild(spacer);
+            }
+
 
             filterValues.appendChild(
                 fragment
             );
+
+            filterValues.scrollTop = savedScrollTop;
 
         }
 
@@ -10914,7 +10973,24 @@
 
         filterSearch.addEventListener(
             "input",
-            renderFilterValues
+            () => {
+                filterValues.scrollTop = 0;
+                renderFilterValues();
+            }
+        );
+
+        filterValues.addEventListener(
+            "scroll",
+            () => {
+                if(
+                    filterPopup.style.display !== "none" &&
+                    currentTab &&
+                    (currentTab.id === "apg" || currentTab.id === "haad")
+                ){
+                    renderFilterValues();
+                }
+            },
+            {passive:true}
         );
 
 
@@ -10948,7 +11024,7 @@
                     }
 
 
-                    renderFilterValues();
+                    renderFilterValues(true);
 
                 }
             );
@@ -10980,7 +11056,7 @@
                     }
 
 
-                    renderFilterValues();
+                    renderFilterValues(true);
 
                 }
             );
