@@ -5411,6 +5411,17 @@
                     label.style.whiteSpace = "pre-line";
                 }
 
+                if(tab.id === "oman"){
+                    const omanHeadingOverrides = {
+                        DDC_CODE: "DDC Code",
+                        HAAD_DC: "HAAD DC",
+                        TRADE_NAME: "TRADE NAME"
+                    };
+                    displayColumn =
+                        omanHeadingOverrides[column.trim().toUpperCase()] ||
+                        column.replaceAll("_", " ");
+                }
+
                     label.textContent =
                         displayColumn;
 
