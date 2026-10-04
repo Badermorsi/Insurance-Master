@@ -3082,9 +3082,13 @@
 
         let filterContext = null;
 
+        let filterOpenSequence = 0;
+
         let temporarySelection = new Set();
 
         let filterAllValues = [];
+
+        const filterValuesCache = new Map();
 
         const dataCache = new Map();
 
@@ -10416,6 +10420,88 @@
             filterColumn =
                 column;
 
+            const openSequence = ++filterOpenSequence;
+
+            if(
+                !context &&
+                (currentTab.id === "apg" || currentTab.id === "haad")
+            ){
+                const tab = currentTab;
+                const cacheKey = tab.id + "\u0000" + column;
+                const cachedValues = filterValuesCache.get(cacheKey);
+
+                filterTitle.textContent = "Filter: " + column;
+                filterSearch.value = "";
+                filterAllValues = [];
+                temporarySelection = new Set();
+                filterValues.innerHTML = "";
+
+                const loading = document.createElement("div");
+                loading.className = "filter-value-text";
+                loading.style.padding = "12px";
+                loading.textContent = cachedValues
+                    ? "Preparing filter…"
+                    : "Loading filter values…";
+                filterValues.appendChild(loading);
+
+                filterPopup.style.display = "block";
+                positionFilterPopup(button);
+
+                const showValues = values => {
+                    if(
+                        openSequence !== filterOpenSequence ||
+                        filterPopup.style.display === "none" ||
+                        currentTab !== tab
+                    ){
+                        return;
+                    }
+
+                    filterAllValues = values;
+                    const state = filters.get(tab.id);
+                    const existing = state && state.get(column);
+                    temporarySelection = existing
+                        ? new Set(existing)
+                        : new Set(filterAllValues);
+                    renderFilterValues();
+                };
+
+                if(cachedValues){
+                    showValues(cachedValues);
+                }
+                else{
+                    setTimeout(() => {
+                        const columns = getColumns(tab,tab.rows || []);
+                        const columnIndex = columns.indexOf(column);
+                        const values = new Set();
+
+                        for(const row of tab.rows || []){
+                            values.add(
+                                Array.isArray(row)
+                                    ? valueString(
+                                        columnIndex >= 0
+                                            ? row[columnIndex]
+                                            : ""
+                                    )
+                                    : valueString(row?.[column])
+                            );
+                        }
+
+                        const sortedValues = Array.from(values);
+                        sortedValues.sort((a,b) =>
+                            a.localeCompare(b,undefined,{
+                                numeric:true,
+                                sensitivity:"base"
+                            })
+                        );
+
+                        filterValuesCache.set(cacheKey,sortedValues);
+                        showValues(sortedValues);
+                    },20);
+                }
+
+                return;
+            }
+
 
             const values =
                 new Set();
@@ -10570,6 +10656,8 @@
         ========================================================= */
 
         function openPpiSpecialtyFilter(button){
+
+            filterOpenSequence += 1;
 
             filterMode =
                 "ppi-specialty";
@@ -11053,6 +11141,8 @@
         ========================================================= */
 
         function closeFilter(){
+
+            filterOpenSequence += 1;
 
             filterPopup.style.display =
                 "none";
