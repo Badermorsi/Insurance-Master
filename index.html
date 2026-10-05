@@ -906,155 +906,59 @@
         .formulary-search-bar{
             display:grid;
             grid-template-columns:repeat(4,minmax(0,1fr));
-            gap:13px;
-            padding:15px 18px 16px;
-            background:linear-gradient(180deg,#ffffff 0%,#f6fafb 100%);
-            border-bottom:1px solid #dfe7ea;
-            box-shadow:0 3px 10px rgba(30,63,74,.035);
-        }
-
-        .formulary-search-heading{
-            grid-column:1 / -1;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
             gap:12px;
-            min-width:0;
-            margin-bottom:1px;
-        }
-
-        .formulary-search-title-wrap{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            min-width:0;
-        }
-
-        .formulary-search-title-icon{
-            display:grid;
-            width:34px;
-            height:34px;
-            flex:0 0 34px;
-            place-items:center;
-            border:1px solid #d5eaed;
-            border-radius:11px;
-            background:linear-gradient(145deg,#effafb,#e4f3f5);
-            color:#137486;
-        }
-
-        .formulary-search-title-icon svg{
-            width:17px;
-            height:17px;
-            fill:none;
-            stroke:currentColor;
-            stroke-width:2;
-            stroke-linecap:round;
-        }
-
-        .formulary-search-title-text{
-            color:#233b44;
-            font-size:14px;
-            font-weight:800;
-            letter-spacing:.1px;
-        }
-
-        .formulary-search-subtitle{
-            margin-top:2px;
-            color:#829199;
-            font-size:10px;
-            font-weight:500;
+            padding:12px 16px 14px;
+            background:#f7fafb;
+            border-bottom:1px solid #dfe7ea;
+            box-shadow:0 2px 7px rgba(30,63,74,.025);
         }
 
         .formulary-search-hint{
-            display:flex;
-            align-items:center;
-            gap:7px;
-            flex:0 0 auto;
-            padding:6px 10px;
-            border:1px solid #e1e9ec;
-            border-radius:20px;
-            background:#ffffff;
-            color:#73838b;
+            grid-column:1 / -1;
+            margin-bottom:-3px;
+            color:#71828a;
             font-size:10px;
-        }
-
-        .formulary-search-hint strong{
-            display:inline-grid;
-            min-width:21px;
-            height:20px;
-            place-items:center;
-            border-radius:6px;
-            background:#eaf5f6;
-            color:#126f80;
-            font-size:12px;
-            font-weight:800;
         }
 
         .formulary-search-field{
             display:flex;
             min-width:0;
             flex-direction:column;
-            gap:6px;
+            gap:5px;
         }
 
         .formulary-search-field > span{
-            color:#4c626c;
-            font-size:10px;
-            font-weight:800;
-            letter-spacing:.55px;
-            text-transform:uppercase;
-        }
-
-        .formulary-search-input-wrap{
-            position:relative;
-            min-width:0;
-        }
-
-        .formulary-search-input-wrap svg{
-            position:absolute;
-            top:50%;
-            left:13px;
-            width:16px;
-            height:16px;
-            transform:translateY(-50%);
-            fill:none;
-            stroke:#8b9ca3;
-            stroke-width:1.8;
-            stroke-linecap:round;
-            pointer-events:none;
+            color:#435b65;
+            font-size:11px;
+            font-weight:750;
         }
 
         .formulary-search-field input{
             width:100%;
-            height:42px;
-            padding:0 12px 0 40px;
-            border:1px solid #d3dfe3;
-            border-radius:11px;
+            height:40px;
+            padding:0 12px;
+            border:1px solid #cbd9de;
+            border-radius:8px;
             outline:none;
             background:#ffffff;
-            color:#243b44;
+            color:#243941;
             font:inherit;
             font-size:13px;
-            box-shadow:0 2px 5px rgba(28,55,65,.045);
-            transition:border-color .16s ease, box-shadow .16s ease, background .16s ease;
+            box-shadow:0 1px 2px rgba(28,55,65,.035);
+            transition:border-color .15s ease, box-shadow .15s ease;
         }
 
         .formulary-search-field input:hover{
-            border-color:#b5cbd1;
-            background:#feffff;
+            border-color:#aac4ca;
         }
 
         .formulary-search-field input::placeholder{
-            color:#9aa9af;
+            color:#94a3aa;
         }
 
         .formulary-search-field input:focus{
-            border-color:#24889a;
-            box-shadow:0 0 0 3px rgba(36,137,154,.12),0 3px 8px rgba(28,91,104,.07);
-        }
-
-        .formulary-search-field:focus-within > span{
-            color:#126f80;
+            border-color:#24899a;
+            box-shadow:0 0 0 3px rgba(36,137,154,.11);
         }
 
         .formulary-search-bar[hidden]{
@@ -1065,26 +969,13 @@
             .formulary-search-bar{
                 grid-template-columns:repeat(2,minmax(0,1fr));
             }
-
-            .formulary-search-hint{
-                font-size:9px;
-            }
         }
 
         @media(max-width:520px){
             .formulary-search-bar{
                 grid-template-columns:minmax(0,1fr);
                 gap:10px;
-                padding:12px;
-            }
-
-            .formulary-search-heading{
-                align-items:flex-start;
-                flex-direction:column;
-            }
-
-            .formulary-search-hint{
-                margin-left:44px;
+                padding:11px 12px;
             }
         }
 
@@ -2931,45 +2822,22 @@
             class="formulary-search-bar"
             hidden
         >
-            <div class="formulary-search-heading">
-                <div class="formulary-search-title-wrap">
-                    <span class="formulary-search-title-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg>
-                    </span>
-                    <div>
-                        <div id="formularySearchTitle" class="formulary-search-title-text">Search APG Formulary</div>
-                        <div class="formulary-search-subtitle">Find matching medicines as you type</div>
-                    </div>
-                </div>
-                <div class="formulary-search-hint"><strong>%</strong><span>means all terms must match</span></div>
-            </div>
+            <div class="formulary-search-hint">Use % between terms to require all terms (for example, para%phenyl).</div>
             <label class="formulary-search-field">
                 <span>Brand Name</span>
-                <div class="formulary-search-input-wrap">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg>
-                    <input type="search" data-formulary-search="brand" placeholder="Search brand name" autocomplete="off">
-                </div>
+                <input type="search" data-formulary-search="brand" placeholder="Search by brand name" autocomplete="off">
             </label>
             <label class="formulary-search-field">
                 <span>Generic Name</span>
-                <div class="formulary-search-input-wrap">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg>
-                    <input type="search" data-formulary-search="generic" placeholder="Search generic name" autocomplete="off">
-                </div>
+                <input type="search" data-formulary-search="generic" placeholder="Search by generic name" autocomplete="off">
             </label>
             <label class="formulary-search-field">
                 <span>Strength</span>
-                <div class="formulary-search-input-wrap">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg>
-                    <input type="search" data-formulary-search="strength" placeholder="Search strength" autocomplete="off">
-                </div>
+                <input type="search" data-formulary-search="strength" placeholder="Search by strength" autocomplete="off">
             </label>
             <label class="formulary-search-field">
                 <span>Dosage Form</span>
-                <div class="formulary-search-input-wrap">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6"></circle><path d="m16 16 4.2 4.2"></path></svg>
-                    <input type="search" data-formulary-search="dosageForm" placeholder="Search dosage form" autocomplete="off">
-                </div>
+                <input type="search" data-formulary-search="dosageForm" placeholder="Search by dosage form" autocomplete="off">
             </label>
         </div>
 
@@ -3404,9 +3272,6 @@
         const formularySearchBar =
             document.getElementById("formularySearchBar");
 
-        const formularySearchTitle =
-            document.getElementById("formularySearchTitle");
-
         const formularySearchInputs =
             Array.from(
                 document.querySelectorAll("[data-formulary-search]")
@@ -3434,9 +3299,6 @@
             if(!supported){
                 return;
             }
-
-            formularySearchTitle.textContent =
-                tab.id === "haad" ? "Search HAAD List" : "Search APG Formulary";
 
             const values = formularySearchValues[tab.id];
             formularySearchInputs.forEach(input => {
