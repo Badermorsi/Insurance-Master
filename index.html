@@ -2780,7 +2780,7 @@
                 </div>
 
                 <div class="filter-subtitle">
-                    Select exact values to display
+                    Search then Apply to keep matches; use % for AND
                 </div>
 
             </div>
@@ -2793,7 +2793,7 @@
                     class="filter-search"
                     type="text"
                     autocomplete="off"
-                    placeholder="Search values..."
+                    placeholder="Search values; % = AND"
                 >
 
             </div>
@@ -10798,12 +10798,38 @@
            FILTER VALUES
         ========================================================= */
 
+        function getFilterSearchTerms(){
+            return filterSearch.value
+                .trim()
+                .toLowerCase()
+                .split("%")
+                .map(term => term.trim())
+                .filter(Boolean);
+        }
+
+        function valueMatchesFilterSearch(value,terms=getFilterSearchTerms()){
+            const text = value === "" ? "(Blank)" : valueString(value);
+            const normalized = text.toLowerCase();
+            return terms.every(term => normalized.includes(term));
+        }
+
+        function getSearchConstrainedSelection(selection){
+            const terms = getFilterSearchTerms();
+            if(terms.length === 0){
+                return new Set(selection);
+            }
+
+            return new Set(
+                filterAllValues.filter(value =>
+                    selection.has(value) && valueMatchesFilterSearch(value,terms)
+                )
+            );
+        }
+
         function renderFilterValues(force = false){
 
-            const search =
-                filterSearch.value
-                    .trim()
-                    .toLowerCase();
+            const search = filterSearch.value.trim().toLowerCase();
+            const searchTerms = getFilterSearchTerms();
 
             const savedScrollTop = filterValues.scrollTop;
 
@@ -10819,8 +10845,7 @@
 
 
             const matchingValues = filterAllValues.filter(value => {
-                const display = value === "" ? "(Blank)" : value;
-                return !search || display.toLowerCase().includes(search);
+                return valueMatchesFilterSearch(value,searchTerms);
             });
 
             const isLargeCatalog =
@@ -11076,8 +11101,13 @@
                         filterMode === "ppi-specialty"
                     ){
 
+                        const selectedValues =
+                            getSearchConstrainedSelection(
+                                ppiSpecialtyTemporarySelection
+                            );
+
                         if(
-                            ppiSpecialtyTemporarySelection.size ===
+                            selectedValues.size ===
                             filterAllValues.length
                         ){
 
@@ -11090,7 +11120,7 @@
 
                             for(
                                 const value of
-                                ppiSpecialtyTemporarySelection
+                                selectedValues
                             ){
 
                                 ppiSpecialtyFilters.add(
@@ -11131,8 +11161,13 @@
                         const state =
                             customTableFilters.get(filterContext.key);
 
+                        const selectedValues =
+                            getSearchConstrainedSelection(
+                                temporarySelection
+                            );
+
                         if(
-                            temporarySelection.size ===
+                            selectedValues.size ===
                             filterAllValues.length
                         ){
                             state.delete(filterColumn);
@@ -11140,7 +11175,7 @@
                         else{
                             state.set(
                                 filterColumn,
-                                new Set(temporarySelection)
+                                selectedValues
                             );
                         }
 
@@ -11165,9 +11200,14 @@
                             currentTab.id
                         );
 
+                    const selectedValues =
+                        getSearchConstrainedSelection(
+                            temporarySelection
+                        );
+
 
                     if(
-                        temporarySelection.size ===
+                        selectedValues.size ===
                         filterAllValues.length
                     ){
 
@@ -11180,9 +11220,7 @@
 
                         state.set(
                             filterColumn,
-                            new Set(
-                                temporarySelection
-                            )
+                            selectedValues
                         );
 
                     }
