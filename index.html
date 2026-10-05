@@ -903,6 +903,77 @@
             font-weight:700;
         }
 
+        .formulary-search-bar{
+            display:grid;
+            grid-template-columns:repeat(4,minmax(0,1fr));
+            gap:12px;
+            padding:12px 16px;
+            background:#f7fafb;
+            border-bottom:1px solid #dfe7ea;
+        }
+
+        .formulary-search-hint{
+            grid-column:1 / -1;
+            margin-bottom:-3px;
+            color:#74858d;
+            font-size:10px;
+        }
+
+        .formulary-search-field{
+            display:flex;
+            min-width:0;
+            flex-direction:column;
+            gap:5px;
+        }
+
+        .formulary-search-field span{
+            color:#4c626c;
+            font-size:11px;
+            font-weight:750;
+        }
+
+        .formulary-search-field input{
+            width:100%;
+            height:38px;
+            padding:0 12px;
+            border:1px solid #cbd9de;
+            border-radius:9px;
+            outline:none;
+            background:#ffffff;
+            color:#243941;
+            font:inherit;
+            font-size:13px;
+            box-shadow:0 1px 2px rgba(28,55,65,.04);
+            transition:border-color .15s ease, box-shadow .15s ease;
+        }
+
+        .formulary-search-field input::placeholder{
+            color:#91a1a8;
+        }
+
+        .formulary-search-field input:focus{
+            border-color:#24899a;
+            box-shadow:0 0 0 3px rgba(36,137,154,.13);
+        }
+
+        .formulary-search-bar[hidden]{
+            display:none;
+        }
+
+        @media(max-width:900px){
+            .formulary-search-bar{
+                grid-template-columns:repeat(2,minmax(0,1fr));
+            }
+        }
+
+        @media(max-width:520px){
+            .formulary-search-bar{
+                grid-template-columns:minmax(0,1fr);
+                gap:9px;
+                padding:10px 12px;
+            }
+        }
+
         .bar-space{
             flex:1;
         }
@@ -2742,6 +2813,31 @@
 
 
         <div
+            id="formularySearchBar"
+            class="formulary-search-bar"
+            hidden
+        >
+            <div class="formulary-search-hint">Use % between terms to require all terms (for example, para%phenyl).</div>
+            <label class="formulary-search-field">
+                <span>Brand Name</span>
+                <input type="search" data-formulary-search="brand" placeholder="Search by brand name" autocomplete="off">
+            </label>
+            <label class="formulary-search-field">
+                <span>Generic Name</span>
+                <input type="search" data-formulary-search="generic" placeholder="Search by generic name" autocomplete="off">
+            </label>
+            <label class="formulary-search-field">
+                <span>Strength</span>
+                <input type="search" data-formulary-search="strength" placeholder="Search by strength" autocomplete="off">
+            </label>
+            <label class="formulary-search-field">
+                <span>Dosage Form</span>
+                <input type="search" data-formulary-search="dosageForm" placeholder="Search by dosage form" autocomplete="off">
+            </label>
+        </div>
+
+
+        <div
             id="tableArea"
             class="table-view"
         >
@@ -3102,6 +3198,11 @@
 
         const widthCache = new Map();
 
+        const formularySearchValues = {
+            apg:{brand:"",generic:"",strength:"",dosageForm:""},
+            haad:{brand:"",generic:"",strength:"",dosageForm:""}
+        };
+
         const contactsOriginalRowIndexes = new WeakMap();
 
         const contactsColumnBMerges = [
@@ -3163,6 +3264,14 @@
         const currentList =
             document.getElementById("currentList");
 
+        const formularySearchBar =
+            document.getElementById("formularySearchBar");
+
+        const formularySearchInputs =
+            Array.from(
+                document.querySelectorAll("[data-formulary-search]")
+            );
+
         const recordNumber =
             document.getElementById("recordNumber");
 
@@ -3177,6 +3286,37 @@
 
         const filterValues =
             document.getElementById("filterValues");
+
+        function updateFormularySearchBar(tab){
+            const supported = tab && (tab.id === "apg" || tab.id === "haad");
+            formularySearchBar.hidden = !supported;
+
+            if(!supported){
+                return;
+            }
+
+            const values = formularySearchValues[tab.id];
+            formularySearchInputs.forEach(input => {
+                input.value = values[input.dataset.formularySearch] || "";
+            });
+        }
+
+        formularySearchInputs.forEach(input => {
+            input.addEventListener("input",() => {
+                if(
+                    !currentTab ||
+                    (currentTab.id !== "apg" && currentTab.id !== "haad")
+                ){
+                    return;
+                }
+
+                const key = input.dataset.formularySearch;
+                formularySearchValues[currentTab.id][key] = input.value;
+                if(currentTab.rows){
+                    renderTable(currentTab,++renderVersion);
+                }
+            });
+        });
 
 
         /* =========================================================
@@ -4156,14 +4296,91 @@
            GET VISIBLE ROWS
         ========================================================= */
 
+        function getFormularySearchColumns(tab,rows){
+            const columns = getColumns(tab,rows);
+            const findColumn = candidates => columns.find(column => {
+                const normalized = normalizeColumnName(column);
+                return candidates.some(candidate =>
+                    normalized === candidate || normalized.startsWith(candidate)
+                );
+            }) || null;
+
+            return {
+                brand:findColumn(
+                    tab.id === "haad"
+                        ? ["packagename","brandname","tradename","itemname","productname"]
+                        : ["proactivename","brandname","tradename","itemname","productname","medicinename"]
+                ),
+                generic:findColumn(["genericname"]) || findColumn(["generic"]),
+                strength:findColumn(["strength"]),
+                dosageForm:
+                    findColumn(["dosageform","doseform"]) ||
+                    findColumn(["dosage"]) ||
+                    findColumn(["pharmaceuticalform"])
+            };
+        }
+
+        function getFormularyCellValue(row,column,columns){
+            if(!column){
+                return "";
+            }
+
+            if(Array.isArray(row)){
+                return valueString(row[columns.indexOf(column)]);
+            }
+
+            return valueString(row?.[column]);
+        }
+
+        function matchesFormularySearch(row,tab,columns,searchColumns){
+            const searches = formularySearchValues[tab.id];
+
+            for(const key of ["brand","generic","strength","dosageForm"]){
+                const terms = String(searches[key] || "")
+                    .trim()
+                    .toLowerCase()
+                    .split("%")
+                    .map(term => term.trim())
+                    .filter(Boolean);
+
+                if(terms.length === 0){
+                    continue;
+                }
+
+                const cellValue = getFormularyCellValue(
+                    row,
+                    searchColumns[key],
+                    columns
+                ).toLowerCase();
+
+                if(!terms.every(term => cellValue.includes(term))){
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         function getVisibleRows(rows){
 
             const state =
                 filters.get(currentTab.id);
 
+            const hasFormularySearch =
+                (currentTab.id === "apg" || currentTab.id === "haad") &&
+                Object.values(formularySearchValues[currentTab.id])
+                    .some(value => String(value || "").trim() !== "");
+
+            const searchColumns = hasFormularySearch
+                ? getFormularySearchColumns(currentTab,currentTab.rows || rows)
+                : null;
+            const allColumns = hasFormularySearch
+                ? getColumns(currentTab,currentTab.rows || rows)
+                : null;
+
             if(
-                !state ||
-                state.size === 0
+                (!state || state.size === 0) &&
+                !hasFormularySearch
             ){
                 return rows;
             }
@@ -4221,7 +4438,18 @@
                 i++
             ){
 
-                if(matchesFilters(rows[i])){
+                if(
+                    matchesFilters(rows[i]) &&
+                    (
+                        !hasFormularySearch ||
+                        matchesFormularySearch(
+                            rows[i],
+                            currentTab,
+                            allColumns,
+                            searchColumns
+                        )
+                    )
+                ){
                     result.push(rows[i]);
                 }
 
@@ -10093,6 +10321,8 @@
             currentList.textContent =
                 tab.name;
 
+            updateFormularySearchBar(tab);
+
 
             if(!filters.has(id)){
 
@@ -11295,6 +11525,19 @@
                         currentTab.id,
                         new Map()
                     );
+
+                    if(
+                        currentTab.id === "apg" ||
+                        currentTab.id === "haad"
+                    ){
+                        formularySearchValues[currentTab.id] = {
+                            brand:"",
+                            generic:"",
+                            strength:"",
+                            dosageForm:""
+                        };
+                        updateFormularySearchBar(currentTab);
+                    }
 
                     if(currentTab.id === "apg-hcpcs"){
                         customTableFilters.clear();
