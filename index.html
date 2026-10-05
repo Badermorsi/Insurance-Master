@@ -55,6 +55,103 @@
             overflow:hidden;
         }
 
+        #mainApp[hidden]{
+            display:none !important;
+        }
+
+        .page-password-gate{
+            min-height:100vh;
+            display:grid;
+            place-items:center;
+            padding:24px;
+            background:radial-gradient(circle at top left,#e7f3f5 0,#f3f6f8 48%,#e8eef1 100%);
+        }
+
+        .page-password-card{
+            width:min(100%,390px);
+            padding:30px;
+            border:1px solid #dce5e8;
+            border-radius:16px;
+            background:#ffffff;
+            box-shadow:0 18px 48px rgba(27,57,67,.13);
+        }
+
+        .page-password-mark{
+            display:grid;
+            width:42px;
+            height:42px;
+            place-items:center;
+            margin-bottom:18px;
+            border-radius:13px;
+            background:#e9f5f6;
+            color:#126f80;
+            font-size:20px;
+            font-weight:800;
+        }
+
+        .page-password-card h1{
+            margin:0;
+            color:#203741;
+            font-size:21px;
+            font-weight:800;
+        }
+
+        .page-password-card p{
+            margin:8px 0 21px;
+            color:#6d7e86;
+            font-size:13px;
+            line-height:1.5;
+        }
+
+        .page-password-card label{
+            display:block;
+            margin-bottom:7px;
+            color:#405760;
+            font-size:12px;
+            font-weight:750;
+        }
+
+        .page-password-card input{
+            width:100%;
+            height:44px;
+            padding:0 12px;
+            border:1px solid #cbd9de;
+            border-radius:9px;
+            outline:none;
+            color:#243941;
+            font-size:14px;
+        }
+
+        .page-password-card input:focus{
+            border-color:#24899a;
+            box-shadow:0 0 0 3px rgba(36,137,154,.12);
+        }
+
+        .page-password-submit{
+            width:100%;
+            height:43px;
+            margin-top:14px;
+            border:0;
+            border-radius:9px;
+            background:linear-gradient(135deg,#12697a,#21879a);
+            color:#ffffff;
+            font-size:13px;
+            font-weight:750;
+            cursor:pointer;
+            box-shadow:0 4px 10px rgba(18,105,122,.18);
+        }
+
+        .page-password-submit:hover{
+            filter:brightness(1.04);
+        }
+
+        .page-password-error{
+            margin-top:11px;
+            color:#b34242;
+            font-size:12px;
+            font-weight:650;
+        }
+
 
         /* =========================================================
            TOP BRAND
@@ -2739,7 +2836,19 @@
 
         <body>
 
-        <div class="app">
+        <main id="pagePasswordGate" class="page-password-gate">
+            <form id="pagePasswordForm" class="page-password-card">
+                <div class="page-password-mark" aria-hidden="true">+</div>
+                <h1>Insurance All List</h1>
+                <p>Enter the shared password to open the dashboard.</p>
+                <label for="pagePasswordInput">Password</label>
+                <input id="pagePasswordInput" type="password" autocomplete="current-password" required autofocus>
+                <button class="page-password-submit" type="submit">Open dashboard</button>
+                <div id="pagePasswordError" class="page-password-error" role="alert" hidden>That password is not correct. Please try again.</div>
+            </form>
+        </main>
+
+        <div id="mainApp" class="app" hidden>
 
         <div class="brand-bar">
 
@@ -11629,9 +11738,34 @@
            START
         ========================================================= */
 
-        createTabs();
+        const pagePasswordForm =
+            document.getElementById("pagePasswordForm");
 
-        openTab("apg");
+        const pagePasswordInput =
+            document.getElementById("pagePasswordInput");
+
+        const pagePasswordError =
+            document.getElementById("pagePasswordError");
+
+        pagePasswordInput.addEventListener("input",() => {
+            pagePasswordError.hidden = true;
+        });
+
+        pagePasswordForm.addEventListener("submit",event => {
+            event.preventDefault();
+
+            if(pagePasswordInput.value !== "Alain2027@ZAS"){
+                pagePasswordError.hidden = false;
+                pagePasswordInput.focus();
+                pagePasswordInput.select();
+                return;
+            }
+
+            document.getElementById("pagePasswordGate").hidden = true;
+            document.getElementById("mainApp").hidden = false;
+            createTabs();
+            openTab("apg");
+        });
 
         </script>
 
