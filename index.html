@@ -748,6 +748,86 @@
           background:#eef7f8;
       }
 
+      .dose-sheet-wrap{
+          width:100%;
+          height:100%;
+          overflow:auto;
+          padding:10px;
+          background:#f3f6f8;
+      }
+
+      .dose-sheet-table{
+          width:max-content;
+          table-layout:fixed;
+          border-collapse:collapse;
+          color:#34434c;
+          font-size:10px;
+          line-height:1.25;
+      }
+
+      .dose-sheet-table td{
+          height:27px;
+          min-height:27px;
+          padding:4px 5px;
+          border:1px solid #d8e1e5;
+          background:#ffffff;
+          text-align:center;
+          vertical-align:middle;
+          white-space:pre-line;
+          overflow-wrap:anywhere;
+          word-break:normal;
+      }
+
+      .dose-sheet-table td.dose-sheet-heading{
+          background:#eaf1f3;
+          color:#263a44;
+          font-weight:800;
+      }
+
+      .dose-sheet-table td.dose-sheet-title{
+          background:#12697a;
+          border-color:#0f5c69;
+          color:#ffffff;
+          font-size:12px;
+          font-weight:800;
+      }
+
+      .dose-sheet-table td.dose-sheet-spacer{
+          padding:0;
+          border:0;
+          background:transparent;
+      }
+
+      .dose-sheet-table td.dose-sheet-input-cell{
+          background:#e7f5eb;
+      }
+
+      .dose-sheet-table td.dose-sheet-output-cell{
+          background:#f5f9fa;
+          font-weight:650;
+          font-variant-numeric:tabular-nums;
+      }
+
+      .dose-sheet-input{
+          display:block;
+          width:100%;
+          min-width:42px;
+          height:26px;
+          padding:0 4px;
+          border:1px solid #8fc6a2;
+          border-radius:4px;
+          outline:none;
+          background:#f3fff6;
+          color:#245a37;
+          font:inherit;
+          text-align:center;
+      }
+
+      .dose-sheet-input:focus{
+          border-color:#328554;
+          box-shadow:0 0 0 2px rgba(50,133,84,.15);
+      }
+
       .rx-validity-card{
           width:min(760px,calc(100% - 36px));
           margin:28px auto;
@@ -3059,6 +3139,10 @@
         /* =========================================================
            TAB CONFIG
         ========================================================= */
+
+        // DOSE_CALCULATOR_SOURCE_START
+        const doseCalculatorSource = {"rows":108,"columns":17,"defaultRowHeight":20.1,"columnWidths":[29.7109375,18.42578125,10.28515625,16.5703125,13.0,21.85546875,55.42578125,30.5703125,13.0,36.5703125,18.42578125,13.0,32.7109375,20.7109375,14.85546875,10.85546875,13.0],"cells":{"A1":"MEDICATION","B1":"WEIGHT IN KG","C1":"DOSE","D1":"FREQUANCY","F1":"NAME","G1":"DOSE","H1":"AGE","J1":"Dose Calculator ","N1":"Kids's Weight [Kg]","A2":"Amoxicillin 250/5ml","C2":"=((25*B2*5)/250)/3","D2":"3 times","F2":"CITRAZINE","G2":"5 MG ONCE OR 2.5 TWICE","H2":"NOT FOR LESS THAN 2 YEARS OLD","J2":"MEDICINE ","K2":"Dose [ML]","L2":"Frequency","M2":"Remarks","N2":"Put Weight \u25ba\u25ba","A3":"Amoxicillin 125/5ml","C3":"=((25*B3*5)/125)/3","D3":"3 times","F3":"ASMAFORT","G3":"1 TEASPOON TWICE DAILY","H3":"NOT FOR LESS THAN 3 YEARS","J3":"Paracetamol 120mg/5ml","K3":"=15*5*$O$2/125","L3":"Q.I.D","M3":"When Needed","A4":"Amoxicillin+clav 156/5ml","C4":"=((40*B4*5)/156)/3","D4":"3 times","F4":"CHLORPHENIRAMINE","G4":"6-12 years: 2mg (5ml) every 4-6 hours","H4":"Not for less than 6 years","J4":"Paracetamol 250mg/5ml","K4":"=15*5*$O$2/250","L4":"Q.I.D","M4":"When Needed","A5":"Amoxicillin+clav 228/5ml","C5":"=((40*B5*5)/228)/2","D5":"2 times","F5":"Loratidine","G5":"2-12 years: 5mg (5ml) once","H5":"Not for less than 2 years","J5":"Paracetamol 100mg/ML \"Drops\"","K5":"=15*$O$2*1/100","L5":"Q.I.D","M5":"When Needed","A6":"Amoxicillin+clav 312/5ml","C6":"=((40*B6*5)/312)/3","D6":"3 times","F6":"Desloratidine","G6":"1-5 years: 1.25mg (2.5ml) once","J6":"Ibuprofen ","K6":"=$O$2*7*5/100","L6":"T.I.D","M6":"When Needed","A7":"Amoxicillin+clav 457/5ml","C7":"=((B7*40*5)/457)/2","D7":"2 times","G7":"6-12 years: 2.5 mg (5ml) once ","J7":"Augmentin Syrup [mg] \n\"Except ES-600\"\n","K7":"=45*$O$2","L7":"Daily ","M7":"Daily dose Divided acc to Amoxcillin ","N7":"Augmentin Syrup [ml] ","O7":"457/5ml","P7":"=($K$7*5/457)/2","Q7":"B.I.D","A8":"Amoxicillin+clav 642/5ml(ES)","C8":"=((90*B8*5)/642)/2","D8":"2 times","J8":"Amoxcillin Syrup \n125mg/5ml ** 250mg/5ml","O8":"312/5ml","P8":"=($K$7*5/312)/3","Q8":"T.I.D","A9":"Clarithromycin 125/5ml","C9":"=((7.5*B9*5)/125)","D9":"2 times","F9":"Ebastine","G9":"2-5 years 2.5mg (2.5ml) once","H9":"Not for less than 2 years","J9":"< 3 months 30mg/Kg/day  [mg]","K9":"=30*$O$2","L9":"Daily","M9":"Divide dose B.I.D ","O9":"228/5ml","P9":"=($K$7*5/228)/2","Q9":"B.I.D","A10":"Clarithromycin 250/5ml","C10":"=((7.5*B10*5)/250)","D10":"2 times","G10":"6-11 years: 5mg (5ml) once","J10":"Above 3Ms <40Kg MODERATE [mg]","K10":"=IF(O2<40,O2*20)","L10":"Daily ","M10":"Divide dose T.I.D","O10":"156/5ml","P10":"=($K$7*5/156)/3","Q10":"T.I.D","A11":"Erythromycin 200/5ml","C11":"=((25*B11*5)/200)/2","D11":"2 times","J11":"Above 3Ms <40Kg SEVERE [mg]","K11":"=IF(O2<40,O2*40)","L11":"Daily ","M11":"Divide dose T.I.D","A12":"Azithromycin 200/5ml","C12":"=(10*B12*5)/200","D12":"once for 3 days","F12":"Promethazine","G12":"2-5 years: 5mg in 1-2 doses","H12":"Not for less than 2 years","J12":"Suprax Syrup ","K12":"=$O$2*8*5/100","L12":"Daily ","M12":"Once daily ","N12":"Amoxcillin Syrup [ml]","P12":"125mg/5ml","Q12":"250mg/5ml","A13":"Cefprozil 125/5ml","C13":"=(7.5*B13*5)/125","D13":"twice","G13":"5-10 years: 10mg in 1-2 doses","J13":"Metoclopramide 5mg/5ml\n[<6 yrs ]","K13":"=$O$2*0.1*5/5","L13":"T.I.D","M13":"-","O13":"<3Ms","P13":"=(K9*5/125)/2","Q13":"=(K9*5/250)/2","A14":"Cefprozil 250/5ml","C14":"=(7.5*B14*5)/250","D14":"twice","F14":"Hyoscine-N-Butyl","G14":"Infants: 1 teaspoon 3 times","J14":"Metoclopramide 5mg/5ml\n[>6 yrs]","K14":"=($O$2*0.5*5/5)/3","L14":"T.I.D","M14":"-","O14":">3Ms Moderate","P14":"=(K10*5/125)/2","Q14":"=(K10*5/250)/2","A15":"Cefixime 100/5ml","C15":"=(8*B15*5)/100","D15":"once ","G15":"1-6 years: 1 teaspoon 3-5 times","J15":"Metronidazole 200mg/5ml ","K15":"=$O$2*30*5/200","L15":"Daily ","M15":"Daily dose / Divide B.I.D or, T.I.D","O15":">3Ms Severe","P15":"=(K11*5/125)/2","Q15":"=(K11*5/250)/2","A16":"Cephalexin 125/5ML","C16":"=((25*B16*5)/125)/3","D16":"3 TIMES","F16":"Metoclopramide","G16":"Up to 1 years: 5 drops twice","J16":"Azithromycin Syrup 200mg/5ml","K16":"General Bacterial Infection ","A17":"Cephalexin 250/5ML","C17":"=((25*B17*5)/250)/3","D17":"3 TIMES","G17":"1-3 years: 5 drops 3 times","J17":"Moderate [10-12mg/Kg]","K17":"=$O$2*10*5/200","L17":"Daily ","M17":"For 3 days ","A18":"Ceclor 125/5ML","C18":"=((20*B18*5)/125)/3","D18":"3 TIMES","G18":"3-5 years: 2.5 mg (2.5ml) 2 times","J18":"Severe \"Follow for 5 days more\"\n20mg/Kg/day","K18":"=$O$2*20*5/200","L18":"Daily","M18":"For more 5 days ","A19":"Ceclor 250/5ML","C19":"=((20*B19*5)/250)/3","D19":"3 TIMES","G19":"5-9 years: 2.5mg (2.5ml) 3 times","J19":"\u25bc.-Fixed Doses depnding on age range-.\u25bc","A20":"Cefuroxime 125/5ML","C20":"=((30*B20*5)/125)/2","D20":"TWICE","G20":"9-19 years: 1 teaspoon 3 times","J20":"Domperidone 1mg/Ml Syrup ","A21":"Cefuroxime 250/5ML","C21":"=((30*B21*5)/250)/2","D21":"TWICE","F21":"Domperidone","G21":"0.25MG/kg/dose three times","J21":"<12 Ys ","K21":"=IF(O2<35,$O$2*0.25)","L21":"T.I.D","M21":"<35 Kgs ","A22":"Cefdinir","C22":"=(14*B22*5)/125","D22":"ONCE","F22":"Amoxicillin","G22":"25MG/kg/day  3 times daily","H22":"Not for less than 2 months","J22":">12 Ys","K22":"10ml ","L22":"T.I.D","M22":">35 Kgs \"15 mins before food\"","A23":"Metronidazole 200/5ML","C23":"=((50*B23*5)/200)/3","D23":"3 TIMES","F23":"Amoxicillin+clav","G23":"Skin infections: 25/kg/day twice","H23":"Not for less than 2 months","J23":"Hyoscine Syrup 5mg/5ml","A24":"Predinisolone ","C24":"=(2*B24*5)/15","D24":"IN 1-4 DOSES","G24":"Respiratory infections: 40mg/kg/day  twice","J24":"1-3 months ","K24":"1.5 ml","L24":"T.I.D","M24":"-","A25":"Paracetamol 120/5ML","C25":"=(15*B25*5)/120","D25":"4 TIMES","G25":"Otitis media: 90mg/kg/day twice","J25":"3-12 months","K25":"2.5 ml","L25":"T.I.D","M25":"-","A26":"Paracetamol 250/5ML","C26":"=(15*B26*5)/250","D26":"4 TIMES","F26":"Clarithromycin","G26":"7.5mg/kg/dose twice","H26":"Not for less than 6 months","J26":"1-3 Ys","K26":"5 ml","L26":"T.I.D","M26":"-","A27":"Ibuprofen 100/5ML ","C27":"=(7*B27*5)/100","D27":"3 TIMES DAILY","F27":"Erythromycin","G27":"7.5-12.5mg/kg/dose every 6 hours.","J27":"3-6 Ys","K27":"10 ml","L27":"T.I.D","M27":"-","A28":"Dompridone 1%","C28":"=(B28*2.5)/10","D28":"3 TIMES DAILY","G28":"Or 15-25mg/kg/dose twice","J28":"6-12 Ys","K28":"10-20ml ","L28":"T.I.D","M28":"-","A29":"Paracetamol 240/5ML","C29":"=(15*B29*5)/240","D29":"4 TIMES","F29":"Azithromycin","G29":"10mg/kg/day once for 3 days.","H29":"Not for less than 6 months","J29":"Duphalac \"Lactulose 667g/l\"","G30":"Or 10mg/kg/day in the first day, then 5mg/kg/day for 4 days.","J30":"<1 Ys ","K30":"Up to 5 ml ","L30":"Q.D - B.I.D","M30":"-","G31":"Or 30mg/kg once","J31":"1-6 Ys ","K31":"5-10ml","L31":"Q.D - B.I.D","M31":"-","F32":"Cefprozil","G32":"Sinusitis and pharyngitis: 7.5mg/kg/dose twice.","H32":"Not for less than 6 months","J32":"7-14 Ys ","K32":"10-15ml","L32":"Q.D - B.I.D","M32":"Corresponds to 1 sachet ","G33":"Skin infections: 20mg/kg/day once.","J33":"Adults ","K33":"15-30ml ","L33":"Q.D - B.I.D","M33":"Corresponds to 1-3 Sachets ","G34":"Otitis: 15mg/kg/dose twice.  ","J34":"Lorinase Syrup ","K34":"Not recommended less than 2 years ","F35":"Cefixime","G35":"8mg/kg/day once or divided in 2 doses","H35":"Not for less than 6 months","J35":"> 2 Ys ","K35":"Age / 2","L35":"B.I.D","M35":"for 5 Days ","F36":"Cephalexin","G36":"25mg/kg/day three times for 10 days","J36":"Zyrtec #Citrizine. ","F37":"Ceclor","G37":"20mg/kg/day three times","H37":"Not for less than 1 month","J37":"2-5 Ys ","K37":"2.5ml / 5 drops","L37":"B.I.D","M37":"for 5 days ","G38":"For serious infections: 40mg/kg/day three times","J38":"6-11 Ys ","K38":"5ml / 10 drops","L38":"B.I.D","M38":"for 5 days ","F39":"Cefuroxime","G39":"30mg/kg/day Twice for 10 days","H39":"Not for less than 3 months","J39":"Loratidine  Syrup ","F40":"Cefdinir","G40":"7mg/kg/dose twice","J40":"2-5 Ys","K40":"2.5 ml","M40":"for 5 days ","G41":"Or 14 mg/kg/dose once","J41":"6-11 Ys","K41":"5 ml","M41":"for 5 days ","F42":"Metronidazole","G42":"50mg/kg/day 3 times daily","J42":">12 Ys","K42":"10 ml","M42":"for 5 days ","F43":"Co-trimoxazole","G43":"2-12 months: \u00bd teaspoon twice","J43":"Prospan \"Ivy extract\"  7MG/ML","G44":"1-6 years: 1 teaspoon twice","J44":"1-6 Ys","K44":"2.5ml","L44":"B.I.D","M44":"-","G45":"6-12 years: 2 teaspoons twice","J45":"6-12 Ys","K45":"5ml","L45":"B.I.D","M45":"-","F46":"Predinisolone","G46":"2mg/kg/day in 1-4 doses","J46":">12 Ys","K46":"5ml ","L46":"T.I.D","M46":"-","F47":"Paracetamol","G47":"10mg/kg/dose up to 5 times a day","J47":"Gelobronchial Syrup \"Thyme 182.2 mg/1ml\"","F48":"Ibuprofen","G48":"7mg/kg/dose up to 3 times a day","J48":"2-4 Ys","K48":"5ml","L48":"T.I.D","M48":"-","F49":" Septrin PEDIATRIC","G49":"6 WEEKS- 6 MONTHS: 2.5 ML TWICE DAILY","J49":"4-12 Ys","K49":"7.5ml","L49":"T.I.D","M49":"-","G50":"6 MONTHS- 6 YEARS: 5ML TWICE DAILY","J50":">12 Ys","K50":"15ml","L50":"T.I.D","M50":"-","G51":"6-12 YEARS: 10ML TWICE DAILY","J51":"Sinecod Syrup \"Butamirate Citrate\"","F52":"Fenistel","G52":"1 month - 1 year: 3 - 10 drops ","H52":"every 8 hours","J52":"3-6 Ys","K52":"5 ml","L52":"T.I.D","M52":"-","G53":"1 year - 3 years: 10 - 15 drops","J53":"6-12 Ys","K53":"10 ml","L53":"T.I.D","M53":"-","G54":"3 years - 12 years: 15 - 20 drops","J54":">12 Ys","K54":"15 ml","L54":"T.I.D","M54":"-","G55":"Adolescents and Adults: 20 - 40 drops","J55":"Sinecod Drops \"Kids\"","J56":"2 months - 1 Year ","K56":"10 drops","L56":"Q.I.D","M56":"-","J57":"1 - 3 Ys","K57":"15 drops ","L57":"Q.I.D","M57":"-","J58":"> 3 Ys","K58":"25 drops ","L58":"Q.I.D","M58":"-","J59":"Ambroxol 15mg/5ml","J60":"<2 Ys","K60":"2.5 ml ","L60":"B.I.D","M60":"-","J61":"2-6 Ys","K61":"2.5 ml","L61":"T.I.D ","M61":"-","J62":"6-12 Ys","K62":"5 ml ","L62":"B.I.D","M62":"-","J63":"> 12 Ys ","K63":"10 ml ","L63":"T.I.D","M63":"-","J64":"Ambroxol 30mg/5ml \"Mucosolvan\u00a9\" ","J65":"0-2 Ys","K65":"1.25 ml","L65":"B.ID","M65":"-","J66":"2-5 Ys","K66":"1.25 ml ","L66":"T.I.D","M66":"-","J67":"6-12 Ys","K67":"2.5 ml ","L67":"T.I.D","M67":"-","J68":"> 12 Ys ","K68":"5 ml ","L68":"B.I.D to T.I.D","M68":"-","J69":"Actifed Wet Cough & Cold + Coldifed","K69":"Not recommended less than 6 years ","J70":"> 12 Ys ","K70":"10ml ","L70":"T.I.D","M70":"max 40ml daily","J71":"6-11 Ys ","K71":"5ml","L71":"T.I.D","M71":"max 20 ml daily ","J72":"Mucoplexil \"Oxomemazine 0.33mg/ml\"","K72":"Not recommended less than 2 years ","J73":"2-6 Ys     [13-20KG]","K73":"5ml","L73":"B.I.D - T.I.D","M73":"-","J74":"6-10 Ys   [20-30Kg]","K74":"10ml ","L74":"B.I.D - T.I.D","M74":"-","J75":"10-12 Ys [30-40Kg]","K75":"10ml ","L75":"T.I.D - Q.I.D","M75":"-","J76":">12 Years \">40Kgs\" ","K76":"10ml ","L76":"Q.I.D","M76":"-","J77":"Bronchicum Elixir S \"Thyme\"","K77":"Not recommended less than 6 months","J78":"6-12 Ms ","K78":"1ml","L78":"6 times daily","M78":"-","J79":"1-4 Ys ","K79":"2.5ml","L79":"6 times daily","M79":"-","J80":">5 Ys ","K80":"7.5ml ","L80":"Q.I.D","M80":"-","J81":"Amydramine \"Adults\" + Neocoff + Diphelin + Viscodril \"Diphenhydramine\"","K81":"Not recommended less than 6 Years ","J82":"6-12 Ys ","K82":"5 ml ","L82":"Q.I.D","M82":"-","J83":">12 Ys ","K83":"5-10 ml","L83":"Q.I.D","M83":"-","J84":"Bromhexine \"4mg/5ML\"","J85":"Infant & Babies ","K85":"2.5ml","L85":"T.I.D","M85":"-","J86":"Children <10 Years","K86":"5ml","L86":"T.I.D","M86":"-","J87":">10 Ys ","K87":"10-20ml ","L87":"T.I.D","M87":"-","J88":"Toulakids \"Glycerol 18.7 g/100ml\"","K88":"Not recommended less than 6 months","J89":"6-12 Ms ","K89":"5ml","L89":"T.I.D - Q.I.D","M89":"Syrup active after opening for 3 months only","J90":"1-6 Ys ","K90":"10ml ","L90":"T.I.D - Q.I.D","J91":"6-12 Ys ","K91":"15ml","L91":"T.I.D - Q.I.D","J92":">12 Ys ","K92":"15ml","L92":"4-6 times aday","J93":"Seki \"Colperastine fenizoate 3.54mg/Ml\"","K93":"Not recommended less than 2 years ","J94":"2-12 Ys ","K94":"7.5ml","L94":"Bedtime Zzz","M94":"1 measuring cup ","K95":"3.75ml ","L95":"morning ","M95":"Half measuring cup ","K96":"3.75ml ","L96":"afternoon","M96":"Half measuring cup ","J97":">12 Ys ","K97":"15ml","L97":"Bedtime Zzz","M97":"2 measuring Cups ","K98":7.5,"L98":"morning ","M98":"1 measuring cup ","K99":7.5,"L99":"afternoon","M99":"1 measuring cup ","J100":"Fortus Otosan Syrup ","K100":"Not  recommended less than 1 Year","J101":"1-6 Ys ","K101":"5ml ","L101":"B.I.D to T.I.D","M101":"Shake well and take the last dose before bedtime ","J102":">7 Ys ","K102":"10ml ","L102":"B.I.D to T.I.D","J103":"Marnys Propolsaft Syrup","K103":"Not recommended Less than 5 Ys \"2021\"","J104":"5-12 Ys","K104":"5ml ","L104":"daily ","M104":"-","J105":">12 Ys","K105":"10ml ","L105":"daily ","M105":"-","J106":"Triopan Syrup ","K106":"Not recommended less than 6 years ","J107":"6-12 Years ","K107":"5ml","L107":"T.I.D","M107":"-","J108":">12 Ys ","K108":"5-7.5ml ","L108":"T.I.D","M108":"-"},"formulaFormats":{"C2":"0.00","C3":"0.00","K3":"0","C4":"0.00","K4":"0","C5":"0.00","K5":"General","C6":"0.00","K6":"General","C7":"0.00","K7":"General","P7":"0.0","C8":"0.00","P8":"0.0","C9":"0.00","K9":"General","P9":"0.0","C10":"0.00","K10":"General","P10":"0.0","C11":"0.00","K11":"General","C12":"0.00","K12":"General","C13":"0.00","K13":"General","P13":"0.0","Q13":"0.0","C14":"0.00","K14":"0.00","P14":"0.0","Q14":"0.0","C15":"0.00","K15":"General","P15":"0.0","Q15":"0.0","C16":"0.00","C17":"0.00","K17":"General","C18":"0.00","K18":"General","C19":"0.00","C20":"0.00","C21":"0.00","K21":"General","C22":"0.00","C23":"0.00","C24":"0.00","C25":"0.00","C26":"0.00","C27":"0.00","C28":"0.00","C29":"0.00"},"mergedRanges":["K72:M72","F40:F41","K47:M47","K81:M81","K84:M84","F43:F45","F12:F13","K106:M106","H16:H20","G7:G8","H32:H34","K43:M43","K59:M59","H40:H41","F49:F51","K77:M77","F9:F11","K8:M8","J94:J96","F32:F34","K23:M23","K39:M39","F29:F31","H23:H25","N1:O1","H52:H55","J19:M19","J1:M1","F6:F8","O11:Q11","J97:J99","K64:M64","K103:M103","F27:F28","M101:M102","H27:H28","H29:H31","K93:M93","H43:H45","H12:H13","F37:F38","K69:M69","M89:M92","H37:H38","K34:M34","K16:M16","F14:F15","H9:H11","H14:H15","F52:F55","F16:F20","H6:H8","K36:M36","K55:M55","K88:M88","K51:M51","K20:M20","F23:F25","K29:M29","K100:M100"],"rowHeights":[33.0,20.1,20.1,20.1,20.1,20.1,31.5,30.0,20.1,20.1,20.1,20.1,30.0,30.0,23.25,20.1,20.1,30.0,24.0,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,30.0,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,19.5,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,45.0,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1,20.1]};
+        // DOSE_CALCULATOR_SOURCE_END
 
         const firstTabs = [
 
@@ -9522,6 +9606,332 @@
 
 
       /* =========================================================
+         DOSE CALCULATOR WORKSHEET
+      ========================================================= */
+
+      const doseCalculatorInputs = new Map();
+
+      function doseColumnNumber(letters){
+          let number = 0;
+          for(const letter of letters){
+              number = number * 26 + letter.charCodeAt(0) - 64;
+          }
+          return number;
+      }
+
+      function doseCellAddress(row,column){
+          let letters = "";
+          while(column > 0){
+              const remainder = (column - 1) % 26;
+              letters = String.fromCharCode(65 + remainder) + letters;
+              column = Math.floor((column - 1) / 26);
+          }
+          return letters + row;
+      }
+
+      function evaluateDoseFormula(formula,readCell){
+          const source = formula.slice(1).replace(/\$/g,"");
+          const tokenPattern = /\s*(>=|<=|<>|[()+\-*\/<>=,]|(?:\d+(?:\.\d*)?|\.\d+)|[A-Za-z]{1,3}\d+|[A-Za-z_][A-Za-z0-9_]*)/y;
+          const tokens = [];
+          let position = 0;
+
+          while(position < source.length){
+              tokenPattern.lastIndex = position;
+              const match = tokenPattern.exec(source);
+              if(!match){
+                  throw new Error("Unsupported formula expression");
+              }
+              tokens.push(match[1]);
+              position = tokenPattern.lastIndex;
+          }
+
+          let cursor = 0;
+          const peek = () => tokens[cursor];
+          const take = () => tokens[cursor++];
+          const expect = value => {
+              if(take() !== value){
+                  throw new Error("Invalid formula expression");
+              }
+          };
+
+          function parsePrimary(){
+              const token = take();
+              if(token === undefined){
+                  throw new Error("Incomplete formula expression");
+              }
+              if(token === "("){
+                  const value = parseComparison();
+                  expect(")");
+                  return value;
+              }
+              if(/^\d+(?:\.\d*)?$|^\.\d+$/.test(token)){
+                  return Number(token);
+              }
+              if(/^IF$/i.test(token)){
+                  expect("(");
+                  const condition = parseComparison();
+                  expect(",");
+                  const whenTrue = parseComparison();
+                  let whenFalse = false;
+                  if(peek() === ","){
+                      take();
+                      whenFalse = parseComparison();
+                  }
+                  expect(")");
+                  return condition ? whenTrue : whenFalse;
+              }
+              if(/^[A-Za-z]{1,3}\d+$/.test(token)){
+                  return readCell(token.toUpperCase());
+              }
+              throw new Error("Unsupported formula token");
+          }
+
+          function parseUnary(){
+              if(peek() === "+"){
+                  take();
+                  return Number(parseUnary());
+              }
+              if(peek() === "-"){
+                  take();
+                  return -Number(parseUnary());
+              }
+              return parsePrimary();
+          }
+
+          function parseProduct(){
+              let value = parseUnary();
+              while(peek() === "*" || peek() === "/"){
+                  const operator = take();
+                  const right = Number(parseUnary());
+                  value = operator === "*"
+                      ? Number(value) * right
+                      : Number(value) / right;
+              }
+              return value;
+          }
+
+          function parseSum(){
+              let value = parseProduct();
+              while(peek() === "+" || peek() === "-"){
+                  const operator = take();
+                  const right = Number(parseProduct());
+                  value = operator === "+"
+                      ? Number(value) + right
+                      : Number(value) - right;
+              }
+              return value;
+          }
+
+          function parseComparison(){
+              const left = parseSum();
+              const operator = peek();
+              if(!["<",">","<=",">=","=","<>"].includes(operator)){
+                  return left;
+              }
+              take();
+              const right = parseSum();
+              if(operator === "<") return Number(left) < Number(right);
+              if(operator === ">") return Number(left) > Number(right);
+              if(operator === "<=") return Number(left) <= Number(right);
+              if(operator === ">=") return Number(left) >= Number(right);
+              if(operator === "=") return Number(left) === Number(right);
+              return Number(left) !== Number(right);
+          }
+
+          const result = parseComparison();
+          if(cursor !== tokens.length){
+              throw new Error("Unexpected formula content");
+          }
+          return result;
+      }
+
+      function formatDoseFormulaResult(value,numberFormat){
+          if(value === false) return "FALSE";
+          if(value === true) return "TRUE";
+          if(typeof value !== "number" || !Number.isFinite(value)){
+              return value == null ? "" : String(value);
+          }
+          if(numberFormat === "0.00") return value.toFixed(2);
+          if(numberFormat === "0.0") return value.toFixed(1);
+          if(numberFormat === "0") return String(Math.round(value));
+          return String(Number(value.toPrecision(12)));
+      }
+
+      function renderDoseCalculator(version){
+          if(version !== renderVersion){
+              return;
+          }
+
+          tableArea.style.overflow = "auto";
+          tableArea.innerHTML = "";
+
+          const scrollArea = document.createElement("div");
+          scrollArea.className = "dose-sheet-wrap";
+
+          const table = document.createElement("table");
+          table.className = "dose-sheet-table";
+
+          const columns = document.createElement("colgroup");
+          for(let column=1;column<=doseCalculatorSource.columns;column++){
+              const col = document.createElement("col");
+              const workbookWidth = Number(
+                  doseCalculatorSource.columnWidths[column-1] || 9
+              );
+              const width = column === 5 || column === 9
+                  ? 38
+                  : Math.max(44,Math.round(workbookWidth * 5.2));
+              col.style.width = width + "px";
+              columns.appendChild(col);
+          }
+          table.appendChild(columns);
+
+          const mergedStarts = new Map();
+          const mergedCovered = new Set();
+
+          for(const range of doseCalculatorSource.mergedRanges){
+              const [start,end] = range.split(":");
+              const startMatch = start.match(/^([A-Z]+)(\d+)$/);
+              const endMatch = end.match(/^([A-Z]+)(\d+)$/);
+              if(!startMatch || !endMatch) continue;
+
+              const startColumn = doseColumnNumber(startMatch[1]);
+              const startRow = Number(startMatch[2]);
+              const endColumn = doseColumnNumber(endMatch[1]);
+              const endRow = Number(endMatch[2]);
+              mergedStarts.set(start,{
+                  rowSpan:endRow-startRow+1,
+                  colSpan:endColumn-startColumn+1
+              });
+
+              for(let row=startRow;row<=endRow;row++){
+                  for(let column=startColumn;column<=endColumn;column++){
+                      const address = doseCellAddress(row,column);
+                      if(address !== start) mergedCovered.add(address);
+                  }
+              }
+          }
+
+          const headerAddresses = new Set([
+              "A1","B1","C1","D1","F1","G1","H1",
+              "J2","K2","L2","M2","N2"
+          ]);
+          const formulaCells = Object.keys(doseCalculatorSource.cells)
+              .filter(address => {
+                  const value = doseCalculatorSource.cells[address];
+                  return typeof value === "string" && value.startsWith("=");
+              });
+
+          for(let row=1;row<=doseCalculatorSource.rows;row++){
+              const tr = document.createElement("tr");
+              const rowHeight = Number(
+                  doseCalculatorSource.rowHeights[row-1] || doseCalculatorSource.defaultRowHeight || 20
+              );
+              tr.style.height = Math.round(rowHeight * 4 / 3) + "px";
+
+              for(let column=1;column<=doseCalculatorSource.columns;column++){
+                  const address = doseCellAddress(row,column);
+                  if(mergedCovered.has(address)) continue;
+
+                  const cell = document.createElement("td");
+                  const merge = mergedStarts.get(address);
+                  if(merge){
+                      if(merge.rowSpan > 1) cell.rowSpan = merge.rowSpan;
+                      if(merge.colSpan > 1) cell.colSpan = merge.colSpan;
+                  }
+                  cell.dataset.doseAddress = address;
+
+                  if(headerAddresses.has(address)){
+                      cell.classList.add("dose-sheet-heading");
+                  }
+                  if(address === "J1" || address === "N1"){
+                      cell.classList.add("dose-sheet-title");
+                  }
+                  if(column === 5 || column === 9){
+                      cell.classList.add("dose-sheet-spacer");
+                  }
+
+                  const isManualWeight =
+                      (column === 2 && row >= 2 && row <= 29) ||
+                      address === "O2";
+
+                  if(isManualWeight){
+                      cell.classList.add("dose-sheet-input-cell");
+                      const input = document.createElement("input");
+                      input.type = "number";
+                      input.step = "any";
+                      input.className = "dose-sheet-input";
+                      input.value = doseCalculatorInputs.get(address) || "";
+                      input.setAttribute(
+                          "aria-label",
+                          address === "O2"
+                              ? "Child's weight in kilograms for Dose Calculator"
+                              : `Weight in kilograms for ${doseCalculatorSource.cells["A"+row] || "medicine"}`
+                      );
+                      input.addEventListener("input",() => {
+                          doseCalculatorInputs.set(address,input.value);
+                          updateDoseCalculatorFormulaCells();
+                      });
+                      cell.appendChild(input);
+                  }
+                  else if(formulaCells.includes(address)){
+                      cell.classList.add("dose-sheet-output-cell");
+                      cell.dataset.doseFormula = doseCalculatorSource.cells[address];
+                  }
+                  else{
+                      const value = doseCalculatorSource.cells[address];
+                      cell.textContent = value == null ? "" : String(value);
+                  }
+
+                  tr.appendChild(cell);
+              }
+              table.appendChild(tr);
+          }
+
+          scrollArea.appendChild(table);
+          tableArea.appendChild(scrollArea);
+          recordNumber.textContent = doseCalculatorSource.rows + " rows";
+          updateDoseCalculatorFormulaCells();
+      }
+
+      function updateDoseCalculatorFormulaCells(){
+          const cache = new Map();
+          const calculating = new Set();
+
+          function resolveDoseCell(address){
+              if(doseCalculatorInputs.has(address)){
+                  const input = doseCalculatorInputs.get(address).trim();
+                  return input === "" ? 0 : Number(input);
+              }
+
+              if(cache.has(address)) return cache.get(address);
+
+              const raw = doseCalculatorSource.cells[address];
+              if(typeof raw === "string" && raw.startsWith("=")){
+                  if(calculating.has(address)) return 0;
+                  calculating.add(address);
+                  const result = evaluateDoseFormula(raw,resolveDoseCell);
+                  calculating.delete(address);
+                  cache.set(address,result);
+                  return result;
+              }
+
+              if(raw == null || raw === "") return 0;
+              const number = Number(raw);
+              return Number.isFinite(number) ? number : 0;
+          }
+
+          document.querySelectorAll("[data-dose-formula]").forEach(cell => {
+              const address = cell.dataset.doseAddress;
+              const result = resolveDoseCell(address);
+              cell.textContent = formatDoseFormulaResult(
+                  result,
+                  doseCalculatorSource.formulaFormats[address]
+              );
+          });
+      }
+
+
+      /* =========================================================
          RX VALIDITY CALCULATOR
       ========================================================= */
 
@@ -10261,6 +10671,11 @@
                 return;
             }
 
+          if(tab.id === "dose"){
+              renderDoseCalculator(version);
+              return;
+          }
+
 
 
           if(tab.id === "dubai"){
@@ -10443,6 +10858,12 @@
 
           const version =
               ++renderVersion;
+
+
+          if(id === "dose"){
+              renderDoseCalculator(version);
+              return;
+          }
 
 
           if(id === "proactive"){
@@ -10670,6 +11091,7 @@
                   tab =>
                       tab.id !== "search" &&
                       tab.id !== "rx" &&
+                      tab.id !== "dose" &&
                       !dataCache.has(
                             "__TAB__" + tab.id
                         )
