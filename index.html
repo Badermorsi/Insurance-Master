@@ -751,24 +751,26 @@
       .dose-sheet-wrap{
           width:100%;
           height:100%;
-          overflow:auto;
-          padding:10px;
+          max-width:100%;
+          overflow-x:hidden;
+          overflow-y:auto;
+          padding:6px;
           background:#f3f6f8;
       }
 
       .dose-sheet-table{
-          width:max-content;
+          width:100%;
           table-layout:fixed;
           border-collapse:collapse;
           color:#34434c;
-          font-size:10px;
-          line-height:1.25;
+          font-size:9px;
+          line-height:1.2;
       }
 
       .dose-sheet-table td{
-          height:27px;
-          min-height:27px;
-          padding:4px 5px;
+          height:26px;
+          min-height:26px;
+          padding:3px 3px;
           border:1px solid #d8e1e5;
           background:#ffffff;
           text-align:center;
@@ -811,7 +813,7 @@
       .dose-sheet-input{
           display:block;
           width:100%;
-          min-width:42px;
+          min-width:0;
           height:26px;
           padding:0 4px;
           border:1px solid #8fc6a2;
@@ -9772,15 +9774,15 @@
           table.className = "dose-sheet-table";
 
           const columns = document.createElement("colgroup");
+          const sourceWidths = doseCalculatorSource.columnWidths.map(
+              (width,index) => index === 4 || index === 8
+                  ? Math.min(Number(width) || 9,5)
+                  : Number(width) || 9
+          );
+          const totalWidth = sourceWidths.reduce((sum,width) => sum + width,0);
           for(let column=1;column<=doseCalculatorSource.columns;column++){
               const col = document.createElement("col");
-              const workbookWidth = Number(
-                  doseCalculatorSource.columnWidths[column-1] || 9
-              );
-              const width = column === 5 || column === 9
-                  ? 38
-                  : Math.max(44,Math.round(workbookWidth * 5.2));
-              col.style.width = width + "px";
+              col.style.width = (sourceWidths[column-1] / totalWidth * 100) + "%";
               columns.appendChild(col);
           }
           table.appendChild(columns);
@@ -12079,6 +12081,10 @@
 
                         ppiSpecialtyFilters.clear();
 
+                    }
+
+                    if(currentTab.id === "dose"){
+                        doseCalculatorInputs.clear();
                     }
 
 
