@@ -82,8 +82,8 @@
 
         .page-password-logo{
             display:block;
-            width:72%;
-            height:270px;
+            width:68%;
+            height:250px;
             margin:8px auto 18px;
             border-radius:15px 15px 0 0;
             object-fit:fill;
@@ -903,6 +903,15 @@
                 border-color .12s ease,
                 box-shadow .12s ease,
                 transform .08s ease;
+        }
+
+        #tabs .tab[data-id="apg"]{
+            grid-column:span 2;
+            text-overflow:clip;
+        }
+
+        #tabs .tab[data-id="fmc"]{
+            grid-column:1;
         }
 
         .tab:hover{
