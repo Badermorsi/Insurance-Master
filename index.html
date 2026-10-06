@@ -80,17 +80,13 @@
             box-shadow:0 18px 48px rgba(27,57,67,.13);
         }
 
-        .page-password-mark{
-            display:grid;
-            width:42px;
-            height:42px;
-            place-items:center;
+        .page-password-logo{
+            display:block;
+            width:min(100%,230px);
+            height:64px;
+            object-fit:contain;
+            object-position:left center;
             margin-bottom:18px;
-            border-radius:13px;
-            background:#e9f5f6;
-            color:#126f80;
-            font-size:20px;
-            font-weight:800;
         }
 
         .page-password-card h1{
@@ -174,44 +170,44 @@
             border-bottom:1px solid #e5eaee;
         }
 
-        .logo{
-            width:31px;
-            height:31px;
-
-            border-radius:8px;
-
-            display:flex;
-            align-items:center;
-            justify-content:center;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #0f6878,
-                    #238da0
-                );
-
-            color:#ffffff;
-
-            font-size:18px;
-            font-weight:800;
-
-            box-shadow:
-                0 4px 10px rgba(15,104,120,.20);
-        }
-
-        .logo::before{
-            content:"+";
-            line-height:1;
+        .brand-logo{
+            display:block;
+            flex:0 0 auto;
+            width:132px;
+            height:38px;
+            margin-right:12px;
+            object-fit:contain;
+            object-position:left center;
         }
 
         .brand-name{
+            min-width:0;
             font-size:16px;
             font-weight:750;
 
             letter-spacing:-.3px;
 
             color:#20313b;
+        }
+
+        @media(max-width:520px){
+            .brand-bar{
+                padding:0 10px;
+            }
+
+            .brand-logo{
+                width:96px;
+                height:32px;
+                margin-right:7px;
+            }
+
+            .tab-search{
+                margin-right:7px;
+            }
+
+            .brand-name{
+                font-size:13px;
+            }
         }
 
 
@@ -2842,7 +2838,12 @@
 
         <main id="pagePasswordGate" class="page-password-gate">
             <form id="pagePasswordForm" class="page-password-card">
-                <div class="page-password-mark" aria-hidden="true">+</div>
+                <img
+                    class="page-password-logo"
+                    src="../logo.png"
+                    alt="Al Ain Pharmacy"
+                    onerror="this.onerror=null;this.src='logo.png';"
+                >
                 <h1>Insurance All List</h1>
                 <p>Enter the shared password to open the dashboard.</p>
                 <label for="pagePasswordInput">Password</label>
@@ -2855,6 +2856,13 @@
         <div id="mainApp" class="app" hidden>
 
         <div class="brand-bar">
+
+            <img
+                class="brand-logo"
+                src="../logo.png"
+                alt="Al Ain Pharmacy"
+                onerror="this.onerror=null;this.src='logo.png';"
+            >
 
             <div id="tabSearch" class="tab-search">
                 <input
