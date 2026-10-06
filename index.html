@@ -786,6 +786,19 @@
           font-weight:800;
       }
 
+      .dose-sheet-table td.dose-sheet-focus-column{
+          background:#fff6cf;
+          color:#243846;
+          font-weight:750;
+      }
+
+      .dose-sheet-table td.dose-sheet-focus-column.dose-sheet-heading{
+          background:#d6e9ed;
+          color:#123f4b;
+          font-weight:900;
+          font-size:10px;
+      }
+
       .dose-sheet-table td.dose-sheet-title{
           background:#12697a;
           border-color:#0f5c69;
@@ -9844,6 +9857,9 @@
 
                   if(headerAddresses.has(address)){
                       cell.classList.add("dose-sheet-heading");
+                  }
+                  if(column === 1 || column === 6){
+                      cell.classList.add("dose-sheet-focus-column");
                   }
                   if(address === "J1" || address === "N1"){
                       cell.classList.add("dose-sheet-title");
