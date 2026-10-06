@@ -128,6 +128,13 @@
               box-shadow:0 0 0 3px rgba(36,137,154,.12);
           }
 
+          .page-password-card input[readonly]{
+              background:#f3f7f8;
+              color:#536970;
+              font-weight:650;
+              cursor:default;
+          }
+
           .page-password-submit{
               width:100%;
               height:43px;
@@ -3047,11 +3054,13 @@
                       onerror="this.onerror=null;this.src='logo.png';"
                   >
                   <h1>Insurance All List</h1>
-                  <p>Enter the shared password to open the dashboard.</p>
+                  <p>Sign in with your branch account to open the dashboard.</p>
+                  <label for="pagePasswordUsername">Username</label>
+                  <input id="pagePasswordUsername" type="text" value="Sama Branch" autocomplete="username" readonly required>
                   <label for="pagePasswordInput">Password</label>
                   <input id="pagePasswordInput" type="password" autocomplete="current-password" required autofocus>
                   <button id="pagePasswordLogin" class="page-password-submit" type="button">Login</button>
-                  <div id="pagePasswordError" class="page-password-error" role="alert" hidden>That password is not correct. Please try again.</div>
+                  <div id="pagePasswordError" class="page-password-error" role="alert" hidden>That username or password is not correct. Please try again.</div>
               </form>
           </main>
 
@@ -12349,6 +12358,9 @@
           const pagePasswordInput =
               document.getElementById("pagePasswordInput");
 
+          const pagePasswordUsername =
+              document.getElementById("pagePasswordUsername");
+
           const pagePasswordError =
               document.getElementById("pagePasswordError");
 
@@ -12395,7 +12407,10 @@
               });
 
           function handlePagePasswordLogin(){
-              if(pagePasswordInput.value.trim() !== "Alain2027@ZAS"){
+              if(
+                  pagePasswordUsername.value !== "Sama Branch" ||
+                  pagePasswordInput.value.trim() !== "Alain2027@ZAS"
+              ){
                   pagePasswordError.hidden = false;
                   pagePasswordInput.focus();
                   pagePasswordInput.select();
