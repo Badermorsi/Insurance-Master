@@ -11627,7 +11627,7 @@
               searchCard.innerHTML = `
                   <div class="quantity-section-title">Search APG Formulary</div>
                   <div class="quantity-search-wrap">
-                      <input class="quantity-search-input" type="search" autocomplete="off" placeholder="Type Proactive Name or Item Code — e.g. Bruf">
+                      <input class="quantity-search-input" type="search" autocomplete="off" placeholder="Type Proactive Name — e.g. Bruf">
                       <div class="quantity-search-results" hidden></div>
                   </div>
                   <div class="quantity-selected-card" hidden>
@@ -11713,13 +11713,12 @@
 
                   const matches = [];
                   for(const row of info.rows){
+                      // Search ONLY the APG Formulary Proactive Name column.
+                      // The selected row is then used to return Strength,
+                      // Dosage Form and Package Size from that exact APG record.
                       const name = rowText(row,info.nameColumn);
-                      const id = rowText(row,info.idColumn);
-                      if(
-                          name.toLowerCase().startsWith(term) ||
-                          id.toLowerCase().startsWith(term)
-                      ){
-                          matches.push({row,name,id});
+                      if(name.toLowerCase().startsWith(term)){
+                          matches.push({row,name});
                           if(matches.length >= 50) break;
                       }
                   }
@@ -11736,9 +11735,9 @@
                       button.className = "quantity-result-option";
                       button.innerHTML = `
                           <strong>${escapeHtml(match.name || "—")}</strong>
-                          <span>${escapeHtml(match.id || "—")}</span>
                           <span>${escapeHtml(rowText(match.row,info.strengthColumn) || "—")}</span>
                           <span>${escapeHtml(rowText(match.row,info.dosageFormColumn) || "—")}</span>
+                          <span>${escapeHtml(rowText(match.row,info.packageSizeColumn) || "—")}</span>
                       `;
                       button.addEventListener("click",() => selectRow(match.row));
                       results.appendChild(button);
