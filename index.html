@@ -950,6 +950,11 @@
             font-variant-numeric:tabular-nums;
         }
 
+        .dose-sheet-table td.dose-sheet-related-cell{
+            background:#eeeafb;
+            border-color:#d9d2ef;
+        }
+
         .dose-sheet-input{
             display:block;
             width:100%;
@@ -10067,8 +10072,13 @@
               "J23",
               "J29","J34","J36","J39","J43","J47","J51","J55",
                 "J59","J64","J69","J72","J77","J81","J84","J88",
-                "J93","J100","J103","J106","N7","N12"
-            ]);
+            "J93","J100","J103","J106","N7","N12"
+          ]);
+          const relatedAddresses = new Set([
+              "J8","K8","L8","M8","N8","N9","N10","N11",
+              "N12","O12","P12","Q12","N13","N14","N15",
+              "O13","O14","O15","P13","P14","P15","Q13","Q14","Q15"
+          ]);
 
             for(let row=1;row<=doseCalculatorSource.rows;row++){
                 const tr = document.createElement("tr");
@@ -10095,9 +10105,12 @@
                     if(column === 1 || column === 6){
                         cell.classList.add("dose-sheet-focus-column");
                     }
-                    if(medicineAddresses.has(address)){
-                        cell.classList.add("dose-sheet-medicine-cell");
-                    }
+                  if(medicineAddresses.has(address)){
+                      cell.classList.add("dose-sheet-medicine-cell");
+                  }
+                  if(relatedAddresses.has(address)){
+                      cell.classList.add("dose-sheet-related-cell");
+                  }
                     if((column <= 4 && row > 29) || (column >= 6 && column <= 8 && row > 55)){
                         cell.classList.add("dose-sheet-section-tail");
                     }
