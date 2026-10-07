@@ -82,11 +82,12 @@
 
           .page-password-logo{
               display:block;
-              width:66%;
-              height:170px;
+              width:160px;
+              max-width:100%;
+              height:160px;
               margin:0 auto 20px;
-              border-radius:15px 15px 0 0;
-              object-fit:fill;
+              border-radius:10px;
+              object-fit:contain;
               object-position:center;
               transform:translateY(5px);
           }
@@ -3107,7 +3108,7 @@
                   <h1>Insurance All List</h1>
                   <p>Sign in with your branch account to open the dashboard.</p>
                   <label for="pagePasswordUsername">Username</label>
-                  <input id="pagePasswordUsername" type="text" value="Sama Branch" autocomplete="username" readonly required>
+                  <input id="pagePasswordUsername" type="text" value="Zone O" autocomplete="username" readonly required>
                   <label for="pagePasswordInput">Password</label>
                   <input id="pagePasswordInput" type="password" autocomplete="current-password" required autofocus>
                   <button id="pagePasswordLogin" class="page-password-submit" type="button">Login</button>
@@ -12511,7 +12512,7 @@
 
           function handlePagePasswordLogin(){
               if(
-                  pagePasswordUsername.value !== "Sama Branch" ||
+                  pagePasswordUsername.value !== "Zone O" ||
                   pagePasswordInput.value.trim() !== "Alain2027@ZAS"
               ){
                   pagePasswordError.hidden = false;
