@@ -5093,6 +5093,21 @@
                   const lower =
                       normalizeColumnName(column);
 
+                  if(tab.id === "ddf" && lower === "drugtier"){
+                      const columnIndex = columns.indexOf(column);
+                      widths.push(
+                          calculateNoWrapColumnWidth(
+                              column,
+                              rows,
+                              columnIndex,
+                              "Drug",
+                              58,
+                              14
+                          )
+                      );
+                      continue;
+                  }
+
                   if(tab.id === "contacts"){
                       const contactColumnIndex = columns.indexOf(column);
 
@@ -6010,6 +6025,14 @@
                       normalizedColumn === "insuranceplan"
                   ){
                       displayColumn = "Insurance\nPlan";
+                      label.style.whiteSpace = "pre-line";
+                  }
+
+                  if(
+                      tab.id === "ddf" &&
+                      normalizedColumn === "drugtier"
+                  ){
+                      displayColumn = "Drug\nTier";
                       label.style.whiteSpace = "pre-line";
                   }
 
