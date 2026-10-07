@@ -1411,6 +1411,31 @@
               white-space:normal;
           }
 
+          .data-table th.ddf-drug-tier-column .header-content{
+              position:relative;
+          }
+
+          .data-table th.ddf-drug-tier-column .header-label{
+              position:absolute;
+              inset:0;
+              display:flex;
+              align-items:center;
+              justify-content:center;
+              width:100%;
+              text-align:center;
+              pointer-events:none;
+          }
+
+          .data-table th.ddf-drug-tier-column .filter-button{
+              position:relative;
+              z-index:1;
+              margin-left:auto;
+          }
+
+          .data-table td.ddf-drug-tier-cell{
+              text-align:center;
+          }
+
           .filter-button{
               flex:0 0 19px;
 
@@ -5101,7 +5126,7 @@
                               rows,
                               columnIndex,
                               "Drug",
-                              70,
+                              80,
                               14
                           )
                       );
@@ -5923,6 +5948,13 @@
 
                   const th =
                       document.createElement("th");
+
+                  if(
+                      tab.id === "ddf" &&
+                      normalizeColumnName(column) === "drugtier"
+                  ){
+                      th.classList.add("ddf-drug-tier-column");
+                  }
 
                   if(isNoWrapCodeColumn(tab,column)){
                       th.classList.add("nowrap-code-column");
@@ -6897,6 +6929,13 @@
 
                           const td =
                               document.createElement("td");
+
+                          if(
+                              tab.id === "ddf" &&
+                              normalizeColumnName(column) === "drugtier"
+                          ){
+                              td.classList.add("ddf-drug-tier-cell");
+                          }
 
                           if(tab.id === "coverage" && c === 0){
                               td.classList.add("freeze-left-1");
