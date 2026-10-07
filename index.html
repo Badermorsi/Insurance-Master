@@ -955,6 +955,11 @@
             border-color:#d9d2ef;
         }
 
+        .dose-sheet-table td.dose-sheet-alternate-group-cell{
+            background:#e5f3fb;
+            border-color:#c8e1ef;
+        }
+
         .dose-sheet-input{
             display:block;
             width:100%;
@@ -10079,6 +10084,10 @@
               "N12","O12","P12","Q12","N13","N14","N15",
               "O13","O14","O15","P13","P14","P15","Q13","Q14","Q15"
           ]);
+          const alternateGroupAddresses = new Set([
+              "J7","K7","L7","M7","N7","O7","P7","Q7",
+              "O8","O9","O10","P8","P9","P10","Q8","Q9","Q10"
+          ]);
 
             for(let row=1;row<=doseCalculatorSource.rows;row++){
                 const tr = document.createElement("tr");
@@ -10110,6 +10119,9 @@
                   }
                   if(relatedAddresses.has(address)){
                       cell.classList.add("dose-sheet-related-cell");
+                  }
+                  if(alternateGroupAddresses.has(address)){
+                      cell.classList.add("dose-sheet-alternate-group-cell");
                   }
                     if((column <= 4 && row > 29) || (column >= 6 && column <= 8 && row > 55)){
                         cell.classList.add("dose-sheet-section-tail");
