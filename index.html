@@ -361,9 +361,6 @@
 
               padding:8px 12px 9px;
 
-              overflow-x:auto;
-              overflow-y:hidden;
-
               background:#f3f6f8;
 
               border-bottom:1px solid #dfe5e9;
@@ -1143,7 +1140,6 @@
 
           .tabs-grid{
               width:100%;
-              min-width:1120px;
 
               display:grid;
 
@@ -2923,7 +2919,7 @@
 
               .tabs-grid{
                   grid-template-columns:
-                      repeat(15,minmax(0,1fr));
+                      repeat(12,minmax(0,1fr));
               }
 
           }
@@ -2932,7 +2928,7 @@
 
               .tabs-grid{
                   grid-template-columns:
-                      repeat(15,minmax(0,1fr));
+                      repeat(10,minmax(0,1fr));
               }
 
           }
@@ -2941,7 +2937,7 @@
 
               .tabs-grid{
                   grid-template-columns:
-                      repeat(15,minmax(0,1fr));
+                      repeat(8,minmax(0,1fr));
               }
 
               .ppi-layout{
@@ -3002,7 +2998,7 @@
 
               .tabs-grid{
                   grid-template-columns:
-                      repeat(15,minmax(0,1fr));
+                      repeat(6,minmax(0,1fr));
               }
 
               .tab{
@@ -3076,7 +3072,7 @@
 
               .tabs-grid{
                   grid-template-columns:
-                      repeat(15,minmax(0,1fr));
+                      repeat(3,minmax(0,1fr));
               }
 
               .table-view{
@@ -3640,46 +3636,6 @@
               remainingTabs.find(tab => tab.id === "eligibility")
 
           ].filter(Boolean);
-
-          const requestedTabOrder = [
-              "apg",
-              "haad",
-              "vitamins",
-              "ppi",
-              "eye",
-              "dose",
-              "ddf",
-              "cdc",
-              "plans",
-              "proactive",
-              "adnic",
-              "apg-hcpcs",
-              "aafiya",
-              "denial",
-              "contacts",
-              "dha-shifa",
-              "dubai",
-              "fmc",
-              "inayah",
-              "coverage",
-              "invalid-dx",
-              "moh",
-              "nas-haad",
-              "nas-dha",
-              "oman",
-              "search",
-              "rx",
-              "refill",
-              "eligibility"
-          ];
-
-          tabsConfig.splice(
-              0,
-              tabsConfig.length,
-              ...requestedTabOrder
-                  .map(id => tabsConfig.find(tab => tab.id === id))
-                  .filter(Boolean)
-          );
 
           /* =========================================================
              STATE
