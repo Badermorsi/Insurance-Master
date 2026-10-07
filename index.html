@@ -3151,9 +3151,9 @@
           ========================================================= */
 
           .quantity-calculator{
-              max-width:1100px;
+              width:min(1180px,100%);
               margin:0 auto;
-              padding:22px 22px 40px;
+              padding:20px 22px 40px;
           }
 
           .quantity-search-card,
@@ -3207,10 +3207,11 @@
           }
 
           .quantity-search-results[hidden]{display:none;}
+
           .quantity-result-option{
               width:100%;
               display:grid;
-              grid-template-columns:minmax(0,1.8fr) minmax(90px,.8fr) minmax(100px,.9fr) minmax(100px,.9fr);
+              grid-template-columns:minmax(0,1.7fr) minmax(100px,.8fr) minmax(110px,.9fr) minmax(110px,.9fr);
               gap:10px;
               padding:10px 12px;
               border:0;
@@ -3257,6 +3258,7 @@
           }
 
           .quantity-dose-card{margin-top:14px;padding:18px;}
+
           .quantity-dose-grid{
               display:grid;
               grid-template-columns:repeat(3,minmax(0,1fr));
@@ -3331,7 +3333,7 @@
 
           .quantity-result-main{
               margin-top:12px;
-              padding:15px;
+              padding:17px;
               border:1px solid #b8d8ce;
               border-radius:10px;
               background:#e9f6f1;
@@ -3340,19 +3342,26 @@
 
           .quantity-result-main .quantity-big-label{
               color:#3e7467;
-              font-size:10px;
-              font-weight:750;
+              font-size:11px;
+              font-weight:800;
           }
 
           .quantity-result-main .quantity-big-number{
               margin-top:4px;
               color:#116b56;
-              font-size:28px;
+              font-size:29px;
               font-weight:900;
           }
 
+          .quantity-result-main .quantity-big-sub{
+              margin-top:4px;
+              color:#3e7467;
+              font-size:11px;
+              font-weight:700;
+          }
+
           .quantity-warning{color:#a05a20!important;}
-          .quantity-error{color:#a43d3d;font-size:11px;font-weight:700;}
+          .quantity-error{margin-top:8px;color:#a43d3d;font-size:11px;font-weight:700;}
 
           @media(max-width:800px){
               .quantity-selected-card{grid-template-columns:repeat(2,minmax(0,1fr));}
@@ -11500,6 +11509,54 @@
               return Number.isInteger(number) ? String(number) : String(Number(number.toFixed(2)));
           }
 
+          /* Read common APG package values such as 100 ml, 100mL, 30 tablets,
+             1 x 100 ml, or 100 ml x 1. The first numeric amount is used as the
+             sale/package size and the unit is retained for the final calculation. */
+          function quantityParsePackage(packageText,doseUnit=""){
+              const text = String(packageText || "").trim();
+              if(!text) return {total:0,saleSize:0,saleUnit:""};
+
+              const normalized = text
+                  .replace(/,/g,"")
+                  .replace(/×/g,"x")
+                  .replace(/\s+/g," ")
+                  .trim();
+
+              const matches = [...normalized.matchAll(/(\d+(?:\.\d+)?)\s*(ml|milliliter|milliliters|l|liter|liters|g|gram|grams|kg|mg|mcg|µg|ug|iu|units?|tablets?|tabs?|capsules?|caps?|drops?|puffs?|sachets?|vials?|ampoules?|ampules?|bottles?|pieces?|pcs?)\b/ig)];
+
+              if(matches.length){
+                  const amount = Number(matches[0][1]);
+                  const rawUnit = matches[0][2].toLowerCase();
+                  const unitMap = {
+                      milliliter:"ml",milliliters:"ml",l:"l",liter:"l",liters:"l",
+                      gram:"g",grams:"g",kg:"kg",mg:"mg",mcg:"mcg",µg:"mcg",ug:"mcg",
+                      iu:"iu",unit:"unit",units:"unit",tablet:"tablet",tablets:"tablet",
+                      tab:"tablet",tabs:"tablet",capsule:"capsule",capsules:"capsule",cap:"capsule",caps:"capsule",
+                      drop:"drop",drops:"drop",puff:"puff",puffs:"puff",sachet:"sachet",sachets:"sachet",
+                      vial:"vial",vials:"vial",ampoule:"ampoule",ampoules:"ampoule",ampule:"ampoule",ampules:"ampoule",
+                      bottle:"bottle",bottles:"bottle",piece:"unit",pieces:"unit",pcs:"unit"
+                  };
+                  return {total:amount,saleSize:amount,saleUnit:unitMap[rawUnit] || rawUnit};
+              }
+
+              const numeric = Number((normalized.match(/\d+(?:\.\d+)?/) || [""])[0]);
+              if(Number.isFinite(numeric) && numeric > 0){
+                  return {total:numeric,saleSize:numeric,saleUnit:String(doseUnit || "unit").toLowerCase()};
+              }
+
+              return {total:0,saleSize:0,saleUnit:""};
+          }
+
+          function quantityUnitCompatible(doseUnit,packageUnit){
+              const d = String(doseUnit || "").toLowerCase();
+              const p = String(packageUnit || "").toLowerCase();
+              if(!d || !p) return true;
+              if(d === p) return true;
+              if(d === "unit" && p === "unit") return true;
+              if((d === "drop" && p === "drop") || (d === "iu" && p === "iu")) return true;
+              return false;
+          }
+
           function quantityDurationDays(value,unit){
               const n = Number(value);
               if(!Number.isFinite(n) || n <= 0) return 0;
@@ -11528,30 +11585,19 @@
           }
 
           function quantityRequiredAdministrations(dose,frequencyQty,frequencyUnit,duration,durationUnit){
-              const d = Number(dose);
               const fq = Number(frequencyQty);
-              if(!Number.isFinite(d) || d <= 0 || !Number.isFinite(fq) || fq <= 0) return 0;
+              if(!Number.isFinite(fq) || fq <= 0) return 0;
 
               const durationHours = quantityDurationDays(duration,durationUnit) * 24;
               if(!durationHours) return 0;
 
-              /*
-                 D/W/M/Y: the number entered is administrations per period.
-                 Example: 3 + D = 3 times daily.
-                 2 + W = 2 times weekly.
-
-                 2D/3D/... and 18H/36H: the dropdown itself is the interval;
-                 the number box is the number of doses at each occurrence.
-                 Example: 1 + 3D = one dose every 3 days.
-              */
               const pattern = quantityFrequencyPattern(frequencyUnit);
               if(pattern){
                   const periodHours = quantityPeriodHours(pattern.base);
                   if(!periodHours) return 0;
 
                   if(pattern.multiplier === 1){
-                      const occurrences = durationHours / periodHours;
-                      return Math.ceil(occurrences) * fq;
+                      return Math.ceil(durationHours / periodHours) * fq;
                   }
 
                   const intervalHours = periodHours * pattern.multiplier;
@@ -11581,11 +11627,11 @@
               searchCard.innerHTML = `
                   <div class="quantity-section-title">Search APG Formulary</div>
                   <div class="quantity-search-wrap">
-                      <input class="quantity-search-input" type="search" autocomplete="off" placeholder="Search by Proactive Name or Item Code">
+                      <input class="quantity-search-input" type="search" autocomplete="off" placeholder="Type Proactive Name or Item Code — e.g. Bruf">
                       <div class="quantity-search-results" hidden></div>
                   </div>
                   <div class="quantity-selected-card" hidden>
-                      <div class="quantity-selected-item"><span>Item Name</span><strong data-q="name">—</strong></div>
+                      <div class="quantity-selected-item"><span>Drug Name</span><strong data-q="name">—</strong></div>
                       <div class="quantity-selected-item"><span>Strength</span><strong data-q="strength">—</strong></div>
                       <div class="quantity-selected-item"><span>Dosage Form</span><strong data-q="dosage">—</strong></div>
                       <div class="quantity-selected-item"><span>Package Size</span><strong data-q="package">—</strong></div>
@@ -11601,7 +11647,7 @@
                       <div class="quantity-field">
                           <label>Dose</label>
                           <div class="quantity-field-control">
-                              <input class="q-dose-value" type="number" min="0" step="any" placeholder="Quantity">
+                              <input class="q-dose-value" type="number" min="0" step="any" placeholder="5">
                               <select class="q-dose-unit">
                                   <option value="unit">unit</option>
                                   <option value="ml">ml</option>
@@ -11613,23 +11659,23 @@
                       <div class="quantity-field">
                           <label>Frequency</label>
                           <div class="quantity-field-control">
-                              <input class="q-frequency-value" type="number" min="0" step="any" placeholder="Quantity" value="1">
-                              <select class="q-frequency-unit">${quantityFrequencyOptions.map(([v,l]) => `<option value="${v}">${v}</option>`).join("")}</select>
+                              <input class="q-frequency-value" type="number" min="0" step="any" placeholder="3" value="1">
+                              <select class="q-frequency-unit">${quantityFrequencyOptions.map(([v,l]) => `<option value="${v}">${l}</option>`).join("")}</select>
                           </div>
                       </div>
                       <div class="quantity-field">
                           <label>Duration</label>
                           <div class="quantity-field-control">
-                              <input class="q-duration-value" type="number" min="0" step="any" placeholder="Quantity">
+                              <input class="q-duration-value" type="number" min="0" step="any" placeholder="10">
                               <select class="q-duration-unit">
-                                  <option value="D">D</option>
-                                  <option value="W">W</option>
-                                  <option value="M">M</option>
+                                  <option value="D">Days</option>
+                                  <option value="W">Weeks</option>
+                                  <option value="M">Months</option>
                               </select>
                           </div>
                       </div>
                   </div>
-                  <div class="quantity-calc-hint">Frequency uses the interval selected: D = daily, W = weekly, 18H = every 18 hours. Duration uses D / W / M.</div>
+                  <div class="quantity-calc-hint">Example: 5 ml × 3 times daily × 10 days = 150 ml required.</div>
               `;
               root.appendChild(doseCard);
 
@@ -11640,11 +11686,12 @@
                   <div class="quantity-result-grid">
                       <div class="quantity-result-box"><span>Number of administrations</span><strong data-q="administrations">—</strong></div>
                       <div class="quantity-result-box"><span>Total dose</span><strong data-q="totalDose">—</strong></div>
-                      <div class="quantity-result-box"><span>Package</span><strong data-q="resultPackage">—</strong></div>
+                      <div class="quantity-result-box"><span>Package Size</span><strong data-q="resultPackage">—</strong></div>
                   </div>
                   <div class="quantity-result-main">
-                      <div class="quantity-big-label">Nearest quantity above required dose</div>
+                      <div class="quantity-big-label">Quantity to dispense</div>
                       <div class="quantity-big-number" data-q="packs">—</div>
+                      <div class="quantity-big-sub" data-q="packsSub"></div>
                   </div>
                   <div class="quantity-error" data-q="error"></div>
               `;
@@ -11657,7 +11704,6 @@
               let selectedRow = null;
 
               const q = selector => root.querySelector(selector);
-
               function rowText(row,column){ return quantityValue(row,column,info.columns); }
 
               function showMatches(){
@@ -11669,16 +11715,17 @@
                   for(const row of info.rows){
                       const name = rowText(row,info.nameColumn);
                       const id = rowText(row,info.idColumn);
-                      const hayName = name.toLowerCase();
-                      const hayId = id.toLowerCase();
-                      if(hayName.startsWith(term) || hayId.startsWith(term) || hayName.includes(term) || hayId.includes(term)){
+                      if(
+                          name.toLowerCase().startsWith(term) ||
+                          id.toLowerCase().startsWith(term)
+                      ){
                           matches.push({row,name,id});
-                          if(matches.length >= 30) break;
+                          if(matches.length >= 50) break;
                       }
                   }
 
                   if(!matches.length){
-                      results.innerHTML = `<div class="quantity-search-empty">No APG item found.</div>`;
+                      results.innerHTML = `<div class="quantity-search-empty">No APG item starting with “${escapeHtml(input.value.trim())}” was found.</div>`;
                       results.hidden = false;
                       return;
                   }
@@ -11702,7 +11749,7 @@
               function selectRow(row){
                   selectedRow = row;
                   input.value = rowText(row,info.nameColumn) || rowText(row,info.idColumn);
-                  q('[data-q="name"]').textContent = rowText(row,info.nameColumn) || "—";
+                  q('[data-q="name"]').textContent = rowText(row,info.nameColumn) || rowText(row,info.idColumn) || "—";
                   q('[data-q="strength"]').textContent = rowText(row,info.strengthColumn) || "—";
                   q('[data-q="dosage"]').textContent = rowText(row,info.dosageFormColumn) || "—";
                   q('[data-q="package"]').textContent = rowText(row,info.packageSizeColumn) || "—";
@@ -11717,11 +11764,11 @@
                   const frequencyUnit = q(".q-frequency-unit").value;
                   const duration = Number(q(".q-duration-value").value);
                   const durationUnit = q(".q-duration-unit").value;
+                  const doseUnit = q(".q-dose-unit").value;
                   const administrations = quantityRequiredAdministrations(dose,frequencyQty,frequencyUnit,duration,durationUnit);
                   const totalDose = administrations * dose;
-                  const doseUnit = q(".q-dose-unit").value;
                   const packageText = selectedRow ? rowText(selectedRow,info.packageSizeColumn) : "";
-                  const pack = quantityParsePackage(packageText);
+                  const pack = quantityParsePackage(packageText,doseUnit);
 
                   q('[data-q="administrations"]').textContent = administrations ? quantityFormatNumber(administrations) : "—";
                   q('[data-q="totalDose"]').textContent = totalDose ? `${quantityFormatNumber(totalDose)} ${doseUnit}` : "—";
@@ -11729,27 +11776,25 @@
                   q('[data-q="error"]').textContent = "";
                   q('[data-q="packs"]').className = "quantity-big-number";
                   q('[data-q="packs"]').textContent = "—";
+                  q('[data-q="packsSub"]').textContent = "";
 
                   if(!selectedRow || !dose || !frequencyQty || !duration){ return; }
+                  if(!administrations || !totalDose){ return; }
                   if(!pack.total){
-                      q('[data-q="error"]').textContent = "Package size could not be read automatically.";
+                      q('[data-q="error"]').textContent = "Package size could not be read automatically. Please check the APG Package Size.";
                       return;
                   }
                   if(!quantityUnitCompatible(doseUnit,pack.saleUnit)){
-                      q('[data-q="error"]').textContent = `Dose is in ${doseUnit}, but package is shown in ${pack.saleUnit}. Please verify the package conversion.`;
+                      q('[data-q="error"]').textContent = `Dose is in ${doseUnit}, but package is shown in ${pack.saleUnit}. Please verify the package unit.`;
                       return;
                   }
 
-                  const neededUnits = totalDose;
-                  const saleSize = pack.saleSize || pack.total;
-                  const quantityNeeded = Math.ceil(neededUnits / saleSize) * saleSize;
-                  const saleCount = Math.ceil(neededUnits / saleSize);
-                  const saleLabel = pack.saleUnit === "unit" ? "units" : (saleCount === 1 ? pack.saleUnit : pack.saleUnit + "s");
-                  q('[data-q="packs"]').textContent = `${saleCount} ${saleLabel} (${quantityFormatNumber(quantityNeeded)} ${doseUnit})`;
+                  const boxesNeeded = Math.ceil(totalDose / pack.saleSize);
+                  const quantitySupplied = boxesNeeded * pack.saleSize;
+                  const drugName = rowText(selectedRow,info.nameColumn) || rowText(selectedRow,info.idColumn) || "selected drug";
 
-                  if(pack.saleSize && pack.total > pack.saleSize && saleCount * pack.saleSize <= pack.total){
-                      q('[data-q="error"]').textContent = `Partial pack accepted: ${saleCount} ${saleLabel}. Full box contains ${quantityFormatNumber(pack.total)} ${doseUnit}.`;
-                  }
+                  q('[data-q="packs"]').textContent = `${boxesNeeded} ${boxesNeeded === 1 ? "box" : "boxes"} of ${drugName}`;
+                  q('[data-q="packsSub"]').textContent = `${quantityFormatNumber(quantitySupplied)} ${doseUnit} supplied for ${quantityFormatNumber(totalDose)} ${doseUnit} required`;
               }
 
               input.addEventListener("input",showMatches);
