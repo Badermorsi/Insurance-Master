@@ -3637,6 +3637,46 @@
 
           ].filter(Boolean);
 
+          const requestedTabOrder = [
+              "apg",
+              "haad",
+              "vitamins",
+              "ppi",
+              "eye",
+              "dose",
+              "ddf",
+              "cdc",
+              "plans",
+              "proactive",
+              "adnic",
+              "apg-hcpcs",
+              "aafiya",
+              "denial",
+              "contacts",
+              "dha-shifa",
+              "dubai",
+              "fmc",
+              "inayah",
+              "coverage",
+              "invalid-dx",
+              "moh",
+              "nas-haad",
+              "nas-dha",
+              "oman",
+              "search",
+              "rx",
+              "refill",
+              "eligibility"
+          ];
+
+          tabsConfig.splice(
+              0,
+              tabsConfig.length,
+              ...requestedTabOrder
+                  .map(id => tabsConfig.find(tab => tab.id === id))
+                  .filter(Boolean)
+          );
+
           /* =========================================================
              STATE
           ========================================================= */
