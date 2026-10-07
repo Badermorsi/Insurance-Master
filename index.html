@@ -3637,6 +3637,35 @@
 
           ].filter(Boolean);
 
+          const firstRowTabOrder = [
+              "apg",
+              "haad",
+              "vitamins",
+              "ppi",
+              "eye",
+              "dose",
+              "ddf",
+              "cdc",
+              "denial",
+              "invalid-dx",
+              "proactive",
+              "adnic",
+              "apg-hcpcs",
+              "aafiya",
+              "contacts"
+          ];
+
+          const firstRowTabs = firstRowTabOrder
+              .map(id => tabsConfig.find(tab => tab.id === id))
+              .filter(Boolean);
+
+          tabsConfig.splice(
+              0,
+              tabsConfig.length,
+              ...firstRowTabs,
+              ...tabsConfig.filter(tab => !firstRowTabOrder.includes(tab.id))
+          );
+
 
           /* =========================================================
              STATE
