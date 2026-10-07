@@ -73,7 +73,7 @@
 
           .page-password-card{
               width:min(100%,440px);
-              padding:4px 24px 24px;
+              padding:12px 24px 24px;
               border:1px solid #dce5e8;
               border-radius:16px;
               background:#ffffff;
@@ -89,7 +89,7 @@
               border-radius:10px;
               object-fit:contain;
               object-position:center;
-              transform:translateY(-16px);
+              transform:translateY(-8px);
           }
 
           .page-password-card h1{
@@ -142,6 +142,51 @@
               color:#536970;
               font-weight:700;
               cursor:default;
+          }
+
+          .password-input-wrap{
+              position:relative;
+          }
+
+          .password-input-wrap input{
+              padding-right:46px;
+          }
+
+          .password-visibility-toggle{
+              position:absolute;
+              top:50%;
+              right:8px;
+              width:30px;
+              height:30px;
+              display:grid;
+              place-items:center;
+              padding:0;
+              border:0;
+              border-radius:6px;
+              background:transparent;
+              color:#637981;
+              cursor:pointer;
+              transform:translateY(-50%);
+          }
+
+          .password-visibility-toggle:hover{
+              background:#eef5f6;
+              color:#12697a;
+          }
+
+          .password-visibility-toggle:focus-visible{
+              outline:2px solid #24899a;
+              outline-offset:1px;
+          }
+
+          .password-visibility-toggle svg{
+              width:18px;
+              height:18px;
+              fill:none;
+              stroke:currentColor;
+              stroke-width:1.8;
+              stroke-linecap:round;
+              stroke-linejoin:round;
           }
 
           .page-password-submit{
@@ -3110,7 +3155,23 @@
                   <label for="pagePasswordUsername">Username</label>
                   <input id="pagePasswordUsername" type="text" value="Zone O" autocomplete="username" readonly required>
                   <label for="pagePasswordInput">Password</label>
-                  <input id="pagePasswordInput" type="password" autocomplete="current-password" required autofocus>
+                  <div class="password-input-wrap">
+                      <input id="pagePasswordInput" type="password" autocomplete="current-password" required autofocus>
+                      <button
+                          id="passwordVisibilityToggle"
+                          class="password-visibility-toggle"
+                          type="button"
+                          aria-label="Show password"
+                          aria-controls="pagePasswordInput"
+                          aria-pressed="false"
+                          title="Show password"
+                      >
+                          <svg viewBox="0 0 24 24" aria-hidden="true">
+                              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path>
+                              <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                      </button>
+                  </div>
                   <button id="pagePasswordLogin" class="page-password-submit" type="button">Login</button>
                   <div id="pagePasswordError" class="page-password-error" role="alert" hidden>That username or password is not correct. Please try again.</div>
               </form>
@@ -12464,6 +12525,23 @@
 
           const pagePasswordUsername =
               document.getElementById("pagePasswordUsername");
+
+          const passwordVisibilityToggle =
+              document.getElementById("passwordVisibilityToggle");
+
+          passwordVisibilityToggle.addEventListener("click",() => {
+              const shouldShow = pagePasswordInput.type === "password";
+              pagePasswordInput.type = shouldShow ? "text" : "password";
+              passwordVisibilityToggle.setAttribute("aria-pressed",String(shouldShow));
+              passwordVisibilityToggle.setAttribute(
+                  "aria-label",
+                  shouldShow ? "Hide password" : "Show password"
+              );
+              passwordVisibilityToggle.title = shouldShow ? "Hide password" : "Show password";
+              passwordVisibilityToggle.innerHTML = shouldShow
+                  ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"></path><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path><path d="M9.9 5.2A10.6 10.6 0 0 1 12 5c6.4 0 10 7 10 7a15.8 15.8 0 0 1-3.1 3.9"></path><path d="M6.2 6.2C3.5 8 2 12 2 12s3.6 7 10 7a10.4 10.4 0 0 0 4-.8"></path></svg>'
+                  : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+          });
 
           const pagePasswordError =
               document.getElementById("pagePasswordError");
