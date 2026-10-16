@@ -11513,6 +11513,45 @@
           }
 
 
+
+/* =========================================================
+   DEPENDENT FILTER HELPER
+========================================================= */
+
+function getRowsForDependentFilter(tab, column){
+    const rows = getDisplayRows(tab, tab.rows || []);
+    const columns = getColumns(tab, tab.rows || []);
+    const state = filters.get(tab.id);
+
+    if(!state || state.size === 0){
+        return rows;
+    }
+
+    // Apply every active filter EXCEPT the column
+    // whose filter options are currently being opened.
+    return rows.filter(row => {
+        for(const [activeColumn, selectedValues] of state){
+
+            if(activeColumn === column){
+                continue;
+            }
+
+            const index = columns.indexOf(activeColumn);
+
+            const value = Array.isArray(row)
+                ? valueString(index >= 0 ? row[index] : "")
+                : valueString(row?.[activeColumn]);
+
+            if(!selectedValues.has(value)){
+                return false;
+            }
+        }
+
+        return true;
+    });
+}
+
+                    
           /* =========================================================
              OPEN NORMAL FILTER
           ========================================================= */
@@ -11547,7 +11586,7 @@
               ){
                   const tab = currentTab;
                   const cacheKey = tab.id + "\u0000" + column;
-                  const cachedValues = filterValuesCache.get(cacheKey);
+                  const cachedValues = null;
 
                   filterTitle.textContent = "Filter: " + column;
                   filterSearch.value = "";
@@ -11603,7 +11642,7 @@
                           const columnIndex = columns.indexOf(column);
                           const values = new Set();
 
-                          for(const row of tab.rows || []){
+                          for(const row of getRowsForDependentFilter(tab,column)){
                               values.add(
                                   Array.isArray(row)
                                       ? valueString(
@@ -11696,9 +11735,9 @@
                       columns.indexOf(column);
 
 
-                  for(
-                      const row of getDisplayRows(currentTab)
-                  ){
+                 for(
+    const row of getRowsForDependentFilter(currentTab,column)
+){
 
                       values.add(
                           Array.isArray(row)
@@ -11932,9 +11971,13 @@
 
           function getSearchConstrainedSelection(selection){
               const terms = getFilterSearchTerms();
-              if(terms.length === 0){
-                  return new Set(selection);
-              }
+if(terms.length === 0){
+    return new Set(
+        [...selection].filter(value =>
+            filterAllValues.includes(value)
+        )
+    );
+}
 
               return new Set(
                   filterAllValues.filter(value =>
