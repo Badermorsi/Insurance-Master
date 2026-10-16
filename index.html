@@ -11518,32 +11518,72 @@
    DEPENDENT FILTER HELPER
 ========================================================= */
 
+
 function getRowsForDependentFilter(tab, column){
     const rows = getDisplayRows(tab, tab.rows || []);
     const columns = getColumns(tab, tab.rows || []);
     const state = filters.get(tab.id);
 
-    if(!state || state.size === 0){
-        return rows;
-    }
-
-    // Apply every active filter EXCEPT the column
-    // whose filter options are currently being opened.
+    // Apply all other active column filters first.
     return rows.filter(row => {
-        for(const [activeColumn, selectedValues] of state){
 
-            if(activeColumn === column){
-                continue;
+        if(state){
+            for(const [activeColumn, selectedValues] of state){
+
+                // Ignore the column whose dropdown is opening.
+                if(activeColumn === column){
+                    continue;
+                }
+
+                const index = columns.indexOf(activeColumn);
+
+                const value = Array.isArray(row)
+                    ? valueString(index >= 0 ? row[index] : "")
+                    : valueString(row?.[activeColumn]);
+
+                if(!selectedValues.has(value)){
+                    return false;
+                }
             }
+        }
 
-            const index = columns.indexOf(activeColumn);
+        // Also respect the APG / HAAD formulary search fields.
+        if(tab.id === "apg" || tab.id === "haad"){
+            const searches = formularySearchValues[tab.id];
+            const searchColumns = getFormularySearchColumns(
+                tab,
+                tab.rows || rows
+            );
 
-            const value = Array.isArray(row)
-                ? valueString(index >= 0 ? row[index] : "")
-                : valueString(row?.[activeColumn]);
+            for(const key of ["brand", "generic", "strength", "dosageForm"]){
 
-            if(!selectedValues.has(value)){
-                return false;
+                const searchText = String(searches[key] || "").trim();
+
+                if(!searchText){
+                    continue;
+                }
+
+                // Do not let a search in this same column
+                // restrict its own filter options.
+                if(searchColumns[key] === column){
+                    continue;
+                }
+
+                const terms = searchText
+                    .toLowerCase()
+                    .split("%")
+                    .map(term => term.trim())
+                    .filter(Boolean);
+
+                const cellValue = getFormularyCellValue(
+                    row,
+                    searchColumns[key],
+                    columns
+                ).toLowerCase();
+
+                if(!terms.every(term => cellValue.includes(term))){
+                    return false;
+                }
             }
         }
 
