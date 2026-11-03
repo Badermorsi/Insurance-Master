@@ -1509,6 +1509,10 @@
           }
 
           .data-table td.ddf-drug-tier-cell{
+              max-width:68px;
+              white-space:normal;
+              overflow-wrap:anywhere;
+              word-break:break-word;
               text-align:center;
           }
 
@@ -5134,11 +5138,8 @@
                 )
           ) || (
               tab.id === "ddf" &&
-              (
-                  lower.includes("drug") &&
-                  lower.includes("code") ||
-                  lower === "drugtier"
-              )
+              lower.includes("drug") &&
+              lower.includes("code")
             ) || (
                 tab.id === "dha-shifa" &&
                 lower.includes("code")
@@ -5252,17 +5253,7 @@
                       normalizeColumnName(column);
 
                   if(tab.id === "ddf" && lower === "drugtier"){
-                      const columnIndex = columns.indexOf(column);
-                      widths.push(
-                          calculateNoWrapColumnWidth(
-                              column,
-                              rows,
-                              columnIndex,
-                              "Drug",
-                              80,
-                              14
-                          )
-                      );
+                      widths.push(68);
                       continue;
                   }
 
