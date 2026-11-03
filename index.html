@@ -800,11 +800,39 @@
 
           .hcpcs-cap-layout{
               display:grid;
-              grid-template-columns:minmax(450px,.85fr) minmax(500px,1.35fr);
+              grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);
               gap:14px;
-              min-width:1000px;
+              width:100%;
+              min-width:0;
+              box-sizing:border-box;
               padding:16px;
               align-items:start;
+          }
+
+          /* Keep the right APG HCPCS table inside the page width. */
+          .hcpcs-cap-pane-right{
+              min-width:0;
+              width:100%;
+              overflow:hidden;
+          }
+
+          .hcpcs-cap-pane-right .hcpcs-cap-table{
+              width:100%;
+              min-width:0;
+              table-layout:fixed;
+          }
+
+          .hcpcs-cap-pane-right .hcpcs-cap-table th,
+          .hcpcs-cap-pane-right .hcpcs-cap-table td{
+              white-space:normal;
+              overflow-wrap:anywhere;
+              word-break:break-word;
+          }
+
+          @media(max-width:900px){
+              .hcpcs-cap-layout{
+                  grid-template-columns:minmax(0,1fr);
+              }
           }
 
           .hcpcs-cap-pane{
@@ -3295,8 +3323,8 @@
           >
               <div class="formulary-search-hint">Use % to match both terms, e.g. para%phenyl.</div>
               <label class="formulary-search-field">
-                  <span>Brand Name / HAAD Code</span>
-                  <input type="search" data-formulary-search="brand" placeholder="Search by brand name or HAAD Code" autocomplete="off">
+                  <span>Brand Name</span>
+                  <input type="search" data-formulary-search="brand" placeholder="Search by brand name" autocomplete="off">
               </label>
               <label class="formulary-search-field">
                   <span>Generic Name</span>
@@ -10798,7 +10826,8 @@
               const pane =
                   document.createElement("div");
 
-              pane.className = "hcpcs-cap-pane";
+              pane.className = "hcpcs-cap-pane" +
+                  (config.key === "apg-hcpcs-right" ? " hcpcs-cap-pane-right" : "");
 
               const table =
                   document.createElement("table");
@@ -10934,7 +10963,8 @@
 
           function renderApgHcpcsCap(tab,rows){
 
-              tableArea.style.overflow = "auto";
+              tableArea.style.overflowX = "hidden";
+              tableArea.style.overflowY = "auto";
               tableArea.innerHTML = "";
 
               if(!customTableFilters.has("apg-hcpcs-left")){
@@ -10984,13 +11014,9 @@
               ];
 
             const secondTableWidths = [
-                calculateNoWrapColumnWidth(
-                    columns[6],rightTableRows,6,"Code",52
-                ),
-                "auto",
-                calculateNoWrapColumnWidth(
-                    columns[8],rightTableRows,8,"Price (AED)",58
-                )
+                "20%",
+                "55%",
+                "25%"
             ];
 
               const layout =
@@ -11026,7 +11052,7 @@
                       indices:[6,7,8],
                       labels:["Code","","Price (AED)"],
                       widths:secondTableWidths,
-                      nowrapIndices:[0,2]
+                      nowrapIndices:[]
                   }
               );
 
