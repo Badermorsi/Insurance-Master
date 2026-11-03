@@ -800,16 +800,19 @@
 
           .hcpcs-cap-layout{
               display:grid;
-              grid-template-columns:minmax(450px,.85fr) minmax(500px,1.35fr);
-              gap:14px;
-              min-width:1000px;
-              padding:16px;
+              grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr);
+              gap:12px;
+              width:100%;
+              max-width:100%;
+              min-width:0;
+              padding:12px;
               align-items:start;
           }
 
           .hcpcs-cap-pane{
               min-width:0;
-              overflow:auto;
+              max-width:100%;
+              overflow:hidden;
               border:1px solid #d7e1e5;
               border-radius:10px;
               background:#ffffff;
@@ -818,6 +821,7 @@
 
           .hcpcs-cap-table{
               width:100%;
+              min-width:0;
               table-layout:fixed;
               border-collapse:separate;
               border-spacing:0;
@@ -833,7 +837,7 @@
               vertical-align:middle;
               line-height:15px;
               overflow-wrap:anywhere;
-              word-break:break-word;
+              word-break:normal;
           }
 
           .hcpcs-cap-table th:last-child,
@@ -863,9 +867,24 @@
 
           .hcpcs-cap-heading-content{
               display:flex;
+              min-width:0;
+              flex-wrap:wrap;
               align-items:center;
               justify-content:center;
               gap:5px;
+          }
+
+          .hcpcs-cap-heading-content > span{
+              min-width:0;
+              overflow-wrap:anywhere;
+          }
+
+          @media(max-width:900px){
+              .hcpcs-cap-layout{
+                  grid-template-columns:minmax(0,1fr);
+                  gap:10px;
+                  padding:8px;
+              }
           }
 
           .hcpcs-cap-filter{
@@ -2130,7 +2149,7 @@
 
               white-space:normal;
               overflow-wrap:anywhere;
-              word-break:break-word;
+              word-break:normal;
           }
 
           .eligibility-table tbody tr:nth-child(even) td{
@@ -10947,7 +10966,8 @@
 
           function renderApgHcpcsCap(tab,rows){
 
-              tableArea.style.overflow = "auto";
+              tableArea.style.overflowX = "hidden";
+              tableArea.style.overflowY = "auto";
               tableArea.innerHTML = "";
 
               if(!customTableFilters.has("apg-hcpcs-left")){
@@ -10980,31 +11000,9 @@
                       ? displayRows.slice(0,l3702Index + 1)
                       : displayRows.slice(0,215);
 
-              const firstTableWidths = [
-                  calculateNoWrapColumnWidth(
-                      columns[0],displayRows,0,"Item Code",52
-                  ),
-                  220,
-                  calculateNoWrapColumnWidth(
-                      columns[2],displayRows,2,"Unit Price",52
-                  ),
-                  calculateNoWrapColumnWidth(
-                      columns[3],displayRows,3,"HCPC Code",52
-                  ),
-                  calculateNoWrapColumnWidth(
-                      columns[4],displayRows,4,"Cap Price",52
-                  )
-              ];
+              const firstTableWidths = ["17%","37%","15%","16%","15%"];
 
-            const secondTableWidths = [
-                calculateNoWrapColumnWidth(
-                    columns[6],rightTableRows,6,"Code",52
-                ),
-                "auto",
-                calculateNoWrapColumnWidth(
-                    columns[8],rightTableRows,8,"Price (AED)",58
-                )
-            ];
+              const secondTableWidths = ["23%","57%","20%"];
 
               const layout =
                   document.createElement("div");
@@ -11023,7 +11021,7 @@
                       indices:[0,1,2,3,4],
                       labels:["Item Code","Item Name","Unit Price","HCPC Code","Cap Price"],
                       widths:firstTableWidths,
-                      nowrapIndices:[0,2,3,4]
+                      nowrapIndices:[]
                   }
               );
 
@@ -11039,7 +11037,7 @@
                       indices:[6,7,8],
                       labels:["Code","","Price (AED)"],
                       widths:secondTableWidths,
-                      nowrapIndices:[0,2]
+                      nowrapIndices:[]
                   }
               );
 
