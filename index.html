@@ -4783,6 +4783,13 @@
                           ? ["packagename","brandname","tradename","itemname","productname"]
                           : ["proactivename","brandname","tradename","itemname","productname","medicinename"]
                   ),
+                  // Brand search also accepts the official code for each list.
+                  // APG uses "HAAD Code"; HAAD List uses "Drug Code".
+                  brandCode:findColumn(
+                      tab.id === "haad"
+                          ? ["drugcode"]
+                          : ["haadcode"]
+                  ),
                   generic:findColumn(["genericname"]) || findColumn(["generic"]),
                   strength:findColumn(["strength"]),
                   dosageForm:
@@ -4825,7 +4832,22 @@
                       columns
                   ).toLowerCase();
 
-                  if(!terms.every(term => cellValue.includes(term))){
+                  // For the Brand Name box, match either the brand name
+                  // or the list-specific code column.
+                  if(key === "brand"){
+                      const codeValue = getFormularyCellValue(
+                          row,
+                          searchColumns.brandCode,
+                          columns
+                      ).toLowerCase();
+
+                      const matchesBrand = terms.every(term => cellValue.includes(term));
+                      const matchesCode = terms.every(term => codeValue.includes(term));
+
+                      if(!matchesBrand && !matchesCode){
+                          return false;
+                      }
+                  }else if(!terms.every(term => cellValue.includes(term))){
                       return false;
                   }
               }
@@ -11563,9 +11585,12 @@ function getRowsForDependentFilter(tab, column){
                     continue;
                 }
 
-                // Do not let a search in this same column
-                // restrict its own filter options.
-                if(searchColumns[key] === column){
+                // Do not let a search in this same field restrict
+                // the options in its own corresponding column filter.
+                if(
+                    searchColumns[key] === column ||
+                    (key === "brand" && searchColumns.brandCode === column)
+                ){
                     continue;
                 }
 
@@ -11581,7 +11606,20 @@ function getRowsForDependentFilter(tab, column){
                     columns
                 ).toLowerCase();
 
-                if(!terms.every(term => cellValue.includes(term))){
+                if(key === "brand"){
+                    const codeValue = getFormularyCellValue(
+                        row,
+                        searchColumns.brandCode,
+                        columns
+                    ).toLowerCase();
+
+                    const matchesBrand = terms.every(term => cellValue.includes(term));
+                    const matchesCode = terms.every(term => codeValue.includes(term));
+
+                    if(!matchesBrand && !matchesCode){
+                        return false;
+                    }
+                }else if(!terms.every(term => cellValue.includes(term))){
                     return false;
                 }
             }
