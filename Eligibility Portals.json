@@ -1,0 +1,226 @@
+[
+ {
+  "Area": "BRANCH",
+  "Al Ain": "SAMA",
+  "Al Ain": "Al Noud (Enhanced Only)",
+  "Al Ain": "Falaj 2"
+ },
+ {
+  "Column1": "Eligibility Portal",
+  "Column2": "Link",
+  "Area": "H.A. License Code",
+  "Al Ain": "PF1681",
+  "Al Ain": "PF5068",
+  "Al Ain": "PF5408"
+ },
+ {
+  "Column1": "OPENJET",
+  "Column2": "https://openjet.inhealth.ae/account/login?returnUrl=%2F",
+  "Area": "Username",
+  "Al Ain": "sama@alain-pharmacy.com",
+  "Al Ain": "alnoud@alain-pharmacy.com",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "SaM@2031",
+  "Al Ain": "NoudB@ssw0rd06",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "PULSE",
+  "Column2": "https://pulsepp-uae.nextcarehealth.com/claims",
+  "Area": "Username",
+  "Al Ain": "PF1681",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Sam@Pulse2052",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "MEDNET/MetLife",
+  "Column2": "https://connect-mednet.com/login",
+  "Area": "Username",
+  "Al Ain": "P1206_master",
+  "Al Ain": "P4410_rcptn",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Mednet@PF1681",
+  "Al Ain": "Mednet@PF5068",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "AAFIYA",
+  "Column2": "https://tpa.aafiya.ae/aafiyatpa",
+  "Area": "Username",
+  "Al Ain": "SAAPL1622",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Sam@2020",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "ADNIC",
+  "Column2": "https://online.adnic.ae/eportal/login.html",
+  "Area": "Username",
+  "Al Ain": "sama@alain-pharmacy.com",
+  "Al Ain": "alnoud-ain@alain-pharmacy.com",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "S@ssw0rd",
+  "Al Ain": "APGNooD@2026",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "ALMADALLAH",
+  "Column2": "https://provider.almadallah.ae/Account/Login.aspx",
+  "Area": "Username",
+  "Al Ain": "SAMA",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "S@ssw0rd",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "FMC",
+  "Column2": "https://realtime.fmcnetwork.net/",
+  "Area": "Username",
+  "Al Ain": "saapp_1681",
+  "Al Ain": "ap-splbp_5068",
+  "Al Ain": "ap-spl-b3p"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "PF1681",
+  "Al Ain": "PF5068",
+  "Al Ain": "PF5408"
+ },
+ {
+  "Column1": "INAYAH",
+  "Column2": "https://provider.inayahtpa.com/provider/login",
+  "Area": "Username",
+  "Al Ain": "insurance@alain-pharmacy.com ",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Inayahh@2026AA",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "NANO PBM",
+  "Column2": "https://pbmprovider.nanopbm.com/",
+  "Area": "Username",
+  "Al Ain": "NANO1681",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Sam@2022",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "MSH",
+  "Column2": "https://healthprovider.msh-services.com/connexion.html",
+  "Area": "Username",
+  "Al Ain": "sama@alain-pharmacy.com",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "MSH@PF1681@a",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "JET PORTAL [Nas, Neuron]",
+  "Column2": "https://jet.nnhs.ae/JET/Login.aspx",
+  "Area": "Username",
+  "Al Ain": "pf1681",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "SamJet@ssw0rd9",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "SAICO",
+  "Column2": "https://providers.damana.com/",
+  "Area": "Username",
+  "Al Ain": "sama@saicohealth",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Sam@2022",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "Albuhaira",
+  "Column2": "https://provider.albuhaira.com/",
+  "Area": "Username",
+  "Al Ain": "PF1681",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "Sam@2020",
+  "Al Ain": "-",
+  "Al Ain": "-"
+ },
+ {
+  "Column1": "NGI",
+  "Column2": "https://ngionline.ae/User/Home/Dashboard",
+  "Area": "Username",
+  "Al Ain": "sama@alain-pharmacy.com",
+  "Al Ain": "alnoud-ain@alain-pharmacy.com",
+  "Al Ain": "falaj2@alain-pharmacy.com"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "APGSam@20261",
+  "Al Ain": "APGNooD@20261",
+  "Al Ain": "APGFal2@20261"
+ },
+ {
+  "Column1": "GlobMed",
+  "Column2": "https://genix.globemedgulf.com/",
+  "Area": "Username",
+  "Al Ain": "-",
+  "Al Ain": "p.pf5068",
+  "Al Ain": "p.pf5408"
+ },
+ {
+  "Area": "Password",
+  "Al Ain": "-",
+  "Al Ain": "APGNooD@2026",
+  "Al Ain": "APGFal2@2026"
+ }
+]
