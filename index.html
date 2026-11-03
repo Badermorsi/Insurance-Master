@@ -1354,6 +1354,28 @@
               display:none;
           }
 
+          .eye-search-bar{
+              display:flex;
+              align-items:flex-end;
+              padding:9px 16px 11px;
+              background:#f7fafb;
+              border-bottom:1px solid #dfe7ea;
+          }
+
+          .eye-search-bar[hidden]{
+              display:none !important;
+          }
+
+          .eye-search-bar .formulary-search-field{
+              width:min(310px,100%);
+          }
+
+          @media(max-width:520px){
+              .eye-search-bar{
+                  padding:9px 12px 11px;
+              }
+          }
+
           @media(max-width:900px){
               .formulary-search-bar{
                   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -3336,6 +3358,12 @@
               </label>
           </div>
 
+          <div id="eyeSearchBar" class="eye-search-bar" hidden>
+              <label class="formulary-search-field">
+                  <span>Brand Name or HAAD Code</span>
+                  <input id="eyeSearchInput" type="search" placeholder="Search brand name or HAAD code" autocomplete="off">
+              </label>
+          </div>
 
           <div
               id="tableArea"
@@ -3699,6 +3727,8 @@
               haad:{brand:"",generic:"",strength:"",dosageForm:""}
           };
 
+          let eyeSearchValue = "";
+
           const contactsOriginalRowIndexes = new WeakMap();
 
           const contactsColumnBMerges = [
@@ -3768,6 +3798,12 @@
                   document.querySelectorAll("[data-formulary-search]")
               );
 
+          const eyeSearchBar =
+              document.getElementById("eyeSearchBar");
+
+          const eyeSearchInput =
+              document.getElementById("eyeSearchInput");
+
           const recordNumber =
               document.getElementById("recordNumber");
 
@@ -3786,6 +3822,11 @@
           function updateFormularySearchBar(tab){
               const supported = tab && (tab.id === "apg" || tab.id === "haad");
               formularySearchBar.hidden = !supported;
+              eyeSearchBar.hidden = !tab || tab.id !== "eye";
+
+              if(tab && tab.id === "eye"){
+                  eyeSearchInput.value = eyeSearchValue;
+              }
 
               if(!supported){
                   return;
@@ -3832,6 +3873,13 @@
                       renderTable(currentTab,++renderVersion);
                   }
               });
+          });
+
+          eyeSearchInput.addEventListener("input",() => {
+              eyeSearchValue = eyeSearchInput.value;
+              if(currentTab && currentTab.id === "eye" && currentTab.rows){
+                  renderTable(currentTab,++renderVersion);
+              }
           });
 
 
@@ -4892,6 +4940,30 @@
               return true;
           }
 
+          function matchesEyeSearch(row,tab,columns){
+              const query = String(eyeSearchValue || "").trim().toLowerCase();
+              if(!query || tab.id !== "eye"){
+                  return true;
+              }
+
+              const brandColumn = columns.find(column =>
+                  ["proactivename","brandname","tradename","itemname"].includes(
+                      normalizeColumnName(column)
+                  )
+              );
+              const haadCodeColumn = columns.find(column =>
+                  normalizeColumnName(column) === "haadcode"
+              );
+
+              return [brandColumn,haadCodeColumn]
+                  .filter(Boolean)
+                  .some(column =>
+                      getFormularyCellValue(row,column,columns)
+                          .toLowerCase()
+                          .includes(query)
+                  );
+          }
+
           function getVisibleRows(rows){
 
               const state =
@@ -4902,6 +4974,10 @@
                   Object.values(formularySearchValues[currentTab.id])
                       .some(value => String(value || "").trim() !== "");
 
+              const hasEyeSearch =
+                  currentTab.id === "eye" &&
+                  String(eyeSearchValue || "").trim() !== "";
+
               const searchColumns = hasFormularySearch
                   ? getFormularySearchColumns(currentTab,currentTab.rows || rows)
                   : null;
@@ -4911,7 +4987,8 @@
 
               if(
                   (!state || state.size === 0) &&
-                  !hasFormularySearch
+                  !hasFormularySearch &&
+                  !hasEyeSearch
               ){
                   return rows;
               }
@@ -4978,6 +5055,14 @@
                               currentTab,
                               allColumns,
                               searchColumns
+                          )
+                      ) &&
+                      (
+                          !hasEyeSearch ||
+                          matchesEyeSearch(
+                              rows[i],
+                              currentTab,
+                              getColumns(currentTab,currentTab.rows || rows)
                           )
                       )
                   ){
@@ -11572,6 +11657,13 @@ function getRowsForDependentFilter(tab, column){
             }
         }
 
+        if(tab.id === "eye" && String(eyeSearchValue || "").trim()){
+            const eyeColumns = getColumns(tab,tab.rows || rows);
+            if(!matchesEyeSearch(row,tab,eyeColumns)){
+                return false;
+            }
+        }
+
         // Also respect the APG / HAAD formulary search fields.
         if(tab.id === "apg" || tab.id === "haad"){
             const searches = formularySearchValues[tab.id];
@@ -12548,6 +12640,11 @@ if(terms.length === 0){
 
                       if(currentTab.id === "apg-hcpcs"){
                           customTableFilters.clear();
+                      }
+
+                      if(currentTab.id === "eye"){
+                          eyeSearchValue = "";
+                          eyeSearchInput.value = "";
                       }
 
 
