@@ -800,39 +800,11 @@
 
           .hcpcs-cap-layout{
               display:grid;
-              grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);
+              grid-template-columns:minmax(450px,.85fr) minmax(500px,1.35fr);
               gap:14px;
-              width:100%;
-              min-width:0;
-              box-sizing:border-box;
+              min-width:1000px;
               padding:16px;
               align-items:start;
-          }
-
-          /* Keep the right APG HCPCS table inside the page width. */
-          .hcpcs-cap-pane-right{
-              min-width:0;
-              width:100%;
-              overflow:hidden;
-          }
-
-          .hcpcs-cap-pane-right .hcpcs-cap-table{
-              width:100%;
-              min-width:0;
-              table-layout:fixed;
-          }
-
-          .hcpcs-cap-pane-right .hcpcs-cap-table th,
-          .hcpcs-cap-pane-right .hcpcs-cap-table td{
-              white-space:normal;
-              overflow-wrap:anywhere;
-              word-break:break-word;
-          }
-
-          @media(max-width:900px){
-              .hcpcs-cap-layout{
-                  grid-template-columns:minmax(0,1fr);
-              }
           }
 
           .hcpcs-cap-pane{
@@ -3323,7 +3295,7 @@
           >
               <div class="formulary-search-hint">Use % to match both terms, e.g. para%phenyl.</div>
               <label class="formulary-search-field">
-                  <span>Brand Name</span>
+                  <span data-formulary-search-label="brand">Brand Name</span>
                   <input type="search" data-formulary-search="brand" placeholder="Search by brand name" autocomplete="off">
               </label>
               <label class="formulary-search-field">
@@ -3796,6 +3768,26 @@
               }
 
               const values = formularySearchValues[tab.id];
+              const searchesByHaadCode = tab.id === "apg" || tab.id === "haad";
+              const brandSearchInput = formularySearchInputs.find(
+                  input => input.dataset.formularySearch === "brand"
+              );
+              const brandSearchLabel = document.querySelector(
+                  "[data-formulary-search-label=brand]"
+              );
+
+              if(brandSearchInput){
+                  brandSearchInput.placeholder = searchesByHaadCode
+                      ? "Search by brand name or HAAD Code"
+                      : "Search by brand name";
+              }
+
+              if(brandSearchLabel){
+                  brandSearchLabel.textContent = searchesByHaadCode
+                      ? "Brand Name / HAAD Code"
+                      : "Brand Name";
+              }
+
               formularySearchInputs.forEach(input => {
                   input.value = values[input.dataset.formularySearch] || "";
               });
@@ -4811,13 +4803,9 @@
                           ? ["packagename","brandname","tradename","itemname","productname"]
                           : ["proactivename","brandname","tradename","itemname","productname","medicinename"]
                   ),
-                  // Brand search also accepts the official code for each list.
-                  // APG uses "HAAD Code"; HAAD List uses "Drug Code".
-                  brandCode:findColumn(
-                      tab.id === "haad"
-                          ? ["drugcode"]
-                          : ["haadcode"]
-                  ),
+                  haadCode:(tab.id === "apg" || tab.id === "haad")
+                      ? findColumn(["haadcode","drugcode","itemcode","code"])
+                      : null,
                   generic:findColumn(["genericname"]) || findColumn(["generic"]),
                   strength:findColumn(["strength"]),
                   dosageForm:
@@ -4860,22 +4848,19 @@
                       columns
                   ).toLowerCase();
 
-                  // For the Brand Name box, match either the brand name
-                  // or the list-specific code column.
-                  if(key === "brand"){
-                      const codeValue = getFormularyCellValue(
-                          row,
-                          searchColumns.brandCode,
-                          columns
-                      ).toLowerCase();
+                  const matchesCell = terms.every(term => cellValue.includes(term));
+                  const matchesHaadCode =
+                      key === "brand" &&
+                      (tab.id === "apg" || tab.id === "haad") &&
+                      terms.every(term =>
+                          getFormularyCellValue(
+                              row,
+                              searchColumns.haadCode,
+                              columns
+                          ).toLowerCase().includes(term)
+                      );
 
-                      const matchesBrand = terms.every(term => cellValue.includes(term));
-                      const matchesCode = terms.every(term => codeValue.includes(term));
-
-                      if(!matchesBrand && !matchesCode){
-                          return false;
-                      }
-                  }else if(!terms.every(term => cellValue.includes(term))){
+                  if(!matchesCell && !matchesHaadCode){
                       return false;
                   }
               }
@@ -10826,8 +10811,7 @@
               const pane =
                   document.createElement("div");
 
-              pane.className = "hcpcs-cap-pane" +
-                  (config.key === "apg-hcpcs-right" ? " hcpcs-cap-pane-right" : "");
+              pane.className = "hcpcs-cap-pane";
 
               const table =
                   document.createElement("table");
@@ -10963,8 +10947,7 @@
 
           function renderApgHcpcsCap(tab,rows){
 
-              tableArea.style.overflowX = "hidden";
-              tableArea.style.overflowY = "auto";
+              tableArea.style.overflow = "auto";
               tableArea.innerHTML = "";
 
               if(!customTableFilters.has("apg-hcpcs-left")){
@@ -11014,9 +10997,13 @@
               ];
 
             const secondTableWidths = [
-                "20%",
-                "55%",
-                "25%"
+                calculateNoWrapColumnWidth(
+                    columns[6],rightTableRows,6,"Code",52
+                ),
+                "auto",
+                calculateNoWrapColumnWidth(
+                    columns[8],rightTableRows,8,"Price (AED)",58
+                )
             ];
 
               const layout =
@@ -11052,7 +11039,7 @@
                       indices:[6,7,8],
                       labels:["Code","","Price (AED)"],
                       widths:secondTableWidths,
-                      nowrapIndices:[]
+                      nowrapIndices:[0,2]
                   }
               );
 
@@ -11611,12 +11598,9 @@ function getRowsForDependentFilter(tab, column){
                     continue;
                 }
 
-                // Do not let a search in this same field restrict
-                // the options in its own corresponding column filter.
-                if(
-                    searchColumns[key] === column ||
-                    (key === "brand" && searchColumns.brandCode === column)
-                ){
+                // Do not let a search in this same column
+                // restrict its own filter options.
+                if(searchColumns[key] === column){
                     continue;
                 }
 
@@ -11632,20 +11616,19 @@ function getRowsForDependentFilter(tab, column){
                     columns
                 ).toLowerCase();
 
-                if(key === "brand"){
-                    const codeValue = getFormularyCellValue(
-                        row,
-                        searchColumns.brandCode,
-                        columns
-                    ).toLowerCase();
+                const matchesCell = terms.every(term => cellValue.includes(term));
+                const matchesHaadCode =
+                    key === "brand" &&
+                    (tab.id === "apg" || tab.id === "haad") &&
+                    terms.every(term =>
+                        getFormularyCellValue(
+                            row,
+                            searchColumns.haadCode,
+                            columns
+                        ).toLowerCase().includes(term)
+                    );
 
-                    const matchesBrand = terms.every(term => cellValue.includes(term));
-                    const matchesCode = terms.every(term => codeValue.includes(term));
-
-                    if(!matchesBrand && !matchesCode){
-                        return false;
-                    }
-                }else if(!terms.every(term => cellValue.includes(term))){
+                if(!matchesCell && !matchesHaadCode){
                     return false;
                 }
             }
