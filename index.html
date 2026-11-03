@@ -1492,12 +1492,13 @@
           }
 
           .data-table th.ddf-drug-tier-column .header-label{
-              position:absolute;
-              inset:0;
-              display:flex;
-              align-items:center;
-              justify-content:center;
-              width:100%;
+              position:relative;
+              inset:auto;
+              display:block;
+              flex:1 1 auto;
+              width:auto;
+              min-width:0;
+              white-space:nowrap;
               text-align:center;
               pointer-events:none;
           }
@@ -1509,7 +1510,7 @@
           }
 
           .data-table td.ddf-drug-tier-cell{
-              max-width:68px;
+              max-width:92px;
               white-space:normal;
               overflow-wrap:anywhere;
               word-break:break-word;
@@ -5253,7 +5254,7 @@
                       normalizeColumnName(column);
 
                   if(tab.id === "ddf" && lower === "drugtier"){
-                      widths.push(68);
+                      widths.push(92);
                       continue;
                   }
 
