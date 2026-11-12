@@ -4960,10 +4960,15 @@
 
           function getMedicineAlternativeColumns(tab,rows){
               const columns = getColumns(tab,rows);
-              const findColumn = candidates => columns.find(column => {
-                  const normalized = normalizeColumnName(column);
-                  return candidates.some(candidate => normalized === candidate || normalized.startsWith(candidate));
-              }) || null;
+              const findColumn = candidates => {
+                  for(const candidate of candidates){
+                      const exact = columns.find(column => normalizeColumnName(column) === candidate);
+                      if(exact){ return exact; }
+                      const partial = columns.find(column => normalizeColumnName(column).startsWith(candidate));
+                      if(partial){ return partial; }
+                  }
+                  return null;
+              };
               return {
                   ingredient:findColumn(["activeingredient","genericname","generic"]),
                   strength:findColumn(["strength"])
@@ -4980,7 +4985,7 @@
                   .toLocaleLowerCase()
                   .replace(/\s*\(\s*as\s+(?:besilate|besylate)\s*\)/gi,"")
                   .replace(/\s+(?:besilate|besylate)\b/gi,"")
-                  .replace(/\s+bp\s+equivalent\s+to\s+amlodipine\b/gi,"")
+                  .replace(/\s+(?:bp\s+)?equivalent\s+to\s+amlodipine\b/gi,"")
                   .replace(/\s+/g," ")
                   .trim();
           }
@@ -4989,7 +4994,8 @@
               return String(value ?? "")
                   .trim()
                   .toLocaleLowerCase()
-                  .replace(/\s*\/\s*(?:tablets?|capsules?|caplets?|sachets?|tabs?)\s*$/i,"")
+                  .replace(/\s*\/\s*(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patches?|syringes?)\b.*$/i,"")
+                  .replace(/(\d)\s+(mg|mcg|g|ml|iu|units?)\b/gi,"$1$2")
                   .replace(/\s+/g," ");
           }
 
