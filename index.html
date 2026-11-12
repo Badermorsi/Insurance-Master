@@ -3921,7 +3921,10 @@
               for(const key of ["ingredient","strength"]){
                   const column = matchColumns[key];
                   if(column === null){ return; }
-                  values[key] = getMedicineAlternativeValue(selectedMedicineRow.row,columns,column);
+                  const value = getMedicineAlternativeValue(selectedMedicineRow.row,columns,column);
+                  values[key] = key === "strength"
+                      ? normalizeMedicineStrength(value)
+                      : normalizeMedicineIngredient(value);
               }
               medicineAlternativeFilters.set(currentTab.id,{values});
               renderTable(currentTab,++renderVersion);
@@ -4971,12 +4974,35 @@
               return column === null ? "" : getFormularyCellValue(row,column,columns).trim().toLocaleLowerCase();
           }
 
+          function normalizeMedicineIngredient(value){
+              return String(value ?? "")
+                  .trim()
+                  .toLocaleLowerCase()
+                  .replace(/\s*\(\s*as\s+(?:besilate|besylate)\s*\)/gi,"")
+                  .replace(/\s+(?:besilate|besylate)\b/gi,"")
+                  .replace(/\s+bp\s+equivalent\s+to\s+amlodipine\b/gi,"")
+                  .replace(/\s+/g," ")
+                  .trim();
+          }
+
+          function normalizeMedicineStrength(value){
+              return String(value ?? "")
+                  .trim()
+                  .toLocaleLowerCase()
+                  .replace(/\s*\/\s*(?:tablets?|capsules?|caplets?|sachets?|tabs?)\s*$/i,"")
+                  .replace(/\s+/g," ");
+          }
+
           function matchesMedicineAlternative(row,tab,rows,selection){
               const columns = getColumns(tab,rows);
               const matchColumns = getMedicineAlternativeColumns(tab,rows);
-              return ["ingredient","strength"].every(key =>
-                  getMedicineAlternativeValue(row,columns,matchColumns[key]) === selection.values[key]
-              );
+              return ["ingredient","strength"].every(key => {
+                  const value = getMedicineAlternativeValue(row,columns,matchColumns[key]);
+                  const normalizedValue = key === "strength"
+                      ? normalizeMedicineStrength(value)
+                      : normalizeMedicineIngredient(value);
+                  return normalizedValue === selection.values[key];
+              });
           }
 
           function applyMedicineAlternativeFilter(rows){
