@@ -3918,13 +3918,25 @@
               const columns = getColumns(currentTab,rows);
               const matchColumns = getMedicineAlternativeColumns(currentTab,rows);
               const values = {};
-              for(const key of ["ingredient","strength","dosageForm"]){
+              for(const key of ["ingredient","strength"]){
                   const column = matchColumns[key];
                   if(column === null){ return; }
                   values[key] = getMedicineAlternativeValue(selectedMedicineRow.row,columns,column);
               }
               medicineAlternativeFilters.set(currentTab.id,{values});
               renderTable(currentTab,++renderVersion);
+          });
+
+          document.addEventListener("click",event => {
+              if(tableArea.contains(event.target)){
+                  return;
+              }
+
+              selectedMedicineRow = null;
+              document.querySelectorAll("tr.medicine-row-selected").forEach(tr =>
+                  tr.classList.remove("medicine-row-selected")
+              );
+              document.getElementById("checkAlternativeButton").hidden = true;
           });
 
           /* =========================================================
@@ -4951,8 +4963,7 @@
               }) || null;
               return {
                   ingredient:findColumn(["activeingredient","genericname","generic"]),
-                  strength:findColumn(["strength"]),
-                  dosageForm:findColumn(["dosageform","doseform","dosage","form"])
+                  strength:findColumn(["strength"])
               };
           }
 
@@ -4963,7 +4974,7 @@
           function matchesMedicineAlternative(row,tab,rows,selection){
               const columns = getColumns(tab,rows);
               const matchColumns = getMedicineAlternativeColumns(tab,rows);
-              return ["ingredient","strength","dosageForm"].every(key =>
+              return ["ingredient","strength"].every(key =>
                   getMedicineAlternativeValue(row,columns,matchColumns[key]) === selection.values[key]
               );
           }
@@ -5047,6 +5058,10 @@
           }
 
           function getVisibleRows(rows){
+
+              if(currentTab && medicineAlternativeFilters.has(currentTab.id)){
+                  return applyMedicineAlternativeFilter(rows);
+              }
 
               const state =
                   filters.get(currentTab.id);
