@@ -3918,13 +3918,15 @@
               const columns = getColumns(currentTab,rows);
               const matchColumns = getMedicineAlternativeColumns(currentTab,rows);
               const values = {};
-              for(const key of ["ingredient","strength"]){
+              for(const key of ["ingredient","strength","dosageForm"]){
                   const column = matchColumns[key];
                   if(column === null){ return; }
                   const value = getMedicineAlternativeValue(selectedMedicineRow.row,columns,column);
                   values[key] = key === "strength"
                       ? normalizeMedicineStrength(value)
-                      : normalizeMedicineIngredient(value);
+                      : key === "dosageForm"
+                          ? normalizeMedicineDosageForm(value)
+                          : normalizeMedicineIngredient(value);
               }
               medicineAlternativeFilters.set(currentTab.id,{values});
               renderTable(currentTab,++renderVersion);
@@ -4962,16 +4964,25 @@
               const columns = getColumns(tab,rows);
               const findColumn = candidates => {
                   for(const candidate of candidates){
-                      const exact = columns.find(column => normalizeColumnName(column) === candidate);
-                      if(exact){ return exact; }
-                      const partial = columns.find(column => normalizeColumnName(column).startsWith(candidate));
-                      if(partial){ return partial; }
+                      const normalizedColumns = columns.map(column => ({column,normalized:normalizeColumnName(column)}));
+                      const exact = normalizedColumns.find(item => item.normalized === candidate);
+                      if(exact){ return exact.column; }
+                      const partial = normalizedColumns.find(item => item.normalized.startsWith(candidate));
+                      if(partial){ return partial.column; }
+                      const contains = normalizedColumns.find(item => item.normalized.includes(candidate));
+                      if(contains){ return contains.column; }
                   }
                   return null;
               };
+              const dosageFormColumn =
+                  findColumn(["dosageform","doseform","pharmaceuticalform"]) ||
+                  columns.find(column => normalizeColumnName(column) === "form") ||
+                  columns.find(column => normalizeColumnName(column) === "formdescription") ||
+                  columns.find(column => normalizeColumnName(column) === "dosage");
               return {
                   ingredient:findColumn(["activeingredient","genericname","generic"]),
-                  strength:findColumn(["strength"])
+                  strength:findColumn(["strength"]),
+                  dosageForm:dosageFormColumn || null
               };
           }
 
@@ -4990,11 +5001,25 @@
                   .trim();
           }
 
+          function normalizeMedicineDosageForm(value){
+              const normalized = String(value ?? "")
+                  .trim()
+                  .toLocaleLowerCase()
+                  .replace(/\s+/g," ");
+              if(/\b(?:tablets?|capsules?|caplets?|tabs?|caps?)\b/i.test(normalized)){
+                  return "tablet-capsule";
+              }
+              if(/\bsachets?\b/i.test(normalized)){
+                  return "sachet";
+              }
+              return normalized;
+          }
+
           function normalizeMedicineStrength(value){
               return String(value ?? "")
                   .trim()
                   .toLocaleLowerCase()
-                  .replace(/\s*\/\s*(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patches?|syringes?)\b.*$/i,"")
+                  .replace(/\s*\/\s*(?:\d+(?:\.\d+)?\s*)?(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patches?|syringes?)\b.*$/i,"")
                   .replace(/(\d)\s+(mg|mcg|g|ml|iu|units?)\b/gi,"$1$2")
                   .replace(/\s+/g," ");
           }
@@ -5002,11 +5027,13 @@
           function matchesMedicineAlternative(row,tab,rows,selection){
               const columns = getColumns(tab,rows);
               const matchColumns = getMedicineAlternativeColumns(tab,rows);
-              return ["ingredient","strength"].every(key => {
+              return ["ingredient","strength","dosageForm"].every(key => {
                   const value = getMedicineAlternativeValue(row,columns,matchColumns[key]);
                   const normalizedValue = key === "strength"
                       ? normalizeMedicineStrength(value)
-                      : normalizeMedicineIngredient(value);
+                      : key === "dosageForm"
+                          ? normalizeMedicineDosageForm(value)
+                          : normalizeMedicineIngredient(value);
                   return normalizedValue === selection.values[key];
               });
           }
