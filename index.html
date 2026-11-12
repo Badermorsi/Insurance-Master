@@ -11684,11 +11684,8 @@ function getRowsForDependentFilter(tab, column){
                     continue;
                 }
 
-                // Do not let a search in this same column
-                // restrict its own filter options.
-                if(searchColumns[key] === column){
-                    continue;
-                }
+                // Apply every active search to every column filter,
+                // including the column used by the search itself.
 
                 const terms = searchText
                     .toLowerCase()
