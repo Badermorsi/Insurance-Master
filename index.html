@@ -1302,6 +1302,22 @@
               box-shadow:0 2px 7px rgba(30,63,74,.025);
           }
 
+          .alternative-check-button{
+              grid-column:1 / -1;
+              justify-self:start;
+              min-height:36px;
+              padding:0 14px;
+              border:1px solid #12697a;
+              border-radius:7px;
+              background:#12697a;
+              color:#ffffff;
+              font-size:12px;
+              font-weight:750;
+              cursor:pointer;
+          }
+          .alternative-check-button:hover{ background:#0f5968; }
+          .alternative-check-button:focus-visible{ outline:2px solid #24899a; outline-offset:2px; }
+
           .formulary-search-hint{
               grid-column:1 / -1;
               margin-bottom:-3px;
@@ -1634,6 +1650,9 @@
           .data-table tbody tr:hover td{
               background:#eef7f8;
           }
+          .data-table tbody tr.medicine-row-selectable{ cursor:pointer; }
+          .data-table tbody tr.medicine-row-selected td,
+          .data-table tbody tr.medicine-row-selected:hover td{ background:#cce9ed !important; }
 
 
           /* =========================================================
@@ -3343,6 +3362,7 @@
               class="formulary-search-bar"
               hidden
           >
+              <button id="checkAlternativeButton" class="alternative-check-button" type="button" hidden>Check for Alternative</button>
               <div class="formulary-search-hint">Use % to match both terms, e.g. para%phenyl.</div>
               <label class="formulary-search-field">
                   <span data-formulary-search-label="brand">Brand Name</span>
@@ -3731,6 +3751,9 @@
               haad:{brand:"",generic:"",strength:"",dosageForm:""}
           };
 
+          let selectedMedicineRow = null;
+          const medicineAlternativeFilters = new Map();
+
           let eyeSearchValue = "";
 
           const contactsOriginalRowIndexes = new WeakMap();
@@ -3826,6 +3849,8 @@
           function updateFormularySearchBar(tab){
               const supported = tab && (tab.id === "apg" || tab.id === "haad");
               formularySearchBar.hidden = !supported;
+              document.getElementById("checkAlternativeButton").hidden =
+                  !supported || !selectedMedicineRow || selectedMedicineRow.tabId !== tab.id;
               eyeSearchBar.hidden = !tab || tab.id !== "eye";
 
               if(tab && tab.id === "eye"){
@@ -3886,6 +3911,21 @@
               }
           });
 
+
+          document.getElementById("checkAlternativeButton").addEventListener("click",() => {
+              if(!currentTab || !selectedMedicineRow || selectedMedicineRow.tabId !== currentTab.id){ return; }
+              const rows = currentTab.rows || [];
+              const columns = getColumns(currentTab,rows);
+              const matchColumns = getMedicineAlternativeColumns(currentTab,rows);
+              const values = {};
+              for(const key of ["ingredient","strength","dosageForm"]){
+                  const column = matchColumns[key];
+                  if(column === null){ return; }
+                  values[key] = getMedicineAlternativeValue(selectedMedicineRow.row,columns,column);
+              }
+              medicineAlternativeFilters.set(currentTab.id,{values});
+              renderTable(currentTab,++renderVersion);
+          });
 
           /* =========================================================
              VALUE STRING
@@ -4882,7 +4922,7 @@
                   haadCode:(tab.id === "apg" || tab.id === "haad")
                       ? findColumn(["haadcode","drugcode","itemcode","code"])
                       : null,
-                  generic:findColumn(["genericname"]) || findColumn(["generic"]),
+                  generic:findColumn(["activeingredient"]) || findColumn(["genericname"]) || findColumn(["generic"]),
                   strength:findColumn(["strength"]),
                   dosageForm:
                       findColumn(["dosageform","doseform"]) ||
@@ -4901,6 +4941,44 @@
               }
 
               return valueString(row?.[column]);
+          }
+
+          function getMedicineAlternativeColumns(tab,rows){
+              const columns = getColumns(tab,rows);
+              const findColumn = candidates => columns.find(column => {
+                  const normalized = normalizeColumnName(column);
+                  return candidates.some(candidate => normalized === candidate || normalized.startsWith(candidate));
+              }) || null;
+              return {
+                  ingredient:findColumn(["activeingredient","genericname","generic"]),
+                  strength:findColumn(["strength"]),
+                  dosageForm:findColumn(["dosageform","doseform","dosage","form"])
+              };
+          }
+
+          function getMedicineAlternativeValue(row,columns,column){
+              return column === null ? "" : getFormularyCellValue(row,column,columns).trim().toLocaleLowerCase();
+          }
+
+          function matchesMedicineAlternative(row,tab,rows,selection){
+              const columns = getColumns(tab,rows);
+              const matchColumns = getMedicineAlternativeColumns(tab,rows);
+              return ["ingredient","strength","dosageForm"].every(key =>
+                  getMedicineAlternativeValue(row,columns,matchColumns[key]) === selection.values[key]
+              );
+          }
+
+          function applyMedicineAlternativeFilter(rows){
+              const selection = currentTab && medicineAlternativeFilters.get(currentTab.id);
+              if(!selection){ return rows; }
+              return rows.filter(row => matchesMedicineAlternative(row,currentTab,currentTab.rows || rows,selection));
+          }
+
+          function selectMedicineRow(tab,row,tr){
+              document.querySelectorAll("tr.medicine-row-selected").forEach(selectedTr => selectedTr.classList.remove("medicine-row-selected"));
+              tr.classList.add("medicine-row-selected");
+              selectedMedicineRow = {tabId:tab.id,row};
+              document.getElementById("checkAlternativeButton").hidden = !currentTab || currentTab.id !== tab.id;
           }
 
           function matchesFormularySearch(row,tab,columns,searchColumns){
@@ -4994,7 +5072,7 @@
                   !hasFormularySearch &&
                   !hasEyeSearch
               ){
-                  return rows;
+                  return applyMedicineAlternativeFilter(rows);
               }
 
               const result = [];
@@ -5075,7 +5153,7 @@
 
               }
 
-              return result;
+              return applyMedicineAlternativeFilter(result);
           }
 
 
@@ -7096,6 +7174,11 @@
                       tr.dataset.rowIndex =
                           String(i);
 
+                      if(tab.id === "apg" || tab.id === "haad"){
+                          tr.classList.add("medicine-row-selectable");
+                          if(selectedMedicineRow?.tabId === tab.id && selectedMedicineRow.row === row){ tr.classList.add("medicine-row-selected"); }
+                          tr.addEventListener("click",() => selectMedicineRow(tab,row,tr));
+                      }
 
                       for(
                           let c=0;
@@ -12620,6 +12703,8 @@ if(terms.length === 0){
                           return;
                       }
 
+
+                      medicineAlternativeFilters.delete(currentTab.id);
 
                       filters.set(
                           currentTab.id,
