@@ -1302,6 +1302,22 @@
               box-shadow:0 2px 7px rgba(30,63,74,.025);
           }
 
+          .alternative-check-button{
+              grid-column:1 / -1;
+              justify-self:start;
+              min-height:36px;
+              padding:0 14px;
+              border:1px solid #12697a;
+              border-radius:7px;
+              background:#12697a;
+              color:#ffffff;
+              font-size:12px;
+              font-weight:750;
+              cursor:pointer;
+          }
+          .alternative-check-button:hover{ background:#0f5968; }
+          .alternative-check-button:focus-visible{ outline:2px solid #24899a; outline-offset:2px; }
+
           .formulary-search-hint{
               grid-column:1 / -1;
               margin-bottom:-3px;
@@ -1634,6 +1650,9 @@
           .data-table tbody tr:hover td{
               background:#eef7f8;
           }
+          .data-table tbody tr.medicine-row-selectable{ cursor:pointer; }
+          .data-table tbody tr.medicine-row-selected td,
+          .data-table tbody tr.medicine-row-selected:hover td{ background:#cce9ed !important; }
 
 
           /* =========================================================
@@ -3185,37 +3204,7 @@
 
           }
 
-          
-          .ai-assistant-view{min-height:100%;padding:clamp(16px,3vw,36px);background:linear-gradient(145deg,#f5f9fa,#edf4f5 58%,#f8fafb);color:#203741}
-          .ai-assistant-shell{max-width:1120px;margin:0 auto}
-          .ai-assistant-hero{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:clamp(22px,4vw,38px);border-radius:20px;background:linear-gradient(120deg,#123f4b,#176b70);color:#fff;box-shadow:0 16px 38px rgba(26,73,81,.16)}
-          .ai-assistant-kicker{margin:0 0 10px;color:#bce5de;font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
-          .ai-assistant-hero h1{margin:0;font-size:clamp(25px,4vw,36px);line-height:1.12;letter-spacing:-.035em}
-          .ai-assistant-hero p{max-width:640px;margin:12px 0 0;color:#d8e9e8;font-size:14px;line-height:1.65}
-          .ai-assistant-mark{display:grid;place-items:center;width:72px;height:72px;border:1px solid #ffffff40;border-radius:22px;background:#ffffff1a;font-size:30px}
-          .ai-assistant-status{display:flex;gap:11px;align-items:flex-start;margin:18px 0;padding:14px 16px;border:1px solid #ecd9a8;border-radius:12px;background:#fff9e9;color:#634d1c;font-size:12px;line-height:1.55}
-          .ai-assistant-status strong{display:block;margin-bottom:2px}.ai-assistant-status-icon{display:grid;place-items:center;flex:none;width:24px;height:24px;border-radius:50%;background:#f2e5bd;font-weight:900}
-          .ai-assistant-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(270px,.8fr);gap:18px;align-items:start}
-          .ai-assistant-card{border:1px solid #e0e9eb;border-radius:15px;background:#fff;box-shadow:0 7px 22px #1f40490e}
-          .ai-assistant-card-head,.ai-assistant-form{padding:19px 21px}.ai-assistant-card-head{padding-bottom:0}.ai-assistant-card-head h2,.ai-assistant-side h2{margin:0;color:#203741;font-size:16px}
-          .ai-assistant-card-head p{margin:6px 0 0;color:#71828a;font-size:12px;line-height:1.55}
-          .ai-assistant-label{display:block;margin:0 0 7px;color:#38505a;font-size:11px;font-weight:750}
-          .ai-assistant-input,.ai-assistant-textarea{width:100%;min-height:43px;padding:11px 12px;border:1px solid #ccdadd;border-radius:9px;outline:none;background:#fff;color:#243941;font:inherit;font-size:13px}
-          .ai-assistant-textarea{min-height:86px;resize:vertical;line-height:1.5}.ai-assistant-input:focus,.ai-assistant-textarea:focus{border-color:#24899a;box-shadow:0 0 0 3px #24899a1c}
-          .ai-assistant-help{margin:6px 0 0;color:#829198;font-size:10.5px;line-height:1.5}
-          .ai-assistant-primary,.ai-assistant-secondary,.ai-assistant-link{display:inline-flex;min-height:41px;align-items:center;justify-content:center;gap:8px;padding:0 15px;border-radius:9px;font:inherit;font-size:12px;font-weight:750;text-decoration:none;cursor:pointer}
-          .ai-assistant-primary{border:1px solid #146d73;background:#167c7d;color:#fff;box-shadow:0 5px 12px #167c7d26}.ai-assistant-primary:hover{background:#126d70}
-          .ai-assistant-secondary,.ai-assistant-link{border:1px solid #d4e0e2;background:#fff;color:#32535b}.ai-assistant-secondary:hover,.ai-assistant-link:hover{border-color:#9cb8bd;background:#f7fbfb}
-          .ai-assistant-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.ai-assistant-questions{display:none;margin-top:18px;padding-top:18px;border-top:1px solid #edf1f2}.ai-assistant-questions.is-open{display:block}
-          .ai-assistant-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px}.ai-assistant-field-full{grid-column:1/-1}
-          .ai-assistant-inline-note{margin:12px 0 0;padding:10px 12px;border-radius:9px;background:#f1f7f7;color:#526d75;font-size:11px;line-height:1.5}
-          .ai-assistant-redflags{margin:0 0 14px;padding:12px 13px;border-left:3px solid #cf7956;border-radius:7px;background:#fff5f0;color:#70402e;font-size:11px;line-height:1.55}
-          .ai-assistant-result{display:none;margin-top:16px;padding:14px;border:1px solid #ecd9a8;border-radius:11px;background:#fffaf0;color:#5c4a22;font-size:12px;line-height:1.6}.ai-assistant-result.is-open{display:block}
-          .ai-assistant-side{padding:19px 20px}.ai-assistant-step{display:grid;grid-template-columns:26px 1fr;gap:10px;margin-top:17px}.ai-assistant-step-num{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#eaf4f4;color:#22787b;font-size:11px;font-weight:850}
-          .ai-assistant-step strong{display:block;margin:2px 0 4px;color:#38525b;font-size:11px}.ai-assistant-step span{display:block;color:#788990;font-size:10.5px;line-height:1.5}.ai-assistant-rule{height:1px;margin:17px 0;background:#edf1f2}.ai-assistant-disclaimer{margin:15px 0 0;color:#88969c;font-size:10px;line-height:1.55}
-          @media(max-width:850px){.ai-assistant-grid{grid-template-columns:1fr}}@media(max-width:560px){.ai-assistant-view{padding:14px}.ai-assistant-hero{grid-template-columns:1fr;padding:22px;border-radius:15px}.ai-assistant-mark{display:none}.ai-assistant-fields{grid-template-columns:1fr}.ai-assistant-field-full{grid-column:auto}.ai-assistant-card-head,.ai-assistant-form,.ai-assistant-side{padding-left:16px;padding-right:16px}}
-
-        </style>
+          </style>
 
           </head>
 
@@ -3373,6 +3362,7 @@
               class="formulary-search-bar"
               hidden
           >
+              <button id="checkAlternativeButton" class="alternative-check-button" type="button" hidden>Check for Alternative</button>
               <div class="formulary-search-hint">Use % to match both terms, e.g. para%phenyl.</div>
               <label class="formulary-search-field">
                   <span data-formulary-search-label="brand">Brand Name</span>
@@ -3722,12 +3712,6 @@
 
           ].filter(Boolean);
 
-          tabsConfig.push({id:"ai-assistant",name:"AI Assistant",files:[]});
-
-
-          /* =========================================================
-             STATE
-
           /* =========================================================
              STATE
           ========================================================= */
@@ -3766,6 +3750,9 @@
               apg:{brand:"",generic:"",strength:"",dosageForm:""},
               haad:{brand:"",generic:"",strength:"",dosageForm:""}
           };
+
+          let selectedMedicineRow = null;
+          const medicineAlternativeFilters = new Map();
 
           let eyeSearchValue = "";
 
@@ -3862,6 +3849,8 @@
           function updateFormularySearchBar(tab){
               const supported = tab && (tab.id === "apg" || tab.id === "haad");
               formularySearchBar.hidden = !supported;
+              document.getElementById("checkAlternativeButton").hidden =
+                  !supported || !selectedMedicineRow || selectedMedicineRow.tabId !== tab.id;
               eyeSearchBar.hidden = !tab || tab.id !== "eye";
 
               if(tab && tab.id === "eye"){
@@ -3922,6 +3911,38 @@
               }
           });
 
+
+          document.getElementById("checkAlternativeButton").addEventListener("click",() => {
+              if(!currentTab || !selectedMedicineRow || selectedMedicineRow.tabId !== currentTab.id){ return; }
+              const rows = currentTab.rows || [];
+              const columns = getColumns(currentTab,rows);
+              const matchColumns = getMedicineAlternativeColumns(currentTab,rows);
+              const values = {};
+              for(const key of ["ingredient","strength","dosageForm"]){
+                  const column = matchColumns[key];
+                  if(column === null){ return; }
+                  const value = getMedicineAlternativeValue(selectedMedicineRow.row,columns,column);
+                  values[key] = key === "strength"
+                      ? normalizeMedicineStrength(value)
+                      : key === "dosageForm"
+                          ? normalizeMedicineDosageForm(value)
+                          : normalizeMedicineIngredient(value);
+              }
+              medicineAlternativeFilters.set(currentTab.id,{values});
+              renderTable(currentTab,++renderVersion);
+          });
+
+          document.addEventListener("click",event => {
+              if(tableArea.contains(event.target)){
+                  return;
+              }
+
+              selectedMedicineRow = null;
+              document.querySelectorAll("tr.medicine-row-selected").forEach(tr =>
+                  tr.classList.remove("medicine-row-selected")
+              );
+              document.getElementById("checkAlternativeButton").hidden = true;
+          });
 
           /* =========================================================
              VALUE STRING
@@ -4785,78 +4806,6 @@
           });
 
 
-          function renderAiAssistant(){
-              tableArea.style.overflow = "auto";
-              tableArea.innerHTML = `
-                <main class="ai-assistant-view"><div class="ai-assistant-shell">
-                  <header class="ai-assistant-hero"><div>
-                    <div class="ai-assistant-kicker">Clinical decision support · Guided intake</div>
-                    <h1>AI Assistant</h1>
-                    <p>Describe a complaint and collect the details a validated clinical service would need. Every medicine recommendation must be clinically supported and matched to an actual APG Formulary record.</p>
-                  </div><div class="ai-assistant-mark" aria-hidden="true">✳</div></header>
-                  <div class="ai-assistant-status" role="status"><span class="ai-assistant-status-icon" aria-hidden="true">!</span><div><strong>Clinical reasoning is not connected yet</strong>This page has no validated clinical knowledge source or AI API configured. It will not diagnose, select treatment, calculate a dose, or show medicine recommendations until that integration is added and validated.</div></div>
-                  <div class="ai-assistant-grid">
-                    <section class="ai-assistant-card" aria-labelledby="ai-intake-title">
-                      <div class="ai-assistant-card-head"><h2 id="ai-intake-title">Start with the patient's complaint</h2><p>This guided intake is a prototype. The questions collect context only; they do not assess or interpret symptoms.</p></div>
-                      <div class="ai-assistant-form">
-                        <label class="ai-assistant-label" for="aiComplaint">What is the main complaint or condition?</label>
-                        <textarea class="ai-assistant-textarea" id="aiComplaint" placeholder="For example: fever, itchy rash, headache" required></textarea>
-                        <p class="ai-assistant-help">Avoid entering names or other identifying details.</p>
-                        <div class="ai-assistant-actions"><button class="ai-assistant-primary" id="aiStartIntake" type="button">Continue to questions <span aria-hidden="true">→</span></button></div>
-                        <section class="ai-assistant-questions" id="aiQuestions" aria-labelledby="ai-questions-title">
-                          <h2 id="ai-questions-title" style="margin:0 0 5px;font-size:15px;color:#203741">A few details for a safe review</h2>
-                          <p class="ai-assistant-help" style="margin:0 0 15px">Answer what you know. These general intake questions are not a clinical assessment.</p>
-                          <div class="ai-assistant-redflags"><strong>Urgent symptoms?</strong> If there is severe difficulty breathing, collapse, new severe confusion, heavy bleeding, or rapid worsening, stop here and seek emergency care now.</div>
-                          <form id="aiIntakeForm"><div class="ai-assistant-fields">
-                            <div><label class="ai-assistant-label" for="aiAge">Patient's age or age group</label><input class="ai-assistant-input" id="aiAge" autocomplete="off" placeholder="Age in years, or infant / child / adult"></div>
-                            <div><label class="ai-assistant-label" for="aiWeight">Weight, if known (especially for children)</label><input class="ai-assistant-input" id="aiWeight" inputmode="decimal" placeholder="Optional · kg"></div>
-                            <div><label class="ai-assistant-label" for="aiDuration">How long has this been happening?</label><input class="ai-assistant-input" id="aiDuration" placeholder="Duration and any change over time"></div>
-                            <div><label class="ai-assistant-label" for="aiSymptoms">Other symptoms or concerns</label><input class="ai-assistant-input" id="aiSymptoms" placeholder="Add any details that may help"></div>
-                            <div class="ai-assistant-field-full"><label class="ai-assistant-label" for="aiAllergies">Known allergies and current medicines</label><textarea class="ai-assistant-textarea" id="aiAllergies" placeholder="Include known medicine allergies and current medicines, if known"></textarea></div>
-                            <div class="ai-assistant-field-full"><label class="ai-assistant-label" for="aiSpecial">Pregnancy, breastfeeding, or important medical conditions (if relevant)</label><input class="ai-assistant-input" id="aiSpecial" placeholder="Optional context"></div>
-                          </div><p class="ai-assistant-inline-note">Answers stay in this page and are not sent to an AI or clinical service.</p>
-                          <div class="ai-assistant-actions"><button class="ai-assistant-primary" type="submit">Review integration status <span aria-hidden="true">→</span></button><button class="ai-assistant-secondary" id="aiResetIntake" type="button">Start over</button></div></form>
-                          <div class="ai-assistant-result" id="aiIntegrationResult" role="status" aria-live="polite"><strong>Intake captured for review.</strong> No validated clinical source/API is connected, so no diagnosis, first-line treatment, alternatives, product, or dose can be returned. After a clinical service is validated, product names, active ingredients, strength, and dosage form must be matched to actual APG records before anything is displayed.<div class="ai-assistant-actions"><button class="ai-assistant-link" id="aiOpenApg" type="button">Open APG Formulary</button></div></div>
-                        </section>
-                      </div>
-                    </section>
-                    <aside class="ai-assistant-card ai-assistant-side" aria-label="How recommendations will work">
-                      <h2>How this assistant will work</h2>
-                      <div class="ai-assistant-step"><span class="ai-assistant-step-num">1</span><div><strong>Ask relevant follow-up questions</strong><span>A validated clinical service should tailor questions to the complaint, age, history, allergies, and safety concerns.</span></div></div>
-                      <div class="ai-assistant-step"><span class="ai-assistant-step-num">2</span><div><strong>Check safety and treatment guidance</strong><span>Red flags should trigger referral guidance. Treatment choices and dose details need an approved clinical source.</span></div></div>
-                      <div class="ai-assistant-step"><span class="ai-assistant-step-num">3</span><div><strong>Match options against APG</strong><span>Show only verified APG products. Make the brand name prominent, then show the recorded generic, strength, and dosage form.</span></div></div>
-                      <div class="ai-assistant-rule"></div><button class="ai-assistant-link" id="aiOpenApgSide" type="button">Browse APG Formulary <span aria-hidden="true">↗</span></button>
-                      <p class="ai-assistant-disclaimer">This prototype does not provide medical advice. APG product availability alone does not establish that a medicine is suitable for a patient.</p>
-                    </aside>
-                  </div>
-                </div></main>`;
-
-              const complaint = document.getElementById("aiComplaint");
-              const questions = document.getElementById("aiQuestions");
-              const form = document.getElementById("aiIntakeForm");
-              const result = document.getElementById("aiIntegrationResult");
-              const openApg = () => openTab("apg");
-              document.getElementById("aiStartIntake").addEventListener("click", () => {
-                  if(!complaint.value.trim()){
-                      complaint.setCustomValidity("Enter the main complaint to continue.");
-                      complaint.reportValidity();
-                      complaint.addEventListener("input", () => complaint.setCustomValidity(""), {once:true});
-                      return;
-                  }
-                  questions.classList.add("is-open");
-                  document.getElementById("aiAge").focus();
-              });
-              form.addEventListener("submit", event => {
-                  event.preventDefault();
-                  result.classList.add("is-open");
-                  result.scrollIntoView({behavior:"smooth",block:"nearest"});
-              });
-              document.getElementById("aiResetIntake").addEventListener("click", renderAiAssistant);
-              document.getElementById("aiOpenApg").addEventListener("click", openApg);
-              document.getElementById("aiOpenApgSide").addEventListener("click", openApg);
-          }
-
-
           /* =========================================================
              ACTIVE TAB
           ========================================================= */
@@ -4990,7 +4939,7 @@
                   haadCode:(tab.id === "apg" || tab.id === "haad")
                       ? findColumn(["haadcode","drugcode","itemcode","code"])
                       : null,
-                  generic:findColumn(["genericname"]) || findColumn(["generic"]),
+                  generic:findColumn(["activeingredient"]) || findColumn(["genericname"]) || findColumn(["generic"]),
                   strength:findColumn(["strength"]),
                   dosageForm:
                       findColumn(["dosageform","doseform"]) ||
@@ -5009,6 +4958,97 @@
               }
 
               return valueString(row?.[column]);
+          }
+
+          function getMedicineAlternativeColumns(tab,rows){
+              const columns = getColumns(tab,rows);
+              const findColumn = candidates => {
+                  for(const candidate of candidates){
+                      const normalizedColumns = columns.map(column => ({column,normalized:normalizeColumnName(column)}));
+                      const exact = normalizedColumns.find(item => item.normalized === candidate);
+                      if(exact){ return exact.column; }
+                      const partial = normalizedColumns.find(item => item.normalized.startsWith(candidate));
+                      if(partial){ return partial.column; }
+                      const contains = normalizedColumns.find(item => item.normalized.includes(candidate));
+                      if(contains){ return contains.column; }
+                  }
+                  return null;
+              };
+              const dosageFormColumn =
+                  findColumn(["dosageform","doseform","pharmaceuticalform"]) ||
+                  columns.find(column => normalizeColumnName(column) === "form") ||
+                  columns.find(column => normalizeColumnName(column) === "formdescription") ||
+                  columns.find(column => normalizeColumnName(column) === "dosage");
+              return {
+                  ingredient:findColumn(["activeingredient","genericname","generic"]),
+                  strength:findColumn(["strength"]),
+                  dosageForm:dosageFormColumn || null
+              };
+          }
+
+          function getMedicineAlternativeValue(row,columns,column){
+              return column === null ? "" : getFormularyCellValue(row,column,columns).trim().toLocaleLowerCase();
+          }
+
+          function normalizeMedicineIngredient(value){
+              return String(value ?? "")
+                  .trim()
+                  .toLocaleLowerCase()
+                  .replace(/\s*\(\s*as\s+(?:besilate|besylate)\s*\)/gi,"")
+                  .replace(/\s+(?:besilate|besylate)\b/gi,"")
+                  .replace(/\s+(?:bp\s+)?equivalent\s+to\s+amlodipine\b/gi,"")
+                  .replace(/\s+/g," ")
+                  .trim();
+          }
+
+          function normalizeMedicineDosageForm(value){
+              const normalized = String(value ?? "")
+                  .trim()
+                  .toLocaleLowerCase()
+                  .replace(/\s+/g," ");
+              if(/\b(?:tablets?|capsules?|caplets?|tabs?|caps?)\b/i.test(normalized)){
+                  return "tablet-capsule";
+              }
+              if(/\bsachets?\b/i.test(normalized)){
+                  return "sachet";
+              }
+              return normalized;
+          }
+
+          function normalizeMedicineStrength(value){
+              return String(value ?? "")
+                  .trim()
+                  .toLocaleLowerCase()
+                  .replace(/\s*\/\s*(?:\d+(?:\.\d+)?\s*)?(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patches?|syringes?)\b.*$/i,"")
+                  .replace(/(\d)\s+(mg|mcg|g|ml|iu|units?)\b/gi,"$1$2")
+                  .replace(/\s+/g," ");
+          }
+
+          function matchesMedicineAlternative(row,tab,rows,selection){
+              const columns = getColumns(tab,rows);
+              const matchColumns = getMedicineAlternativeColumns(tab,rows);
+              return ["ingredient","strength","dosageForm"].every(key => {
+                  const value = getMedicineAlternativeValue(row,columns,matchColumns[key]);
+                  const normalizedValue = key === "strength"
+                      ? normalizeMedicineStrength(value)
+                      : key === "dosageForm"
+                          ? normalizeMedicineDosageForm(value)
+                          : normalizeMedicineIngredient(value);
+                  return normalizedValue === selection.values[key];
+              });
+          }
+
+          function applyMedicineAlternativeFilter(rows){
+              const selection = currentTab && medicineAlternativeFilters.get(currentTab.id);
+              if(!selection){ return rows; }
+              return rows.filter(row => matchesMedicineAlternative(row,currentTab,currentTab.rows || rows,selection));
+          }
+
+          function selectMedicineRow(tab,row,tr){
+              document.querySelectorAll("tr.medicine-row-selected").forEach(selectedTr => selectedTr.classList.remove("medicine-row-selected"));
+              tr.classList.add("medicine-row-selected");
+              selectedMedicineRow = {tabId:tab.id,row};
+              document.getElementById("checkAlternativeButton").hidden = !currentTab || currentTab.id !== tab.id;
           }
 
           function matchesFormularySearch(row,tab,columns,searchColumns){
@@ -5078,6 +5118,10 @@
 
           function getVisibleRows(rows){
 
+              if(currentTab && medicineAlternativeFilters.has(currentTab.id)){
+                  return applyMedicineAlternativeFilter(rows);
+              }
+
               const state =
                   filters.get(currentTab.id);
 
@@ -5102,7 +5146,7 @@
                   !hasFormularySearch &&
                   !hasEyeSearch
               ){
-                  return rows;
+                  return applyMedicineAlternativeFilter(rows);
               }
 
               const result = [];
@@ -5183,7 +5227,7 @@
 
               }
 
-              return result;
+              return applyMedicineAlternativeFilter(result);
           }
 
 
@@ -7204,6 +7248,11 @@
                       tr.dataset.rowIndex =
                           String(i);
 
+                      if(tab.id === "apg" || tab.id === "haad"){
+                          tr.classList.add("medicine-row-selectable");
+                          if(selectedMedicineRow?.tabId === tab.id && selectedMedicineRow.row === row){ tr.classList.add("medicine-row-selected"); }
+                          tr.addEventListener("click",() => selectMedicineRow(tab,row,tr));
+                      }
 
                       for(
                           let c=0;
@@ -11439,14 +11488,6 @@
             const version =
                 ++renderVersion;
 
-            const clearButton = document.getElementById("clearButton");
-            clearButton.hidden = id === "ai-assistant";
-            if(id === "ai-assistant"){
-                recordNumber.textContent = "Intake only";
-                renderAiAssistant();
-                return;
-            }
-
 
             if(id === "dose"){
                 renderDoseCalculator(version);
@@ -12736,6 +12777,8 @@ if(terms.length === 0){
                           return;
                       }
 
+
+                      medicineAlternativeFilters.delete(currentTab.id);
 
                       filters.set(
                           currentTab.id,
