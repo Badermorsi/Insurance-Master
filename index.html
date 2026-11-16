@@ -5029,7 +5029,7 @@
               return String(value ?? "")
                   .trim()
                   .toLocaleLowerCase()
-                  .replace(/\s*\/\s*(?:\d+(?:\.\d+)?\s*)?(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patches?|syringes?)\b.*$/i,"")
+                  .replace(/\s*\/\s*(?:\d+(?:\.\d+)?\s*)?(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patch(?:es)?|plaster(?:s)?|syringes?)\b.*$/i,"")
                   .replace(/(\d)\s+(mg|mcg|g|ml|iu|units?)\b/gi,"$1$2")
                   .replace(/\s+/g," ");
           }
@@ -5058,7 +5058,7 @@
               const form = String(value ?? "").trim().toLocaleLowerCase().replace(/\s+/g," ");
               if(/injection|injectable|intravenous|intramuscular|infusion|parenteral/.test(form)){ return null; }
               if(/tablet|\btab\b|caplet|capsule|\bcap\b/.test(form)){ return "tablet-capsule"; }
-              if(/cream|ointment|emulgel|gel|spray|lotion|patch|paste|topical|cutaneous|foam/.test(form)){ return "topical"; }
+              if(/cream|ointment|emulgel|gel|spray|lotion|patch|plaster|paste|topical|cutaneous|foam/.test(form)){ return "topical"; }
               if(/syrup|suspension|emulsion|solution|elixir|drops?/.test(form)){ return "liquid"; }
               return null;
           }
@@ -5071,7 +5071,7 @@
                   .replace(/\([^)]*\)/g," ")
                   .replace(/\bacetaminophen\b/gi,"paracetamol")
                   .replace(/\banhydrous\b/gi," ")
-                  .replace(/\b(?:hydrochloride|hydrobromide|hcl|sodium|magnesium|potassium|calcium|phosphate|sulfate|sulphate|acetate|succinate|hemisuccinate|sesquihydrate|monohydrate|dihydrate|trihydrate|besilate|besylate|mesylate|maleate|fumarate|citrate|tartrate|lactobionate|usp|bp)\b/gi," ")
+                  .replace(/\b(?:dihydrochloride|hydrochloride|hydrobromide|hcl|sodium|magnesium|potassium|calcium|phosphate|sulfate|sulphate|acetate|succinate|hemisuccinate|sesquihydrate|monohydrate|dihydrate|trihydrate|besilate|besylate|mesylate|maleate|fumarate|citrate|tartrate|lactobionate|usp|bp)\b/gi," ")
                   .replace(/\s+/g," ")
                   .trim();
               return normalizeMedicineIngredient(active);
