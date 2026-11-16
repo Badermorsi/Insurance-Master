@@ -3851,7 +3851,7 @@
               const supported = tab && (tab.id === "apg" || tab.id === "haad");
               formularySearchBar.hidden = !supported;
               document.getElementById("checkAlternativeButton").hidden =
-                  !supported || !selectedMedicineRow || selectedMedicineRow.tabId !== tab.id;
+                  !tab || tab.id !== "apg" || !selectedMedicineRow || selectedMedicineRow.tabId !== tab.id;
               eyeSearchBar.hidden = !tab || tab.id !== "eye";
 
               if(tab && tab.id === "eye"){
@@ -3921,7 +3921,7 @@
 
 
           document.getElementById("checkAlternativeButton").addEventListener("click",() => {
-              if(!currentTab || !selectedMedicineRow || selectedMedicineRow.tabId !== currentTab.id){ return; }
+              if(!currentTab || currentTab.id !== "apg" || !selectedMedicineRow || selectedMedicineRow.tabId !== currentTab.id){ return; }
               const rows = currentTab.rows || [];
               const columns = getColumns(currentTab,rows);
               const matchColumns = getMedicineAlternativeColumns(currentTab,rows);
@@ -5087,7 +5087,7 @@
               const dosage = getMedicineAlternativeValue(row,columns,matchColumns.dosageForm);
               const componentNames = generic.split(/[,;+]/).map(part => part.trim()).filter(Boolean);
               const components = componentNames.map(part => normalizeMedicineIngredient(part));
-              const approvedGroup = components.length === 1 ? approvedMedicineAlternativeGroups.find(group => {
+              const approvedGroup = tab.id === "apg" && components.length === 1 ? approvedMedicineAlternativeGroups.find(group => {
                   const strengthMatches = group.strength instanceof RegExp
                       ? group.strength.test(strength)
                       : normalizeMedicineStrength(group.strength) === strength;
@@ -5178,7 +5178,7 @@
               document.querySelectorAll("tr.medicine-row-selected").forEach(selectedTr => selectedTr.classList.remove("medicine-row-selected"));
               tr.classList.add("medicine-row-selected");
               selectedMedicineRow = {tabId:tab.id,row};
-              document.getElementById("checkAlternativeButton").hidden = !currentTab || currentTab.id !== tab.id;
+              document.getElementById("checkAlternativeButton").hidden = !currentTab || currentTab.id !== "apg" || tab.id !== "apg";
           }
 
           function matchesFormularySearch(row,tab,columns,searchColumns){
