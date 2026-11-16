@@ -3888,6 +3888,13 @@
               });
           }
 
+          document.addEventListener("focusin",event => {
+              if(!event.target || !event.target.matches || !event.target.matches('input[type="search"]')){ return; }
+              if(!currentTab || !medicineAlternativeFilters.has(currentTab.id)){ return; }
+              medicineAlternativeFilters.delete(currentTab.id);
+              renderTable(currentTab,++renderVersion);
+          });
+
           formularySearchInputs.forEach(input => {
               input.addEventListener("input",() => {
                   if(
