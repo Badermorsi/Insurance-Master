@@ -2774,6 +2774,7 @@
               max-width:calc(100vw - 20px);
               max-height:calc(100vh - 20px);
               resize:both;
+              flex-direction:column;
 
               background:#ffffff;
 
@@ -2871,8 +2872,9 @@
           }
 
           .filter-values{
-              height:245px;
+              flex:1 1 245px;
               min-height:80px;
+              height:auto;
               max-height:none;
 
               overflow-y:auto;
@@ -2885,7 +2887,7 @@
               min-height:29px;
 
               display:flex;
-              align-items:center;
+              align-items:flex-start;
 
               gap:7px;
 
@@ -2903,22 +2905,21 @@
           }
 
           .filter-value input{
+              flex:0 0 13px;
               width:13px;
               height:13px;
 
-              margin:0;
+              margin:2px 0 0;
 
               accent-color:#14778a;
           }
 
           .filter-value-text{
+              flex:1 1 auto;
               min-width:0;
 
-              overflow:hidden;
-
-              text-overflow:ellipsis;
-
-              white-space:nowrap;
+              overflow-wrap:anywhere;
+              white-space:normal;
           }
 
           .filter-footer{
@@ -3854,21 +3855,7 @@
           const filterValues =
               document.getElementById("filterValues");
 
-          const filterPopupResizeObserver = new ResizeObserver(() => {
-              if(filterPopup.style.display === "none"){
-                  return;
-              }
 
-              const fixedHeight = Array.from(filterPopup.children)
-                  .filter(child => child !== filterValues)
-                  .reduce((total,child) => total + child.getBoundingClientRect().height,0);
-              const availableHeight = Math.max(
-                  80,
-                  filterPopup.clientHeight - fixedHeight - 2
-              );
-              filterValues.style.height = availableHeight + "px";
-          });
-          filterPopupResizeObserver.observe(filterPopup);
 
           function updateFormularySearchBar(tab){
               const supported = tab && (tab.id === "apg" || tab.id === "haad");
@@ -12146,7 +12133,7 @@ function getRowsForDependentFilter(tab, column){
                       : "Loading filter values…";
                   filterValues.appendChild(loading);
 
-                  filterPopup.style.display = "block";
+                  filterPopup.style.display = "flex";
                   positionFilterPopup(button);
 
                   const showValues = values => {
@@ -12352,8 +12339,7 @@ function getRowsForDependentFilter(tab, column){
               renderFilterValues();
 
 
-              filterPopup.style.display =
-                  "block";
+              filterPopup.style.display = "flex";
 
 
               positionFilterPopup(button);
@@ -12400,8 +12386,7 @@ function getRowsForDependentFilter(tab, column){
               renderFilterValues();
 
 
-              filterPopup.style.display =
-                  "block";
+              filterPopup.style.display = "flex";
 
 
               ppiSpecialtyFilterOpen =
@@ -13062,7 +13047,7 @@ if(terms.length === 0){
               event => {
 
                   if(
-                      filterPopup.style.display === "block" &&
+                      filterPopup.style.display === "flex" &&
 
                       !filterPopup.contains(
                           event.target
