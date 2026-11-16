@@ -3930,7 +3930,7 @@
                           : normalizeMedicineIngredient(value);
               }
               const selectedGroup = medicineAlternativeGroupForRow(selectedMedicineRow.row,currentTab,rows);
-              const selectedForm = selectedGroup ? alternativeFormHighlightCategory(getMedicineAlternativeValue(selectedMedicineRow.row,columns,matchColumns.dosageForm)) : null;
+              const selectedForm = selectedGroup ? alternativeFormHighlightCategory(getMedicineAlternativeValue(selectedMedicineRow.row,columns,matchColumns.dosageForm),selectedGroup.id) : null;
               medicineAlternativeFilters.set(currentTab.id,{values,groupId:selectedGroup ? selectedGroup.id : null,selectedForm});
               renderTable(currentTab,++renderVersion);
           });
@@ -5041,6 +5041,7 @@
               {id:"terbinafine-topical",ingredient:/^terbinafine(?: hydrochloride| hcl)?$/,strength:/^(?:10mg\/g|10mg\/ml)$/,form:/cream|emulgel|gel|spray|topical|solution|lotion/i},
               {id:"clarithromycin-500",ingredient:/^clarithromycin(?: citrate| lactobionate)?$/,strength:"500 mg",form:/tablet/i},
               {id:"methylprednisolone-40mg-ml",ingredient:/^methylprednisolone(?: acetate| sodium succinate| sodium| hemisuccinate)?$/,strength:"40 mg/ml",form:/injection|injectable/i},
+              {id:"methylprednisolone-aceponate-1mg-g",ingredient:/^methylprednisolone aceponate$/,strength:"1 mg/g",form:/cream|ointment/i},
               {id:"naproxen-250",ingredient:/^naproxen(?: sodium)?$/,strength:"250 mg",form:/oral|tablet|capsule/i},
               {id:"naproxen-500",ingredient:/^naproxen(?: sodium)?$/,strength:"500 mg",form:/oral|tablet|capsule/i},
               {id:"metformin-1000",ingredient:/^metformin(?: hydrochloride)?$/,strength:"1000 mg",form:/tablet/i}
@@ -5063,11 +5064,15 @@
               }) || null;
           }
 
-          function alternativeFormHighlightCategory(value){
+          function alternativeFormHighlightCategory(value,groupId=null){
               const form = String(value ?? "").trim().toLocaleLowerCase().replace(/\s+/g," ");
               if(/sustained|extended|controlled|modified release|\bsr\b|\bxr\b|\bmr\b/.test(form)){ return "sustained-release-tablet"; }
               if(/dispersible|orodispers|disintegrat/.test(form)){ return "dispersible-tablet"; }
               if(/spray/.test(form)){ return "spray"; }
+              if(groupId === "methylprednisolone-aceponate-1mg-g"){
+                  if(/cream/.test(form)){ return "cream"; }
+                  if(/ointment/.test(form)){ return "ointment"; }
+              }
               if(/emulgel|cream|ointment/.test(form)){ return "cream-ointment"; }
               if(/tablet|\btab\b/.test(form)){ return "ordinary-tablet"; }
               if(/capsule|\bcap\b/.test(form)){ return "capsule"; }
@@ -5081,7 +5086,7 @@
               if(!currentGroup || currentGroup.id !== selection.groupId){ return false; }
               const columns = getColumns(tab,rows);
               const form = getMedicineAlternativeValue(row,columns,column);
-              return alternativeFormHighlightCategory(form) !== selection.selectedForm;
+              return alternativeFormHighlightCategory(form,currentGroup.id) !== selection.selectedForm;
           }
 
           function matchesMedicineAlternative(row,tab,rows,selection){
