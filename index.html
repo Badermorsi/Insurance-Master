@@ -5027,26 +5027,46 @@
 
           function normalizeMedicineStrength(value){
               const raw = String(value ?? "").trim().toLocaleLowerCase();
-              const ratio = raw.match(/^\s*(\d+(?:\.\d+)?)\s*(mcg|µg|μg|ug|mg|g|iu|units?)\s*\/\s*(\d+(?:\.\d+)?)?\s*(ml|l|mcg|µg|μg|ug|mg|g)\s*$/i);
+              const massUnits = "(?:micrograms?|mcg|µg|μg|ug|milligrams?|mgs?|mg|grams?|gms?|gm|g)";
+              const ratio = raw.match(new RegExp("^\\s*(\\d+(?:\\.\\d+)?)\\s*(" + massUnits + "|iu|units?)\\s*\\/\\s*(\\d+(?:\\.\\d+)?)?\\s*(ml|l|" + massUnits + ")\\s*$","i"));
+              const massFactors = {
+                  microgram:0.001,micrograms:0.001,mcg:0.001,"µg":0.001,"μg":0.001,ug:0.001,
+                  milligram:1,milligrams:1,mg:1,mgs:1,
+                  gram:1000,grams:1000,gm:1000,gms:1000,g:1000
+              };
+              const volumeFactors = {ml:1,l:1000};
+              const canonicalMassUnit = unit => {
+                  const key = unit.toLocaleLowerCase();
+                  if(massFactors[key] === undefined){ return null; }
+                  if(key.startsWith("micro") || ["mcg","µg","μg","ug"].includes(key)){ return 0.001; }
+                  if(key.startsWith("milli") || ["mg","mgs"].includes(key)){ return 1; }
+                  return 1000;
+              };
+              const formatAmount = number => String(Number(number.toPrecision(12)));
               if(ratio){
                   const amount = Number(ratio[1]);
                   const numeratorUnit = ratio[2].toLocaleLowerCase();
                   const denominatorAmount = Number(ratio[3] || 1);
                   const denominatorUnit = ratio[4].toLocaleLowerCase();
-                  const massFactors = {mcg:0.001,"µg":0.001,"μg":0.001,ug:0.001,mg:1,g:1000};
-                  const volumeFactors = {ml:1,l:1000};
-                  const canonicalAmount = massFactors[numeratorUnit] !== undefined
-                      ? amount * massFactors[numeratorUnit]
-                      : amount;
-                  const canonicalNumerator = massFactors[numeratorUnit] !== undefined
+                  const numeratorMassFactor = canonicalMassUnit(numeratorUnit);
+                  const denominatorMassFactor = canonicalMassUnit(denominatorUnit);
+                  const numeratorIsMass = numeratorMassFactor !== null;
+                  const denominatorIsVolume = volumeFactors[denominatorUnit] !== undefined;
+                  const canonicalAmount = numeratorIsMass ? amount * numeratorMassFactor : amount;
+                  const canonicalNumerator = numeratorIsMass
                       ? "mg"
                       : numeratorUnit === "unit" || numeratorUnit === "units" ? "units" : "iu";
-                  const denominatorFactor = volumeFactors[denominatorUnit] !== undefined
+                  const denominatorFactor = denominatorIsVolume
                       ? volumeFactors[denominatorUnit]
-                      : massFactors[denominatorUnit];
-                  const denominatorCanonicalUnit = volumeFactors[denominatorUnit] !== undefined ? "ml" : "g";
-                  const normalized = Number((canonicalAmount / (denominatorAmount * denominatorFactor)).toPrecision(12));
-                  return String(normalized) + canonicalNumerator + "/" + denominatorCanonicalUnit;
+                      : denominatorMassFactor;
+                  const denominatorCanonicalUnit = denominatorIsVolume ? "ml" : "g";
+                  const normalized = canonicalAmount / (denominatorAmount * denominatorFactor);
+                  return formatAmount(normalized) + canonicalNumerator + "/" + denominatorCanonicalUnit;
+              }
+              const scalarMass = raw.match(new RegExp("^\\s*(\\d+(?:\\.\\d+)?)\\s*(" + massUnits + ")\\s*$","i"));
+              if(scalarMass){
+                  const amount = Number(scalarMass[1]) * canonicalMassUnit(scalarMass[2]);
+                  return formatAmount(amount) + "mg";
               }
               return raw
                   .replace(/\s*\/\s*(?:\d+(?:\.\d+)?\s*)?(?:tablets?|capsules?|caplets?|sachets?|tabs?|caps?|pills?|lozenges?|vials?|ampoules?|suppositories?|ovules?|patch(?:es)?|plaster(?:s)?|syringes?)\b.*$/i,"")
