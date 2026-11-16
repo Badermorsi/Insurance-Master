@@ -12407,70 +12407,62 @@ function getRowsForDependentFilter(tab, column){
               const rect =
                   button.getBoundingClientRect();
 
+              /*
+                 Every newly opened column filter starts at its
+                 normal size. This clears dimensions left behind
+                 when the previous popup was resized by the user.
+              */
+              filterPopup.style.width = "300px";
+              filterPopup.style.height = "auto";
+              filterPopup.style.minWidth = "300px";
+              filterPopup.style.minHeight = "220px";
+              filterPopup.style.maxWidth = "calc(100vw - 20px)";
+              filterPopup.style.maxHeight = "calc(100vh - 20px)";
 
               const width =
                   filterPopup.offsetWidth;
 
+              const availableBelow =
+                  Math.max(120, window.innerHeight - rect.bottom - 15);
+
+              /*
+                 Keep the menu anchored below the clicked header arrow.
+                 If there is not enough room, constrain its height and
+                 let its values area scroll instead of opening upwards.
+              */
+              filterPopup.style.maxHeight =
+                  availableBelow + "px";
+
+              filterPopup.style.minHeight =
+                  Math.min(220, availableBelow) + "px";
 
               const height =
                   filterPopup.offsetHeight;
 
-
               let left =
                   rect.left;
 
-
-              let top =
+              const top =
                   rect.bottom + 5;
-
 
               if(
                   left + width >
                   window.innerWidth - 10
               ){
-
                   left =
                       window.innerWidth -
                       width -
                       10;
-
               }
-
-
-              if(
-                  top + height >
-                  window.innerHeight - 10
-              ){
-
-                  top =
-                      rect.top -
-                      height -
-                      5;
-
-              }
-
 
               left =
-                  Math.max(
-                      10,
-                      left
-                  );
-
-
-              top =
-                  Math.max(
-                      10,
-                      top
-                  );
-
+                  Math.max(10, left);
 
               filterPopup.style.left =
                   left + "px";
 
-
               filterPopup.style.top =
                   top + "px";
-
 
               filterSearch.focus();
 
