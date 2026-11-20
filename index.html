@@ -13155,23 +13155,100 @@ if(terms.length === 0){
                   pagePasswordInput.focus();
               });
 
-          function handlePagePasswordLogin(){
-              if(
-                  pagePasswordUsername.value !== "Zone O" ||
-                  pagePasswordInput.value.trim() !== "Alain2027@ZAS"
-              ){
-                  pagePasswordError.hidden = false;
-                  pagePasswordInput.focus();
-                  pagePasswordInput.select();
-                  return;
-              }
+async function handlePagePasswordLogin() {
+    const authUrl = "https://insurance-all-list-auth.badermorsi.workers.dev";
+    const loginButton = document.getElementById("pagePasswordLogin");
+    const passwordLabel = document.querySelector('label[for="pagePasswordInput"]');
+    const step = pagePasswordForm.dataset.authStep || "password";
 
-              pagePasswordError.hidden = true;
-              document.getElementById("pagePasswordGate").hidden = true;
-              document.getElementById("mainApp").hidden = false;
-              createTabs();
-              openTab("apg");
-          }
+    loginButton.disabled = true;
+    pagePasswordError.hidden = true;
+
+    try {
+        if (step === "password") {
+            const response = await fetch(`${authUrl}/auth/request-otp`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password: pagePasswordInput.value })
+            });
+
+            const result = await response.json();
+
+            if (!response.ok || !result.success || !result.challenge) {
+                throw new Error(result.error || "Could not send the OTP.");
+            }
+
+            pagePasswordForm.dataset.authStep = "otp";
+            pagePasswordForm.dataset.challenge = result.challenge;
+
+            passwordLabel.textContent = "Email OTP";
+            pagePasswordInput.type = "text";
+            pagePasswordInput.value = "";
+            pagePasswordInput.autocomplete = "one-time-code";
+            pagePasswordInput.inputMode = "numeric";
+            pagePasswordInput.maxLength = 6;
+            passwordVisibilityToggle.hidden = true;
+            loginButton.textContent = "Verify OTP";
+
+            pagePasswordError.textContent =
+                "OTP sent to your email. Enter the 6-digit code.";
+            pagePasswordError.hidden = false;
+            pagePasswordInput.focus();
+            return;
+        }
+
+        const response = await fetch(`${authUrl}/auth/verify-otp`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                challenge: pagePasswordForm.dataset.challenge,
+                otp: pagePasswordInput.value.trim()
+            })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success || !result.sessionToken) {
+            throw new Error(result.error || "OTP verification failed.");
+        }
+
+        sessionStorage.setItem(
+            "insuranceAllListSessionToken",
+            result.sessionToken
+        );
+        sessionStorage.setItem(
+            "insuranceAllListSessionExpiry",
+            String(Date.now() + result.expiresIn * 1000)
+        );
+
+        document.getElementById("pagePasswordGate").hidden = true;
+        document.getElementById("mainApp").hidden = false;
+        createTabs();
+        openTab("apg");
+
+        document.getElementById("logoutButton").addEventListener("click", () => {
+            sessionStorage.removeItem("insuranceAllListSessionToken");
+            sessionStorage.removeItem("insuranceAllListSessionExpiry");
+            delete pagePasswordForm.dataset.authStep;
+            delete pagePasswordForm.dataset.challenge;
+            passwordLabel.textContent = "Password";
+            pagePasswordInput.type = "password";
+            pagePasswordInput.value = "";
+            pagePasswordInput.autocomplete = "current-password";
+            pagePasswordInput.removeAttribute("inputmode");
+            pagePasswordInput.removeAttribute("maxlength");
+            passwordVisibilityToggle.hidden = false;
+            loginButton.textContent = "Login";
+        }, { once: true });
+
+    } catch (error) {
+        pagePasswordError.textContent =
+            error.message || "Login failed. Please try again.";
+        pagePasswordError.hidden = false;
+    } finally {
+        loginButton.disabled = false;
+    }
+}
 
           pagePasswordInput.addEventListener("input",() => {
               pagePasswordError.hidden = true;
